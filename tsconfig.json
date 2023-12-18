@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "ESNext",
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "lib": ["es6"],
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,58 @@
+# `@emooa/logger`
+
+> A simple logger to work with Nodejs.
+
+`@emooa/logger` is designed to be a simple and universal logging library with support for multiple transports, developed using TS.
+
+## Quick Start
+
+```
+npm install @emooa/logger
+// or
+yarn add @emooa/logger
+
+```
+
+## Usage
+
+IMPORTANT: `@emooa/logger` is pure ESM.
+
+- If you use a bundler, make sure it supports ESM and that you have correctly configured it for ESM.
+
+```
+import Logger from '@emooa/logger';
+
+const logger = new Logger('My Project');
+
+logger.log("hello emooa logger!");
+logger.info("Text color is green!");
+logger.warn("Text color is yellow!");
+logger.error("Text color is red!");
+logger.debug("Text color is cyan!");
+```
+
+Terminal output:
+
+This will then output to stdout with the coloured layout
+
+```
+[2023-12-17 12:56:25] [LOG] My Project - hello emooa logger!
+[2023-12-17 12:56:25] [INFO] My Project - Text color is green!
+[2023-12-17 12:56:25] [WARN] My Project - Text color is yellow!
+[2023-12-17 12:56:25] [ERROR] My Project - Text color is red!
+[2023-12-17 12:56:25] [DEBUG] My Project - Text color is cyan!
+```
+
+## FAQ
+
+### How can I move my CommonJS project to ESM?
+
+- Add "type": "module" to your package.json.
+- Replace "main": "index.js" with "exports": "./index.js" in your package.json.
+- Replace all require()/module.export with import/export.
+- Use only full relative file paths for imports: import x from '.'; → import x from './index.js';.
+- If you have a TypeScript type definition (for example, index.d.ts), update it to use ESM imports/exports.
+
+### Can I import ESM packages in my TypeScript project?
+
+Yes, but you need to convert your project to output ESM. See below.

@@ -1,0 +1,19 @@
+{
+  "name": "emooa",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "exec": "lerna exec -- yarn install",
+    "build": "lerna run tsc",
+    "publish": "lerna run tsc && lerna publish"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.3",
+    "lerna": "^8.0.0",
+    "typescript": "^5.3.2"
+  }
+}
