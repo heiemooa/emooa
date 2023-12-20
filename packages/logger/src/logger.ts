@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import Level, { LEVEL_TYPE, LevalItem } from "./lever.js";
+import Level, { COLOUR, LEVEL_TYPE, LevalItem } from "./lever.js";
 
 // https://www.w3schools.com/jsref/jsref_tolocalestring.asp
 function timefmt() {
@@ -18,7 +18,7 @@ function timefmt() {
  */
 class LoggerBasic {
   // 打印
-  log: (...args: any[]) => void;
+  log: (message: any, color?: string) => any;
   // 当成日志
   info: (...args: any[]) => void;
   debug: (...args: any[]) => void;
@@ -45,6 +45,13 @@ export default class Logger extends LoggerBasic {
       process.stdout.write(`${newData}\n`);
     }
   }
+
+  log = (data, colour: string = "#CCC", ...args: any[]) => {
+    const newData = `${chalk.grey(`[${timefmt()}]`)} ${chalk.hex(colour)(
+      `[LOG] ${this.category} - ${data} ${args}`
+    )}`;
+    process.stdout.write(`${newData}\n`);
+  };
 }
 
 function addLevelMethods(target) {

@@ -1,4 +1,4 @@
-type COLOUR =
+export type COLOUR =
   | "black"
   | "red"
   | "green"
@@ -11,7 +11,6 @@ type COLOUR =
 
 export type LEVEL_TYPE =
   | "ALL"
-  | "LOG"
   | "TRACE"
   | "DEBUG"
   | "INFO"
@@ -85,7 +84,6 @@ class Level {
 
 Level.addLevels({
   ALL: { value: Number.MIN_VALUE, colour: "grey" },
-  LOG: { value: 0, colour: "white" },
   TRACE: { value: 5000, colour: "blue" },
   DEBUG: { value: 10000, colour: "cyan" },
   INFO: { value: 20000, colour: "green" },

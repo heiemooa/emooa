@@ -1,7 +1,7 @@
 {
   "name": "@emooa/logger",
   "version": "0.0.1",
-  "description": "Port of logger to work with node.",
+  "description": "A simple logger to work with Nodejs.",
   "author": "heiemooa <243973775@qq.com>",
   "homepage": "",
   "keywords": [

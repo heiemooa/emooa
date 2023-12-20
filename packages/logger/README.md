@@ -2,7 +2,7 @@
 
 > A simple logger to work with Nodejs.
 
-`@emooa/logger` is designed to be a simple and universal logging library with support for multiple transports, developed using TS.
+`@emooa/logger` is a simple logger for use with Nodejs, designed as a simple and versatile pure ESM logging library, supporting multiple transports, developed using TS.
 
 ## Quick Start
 
@@ -18,13 +18,14 @@ yarn add @emooa/logger
 IMPORTANT: `@emooa/logger` is pure ESM.
 
 - If you use a bundler, make sure it supports ESM and that you have correctly configured it for ESM.
+- The log method supports a second optional parameter, the parameter type is HEX.
 
 ```
 import Logger from '@emooa/logger';
 
 const logger = new Logger('My Project');
-
 logger.log("hello emooa logger!");
+logger.log("hello emooa logger!", "#CCCCCC"); // The log method supports a second optional parameter, the parameter type is HEX.
 logger.info("Text color is green!");
 logger.warn("Text color is yellow!");
 logger.error("Text color is red!");
