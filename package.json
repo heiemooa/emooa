@@ -8,7 +8,7 @@
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run tsc",
-    "exec": "lerna exec -- yarn install",
+    "exec": "lerna exec -- yarn",
     "publish": "lerna run tsc && lerna publish"
   },
   "repository": {
