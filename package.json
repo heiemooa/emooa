@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "lerna run test",
+    "test": "lerna run test --stream",
     "build": "lerna run tsc",
     "exec": "lerna exec -- yarn",
     "publish": "lerna run tsc && lerna publish"

@@ -1,10 +1,34 @@
 import Logger from "@emooa/logger";
 
-const logger = new Logger("TEST");
+const logger = new Logger({
+  category: "My Project",
+  appenders: [
+    {
+      type: "stdout", // "console" | "stderr" | "stdout"
+      layout: "message", // message, basic, colour, pattern,
+    },
+    // {
+    //   type: "stdout",
+    //   layout: "pattern",
+    //   pattern: "%[[%d] [%p]%] [%f{2}:%l] %m",
+    // },
+    // {
+    //   type: "console",
+    //   layout: "colour",
+    // },
+    // {
+    //   type: "stderr",
+    //   layout: "colour",
+    // },
+    // {
+    //   type: "file",
+    //   layout: "colour",
+    // },
+  ],
+});
 
-logger.log("hello world!");
-logger.log("hello world!", "#123456");
-logger.info("Text color is green!");
-logger.warn("Text color is yellow!");
-logger.error("Text color is red!");
-logger.debug("Text color is cyan!");
+logger.log("The color is grey!");
+logger.info("The color is green!");
+logger.warn("The color is yellow!");
+logger.error("The color is red!");
+logger.debug("The color is cyan!");

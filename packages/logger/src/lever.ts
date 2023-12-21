@@ -1,30 +1,4 @@
-export type COLOUR =
-  | "black"
-  | "red"
-  | "green"
-  | "yellow"
-  | "blue"
-  | "magenta"
-  | "cyan"
-  | "white"
-  | "grey";
-
-export type LEVEL_TYPE =
-  | "ALL"
-  | "TRACE"
-  | "DEBUG"
-  | "INFO"
-  | "WARN"
-  | "ERROR"
-  | "FATAL"
-  | "MARK"
-  | "OFF";
-
-export type LevalItem = {
-  value: number;
-  level?: LEVEL_TYPE;
-  colour: COLOUR;
-};
+import { LEVEL_TYPE, LevalItem } from "./interface/lerver";
 
 class Level {
   value;
@@ -84,6 +58,7 @@ class Level {
 
 Level.addLevels({
   ALL: { value: Number.MIN_VALUE, colour: "grey" },
+  LOG: { value: 0, colour: "grey" },
   TRACE: { value: 5000, colour: "blue" },
   DEBUG: { value: 10000, colour: "cyan" },
   INFO: { value: 20000, colour: "green" },

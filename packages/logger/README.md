@@ -24,12 +24,11 @@ IMPORTANT: `@emooa/logger` is pure ESM.
 import Logger from '@emooa/logger';
 
 const logger = new Logger('My Project');
-logger.log("hello emooa logger!");
-logger.log("hello emooa logger!", "#CCCCCC"); // The log method supports a second optional parameter, the parameter type is HEX.
-logger.info("Text color is green!");
-logger.warn("Text color is yellow!");
-logger.error("Text color is red!");
-logger.debug("Text color is cyan!");
+logger.log("The color is grey!");
+logger.info("The color is green!");
+logger.warn("The color is yellow!");
+logger.error("The color is red!");
+logger.debug("The color is cyan!");
 ```
 
 Terminal output:
@@ -37,11 +36,11 @@ Terminal output:
 This will then output to stdout with the coloured layout
 
 ```
-[2023-12-17 12:56:25] [LOG] My Project - hello emooa logger!
-[2023-12-17 12:56:25] [INFO] My Project - Text color is green!
-[2023-12-17 12:56:25] [WARN] My Project - Text color is yellow!
-[2023-12-17 12:56:25] [ERROR] My Project - Text color is red!
-[2023-12-17 12:56:25] [DEBUG] My Project - Text color is cyan!
+[2023-12-17 12:56:25] [LOG] My Project - The color is grey!
+[2023-12-17 12:56:25] [INFO] My Project - The color is green!
+[2023-12-17 12:56:25] [WARN] My Project - The color is yellow!
+[2023-12-17 12:56:25] [ERROR] My Project - The color is red!
+[2023-12-17 12:56:25] [DEBUG] My Project - The color is cyan!
 ```
 
 ## FAQ
