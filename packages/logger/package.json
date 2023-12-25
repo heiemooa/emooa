@@ -34,6 +34,7 @@
   },
   "gitHead": "0e9e9324e67d857b3f5dedf8c1bb19e0d699392b",
   "dependencies": {
-    "chalk": "^5.3.0"
+    "lodash.isempty": "^4.4.0",
+    "streamroller": "^3.1.5"
   }
 }
