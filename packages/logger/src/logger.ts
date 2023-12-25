@@ -1,5 +1,5 @@
 import Level from "./lever.js";
-import LoggingEvent, { timefmt } from "./LoggingEvent.js";
+import LoggingEvent from "./LoggingEvent.js";
 import { IAppender } from "./interface/appenders.js";
 import { LEVEL_TYPE, LevalItem } from "./interface/lerver.js";
 import layouts from "./layouts.js";
@@ -38,7 +38,10 @@ export default class Logger extends LoggerBasic {
         this.appenders = [
           {
             type: "stdout",
-            layout: "colour",
+            colour: true,
+            layout: {
+              type: "basic",
+            },
           },
         ];
       }
@@ -52,7 +55,7 @@ export default class Logger extends LoggerBasic {
             ad,
             ...args
           );
-          appender(layouts(ad.layout, ad)?.(loggingEvent)); // layout: "message" | "basic" | "colour" | "pattern"
+          appender(layouts(ad), loggingEvent);
         } else {
           throw new Error(
             `Problem with @emooa/logger configuration: (${util.inspect(ad, {

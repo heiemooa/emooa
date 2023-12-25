@@ -1,3 +1,8 @@
-export default (message) => {
-  process.stderr.write(`${message}\n`);
+import LoggingEvent from "../LoggingEvent";
+
+export default (
+  layout: (loggingEvent: LoggingEvent) => string,
+  loggingEvent: LoggingEvent
+) => {
+  process.stderr.write(`${layout(loggingEvent)}\n`);
 };

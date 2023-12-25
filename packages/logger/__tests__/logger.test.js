@@ -4,25 +4,33 @@ const logger = new Logger({
   category: "My Project",
   appenders: [
     {
-      type: "stdout", // "console" | "stderr" | "stdout"
-      layout: "message", // message, basic, colour, pattern,
+      type: "stdout", // "console" | "stderr" | "stdout" | "file"
+      colour: true,
+      layout: {
+        type: "pattern", // message, basic, pattern,
+        pattern: "%[[%d] [%p]%] %m",
+      },
+    },
+    {
+      type: "file",
+      colour: false,
+      file: {
+        filename: "log/emooa-logger.log",
+        options: {
+          keepFileExt: true,
+        },
+      },
+      layout: {
+        type: "basic",
+      },
     },
     // {
-    //   type: "stdout",
-    //   layout: "pattern",
-    //   pattern: "%[[%d] [%p]%] [%f{2}:%l] %m",
-    // },
-    // {
     //   type: "console",
-    //   layout: "colour",
+    //   layout: "basic",
     // },
     // {
     //   type: "stderr",
-    //   layout: "colour",
-    // },
-    // {
-    //   type: "file",
-    //   layout: "colour",
+    //   layout: "basic",
     // },
   ],
 });

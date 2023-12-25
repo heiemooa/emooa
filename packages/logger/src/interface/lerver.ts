@@ -23,6 +23,6 @@ export type LEVEL_TYPE =
 
 export type LevalItem = {
   value: number;
-  level?: LEVEL_TYPE;
+  type?: LEVEL_TYPE;
   colour: LEVEL_COLOUR;
 };

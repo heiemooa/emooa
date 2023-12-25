@@ -2,18 +2,18 @@ import { LEVEL_TYPE, LevalItem } from "./interface/lerver";
 
 class Level {
   value;
-  level;
+  type;
   colour;
   static levels: LevalItem[] = [];
   static [key: string]: any;
-  constructor(value, level, colour) {
+  constructor(value, type, colour) {
     this.value = value;
-    this.level = level;
+    this.type = type;
     this.colour = colour;
   }
 
   toString() {
-    return this.level;
+    return this.type;
   }
 
   static getLevel(sArg, defaultLevel?: LEVEL_TYPE) {
@@ -25,8 +25,8 @@ class Level {
       return sArg;
     }
 
-    if (sArg instanceof Object && sArg.level) {
-      sArg = sArg.level;
+    if (sArg instanceof Object && sArg.type) {
+      sArg = sArg.type;
     }
 
     return Level[sArg.toString().toUpperCase()] || defaultLevel;
@@ -36,19 +36,19 @@ class Level {
     if (customLevels) {
       const levels = Object.keys(customLevels);
       levels.forEach((l) => {
-        const level = l.toUpperCase();
-        Level[level] = new Level(
+        const type = l.toUpperCase();
+        Level[type] = new Level(
           customLevels[l].value,
-          level,
+          type,
           customLevels[l].colour
         );
         const existingLevelIndex = Level.levels.findIndex(
-          (lvl) => lvl.level === level
+          (lvl) => lvl.type === type
         );
         if (existingLevelIndex > -1) {
-          Level.levels[existingLevelIndex] = Level[level];
+          Level.levels[existingLevelIndex] = Level[type];
         } else {
-          Level.levels.push(Level[level]);
+          Level.levels.push(Level[type]);
         }
       });
       Level.levels.sort((a, b) => a.value - b.value);

@@ -1,4 +1,8 @@
-import { IAppender, IAppenderLayout } from "./interface/appenders";
+import {
+  IAppender,
+  IAppenderLayout,
+  IAppenderLayoutPattern,
+} from "./interface/appenders";
 import * as os from "os";
 import * as util from "util";
 import * as path from "path";
@@ -6,7 +10,7 @@ import * as url from "url";
 import LoggingEvent from "./LoggingEvent";
 import { LEVEL_COLOUR } from "./interface/lerver";
 
-const styles = {
+const colours = {
   // grayscale
   white: [37, 39],
   grey: [90, 39],
@@ -20,16 +24,16 @@ const styles = {
   yellow: [33, 39],
 };
 
-function colorizeStart(style: LEVEL_COLOUR) {
-  return style ? `\x1B[${styles[style][0]}m` : "";
+function colorizeStart(colour: LEVEL_COLOUR) {
+  return colour ? `\x1B[${colours[colour][0]}m` : "";
 }
 
-function colorizeEnd(style: LEVEL_COLOUR) {
-  return style ? `\x1B[${styles[style][1]}m` : "";
+function colorizeEnd(colour: LEVEL_COLOUR) {
+  return colour ? `\x1B[${colours[colour][1]}m` : "";
 }
 
-function colorize(str, style) {
-  return colorizeStart(style) + str + colorizeEnd(style);
+function colorize(str, colour: LEVEL_COLOUR) {
+  return colorizeStart(colour) + str + colorizeEnd(colour);
 }
 
 function timestampLevelAndCategory(
@@ -54,29 +58,74 @@ function timestampLevelAndCategory(
   return colorize(util.format(message), colour);
 }
 
-function colourLayout(loggingEvent: LoggingEvent) {
-  return (
-    timestampLevelAndCategory(loggingEvent, loggingEvent.level.colour) +
-    util.format(...loggingEvent.data)
-  );
-}
-
 function messageLayout(loggingEvent: LoggingEvent) {
-  return util.format(...loggingEvent.data);
+  const colour: boolean = loggingEvent.appender?.colour ?? true;
+  return colour
+    ? colorize(util.format(...loggingEvent.data), loggingEvent.level.colour)
+    : util.format(...loggingEvent.data);
 }
 
+/**
+ * BasicLayout is a simple layout for storing the logs. The logs are stored
+ * in following format:
+ * <pre>
+ * [time] [logLevel] category - message\n
+ * </pre>
+ *
+ * @author Stephan Strittmatter
+ */
 function basicLayout(loggingEvent: LoggingEvent) {
-  return (
-    timestampLevelAndCategory(loggingEvent) + util.format(...loggingEvent.data)
-  );
+  const colour: boolean = loggingEvent.appender?.colour ?? true;
+  return colour
+    ? timestampLevelAndCategory(loggingEvent, loggingEvent.level.colour) +
+        util.format(...loggingEvent.data)
+    : timestampLevelAndCategory(loggingEvent) +
+        util.format(...loggingEvent.data);
 }
 
-function patternLayout(appender: IAppender) {
-  const TTCC_CONVERSION_PATTERN = "%r %p %c - %m%n";
+/**
+ * PatternLayout
+ * Format for specifiers is %[padding].[truncation][field]{[format]}
+ * e.g. %5.10p - left pad the log level by 5 characters, up to a max of 10
+ * both padding and truncation can be negative.
+ * Negative truncation = trunc from end of string
+ * Positive truncation = trunc from start of string
+ * Negative padding = pad right
+ * Positive padding = pad left
+ *
+ * Fields can be any of:
+ *  - %r time in toLocaleTimeString format
+ *  - %p log level
+ *  - %c log category
+ *  - %h hostname
+ *  - %m log data
+ *  - %m{l} where l is an integer, log data.slice(l)
+ *  - %m{l,u} where l and u are integers, log data.slice(l, u)
+ *  - %d date in constious formats
+ *  - %% %
+ *  - %n newline
+ *  - %z pid
+ *  - %f filename
+ *  - %l line number
+ *  - %o column postion
+ *  - %s call stack
+ *  - %C class name [#1316](https://github.com/log4js-node/log4js-node/pull/1316)
+ *  - %M method or function name [#1316](https://github.com/log4js-node/log4js-node/pull/1316)
+ *  - %A method or function alias [#1316](https://github.com/log4js-node/log4js-node/pull/1316)
+ *  - %F fully qualified caller name [#1316](https://github.com/log4js-node/log4js-node/pull/1316)
+ * You can use %[ and %] to define a colored block.
+ *
+ * A sample token would be: { 'pid' : function() { return process.pid; } }
+ *
+ * Takes a pattern string, array of tokens and returns a layout function.
+ * @return {Function}
+ * @param layout
+ */
+function patternLayout(layout: IAppenderLayoutPattern) {
   const regex =
     /%(-?[0-9]+)?(\.?-?[0-9]+)?([[\]cdhmnprzxXyflosCMAF%])(\{([^}]+)\})?|([^%]+)/;
 
-  const pattern = appender.pattern || TTCC_CONVERSION_PATTERN;
+  const pattern = layout.pattern || "%[[%r] [%p] %c%] - %m%n";
 
   function categoryName(loggingEvent: LoggingEvent, specifier) {
     let loggerName = loggingEvent.category;
@@ -122,14 +171,14 @@ function patternLayout(appender: IAppender) {
     return loggingEvent.time;
   }
 
-  // TODO
   function startColour(loggingEvent: LoggingEvent) {
-    return colorizeStart(loggingEvent.level.colour);
+    const colour: boolean = loggingEvent.appender.colour ?? true;
+    return colour ? colorizeStart(loggingEvent.level.colour) : "";
   }
 
-  // TODO
   function endColour(loggingEvent: LoggingEvent) {
-    return colorizeEnd(loggingEvent.level.colour);
+    const colour: boolean = loggingEvent.appender.colour ?? true;
+    return colour ? colorizeEnd(loggingEvent.level.colour) : "";
   }
 
   function percent() {
@@ -148,9 +197,9 @@ function patternLayout(appender: IAppender) {
     // leaving this here to maintain compatibility for patterns
     return pid(loggingEvent);
   }
-
+  // TODO
   function fileName(loggingEvent: LoggingEvent, specifier) {
-    let filename = loggingEvent.appender.filename || "";
+    let filename = loggingEvent.filename || "";
 
     // support for ESM as it uses url instead of path for file
     /* istanbul ignore next: unsure how to simulate ESM for test coverage */
@@ -290,7 +339,7 @@ function patternLayout(appender: IAppender) {
     return replacement;
   }
 
-  return function (loggingEvent) {
+  return function (loggingEvent: LoggingEvent) {
     let formattedString = "";
     let result;
     let searchString = pattern;
@@ -329,16 +378,14 @@ const layoutMakers = {
   basic() {
     return basicLayout;
   },
-  colour() {
-    return colourLayout;
-  },
-  pattern(appender: IAppender) {
-    return patternLayout(appender);
+  pattern(layout: IAppenderLayout) {
+    return patternLayout(layout as IAppenderLayoutPattern);
   },
 };
 
-// layout: "message" | "basic" | "colour" | "pattern"
-const layouts = (layout: IAppenderLayout, appender: IAppender) =>
-  (layoutMakers[layout] || layoutMakers.colour)?.(appender);
+const layouts = (appender: IAppender) =>
+  (layoutMakers[appender.layout?.type] || layoutMakers.basic)?.(
+    appender.layout
+  );
 
 export default layouts;

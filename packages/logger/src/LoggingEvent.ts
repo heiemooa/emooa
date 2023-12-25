@@ -19,6 +19,7 @@ class LoggingEvent {
   level: LevalItem;
   appender: IAppender;
   pid: number;
+  filename: string;
   data: string | string[];
 
   constructor(category: string, level: LevalItem, appender, ...args) {
