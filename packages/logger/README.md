@@ -45,8 +45,8 @@ This will then output to stdout with the coloured layout
 | -------- | ------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------ |
 | type     | `console`｜`stderr`｜`stdout`｜`file` (Required) | null                                 | coloured console logging to stdout or stderr.                            |
 | colour   | boolean (Optional)                               | true                                 | Whether to output colored logs.                                          |
-| layout   | [Layout](###Layout) (Required)                   | { type: 'basic' }                    | The appemder layout, supports multiple log output formats.               |
-| file     | [File](###File) (Required when the type is file) | { filename: 'log/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
+| layout   | [Layout](#Layout) (Required)                     | { type: 'basic' }                    | The appemder layout, supports multiple log output formats.               |
+| file     | [File](#File) (Required when the type is file)   | { filename: 'log/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
 
 ### Layout
 
