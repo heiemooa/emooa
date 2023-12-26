@@ -1,7 +1,6 @@
 {
   "name": "emooa",
   "private": true,
-  "type": "module",
   "workspaces": [
     "packages/*"
   ],

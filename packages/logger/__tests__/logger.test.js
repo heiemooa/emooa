@@ -1,4 +1,4 @@
-import Logger from "@emooa/logger";
+const Logger = require("@emooa/logger");
 
 const logger = new Logger({
   category: "My Project",

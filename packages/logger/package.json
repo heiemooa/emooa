@@ -8,14 +8,12 @@
     "ts",
     "log",
     "logger",
-    "chalk",
     "node"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/heiemooa/emooa.git"
   },
-  "type": "module",
   "license": "ISC",
   "main": "lib/logger.js",
   "directories": {

@@ -81,3 +81,5 @@ function addLevelMethods(target) {
 }
 
 Level.levels.forEach(addLevelMethods);
+
+module.exports = Logger;
