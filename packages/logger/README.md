@@ -2,16 +2,31 @@
 
 `@emooa/logger` is a simple logger for use with Nodejs, developed through TS and designed as a simple logging library that supports multiple transports.
 
-## Quick Start
+## Installation
 
 ```
 npm install @emooa/logger
 // or
 yarn add @emooa/logger
-
 ```
 
 ## Usage
+
+`@emooa/logger` supports both import import and require import modes.
+
+#### CommonJS
+
+```
+const Logger = require("@emooa/logger");
+```
+
+#### ESM
+
+```
+import Logger from "@emooa/logger";
+```
+
+Simple example:
 
 ```ts
 const Logger = require("@emooa/logger");
@@ -27,6 +42,8 @@ logger.error("The color is red!");
 logger.debug("The color is cyan!");
 ```
 
+More examples: [Examples](https://github.com/heiemooa/emooa/tree/main/packages/logger/examples)
+
 This will then output to stdout with the coloured layout
 
 ```
@@ -41,12 +58,12 @@ This will then output to stdout with the coloured layout
 
 ### Appender
 
-| **参数** | **类型**                                         | **默认值**                           | **定义**                                                                 |
-| -------- | ------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------ |
-| type     | `console`｜`stderr`｜`stdout`｜`file` (Required) | null                                 | coloured console logging to stdout or stderr.                            |
-| colour   | boolean (Optional)                               | true                                 | Whether to output colored logs.                                          |
-| layout   | [Layout](#Layout) (Required)                     | { type: 'basic' }                    | The appemder layout, supports multiple log output formats.               |
-| file     | [File](#File) (Required when the type is file)   | { filename: 'log/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
+| **参数** | **类型**                                         | **默认值**                            | **定义**                                                                 |
+| -------- | ------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------ |
+| type     | `console`｜`stderr`｜`stdout`｜`file` (Required) | null                                  | coloured console logging to stdout or stderr.                            |
+| colour   | boolean (Optional)                               | true                                  | Whether to output colored logs.                                          |
+| layout   | [Layout](#Layout) (Required)                     | { type: 'basic' }                     | The appemder layout, supports multiple log output formats.               |
+| file     | [File](#File) (Required when the type is file)   | { filename: 'logs/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
 
 ### Layout
 
@@ -59,7 +76,7 @@ The appender layout, supports multiple log output formats
 
 ### File
 
-file appender, with configurable log rolling based on file size or date, [Read More.](https://github.com/log4js-node/streamroller#readme)
+file appender, with configurable log rolling based on file size or date, [Read More.](https://www.npmjs.com/package/streamroller)
 
 - filename <string>
 - maxSize <integer> - defaults to 0 - the size in bytes to trigger a rollover. If not specified or 0, then no log rolling will happen.
@@ -72,39 +89,9 @@ file appender, with configurable log rolling based on file size or date, [Read M
   - keepFileExt <boolean> - defaults to false - preserve the file extension when rotating log files (file.log becomes file.1.log instead of file.log.1).
   - fileNameSep <string> - defaults to '.' - the filename separator when rolling. e.g.: abc.log.1 or abc.1.log (keepFileExt)
 
-## TypeScript
+## License
 
-```
-import Logger from "@emooa/logger";
-
-const logger = new Logger({
-  category: "My Project",
-  appenders: [
-    {
-      type: "stdout", // "console" | "stderr" | "stdout" | "file"
-      colour: true,
-      layout: {
-        type: "pattern", // message, basic, pattern,
-        pattern: "%[[%d] [%p]%] %m",
-      },
-    },
-    {
-      type: "file",
-      colour: false,
-      file: {
-        filename: "log/emooa-logger.log",
-        options: {
-          keepFileExt: true,
-        },
-      },
-      layout: {
-        type: "basic",
-      },
-    },
-  ],
-});
-
-logger.info("The color is green!");
-```
+MIT Licensed
+Copyright (c) 2023 Emooa
 
 <!-- ## FAQ -->

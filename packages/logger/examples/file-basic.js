@@ -1,22 +1,14 @@
 const Logger = require("@emooa/logger");
-const path = require("path");
 
 const logger = new Logger({
   category: "My Project",
   appenders: [
     {
-      type: "stdout", // "console" | "stderr" | "stdout" | "file"
-      colour: true,
-      layout: {
-        type: "pattern", // message, basic, pattern,
-        pattern: "%[[%d] [%p]%] %m",
-      },
-    },
-    {
       type: "file",
       colour: false,
       file: {
-        filename: path.join(__dirname, "../examples/logs/emooa-logger.log"),
+        filename: `${__dirname}/logs/log-file.log`,
+        maxSize: 10,
         options: {
           keepFileExt: true,
         },
@@ -25,14 +17,6 @@ const logger = new Logger({
         type: "basic",
       },
     },
-    // {
-    //   type: "console",
-    //   layout: "basic",
-    // },
-    // {
-    //   type: "stderr",
-    //   layout: "basic",
-    // },
   ],
 });
 

@@ -26,7 +26,7 @@ function fileAppender(appender: IAppenderFile, message: string) {
   const numBackups = appender.file?.numBackups;
   const options = appender.file?.options;
   let filename = path.normalize(
-    appender.file?.filename || "log/emooa-logger.log"
+    appender.file?.filename || "logs/emooa-logger.log"
   );
 
   if (filename.endsWith(path.sep)) {
