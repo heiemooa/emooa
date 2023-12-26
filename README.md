@@ -4,7 +4,7 @@
 
 #### [@emooa/logger](/packages/logger/README.md)
 
-`@emooa/logger` 是一个与 Nodejs 一起使用的简单记录器，被设计为一个简单且多功能的纯 ESM 日志库，支持多种传输。 [阅读更多。](/packages/logger/README.md)
+`@emooa/logger` 是一个与 Nodejs 一起使用的简单记录器，被设计为一个简单且多功能并且支持多种传输的日志库。 [更多信息](/packages/logger/README.md)
 
 ```
 yarn add @emooa/logger

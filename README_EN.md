@@ -4,7 +4,7 @@
 
 #### [@emooa/logger](/packages/logger/README.md)
 
-`@emooa/logger` is a simple logger for use with Nodejs, designed as a simple and versatile pure ESM logging library, supporting multiple transports. [Read More.](/packages/logger/README.md)
+`@emooa/logger` Is a simple logger for use with Nodejs, designed as a simple and versatile logging library that supports multiple transports. [Read More.](/packages/logger/README.md)
 
 ```
 yarn add @emooa/logger
