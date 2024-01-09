@@ -24,7 +24,8 @@
     "lib"
   ],
   "scripts": {
-    "tsc": "tsc",
+    "rimraf": "rimraf lib",
+    "build": "rimraf lib && tsc",
     "test": "node ./__tests__/logger.test.js"
   },
   "publishConfig": {

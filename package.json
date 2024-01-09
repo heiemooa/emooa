@@ -6,9 +6,9 @@
   ],
   "scripts": {
     "test": "lerna run test --stream",
-    "build": "lerna run tsc && lerna run build",
+    "build": "lerna run build",
     "exec": "lerna exec -- yarn",
-    "publish": "lerna run tsc && lerna publish"
+    "publish": "lerna run build && lerna publish"
   },
   "repository": {
     "type": "git",
