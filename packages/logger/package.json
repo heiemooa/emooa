@@ -1,6 +1,6 @@
 {
   "name": "@emooa/logger",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple logger to work with Nodejs.",
   "author": "heiemooa <243973775@qq.com>",
   "homepage": "https://github.com/heiemooa/emooa/tree/main/packages/logger",
