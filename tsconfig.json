@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "esModuleInterop": true,
     "target": "es6",
     "module": "CommonJS",
     "declaration": true,
     "sourceMap": true,
     "removeComments": true,
-    "lib": ["es6"],
+    "lib": ["es6", "DOM"],
     "moduleResolution": "node"
   },
   "exclude": ["node_modules"]
