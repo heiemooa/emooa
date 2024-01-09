@@ -41,5 +41,9 @@
   },
   "dependencies": {
     "react": "^18.2.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "a6fef5874f08579e99a7361c60b58288c323c2d7"
 }

@@ -31,7 +31,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "0e9e9324e67d857b3f5dedf8c1bb19e0d699392b",
+  "gitHead": "a6fef5874f08579e99a7361c60b58288c323c2d7",
   "dependencies": {
     "lodash.isempty": "^4.4.0",
     "streamroller": "^3.1.5"
