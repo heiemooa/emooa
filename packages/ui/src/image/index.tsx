@@ -17,7 +17,7 @@ export interface ImageProps
   onLoad?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
-export default React.FC<ImageProps> = (props) => {
+const Image = (React.FC<ImageProps> = (props) => {
   const {
     src,
     delay = 300,
@@ -70,4 +70,6 @@ export default React.FC<ImageProps> = (props) => {
   }, [src]);
 
   return <img ref={imageRef} {...rest} />;
-};
+});
+
+export default Image;
