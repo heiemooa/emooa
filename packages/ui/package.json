@@ -15,7 +15,6 @@
   },
   "license": "ISC",
   "main": "./lib/index.js",
-  "module": "./es/index.js",
   "types": "./lib/index.d.ts",
   "directories": {
     "lib": "lib",
@@ -26,7 +25,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "rimraf": "rimraf lib & rimraf es",
+    "rimraf": "rimraf lib",
     "build": "yarn run rimraf && rollup -c"
   },
   "devDependencies": {
