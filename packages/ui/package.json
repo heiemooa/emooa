@@ -16,18 +16,20 @@
     "url": "https://github.com/heiemooa/emooa.git"
   },
   "license": "ISC",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "esm",
+    "cjs"
   ],
   "scripts": {
     "test": "jest",
-    "rimraf": "rimraf lib",
+    "rimraf": "rimraf esm && rimraf cjs",
     "build": "yarn run rimraf && rollup -c"
   },
   "devDependencies": {
