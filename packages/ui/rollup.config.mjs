@@ -14,6 +14,26 @@ export default [
       {
         format: "esm",
         sourcemap: true,
+        dir: path.dirname(pkg.module),
+        exports: "named", // 指定导出模式（自动、默认、命名、无）
+        preserveModules: true, // 保留模块结构
+        preserveModulesRoot: "src", // 将保留的模块放在根级别的此路径下
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ outDir: "esm", declaration: true, declarationDir: "esm" }),
+      postcss(),
+    ],
+    external: ["react", "react-dom"], // 将这些模块视为外部模块，不会打包进 bundle
+  },
+  {
+    input: "./src/index.ts",
+    output: [
+      {
+        format: "cjs",
+        sourcemap: true,
         dir: path.dirname(pkg.main),
         exports: "named", // 指定导出模式（自动、默认、命名、无）
         preserveModules: true, // 保留模块结构
@@ -23,7 +43,7 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ outDir: "lib", declaration: true, declarationDir: "lib" }),
+      typescript({ outDir: "cjs", declaration: true, declarationDir: "cjs" }),
       postcss(),
     ],
     external: ["react", "react-dom"], // 将这些模块视为外部模块，不会打包进 bundle
