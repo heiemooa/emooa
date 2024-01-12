@@ -1,4 +1,4 @@
-import { Image } from "@emooa/ui";
+import { Image } from '@emooa/ui';
 
 export default () => (
   <>

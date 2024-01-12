@@ -1,8 +1,8 @@
-import LoggingEvent from "../LoggingEvent";
+import LoggingEvent from '../LoggingEvent';
 
 export default (
   layout: (loggingEvent: LoggingEvent) => string,
-  loggingEvent: LoggingEvent
+  loggingEvent: LoggingEvent,
 ) => {
   console.log(layout(loggingEvent));
 };

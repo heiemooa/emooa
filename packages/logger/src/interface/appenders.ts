@@ -1,13 +1,13 @@
 export type IAppenderLayoutMessage = {
-  type: "message";
+  type: 'message';
 };
 
 export type IAppenderLayoutBasic = {
-  type: "basic";
+  type: 'basic';
 };
 
 export type IAppenderLayoutPattern = {
-  type: "pattern";
+  type: 'pattern';
   pattern: string;
 };
 
@@ -16,10 +16,10 @@ export type IAppenderLayout =
   | IAppenderLayoutBasic
   | IAppenderLayoutPattern;
 
-export type IAppenderType = "console" | "stderr" | "stdout" | "file";
+export type IAppenderType = 'console' | 'stderr' | 'stdout' | 'file';
 
 export type IAppenderFile = {
-  type: "file";
+  type: 'file';
   colour?: boolean;
   file: {
     // https://www.npmjs.com/package/streamroller
@@ -41,7 +41,7 @@ export type IAppenderFile = {
 export type IAppender =
   | IAppenderFile
   | {
-      type: Exclude<"console" | "stderr" | "stdout", "file">;
+      type: Exclude<'console' | 'stderr' | 'stdout', 'file'>;
       colour?: boolean;
       layout: IAppenderLayout;
     };

@@ -1,15 +1,15 @@
-import { IAppender } from "./interface/appenders.js";
-import { LevalItem } from "./interface/lerver.js";
+import { IAppender } from './interface/appenders';
+import { LevalItem } from './interface/lerver';
 
 // https://www.w3schools.com/jsref/jsref_tolocalestring.asp
 export function timefmt() {
-  return new Date().toLocaleString("sv-SE", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
+  return new Date().toLocaleString('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   });
 }
 

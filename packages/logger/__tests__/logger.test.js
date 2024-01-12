@@ -1,28 +1,28 @@
-const Logger = require("@emooa/logger");
-const path = require("path");
+const Logger = require('@emooa/logger');
+const path = require('path');
 
 const logger = new Logger({
-  category: "My Project",
+  category: 'My Project',
   appenders: [
     {
-      type: "stdout", // "console" | "stderr" | "stdout" | "file"
+      type: 'stdout', // "console" | "stderr" | "stdout" | "file"
       colour: true,
       layout: {
-        type: "pattern", // message, basic, pattern,
-        pattern: "%[[%d] [%p]%] %m",
+        type: 'pattern', // message, basic, pattern,
+        pattern: '%[[%d] [%p]%] %m',
       },
     },
     {
-      type: "file",
+      type: 'file',
       colour: false,
       file: {
-        filename: path.join(__dirname, "../examples/logs/emooa-logger.log"),
+        filename: path.join(__dirname, '../examples/logs/emooa-logger.log'),
         options: {
           keepFileExt: true,
         },
       },
       layout: {
-        type: "basic",
+        type: 'basic',
       },
     },
     // {
@@ -36,8 +36,8 @@ const logger = new Logger({
   ],
 });
 
-logger.log("The color is grey!");
-logger.info("The color is green!");
-logger.warn("The color is yellow!");
-logger.error("The color is red!");
-logger.debug("The color is cyan!");
+logger.log('The color is grey!');
+logger.info('The color is green!');
+logger.warn('The color is yellow!');
+logger.error('The color is red!');
+logger.debug('The color is cyan!');

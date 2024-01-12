@@ -1,11 +1,11 @@
-import Level from "./lever.js";
-import LoggingEvent from "./LoggingEvent.js";
-import { IAppender } from "./interface/appenders.js";
-import { LEVEL_TYPE, LevalItem } from "./interface/lerver.js";
-import layouts from "./layouts.js";
-import isEmpty from "lodash.isempty";
-import * as appenders from "./appenders/index.js";
-import * as util from "util";
+import Level from './lever';
+import LoggingEvent from './LoggingEvent';
+import { IAppender } from './interface/appenders';
+import { LEVEL_TYPE, LevalItem } from './interface/lerver';
+import layouts from './layouts';
+import isEmpty from 'lodash.isempty';
+import * as appenders from './appenders';
+import * as util from 'util';
 /**
  * 仅暴露几个常用 LOG API，更多功能待补充
  */
@@ -37,10 +37,10 @@ export default class Logger extends LoggerBasic {
       if (isEmpty(this.appenders)) {
         this.appenders = [
           {
-            type: "stdout",
+            type: 'stdout',
             colour: true,
             layout: {
-              type: "basic",
+              type: 'basic',
             },
           },
         ];
@@ -53,14 +53,14 @@ export default class Logger extends LoggerBasic {
             this.category,
             logLevel,
             ad,
-            ...args
+            ...args,
           );
           appender(layouts(ad), loggingEvent);
         } else {
           throw new Error(
             `Problem with @emooa/logger configuration: (${util.inspect(ad, {
               depth: 5,
-            })}) - appender type must be 'console' | 'stderr' | 'stdout'`
+            })}) - appender type must be 'console' | 'stderr' | 'stdout'`,
           );
         }
       });
@@ -72,8 +72,8 @@ function addLevelMethods(target) {
   const level = Level.getLevel(target);
 
   const levelStrLower = level.toString().toLowerCase();
-  const levelMethod = levelStrLower.replace(/_([a-z])/g, (g) =>
-    g[1].toUpperCase()
+  const levelMethod = levelStrLower.replace(/_([a-z])/g, g =>
+    g[1].toUpperCase(),
   );
   Logger.prototype[levelMethod] = function (...args) {
     this.level(level, ...args);

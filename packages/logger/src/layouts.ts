@@ -2,13 +2,13 @@ import {
   IAppender,
   IAppenderLayout,
   IAppenderLayoutPattern,
-} from "./interface/appenders";
-import * as os from "os";
-import * as util from "util";
-import * as path from "path";
-import * as url from "url";
-import LoggingEvent from "./LoggingEvent";
-import { LEVEL_COLOUR } from "./interface/lerver";
+} from './interface/appenders';
+import * as os from 'os';
+import * as util from 'util';
+import * as path from 'path';
+import * as url from 'url';
+import LoggingEvent from './LoggingEvent';
+import { LEVEL_COLOUR } from './interface/lerver';
 
 const colours = {
   // grayscale
@@ -25,11 +25,11 @@ const colours = {
 };
 
 function colorizeStart(colour: LEVEL_COLOUR) {
-  return colour ? `\x1B[${colours[colour][0]}m` : "";
+  return colour ? `\x1B[${colours[colour][0]}m` : '';
 }
 
 function colorizeEnd(colour: LEVEL_COLOUR) {
-  return colour ? `\x1B[${colours[colour][1]}m` : "";
+  return colour ? `\x1B[${colours[colour][1]}m` : '';
 }
 
 function colorize(str, colour: LEVEL_COLOUR) {
@@ -38,21 +38,21 @@ function colorize(str, colour: LEVEL_COLOUR) {
 
 function timestampLevelAndCategory(
   loggingEvent: LoggingEvent,
-  colour?: LEVEL_COLOUR
+  colour?: LEVEL_COLOUR,
 ) {
   let message;
   if (loggingEvent.category) {
     message = util.format(
-      "[%s] [%s] %s - ",
+      '[%s] [%s] %s - ',
       loggingEvent.time,
       loggingEvent.level.toString(),
-      loggingEvent.category
+      loggingEvent.category,
     );
   } else {
     message = util.format(
-      "[%s] [%s] - ",
+      '[%s] [%s] - ',
       loggingEvent.time,
-      loggingEvent.level.toString()
+      loggingEvent.level.toString(),
     );
   }
   return colorize(util.format(message), colour);
@@ -125,17 +125,17 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   const regex =
     /%(-?[0-9]+)?(\.?-?[0-9]+)?([[\]cdhmnprzxXyflosCMAF%])(\{([^}]+)\})?|([^%]+)/;
 
-  const pattern = layout.pattern || "%[[%r] [%p] %c%] - %m%n";
+  const pattern = layout.pattern || '%[[%r] [%p] %c%] - %m%n';
 
   function categoryName(loggingEvent: LoggingEvent, specifier) {
     let loggerName = loggingEvent.category;
     if (specifier) {
       const precision = parseInt(specifier, 10);
-      const loggerNameBits = loggerName.split(".");
+      const loggerNameBits = loggerName.split('.');
       if (precision < loggerNameBits.length) {
         loggerName = loggerNameBits
           .slice(loggerNameBits.length - precision)
-          .join(".");
+          .join('.');
       }
     }
     return loggerName;
@@ -153,7 +153,7 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   function formatMessage(loggingEvent: LoggingEvent, specifier) {
     let dataSlice = loggingEvent.data;
     if (specifier) {
-      const [lowerBound, upperBound] = specifier.split(",");
+      const [lowerBound, upperBound] = specifier.split(',');
       dataSlice = dataSlice.slice(lowerBound, upperBound);
     }
     return util.format(...dataSlice);
@@ -173,16 +173,16 @@ function patternLayout(layout: IAppenderLayoutPattern) {
 
   function startColour(loggingEvent: LoggingEvent) {
     const colour: boolean = loggingEvent.appender.colour ?? true;
-    return colour ? colorizeStart(loggingEvent.level.colour) : "";
+    return colour ? colorizeStart(loggingEvent.level.colour) : '';
   }
 
   function endColour(loggingEvent: LoggingEvent) {
     const colour: boolean = loggingEvent.appender.colour ?? true;
-    return colour ? colorizeEnd(loggingEvent.level.colour) : "";
+    return colour ? colorizeEnd(loggingEvent.level.colour) : '';
   }
 
   function percent() {
-    return "%";
+    return '%';
   }
 
   function pid(loggingEvent: LoggingEvent) {
@@ -199,15 +199,15 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   }
   // TODO
   function fileName(loggingEvent: LoggingEvent, specifier) {
-    let filename = loggingEvent.filename || "";
+    let filename = loggingEvent.filename || '';
 
     // support for ESM as it uses url instead of path for file
     /* istanbul ignore next: unsure how to simulate ESM for test coverage */
     const convertFileURLToPath = function (filepath) {
-      const urlPrefix = "file://";
+      const urlPrefix = 'file://';
       if (filepath.startsWith(urlPrefix)) {
         // https://nodejs.org/api/url.html#urlfileurltopathurl
-        if (typeof url.fileURLToPath === "function") {
+        if (typeof url.fileURLToPath === 'function') {
           filepath = url.fileURLToPath(filepath);
         }
         // backward-compatible for nodejs pre-10.12.0 (without url.fileURLToPath method)
@@ -216,10 +216,10 @@ function patternLayout(layout: IAppenderLayoutPattern) {
           // win32: file:///C:/path/foo.txt     -> /C:/path/foo.txt     -> \C:\path\foo.txt     -> C:\path\foo.txt
           // win32: file://nas/foo.txt          -> //nas/foo.txt        -> nas\foo.txt          -> \\nas\foo.txt
           filepath = path.normalize(
-            filepath.replace(new RegExp(`^${urlPrefix}`), "")
+            filepath.replace(new RegExp(`^${urlPrefix}`), ''),
           );
-          if (process.platform === "win32") {
-            if (filepath.startsWith("\\")) {
+          if (process.platform === 'win32') {
+            if (filepath.startsWith('\\')) {
               filepath = filepath.slice(1);
             } else {
               filepath = path.sep + path.sep + filepath;
@@ -243,31 +243,31 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   }
 
   function lineNumber(loggingEvent) {
-    return loggingEvent.lineNumber ? `${loggingEvent.lineNumber}` : "";
+    return loggingEvent.lineNumber ? `${loggingEvent.lineNumber}` : '';
   }
 
   function columnNumber(loggingEvent) {
-    return loggingEvent.columnNumber ? `${loggingEvent.columnNumber}` : "";
+    return loggingEvent.columnNumber ? `${loggingEvent.columnNumber}` : '';
   }
 
   function callStack(loggingEvent) {
-    return loggingEvent.callStack || "";
+    return loggingEvent.callStack || '';
   }
 
   function className(loggingEvent) {
-    return loggingEvent.className || "";
+    return loggingEvent.className || '';
   }
 
   function functionName(loggingEvent) {
-    return loggingEvent.functionName || "";
+    return loggingEvent.functionName || '';
   }
 
   function functionAlias(loggingEvent) {
-    return loggingEvent.functionAlias || "";
+    return loggingEvent.functionAlias || '';
   }
 
   function callerName(loggingEvent) {
-    return loggingEvent.callerName || "";
+    return loggingEvent.callerName || '';
   }
 
   const replacers = {
@@ -278,11 +278,11 @@ function patternLayout(layout: IAppenderLayoutPattern) {
     n: endOfLine,
     p: logLevel,
     r: startTime,
-    "[": startColour,
-    "]": endColour,
+    '[': startColour,
+    ']': endColour,
     y: clusterInfo,
     z: pid,
-    "%": percent,
+    '%': percent,
     f: fileName,
     l: lineNumber,
     o: columnNumber,
@@ -296,7 +296,7 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   function replaceToken(
     conversionCharacter,
     loggingEvent: LoggingEvent,
-    specifier
+    specifier,
   ) {
     return replacers[conversionCharacter](loggingEvent, specifier);
   }
@@ -315,11 +315,11 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   function pad(padding, toPad) {
     let len;
     if (padding) {
-      if (padding.charAt(0) === "-") {
+      if (padding.charAt(0) === '-') {
         len = parseInt(padding.slice(1), 10);
         // Right pad with spaces
         while (toPad.length < len) {
-          toPad += " ";
+          toPad += ' ';
         }
       } else {
         len = parseInt(padding, 10);
@@ -340,7 +340,7 @@ function patternLayout(layout: IAppenderLayoutPattern) {
   }
 
   return function (loggingEvent: LoggingEvent) {
-    let formattedString = "";
+    let formattedString = '';
     let result;
     let searchString = pattern;
 
@@ -361,7 +361,7 @@ function patternLayout(layout: IAppenderLayoutPattern) {
         const replacement = replaceToken(
           conversionCharacter,
           loggingEvent,
-          specifier
+          specifier,
         );
         formattedString += truncateAndPad(replacement, truncation, padding);
       }
@@ -385,7 +385,7 @@ const layoutMakers = {
 
 const layouts = (appender: IAppender) =>
   (layoutMakers[appender.layout?.type] || layoutMakers.basic)?.(
-    appender.layout
+    appender.layout,
   );
 
 export default layouts;
