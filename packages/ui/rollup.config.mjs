@@ -15,7 +15,6 @@ export default [
         format: "esm",
         sourcemap: true,
         dir: path.dirname(pkg.module),
-        exports: "named", // 指定导出模式（自动、默认、命名、无）
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: "src", // 将保留的模块放在根级别的此路径下
       },
@@ -35,7 +34,6 @@ export default [
         format: "cjs",
         sourcemap: true,
         dir: path.dirname(pkg.main),
-        exports: "named", // 指定导出模式（自动、默认、命名、无）
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: "src", // 将保留的模块放在根级别的此路径下
       },

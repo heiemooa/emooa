@@ -5,11 +5,10 @@
   "author": "heiemooa <243973775@qq.com>",
   "homepage": "https://github.com/heiemooa/emooa/tree/main/packages/ui",
   "keywords": [
-    "ts",
-    "ui",
-    "layz",
+    "lazy",
     "image",
-    "react"
+    "react",
+    "ts"
   ],
   "repository": {
     "type": "git",
@@ -20,7 +19,7 @@
   "module": "./esm/index.js",
   "types": "./esm/index.d.ts",
   "directories": {
-    "lib": "lib",
+    "lib": "esm",
     "test": "__tests__"
   },
   "files": [

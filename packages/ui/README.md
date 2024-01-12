@@ -4,21 +4,17 @@ An enterprise-class UI design language and React UI library.
 
 ## ✨ Features
 
-- 📦 A set of high-quality React components out of the box.
 - 🛡 Written in TypeScript with predictable static types.
 - ⚙️ Whole package of design resources and development tools.
-- 🌍 Internationalization support for dozens of languages.
-- 🎨 Powerful theme customization based on CSS-in-JS.
 
 ## 🖥 Environment Support
 
 - Modern browsers
-- Server-side Rendering
 - [Electron](https://www.electronjs.org/)
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 51+                                                                                                                                                                                                          | 15+                                                                                                                                                                                                  | 55+                                                                                                                                                                                                              | 12.1+                                                                                                                                                                                                        | last 2 versions                                                                                                                                                                                                      |
+| --- | --- | --- | --- | --- |
+| 51+ | 15+ | 55+ | 12.1+ | last 2 versions |
 
 ## Installation
 
@@ -30,7 +26,7 @@ yarn add @emooa/ui
 
 ## Usage
 
-Layz Image
+Simple Lazy Image
 
 ```tsx
 import { Image } from "@emooa/ui";
@@ -42,7 +38,85 @@ export default () => (
 );
 ```
 
+## Api
+
+### Image
+
+| **Parameters** | **Type** | **Default value** | **Definition** |
+| --- | --- | --- | --- |
+| url | string (Required) | - | Image url path. |
+| placeholder | string ｜ boolean | <img src="data:image/svg+xml;base64,PHN2ZyB0PSIxNzA1MDI4NDQ4OTQxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ0MjUiIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4Ij48cGF0aCBkPSJNOTI4IDg5Nkg5NmMtNTMuMDIgMC05Ni00Mi45OC05Ni05NlYyMjRjMC01My4wMiA0Mi45OC05NiA5Ni05Nmg4MzJjNTMuMDIgMCA5NiA0Mi45OCA5NiA5NnY1NzZjMCA1My4wMi00Mi45OCA5Ni05NiA5NnpNMjI0IDI0MGMtNjEuODU2IDAtMTEyIDUwLjE0NC0xMTIgMTEyczUwLjE0NCAxMTIgMTEyIDExMiAxMTItNTAuMTQ0IDExMi0xMTItNTAuMTQ0LTExMi0xMTItMTEyek0xMjggNzY4aDc2OFY1NDRsLTE3NS4wMy0xNzUuMDNjLTkuMzcyLTkuMzcyLTI0LjU2OC05LjM3Mi0zMy45NDIgMEw0MTYgNjQwbC0xMTEuMDMtMTExLjAzYy05LjM3Mi05LjM3Mi0yNC41NjgtOS4zNzItMzMuOTQyIDBMMTI4IDY3MnY5NnoiIGZpbGw9IiNmOGY4ZjgiIHAtaWQ9IjQ0MjYiPjwvcGF0aD48L3N2Zz4="> | Load placeholder, use default placeholder or false |
+| delay | number | 300 | (ms) The placeholder will be rendered if the url is not loaded within the delay time range. |
+| options | [Options](#Options) | - | `IntersectionObserver` properties api. |
+| onError | (event: Event) => void | - | Triggered when image loading fails. |
+| onLoad | (event: Event) => void | - | Triggered when image loading success. |
+
+其他更多属性见 [img.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes)
+
+### Options
+
+Optional `Options` property reference [IntersectionObserver.](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
+
+| **Parameters** | **Type** | **Default value** | **Definition** |
+| --- | --- | --- | --- |
+| root | React.ReactElement | null | The [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element) or [Document](https://developer.mozilla.org/en-US/docs/Web/API/Document) whose bounds are used as the bounding box when testing for intersection. If no root value was passed to the constructor or its value is null, the top-level document's viewport is used. |
+| rootMargin | string | "0px 0px 0px 0px" | An offset rectangle applied to the root's [bounding box](https://developer.mozilla.org/en-US/docs/Glossary/Bounding_box) when calculating intersections, effectively shrinking or growing the root for calculation purposes. The value returned by this property may not be the same as the one specified when calling the constructor as it may be changed to match internal requirements. Each offset can be expressed in pixels (px) or as a percentage (%). The default is "0px 0px 0px 0px". |
+| thresholds | number | 0 | A list of thresholds, sorted in increasing numeric order, where each threshold is a ratio of intersection area to bounding box area of an observed target. Notifications for a target are generated when any of the thresholds are crossed for that target. If no value was passed to the constructor, 0 is used. |
+
+### Examples
+
+Delay placeholder
+
+- Load when 100px from the top of the image.
+- delay 300ms load placeholder.
+
+```tsx
+import { Image } from "@emooa/ui";
+
+export default () => (
+  <>
+    <Image
+      url="https://api.emooa.com/aimg"
+      delay={300}
+      options={{ rootMargin: "100px 0px 0px 0px" }}
+    />
+  </>
+);
+```
+
+No placeholder
+
+```tsx
+import { Image } from "@emooa/ui";
+
+export default () => (
+  <>
+    <Image url="https://api.emooa.com/aimg" placeholder={false} />
+  </>
+);
+```
+
 ## License
 
 MIT Licensed  
 Copyright (c) 2023 Emooa
+
+## Q&A
+
+- Failed to parse source map.
+
+  - WARNING in _*./node_modules/@emooa/ui/lib/image/index.js*_
+
+    Module Warning (from _*./node_modules/source-map-loader/dist/cjs.js*_):
+
+    Failed to parse source map from '_/xxx/node_modules/@emooa/ui/src/image/index.tsx_' file: Error: ENOENT: no such file or directory, open '_/xxx/node_modules/@emooa/ui/src/image/index.tsx_'
+
+  - Actually, CRA with Webpack 5.x cause it. They are working on resolving. [https://github.com/facebook/create-react-app/pull/11752](https://github.com/facebook/create-react-app/pull/11752)
+
+  - You can remove the warning by adding GENERATE_SOURCEMAP=false to your .env file. [Read More](https://stackoverflow.com/questions/70599784/failed-to-parse-source-map)
+
+    ```json
+    "scripts": {
+      "start": "GENERATE_SOURCEMAP=false && react-scripts start",
+    }
+    ```
