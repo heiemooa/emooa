@@ -23,7 +23,7 @@ interface GeoBase {
   } & Properties;
 }
 
-type Coordinates = [number, number]; // [longitude, latitude]
+type Coordinates = number[]; // [longitude, latitude]
 
 export interface Point extends GeoBase {
   type: 'Point';
@@ -315,7 +315,6 @@ const GeoCanvas: React.FC<CanvasProps & Properties> = (
 
     ctx.clearRect(0, 0, width, height);
     geometries.forEach(geometry => {
-      console.log(1, scale, geometry);
       switch (geometry.type) {
         case 'Point':
           if (scale === Infinity) {
