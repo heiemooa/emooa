@@ -29,12 +29,12 @@ yarn add @emooa/ui
 Simple example
 
 ```tsx
-import { Image, GeoCanvas } from "@emooa/ui";
+import { Image, GeoJSON } from "@emooa/ui";
 
 export default () => (
   <>
     <Image url="https://api.emooa.com/aimg" />
-    <GeoCanvas
+    <GeoJSON
       data={{
         type: 'Feature',
         geometry: {
@@ -62,7 +62,7 @@ export default () => (
 
 - [Image](./docs/image.md)
 
-- [GeoCanvas](./docs/geoCanvas.md)
+- [GeoJSON](./docs/geoCanvas.md)
 
 ## License
 

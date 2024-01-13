@@ -7,10 +7,10 @@
 Point
 
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     data={{
       type: 'Point',
       coordinates: [105.0, 1.0],
@@ -21,10 +21,10 @@ export default () => (
 
 LineString
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     data={{
       type: 'LineString',
       coordinates: [
@@ -40,10 +40,10 @@ export default () => (
 Polygon
 
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     data={{
       type: 'Polygon',
       coordinates: [
@@ -58,7 +58,7 @@ export default () => (
 );
 ```
 
-## GeoCanvas
+## GeoJSON
 
 GeoJSON objects are divided into three types: geometric objects, feature objects, and feature collection objects. [Read More](https://blog.emooa.com/2023/10/10/geojson/)
 
@@ -90,10 +90,10 @@ GeoJSON objects are divided into three types: geometric objects, feature objects
 Geometry properties
 
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     data={{
       type: 'Polygon',
       coordinates: [
@@ -119,10 +119,10 @@ Parent's properties
 - If the geometry parent defines properties, it will apply to geometric objects.
 
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     data={{
       type: 'FeatureCollection',
       features: [
@@ -173,10 +173,10 @@ Component's properties
 - If the component parameters define canvas properties, it will apply to geometric objects.
 
 ```tsx
-import { GeoCanvas } from "@emooa/ui";
+import { GeoJSON } from "@emooa/ui";
 
 export default () => (
-  <GeoCanvas
+  <GeoJSON
     fillStyle="green"
     globalAlpha={1}
     data={{

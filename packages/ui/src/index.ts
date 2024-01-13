@@ -1,7 +1,7 @@
 export { default as Image } from './image';
 export type { ImageProps } from './image';
 
-export { default as GeoCanvas } from './GeoCanvas';
+export { default as GeoJSON } from './geojson';
 export type {
   CanvasProps,
   Point,
@@ -13,4 +13,4 @@ export type {
   GeometryCollection,
   Feature,
   FeatureCollection,
-} from './GeoCanvas';
+} from './geojson';

@@ -1,8 +1,8 @@
-import { GeoCanvas } from '@emooa/ui';
+import { GeoJSON } from '@emooa/ui';
 
 export default () => (
   <>
-    <GeoCanvas
+    <GeoJSON
       data={{
         type: 'Feature',
         geometry: {
