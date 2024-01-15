@@ -49,7 +49,12 @@ yarn run build
 yarn run test
 ```
 
-#### 5. Publish NPM package
+#### 5. Start docs
+```bash
+yarn start
+```
+
+#### 6. Publish NPM package
 
 ```bash
 yarn npm login
