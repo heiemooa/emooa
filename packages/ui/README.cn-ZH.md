@@ -62,9 +62,9 @@ export default () => (
 
 ## 组件
 
-- [Image](./docs/image.md)
+- [Image](/docs/ui/image.md)
 
-- [GeoJSON](./docs/GeoJSon.md)
+- [GeoJSON](/docs/ui/geojson.md)
 
 ## Licensed
 

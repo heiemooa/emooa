@@ -61,9 +61,9 @@ export default () => (
 
 ## Components
 
-- [Image](./docs/image.md)
+- [Image](/docs/ui/image.en-US.md)
 
-- [GeoJSON](./docs/GeoJSon.md)
+- [GeoJSON](/docs/ui/geojson.en-US.md)
 
 ## License
 

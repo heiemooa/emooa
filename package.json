@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "start": "dumi dev",
+    "docs:build": "dumi build",
     "test": "lerna run test --stream",
     "build": "lerna run build",
     "exec": "lerna exec -- yarn",
