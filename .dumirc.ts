@@ -8,8 +8,9 @@ export default defineConfig({
     footer: `Open-source MIT Licensed | Copyright © 2023-present <br /> Emooa`,
     prefersColor: { default: 'auto' },
     socialLinks: {
-      github: 'https://github.com/umijs/dumi',
+      github: 'https://github.com/heiemooa/emooa',
     },
+    editLink: 'main',
   },
   locales: [
     { id: 'zh-CN', name: '中文' },
