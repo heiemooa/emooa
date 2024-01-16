@@ -25,3 +25,7 @@ packages/*/cjs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.dumi/tmp
+.dumi/tmp-production
+.DS_Store

@@ -5,6 +5,8 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
     "test": "lerna run test --stream",
     "build": "lerna run build",
     "exec": "lerna exec -- yarn",
@@ -17,6 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.10.3",
+    "dumi": "^2.2.16",
     "lerna": "^8.0.0",
     "typescript": "^5.3.2"
   }

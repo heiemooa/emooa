@@ -1,22 +1,23 @@
+
 # Emooa UI
 
-An enterprise-class UI design language and React UI library.
+企业级 UI 设计语言和 React UI 库。
 
-## ✨ Features
+## ✨ 特点
 
-- 🛡 Written in TypeScript with predictable static types.
-- ⚙️ Whole package of design resources and development tools.
+- 🛡 用 TypeScript 编写，具有可预测的静态类型。
+- ⚙️ 整套设计资源和开发工具。
 
-## 🖥 Environment Support
+## 🖥 环境支持
 
-- Modern browsers
-- [Electron](https://www.electronjs.org/)
+- 现代浏览器
+- [版本](https://www.electronjs.org/)
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron |
 | --- | --- | --- | --- | --- |
 | 51+ | 15+ | 55+ | 12.1+ | last 2 versions |
 
-## Installation
+## 安装
 
 ```shell
 npm install @emooa/ui
@@ -24,12 +25,12 @@ npm install @emooa/ui
 yarn add @emooa/ui
 ```
 
-## Usage
 
-Simple example
+## 用法
+
+简单的例子
 
 ```ts
-import React from "react";
 import { Image, GeoJSON } from "@emooa/ui";
 
 export default () => (
@@ -51,7 +52,7 @@ export default () => (
           },
         },
         properties: {
-          name: 'name',
+          name: '线',
         },
       }}
     />
@@ -59,20 +60,20 @@ export default () => (
 );
 ```
 
-## Components
+## 组件
 
-- [Image](/docs/ui/image.en-US.md)
+- [Image](/docs/ui/image.md)
 
-- [GeoJSON](/docs/ui/geojson.en-US.md)
+- [GeoJSON](/docs/ui/geojson.md)
 
-## License
+## Licensed
 
 MIT Licensed  
 Copyright (c) 2023 Emooa
 
-## Q&A
+## 常见问题
 
-- Failed to parse source map.
+- 无法解析源映射。
 
   - WARNING in _*./node_modules/@emooa/ui/lib/image/index.js*_
 
@@ -82,7 +83,7 @@ Copyright (c) 2023 Emooa
 
   - Actually, CRA with Webpack 5.x cause it. They are working on resolving. [https://github.com/facebook/create-react-app/pull/11752](https://github.com/facebook/create-react-app/pull/11752)
 
-  - You can remove the warning by adding GENERATE_SOURCEMAP=false to your .env file. [Read More](https://stackoverflow.com/questions/70599784/failed-to-parse-source-map)
+  - 您可以通过将 GENERATE_SOURCEMAP=false 添加到 .env 文件来删除警告。[阅读更多](https://stackoverflow.com/questions/70599784/failed-to-parse-source-map)
 
     ```json
     "scripts": {

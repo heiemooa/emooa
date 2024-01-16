@@ -95,7 +95,7 @@ export interface CanvasProps
     | FeatureCollection;
 }
 
-const GeoCanvas: React.FC<CanvasProps & Properties> = (
+const GeoJSON: React.FC<CanvasProps & Properties> = (
   props: CanvasProps & Properties,
 ) => {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -363,8 +363,7 @@ const GeoCanvas: React.FC<CanvasProps & Properties> = (
           ctx.strokeStyle = geometry.properties?.strokeStyle || strokeStyle;
           ctx.lineWidth = geometry.properties?.lineWidth ?? lineWidth;
           ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
-          ctx.fillStyle =
-            geometry.properties?.fillStyle || fillStyle || '#fff0';
+          ctx.fillStyle = '#fff0';
           ctx.moveTo(geometry.coordinates[0][0], geometry.coordinates[0][1]);
           geometry.coordinates.forEach(c => {
             ctx.lineTo(c[0], c[1]);
@@ -378,13 +377,13 @@ const GeoCanvas: React.FC<CanvasProps & Properties> = (
             ctx.strokeStyle = geometry.properties?.strokeStyle || strokeStyle;
             ctx.lineWidth = geometry.properties?.lineWidth ?? lineWidth;
             ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
-            ctx.fillStyle =
-              geometry.properties?.fillStyle || fillStyle || '#fff0';
+            ctx.fillStyle = '#fff0';
             ctx.moveTo(c[0][0], c[0][1]);
             c.forEach(_c => {
               ctx.lineTo(_c[0], _c[1]);
             });
             ctx.stroke();
+            ctx.fill();
           });
           break;
         case 'Polygon':
@@ -435,6 +434,8 @@ const GeoCanvas: React.FC<CanvasProps & Properties> = (
     const ctx = canvas?.getContext?.('2d');
     if (!ctx) return;
 
+    if (!data || Object.keys(data).length === 0) return;
+
     // 获取 Canvas 的实际显示大小
     const displayWidth = canvas.clientWidth;
     const displayHeight = canvas.clientHeight;
@@ -459,4 +460,4 @@ const GeoCanvas: React.FC<CanvasProps & Properties> = (
   return <canvas ref={ref} {...rest} />;
 };
 
-export default GeoCanvas;
+export default GeoJSON;

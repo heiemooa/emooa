@@ -49,7 +49,12 @@ yarn run build
 yarn run test
 ```
 
-#### 5. 发布 NPM 包
+#### 5. 本地启动 docs
+```bash
+yarn start
+```
+
+#### 6. 发布 NPM 包
 
 ```bash
 yarn npm login

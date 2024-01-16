@@ -1,10 +1,10 @@
-# `@emooa/logger`
+# [Logger](https://www.npmjs.com/package/@emooa/logger)
 
 `@emooa/logger` is a simple logger for use with Nodejs, developed through TS and designed as a simple logging library that supports multiple transports.
 
 ## Installation
 
-```
+```bash
 npm install @emooa/logger
 // or
 yarn add @emooa/logger
@@ -16,13 +16,13 @@ yarn add @emooa/logger
 
 #### CommonJS
 
-```
+```bash
 const Logger = require("@emooa/logger");
 ```
 
 #### ESM
 
-```
+```bash
 import Logger from "@emooa/logger";
 ```
 
@@ -56,7 +56,7 @@ Appender example:
 
 - Currently, 4 appender types are supported, namely `stdout`, `console`, `stderr`, and `file`.
 
-- When the appender type is a [File](#File), the file custom configuration log format is supported.
+- When the appender type is a [File](#file), the file custom configuration log format is supported.
 
 - 3 layout types are supported, namely `message`, `basic` and `pattern`. The default is `basic`, and the output format is `%[[%d] [%p]%] %m`.
 
@@ -105,19 +105,19 @@ More examples: [Examples.](https://github.com/heiemooa/emooa/tree/main/packages/
 
 ### Appender
 
-| **参数** | **类型**                                         | **默认值**                            | **定义**                                                                 |
-| -------- | ------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------ |
-| type     | `console`｜`stderr`｜`stdout`｜`file` (Required) | null                                  | coloured console logging to stdout or stderr.                            |
+| **Parameters** | **Type** | **Default value** | **Definition** |
+| --- | --- | --- | --- |
+| type     | `console`｜`stderr`｜`stdout`｜`file` (Required) | null                                   | coloured console logging to stdout or stderr.                            |
 | colour   | boolean (Optional)                               | true                                  | Whether to output colored logs.                                          |
-| layout   | [Layout](#Layout) (Required)                     | { type: 'basic' }                     | The appemder layout, supports multiple log output formats.               |
-| file     | [File](#File) (Required when the type is file)   | { filename: 'logs/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
+| layout   | [Layout](#layout) (Required)                     | { type: 'basic' }                     | The appemder layout, supports multiple log output formats.               |
+| file     | [File](#file) (Required when the type is file)   | { filename: 'logs/emooa-logger.log' } | file appender, with configurable log rolling based on file size or date. |
 
 ### Layout
 
 The appender layout, supports multiple log output formats
 
-| **参数** | **类型**                                           | **默认值**         | **定义**                                                                                                                                                    |
-| -------- | -------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Parameters** | **Type** | **Default value** | **Definition** |
+| --- | --- | --- | --- |
 | type     | `basic`｜`message`｜ `pattern` (Required)          | `basic`            | `basic`[time] [logLevel] category - message <br> `message` simple message <br> `pattern` A special type that allows you to define any format you want. <br> |
 | pattern  | string (Required when the output style is pattern) | `%[[%d] [%p]%] %m` | A special type that allows you to define any format you want.                                                                                               |
 
