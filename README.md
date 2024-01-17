@@ -51,12 +51,7 @@ yarn run build
 yarn run test
 ```
 
-#### 5. 本地启动 docs
-```bash
-yarn start
-```
-
-#### 6. 发布 NPM 包
+#### 5. 发布 NPM 包
 
 ```bash
 yarn npm login
@@ -64,6 +59,20 @@ yarn npm login
 // 根目录
 yarn run publish
 ```
+
+## 文档
+
+#### 1. 本地启动
+```bash
+yarn start
+```
+
+
+#### 2. 打包
+```bash
+yarn run docs:build
+```
+
 
 ## Q&A
 
@@ -90,3 +99,5 @@ yarn run publish
   我们当前使用的是 lerna 管理多包存储库中的包的发布，发版本需要执行 `lerna run tsc && lerna publish`, 并非简单的 `yarn publish`。
 
   方便起见，我将它写入 `package.json scripts` 配置。
+
+- 当然 `npm login` && `npm publish` 也是可以的。

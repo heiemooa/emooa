@@ -51,12 +51,7 @@ yarn run build
 yarn run test
 ```
 
-#### 5. Start docs
-```bash
-yarn start
-```
-
-#### 6. Publish NPM package
+#### 5. Publish NPM package
 
 ```bash
 yarn npm login
@@ -64,6 +59,20 @@ yarn npm login
 // Root directory
 yarn run publish
 ```
+
+## DOCS
+
+#### 1. Local
+```bash
+yarn start
+```
+
+
+#### 2. Build Docs
+```bash
+yarn run docs:build
+```
+
 
 ## Q&A
 
@@ -90,3 +99,5 @@ yarn run publish
   We currently use lerna to manage the release of packages in multi-package repositories. To release a version, you need to execute `lerna run tsc && lerna publish`, which is not a simple `yarn publish`.
 
   For convenience, I wrote it into the `package.json scripts` configuration.
+
+- Of course `npm login` && `npm publish` is also possible.
