@@ -1,19 +1,10 @@
 import React from 'react';
+import Icon, { IconProps } from './icon';
 
 const cache = new Set<string>();
 
 function isValidCustomScriptUrl(url: string): boolean {
   return Boolean(typeof url === 'string' && url.length && !cache.has(url));
-}
-
-interface IconBaseProps extends React.HTMLProps<HTMLSpanElement> {
-  spin?: boolean;
-  rotate?: number;
-}
-
-export interface IconFontProps<T extends string = string>
-  extends IconBaseProps {
-  icon: T;
 }
 
 export function createScriptUrlElements(
@@ -39,13 +30,14 @@ export function createScriptUrlElements(
 }
 
 interface CustomIconOptions {
-  scriptUrl?: string | string[];
-  extraCommonProps?: Record<string, unknown>;
+  url?: string | string[];
+  options?: Record<string, unknown>;
 }
+
 export function createFromIconfontCN<T extends string = string>(
-  options: CustomIconOptions = {},
-): React.FC<IconFontProps<T>> {
-  const { scriptUrl, extraCommonProps = {} } = options;
+  props: CustomIconOptions = {},
+): React.FC<IconProps<T>> {
+  const { url, options = {} } = props;
 
   /**
    * DOM API required.
@@ -54,40 +46,24 @@ export function createFromIconfontCN<T extends string = string>(
    * that loads SVG symbols and insert the SVG Element into the document body.
    */
   if (
-    scriptUrl &&
+    url &&
     typeof document !== 'undefined' &&
     typeof window !== 'undefined' &&
     typeof document.createElement === 'function'
   ) {
-    if (Array.isArray(scriptUrl)) {
+    if (Array.isArray(url)) {
       // 因为iconfont资源会把svg插入before，所以前加载相同type会覆盖后加载，为了数组覆盖顺序，倒叙插入
-      createScriptUrlElements(scriptUrl.reverse());
+      createScriptUrlElements(url.reverse());
     } else {
-      createScriptUrlElements([scriptUrl]);
+      createScriptUrlElements([url]);
     }
   }
 
-  const Iconfont = React.forwardRef<HTMLSpanElement, IconFontProps<T>>(
+  const Iconfont = React.forwardRef<SVGSVGElement, IconProps<T>>(
     (props, ref) => {
-      const { type, children, ...restProps } = props;
-
-      // children > type
-      let content: React.ReactNode = null;
-      if (props.type) {
-        content = <use xlinkHref={`#${type}`} />;
-      }
-      if (children) {
-        content = children;
-      }
-      return (
-        <Icon {...extraCommonProps} {...restProps} ref={ref}>
-          {content}
-        </Icon>
-      );
+      return <Icon {...options} {...props} ref={ref} />;
     },
   );
-
-  Iconfont.displayName = 'Iconfont';
 
   return Iconfont;
 }

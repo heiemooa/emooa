@@ -14,3 +14,6 @@ export type {
   Feature,
   FeatureCollection,
 } from './geojson';
+
+export { default as Icon, createFromIconfontCN } from './icon';
+export type { IconProps } from './icon';

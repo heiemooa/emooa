@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import Context from '../context';
+import classNames from 'classnames';
 
 interface Properties {
   fillStyle?: string | CanvasGradient | CanvasPattern; // fill color
@@ -105,8 +107,20 @@ const GeoJSON: React.FC<CanvasProps & Properties> = (
     strokeStyle = '#333',
     globalAlpha = 1,
     lineWidth = 1,
+    className,
     ...rest
   } = props;
+
+  const { prefixCls, rootClassName } = React.useContext(Context);
+
+  const classname = classNames(
+    rootClassName,
+    prefixCls,
+    {
+      [`${prefixCls}-geojson`]: true,
+    },
+    className,
+  );
 
   const getLonlat = (geometries: Geometry[], index = 0 | 1): number[] => {
     return geometries
@@ -457,7 +471,7 @@ const GeoJSON: React.FC<CanvasProps & Properties> = (
     draw(ctx, offsetGeometries, scaleMinMaxOffset);
   }, [data]);
 
-  return <canvas ref={ref} {...rest} />;
+  return <canvas className={classname} ref={ref} {...rest} />;
 };
 
 export default GeoJSON;
