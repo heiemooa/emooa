@@ -1,5 +1,5 @@
 ---
-nav: UI 组件
+nav: 组件
 group:
   title: 介绍
   order: -1

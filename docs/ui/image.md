@@ -1,5 +1,5 @@
 ---
-nav: UI 组件
+nav: 组件
 group: 通用
 order: 0
 toc: content

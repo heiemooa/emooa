@@ -1,5 +1,5 @@
 ---
-nav: UI Component
+nav: Component
 group: General
 order: 1
 toc: content
