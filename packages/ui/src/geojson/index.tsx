@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { Coordinates, GeoJSONProps, Geometry } from './interface';
 import { ConfigContext } from '../config-provider';
 
@@ -15,15 +15,9 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
     ...rest
   } = props;
 
-  const { prefixCls } = React.useContext(ConfigContext);
+  const { prefixCls, getPrefixCls } = React.useContext(ConfigContext);
 
-  const classname = classNames(
-    prefixCls,
-    {
-      [`${prefixCls}-geojson`]: true,
-    },
-    className,
-  );
+  const classNames = classnames(prefixCls, getPrefixCls('geojson'), className);
 
   const getLonlat = (geometries: Geometry[], index = 0 | 1): number[] => {
     return geometries
@@ -374,7 +368,7 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
     draw(ctx, offsetGeometries, scaleMinMaxOffset);
   }, [data]);
 
-  return <canvas className={classname} ref={ref} {...rest} />;
+  return <canvas className={classNames} ref={ref} {...rest} />;
 };
 
 export default GeoJSON;

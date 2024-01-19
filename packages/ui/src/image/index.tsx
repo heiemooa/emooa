@@ -3,7 +3,7 @@
  */
 
 import React, { useRef, useEffect } from 'react';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { ImageProps } from './interface';
 import { ConfigContext } from '../config-provider';
 
@@ -20,15 +20,9 @@ const Image: React.FC<ImageProps> = props => {
   } = props;
   const ref = useRef<HTMLImageElement>(null);
 
-  const { prefixCls } = React.useContext(ConfigContext);
+  const { prefixCls, getPrefixCls } = React.useContext(ConfigContext);
 
-  const classname = classNames(
-    prefixCls,
-    {
-      [`${prefixCls}-image`]: true,
-    },
-    className,
-  );
+  const classNames = classnames(prefixCls, getPrefixCls('image'), className);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -70,7 +64,7 @@ const Image: React.FC<ImageProps> = props => {
     };
   }, [src]);
 
-  return <img ref={ref} className={classname} {...rest} />;
+  return <img ref={ref} className={classNames} {...rest} />;
 };
 
 export default Image;
