@@ -39,7 +39,7 @@ toc: content
 
 ### Options
 
-可选的“Options”属性参考 [IntersectionObserver.](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
+可选的 `Options` 属性参考 [IntersectionObserver.](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
 
 | **参数** | **类型** | **默认值** | **定义** |
 | --- | --- | --- | --- |
