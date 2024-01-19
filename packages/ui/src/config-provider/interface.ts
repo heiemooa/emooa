@@ -19,7 +19,6 @@ export interface ConfigProviderProps {
   /**
    * @zh 用于全局配置所有组件的默认参数
    * @en Default parameters for global configuration of all components
-   * @version 2.23.0
    */
   componentConfig?: ComponentConfig;
   /**
@@ -48,7 +47,6 @@ export interface ConfigProviderProps {
   /**
    * @zh 全局配置组件内的空组件。
    * @en Empty component in component.
-   * @version 2.10.0
    */
   renderEmpty?: (componentName?: string) => ReactNode;
   zIndex?: number;

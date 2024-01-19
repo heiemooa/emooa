@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { IconProps } from './interface';
 import { ConfigContext } from '../config-provider';
 
-const Icon = (props: IconProps) => {
+const Icon: React.FC<IconProps> = (props: IconProps) => {
   const { icon, className, ...rest } = props;
 
   const { prefixCls } = React.useContext(ConfigContext);

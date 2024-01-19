@@ -17,3 +17,6 @@ export type {
 
 export { default as Icon, createFromIconfontCN } from './icon';
 export type { IconProps } from './icon/interface';
+
+export { default as ConfigProvider } from './config-provider';
+export type { ConfigProviderProps } from './config-provider/interface';

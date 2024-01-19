@@ -3,6 +3,7 @@ import { lighten } from './util';
 import { ConfigProviderProps } from './interface';
 import omit from '../_utils/omit';
 import { ConfigContext, DefaultConfigProviderProps } from './context';
+import { isObject } from '../_utils/is';
 
 const colorList = {
   primaryColor: {
@@ -33,7 +34,7 @@ const colorList = {
 };
 
 function setTheme(theme: ConfigProviderProps['theme']) {
-  if (theme) {
+  if (theme && isObject(theme)) {
     const root = document.body;
     Object.keys(colorList).forEach(color => {
       if (theme[color]) {
