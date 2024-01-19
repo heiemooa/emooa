@@ -3,21 +3,9 @@
  */
 
 import React, { useRef, useEffect } from 'react';
-import Context from '../context';
 import classNames from 'classnames';
-
-export interface ImageProps
-  extends React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  > {
-  src: string;
-  delay?: number; // The placeholder will be rendered if the url is not loaded within the delay time range.
-  placeholder?: string | boolean; // Default image placeholder
-  options?: IntersectionObserverInit;
-  onError?: (e) => void;
-  onLoad?: (e) => void;
-}
+import { ImageProps } from './interface';
+import { ConfigContext } from '../config-provider';
 
 const Image: React.FC<ImageProps> = props => {
   const {
@@ -32,10 +20,9 @@ const Image: React.FC<ImageProps> = props => {
   } = props;
   const ref = useRef<HTMLImageElement>(null);
 
-  const { prefixCls, rootClassName } = React.useContext(Context);
+  const { prefixCls } = React.useContext(ConfigContext);
 
   const classname = classNames(
-    rootClassName,
     prefixCls,
     {
       [`${prefixCls}-image`]: true,

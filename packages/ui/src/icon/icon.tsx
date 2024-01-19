@@ -1,23 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import Context from '../context';
-
-interface IconBaseProps extends React.HTMLProps<SVGSVGElement> {
-  spin?: boolean;
-  rotate?: number;
-}
-
-export interface IconProps<T extends string = string> extends IconBaseProps {
-  icon: T;
-}
+import { IconProps } from './interface';
+import { ConfigContext } from '../config-provider';
 
 const Icon = (props: IconProps) => {
   const { icon, className, ...rest } = props;
 
-  const { prefixCls, rootClassName } = React.useContext(Context);
+  const { prefixCls } = React.useContext(ConfigContext);
 
   const classname = classNames(
-    rootClassName,
     prefixCls,
     {
       [`${prefixCls}-icon`]: true,

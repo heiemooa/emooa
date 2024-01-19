@@ -1,9 +1,9 @@
 export { default as Image } from './image';
-export type { ImageProps } from './image';
+export type { ImageProps } from './image/interface';
 
 export { default as GeoJSON } from './geojson';
 export type {
-  CanvasProps,
+  GeoJSONProps,
   Point,
   MultiPoint,
   LineString,
@@ -13,7 +13,7 @@ export type {
   GeometryCollection,
   Feature,
   FeatureCollection,
-} from './geojson';
+} from './geojson/interface';
 
 export { default as Icon, createFromIconfontCN } from './icon';
-export type { IconProps } from './icon';
+export type { IconProps } from './icon/interface';

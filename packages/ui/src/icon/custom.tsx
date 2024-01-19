@@ -1,5 +1,6 @@
 import React from 'react';
-import Icon, { IconProps } from './icon';
+import Icon from './icon';
+import { IconProps } from './interface';
 
 const cache = new Set<string>();
 
