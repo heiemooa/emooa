@@ -1,5 +1,5 @@
 ---
-nav: Component
+nav: Components
 group: General
 order: 1
 toc: content

@@ -4,6 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "homepage": "https://github.com/heiemooa/emooa",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",

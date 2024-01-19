@@ -1,6 +1,6 @@
 ---
-nav: 组件
-group: 通用
+nav: Components
+group: General
 order: 0
 toc: content
 ---
