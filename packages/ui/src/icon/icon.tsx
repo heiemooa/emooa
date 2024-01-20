@@ -1,14 +1,14 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconProps } from './interface';
 import { ConfigContext } from '../config-provider';
 
-const Icon: React.FC<IconProps> = (props: IconProps) => {
-  const { icon, className, ...rest } = props;
+const Icon: React.FC<IconProps> = props => {
+  const { prefixCls, getPrefixCls, componentConfig } = React.useContext(ConfigContext);
 
-  const { prefixCls, getPrefixCls } = React.useContext(ConfigContext);
+  const { icon, className, ...rest }: IconProps = Object.assign({}, componentConfig?.Icon, props);
 
-  const classNames = classnames(
+  const classnames = classNames(
     prefixCls,
     getPrefixCls('icon'),
     {
@@ -19,7 +19,7 @@ const Icon: React.FC<IconProps> = (props: IconProps) => {
 
   return (
     <svg
-      className={classNames}
+      className={classnames}
       height="1em"
       width="1em"
       aria-hidden="true"

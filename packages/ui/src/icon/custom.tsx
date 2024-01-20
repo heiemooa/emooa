@@ -8,10 +8,7 @@ function isValidCustomScriptUrl(url: string): boolean {
   return Boolean(typeof url === 'string' && url.length && !cache.has(url));
 }
 
-export function createScriptUrlElements(
-  urls: string[],
-  index: number = 0,
-): void {
+export function createScriptUrlElements(urls: string[], index: number = 0): void {
   const url = urls[index];
   if (isValidCustomScriptUrl(url)) {
     const script = document.createElement('script');
@@ -35,9 +32,7 @@ interface CustomIconOptions {
   options?: Record<string, unknown>;
 }
 
-export function createFromIconfontCN<T extends string = string>(
-  props: CustomIconOptions = {},
-): React.FC<IconProps<T>> {
+export function createFromIconfontCN<T extends string = string>(props: CustomIconOptions = {}): React.FC<IconProps<T>> {
   const { url, options = {} } = props;
 
   /**
@@ -60,11 +55,9 @@ export function createFromIconfontCN<T extends string = string>(
     }
   }
 
-  const Iconfont = React.forwardRef<SVGSVGElement, IconProps<T>>(
-    (props, ref) => {
-      return <Icon {...options} {...props} ref={ref} />;
-    },
-  );
+  const Iconfont = React.forwardRef<SVGSVGElement, IconProps<T>>((props, ref) => {
+    return <Icon {...options} {...props} ref={ref} />;
+  });
 
   return Iconfont;
 }

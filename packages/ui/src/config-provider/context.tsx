@@ -17,6 +17,4 @@ export const DefaultConfigProviderProps: ConfigProviderProps = {
   getPrefixCls: (componentName: string) => `eui-${componentName}`,
 };
 
-export const ConfigContext = createContext<ConfigProviderProps>(
-  DefaultConfigProviderProps,
-);
+export const ConfigContext = createContext<ConfigProviderProps>(DefaultConfigProviderProps);

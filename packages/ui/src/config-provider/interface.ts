@@ -3,6 +3,7 @@ import { Locale } from '../_locale/interface';
 import { ImageProps } from '../image/interface';
 import { IconProps } from '../icon/interface';
 import { GeoJSONProps } from '../geojson/interface';
+import { SpaceProps } from '../space/interface';
 
 export type ThemeConfig = Record<string, any>;
 
@@ -10,6 +11,7 @@ export type ComponentConfig = {
   Image?: ImageProps;
   Icon?: IconProps;
   GeoJSON: GeoJSONProps;
+  Space: SpaceProps;
 };
 
 /**

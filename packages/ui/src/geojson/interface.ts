@@ -53,13 +53,7 @@ export interface MultiPolygon extends GeoBase {
   coordinates: Coordinates[][][];
 }
 
-export type Geometry =
-  | Point
-  | MultiPoint
-  | LineString
-  | MultiLineString
-  | Polygon
-  | MultiPolygon;
+export type Geometry = Point | MultiPoint | LineString | MultiLineString | Polygon | MultiPolygon;
 
 export interface GeometryCollection extends GeoBase {
   type: 'GeometryCollection';
@@ -76,11 +70,7 @@ export interface FeatureCollection extends GeoBase {
   features: Feature[];
 }
 
-interface CanvasProps
-  extends React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLCanvasElement>,
-    HTMLCanvasElement
-  > {
+interface CanvasProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement> {
   data:
     | Point
     | MultiPoint

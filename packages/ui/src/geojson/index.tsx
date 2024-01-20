@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react';
-import classnames from 'classnames';
+import React, { useRef, useEffect, useContext } from 'react';
+import classNames from 'classnames';
 import { Coordinates, GeoJSONProps, Geometry } from './interface';
 import { ConfigContext } from '../config-provider';
 
-const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
+const GeoJSON: React.FC<GeoJSONProps> = props => {
   const ref = useRef<HTMLCanvasElement>(null);
+  const { prefixCls, getPrefixCls, componentConfig } = useContext(ConfigContext);
+
   const {
     data,
     fillStyle,
@@ -13,11 +15,9 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
     lineWidth = 1,
     className,
     ...rest
-  } = props;
+  }: GeoJSONProps = Object.assign({}, componentConfig?.GeoJSON, props);
 
-  const { prefixCls, getPrefixCls } = React.useContext(ConfigContext);
-
-  const classNames = classnames(prefixCls, getPrefixCls('geojson'), className);
+  const classnames = classNames(prefixCls, getPrefixCls('geojson'), className);
 
   const getLonlat = (geometries: Geometry[], index = 0 | 1): number[] => {
     return geometries
@@ -30,14 +30,10 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
             return item.coordinates?.map(coordinates => coordinates[index]);
           case 'MultiLineString':
           case 'Polygon':
-            return item.coordinates
-              ?.map(coordinates => coordinates.map(coord => coord[index]))
-              .flat();
+            return item.coordinates?.map(coordinates => coordinates.map(coord => coord[index])).flat();
           case 'MultiPolygon':
             return item.coordinates
-              ?.map(coordinates =>
-                coordinates.map(coord => coord.map(c => c[index])),
-              )
+              ?.map(coordinates => coordinates.map(coord => coord.map(c => c[index])))
               .flat(2)
               .flat();
           default:
@@ -62,30 +58,18 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
         return [
           {
             ...data.geometry,
-            properties: Object.assign(
-              {},
-              data.properties,
-              data.geometry.properties,
-            ),
+            properties: Object.assign({}, data.properties, data.geometry.properties),
           },
         ];
       case 'FeatureCollection':
         return data.features.map(feature => ({
           ...feature.geometry,
-          properties: Object.assign(
-            {},
-            data.properties,
-            feature.properties,
-            feature.geometry.properties,
-          ),
+          properties: Object.assign({}, data.properties, feature.properties, feature.geometry.properties),
         }));
     }
   };
 
-  const getScaleMinMaxOffset = (
-    geometries: Geometry[],
-    { height, width }: { height: number; width: number },
-  ) => {
+  const getScaleMinMaxOffset = (geometries: Geometry[], { height, width }: { height: number; width: number }) => {
     const longitudes = getLonlat(geometries, 0);
     const latitudes = getLonlat(geometries, 1);
 
@@ -169,38 +153,31 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
           return {
             ...geometry,
             type: geometry.type,
-            coordinates: geometry.coordinates?.map(
-              (coordinate: Coordinates) => [
-                (coordinate[0] - xMin) * scale + xoffset,
-                (yMax - coordinate[1]) * scale + yoffset,
-              ],
-            ) as Coordinates[],
+            coordinates: geometry.coordinates?.map((coordinate: Coordinates) => [
+              (coordinate[0] - xMin) * scale + xoffset,
+              (yMax - coordinate[1]) * scale + yoffset,
+            ]) as Coordinates[],
           };
         case 'MultiLineString':
         case 'Polygon':
           return {
             ...geometry,
             type: geometry.type,
-            coordinates: geometry.coordinates?.map(
-              (coordinate: Coordinates[]) =>
-                coordinate?.map((coord: Coordinates) => [
-                  (coord[0] - xMin) * scale + xoffset,
-                  (yMax - coord[1]) * scale + yoffset,
-                ]),
+            coordinates: geometry.coordinates?.map((coordinate: Coordinates[]) =>
+              coordinate?.map((coord: Coordinates) => [
+                (coord[0] - xMin) * scale + xoffset,
+                (yMax - coord[1]) * scale + yoffset,
+              ]),
             ) as Coordinates[][],
           };
         case 'MultiPolygon':
           return {
             ...geometry,
             type: geometry.type,
-            coordinates: geometry.coordinates?.map(
-              (coordinate: Coordinates[][]) =>
-                coordinate.map((coord: Coordinates[]) =>
-                  coord.map((c: Coordinates) => [
-                    (c[0] - xMin) * scale + xoffset,
-                    (yMax - c[1]) * scale + yoffset,
-                  ]),
-                ),
+            coordinates: geometry.coordinates?.map((coordinate: Coordinates[][]) =>
+              coordinate.map((coord: Coordinates[]) =>
+                coord.map((c: Coordinates) => [(c[0] - xMin) * scale + xoffset, (yMax - c[1]) * scale + yoffset]),
+              ),
             ),
           };
       }
@@ -231,21 +208,13 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
           if (scale === Infinity) {
             ctx.beginPath();
             ctx.arc(width / 2, height / 2, 4, 0, Math.PI * 2);
-            ctx.fillStyle =
-              geometry.properties?.fillStyle || fillStyle || '#333';
+            ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#333';
             ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
             ctx.fill();
           } else {
             ctx.beginPath();
-            ctx.arc(
-              geometry.coordinates[0],
-              geometry.coordinates[1],
-              4,
-              0,
-              Math.PI * 2,
-            );
-            ctx.fillStyle =
-              geometry.properties?.fillStyle || fillStyle || '#333';
+            ctx.arc(geometry.coordinates[0], geometry.coordinates[1], 4, 0, Math.PI * 2);
+            ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#333';
             ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
             ctx.fill();
           }
@@ -254,16 +223,14 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
           if (scale === Infinity) {
             ctx.beginPath();
             ctx.arc(width / 2, height / 2, 4, 0, Math.PI * 2);
-            ctx.fillStyle =
-              geometry.properties?.fillStyle || fillStyle || '#333';
+            ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#333';
             ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
             ctx.fill();
           } else {
             geometry.coordinates.forEach(c => {
               ctx.beginPath();
               ctx.arc(c[0], c[1], 4, 0, Math.PI * 2);
-              ctx.fillStyle =
-                geometry.properties?.fillStyle || fillStyle || '#333';
+              ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#333';
               ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
               ctx.fill();
             });
@@ -303,8 +270,7 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
             ctx.strokeStyle = geometry.properties?.strokeStyle || strokeStyle;
             ctx.lineWidth = geometry.properties?.lineWidth ?? lineWidth;
             ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
-            ctx.fillStyle =
-              geometry.properties?.fillStyle || fillStyle || '#fff0';
+            ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#fff0';
             ctx.moveTo(c[0][0], c[0][1]);
             c.forEach(_c => {
               ctx.lineTo(_c[0], _c[1]);
@@ -321,8 +287,7 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
               ctx.strokeStyle = geometry.properties?.strokeStyle || strokeStyle;
               ctx.lineWidth = geometry.properties?.lineWidth ?? lineWidth;
               ctx.globalAlpha = geometry.properties?.globalAlpha ?? globalAlpha;
-              ctx.fillStyle =
-                geometry.properties?.fillStyle || fillStyle || '#fff0';
+              ctx.fillStyle = geometry.properties?.fillStyle || fillStyle || '#fff0';
               ctx.moveTo(_c[0][0], _c[0][1]);
               _c.forEach(__c => {
                 ctx.lineTo(__c[0], __c[1]);
@@ -368,7 +333,7 @@ const GeoJSON: React.FC<GeoJSONProps> = (props: GeoJSONProps) => {
     draw(ctx, offsetGeometries, scaleMinMaxOffset);
   }, [data]);
 
-  return <canvas className={classNames} ref={ref} {...rest} />;
+  return <canvas className={classnames} ref={ref} {...rest} />;
 };
 
 export default GeoJSON;

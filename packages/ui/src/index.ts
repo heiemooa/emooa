@@ -20,3 +20,6 @@ export type { IconProps } from './icon/interface';
 
 export { default as ConfigProvider } from './config-provider';
 export type { ConfigProviderProps } from './config-provider/interface';
+
+export { default as Space } from './space';
+export type { SpaceProps } from './space/interface';

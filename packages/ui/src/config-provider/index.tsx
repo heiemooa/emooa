@@ -38,23 +38,14 @@ function setTheme(theme: ConfigProviderProps['theme']) {
     const root = document.body;
     Object.keys(colorList).forEach(color => {
       if (theme[color]) {
-        root.style.setProperty(
-          colorList[color].default,
-          lighten(theme[color], 0),
-        );
+        root.style.setProperty(colorList[color].default, lighten(theme[color], 0));
 
         if (!theme[`${color}Hover`]) {
-          root.style.setProperty(
-            colorList[color].hover,
-            lighten(theme[color], 10),
-          );
+          root.style.setProperty(colorList[color].hover, lighten(theme[color], 10));
         }
 
         if (!theme[`${color}Active`]) {
-          root.style.setProperty(
-            colorList[color].active,
-            lighten(theme[color], -10),
-          );
+          root.style.setProperty(colorList[color].active, lighten(theme[color], -10));
         }
       }
     });
@@ -62,11 +53,7 @@ function setTheme(theme: ConfigProviderProps['theme']) {
 }
 
 function ConfigProvider(props: ConfigProviderProps) {
-  const _props: ConfigProviderProps = Object.assign(
-    {},
-    DefaultConfigProviderProps,
-    props,
-  );
+  const _props: ConfigProviderProps = Object.assign({}, DefaultConfigProviderProps, props);
 
   const { theme, prefixCls, children } = props;
 
@@ -83,15 +70,13 @@ function ConfigProvider(props: ConfigProviderProps) {
     getPrefixCls,
   };
 
-  return (
-    <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
-  );
+  return <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>;
 }
 
 ConfigProvider.ConfigContext = ConfigContext;
 
 export default ConfigProvider;
 
-export const ConfigConsumer = ConfigContext.Consumer;
+const ConfigConsumer = ConfigContext.Consumer;
 
-export { ConfigProviderProps, ConfigContext };
+export { ConfigContext, ConfigConsumer };
