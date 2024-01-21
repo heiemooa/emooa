@@ -10,7 +10,7 @@ function getRandomColor(alpha = 1) {
   return color;
 }
 
-const App = () => {
+const App: React.FC = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -20,9 +20,7 @@ const App = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const { data }: { data: FeatureCollection } = await axios.get(
-      'https://cdn.emooa.com/geojson/100000.json',
-    );
+    const { data }: { data: FeatureCollection } = await axios.get('https://cdn.emooa.com/geojson/100000.json');
     setLoading(false);
     setData({
       ...data,
@@ -37,11 +35,7 @@ const App = () => {
       })),
     });
   };
-  return loading ? (
-    'Loading'
-  ) : (
-    <GeoJSON style={{ width: '100%' }} data={data as FeatureCollection} />
-  );
+  return loading ? 'Loading' : <GeoJSON style={{ width: '100%' }} data={data as FeatureCollection} />;
 };
 
 export default App;

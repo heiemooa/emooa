@@ -1,13 +1,14 @@
 import { ReactNode } from 'react';
 
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
+export type SpaceAlign = 'start' | 'end' | 'center' | 'baseline';
 
 export interface SpaceProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /**
    * @zh 对齐方式
    * @en Alignment of items
    */
-  align?: 'start' | 'end' | 'center' | 'baseline';
+  align?: SpaceAlign;
   /**
    * @zh 间距方向
    * @en The space direction

@@ -13,7 +13,7 @@ export default [
     output: [
       {
         format: 'esm',
-        sourcemap: true,
+        sourcemap: false,
         dir: path.dirname(pkg.module),
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下
@@ -32,7 +32,7 @@ export default [
     output: [
       {
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
         dir: path.dirname(pkg.main),
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下

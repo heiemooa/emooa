@@ -22,4 +22,4 @@ export { default as ConfigProvider } from './config-provider';
 export type { ConfigProviderProps } from './config-provider/interface';
 
 export { default as Space } from './space';
-export type { SpaceProps } from './space/interface';
+export type { SpaceProps, SpaceSize, SpaceAlign } from './space/interface';

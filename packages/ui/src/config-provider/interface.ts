@@ -10,8 +10,8 @@ export type ThemeConfig = Record<string, any>;
 export type ComponentConfig = {
   Image?: ImageProps;
   Icon?: IconProps;
-  GeoJSON: GeoJSONProps;
-  Space: SpaceProps;
+  GeoJSON?: GeoJSONProps;
+  Space?: SpaceProps;
 };
 
 /**

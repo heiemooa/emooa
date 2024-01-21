@@ -27,7 +27,7 @@ const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
     size = 'small',
     direction = 'horizontal',
     align,
-    wrap,
+    wrap = true,
     split,
     style,
     ...rest
@@ -66,17 +66,39 @@ const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
   }
 
   const getStyle = () => {
+    const styles = {
+      display: 'flex',
+    };
+
     if (typeof size === 'string' || typeof size === 'number') {
       const margin = getMargin(size);
-      return { gap: margin };
+      styles['gap'] = margin;
     }
     if (isArray(size)) {
-      return { gap: `${getMargin(size[0])}px ${getMargin(size[1])}px` };
+      styles['gap'] = `${getMargin(size[0])}px ${getMargin(size[1])}px`;
     }
+
+    if (wrap) {
+      styles['flexWrap'] = 'wrap';
+    }
+
+    if (innerAlign) {
+      styles['alignItems'] = innerAlign;
+    }
+
+    if (direction === 'horizontal') {
+      styles['flexDirection'] = 'row';
+    }
+
+    if (direction === 'vertical') {
+      styles['flexDirection'] = 'column';
+    }
+
+    return styles;
   };
 
   return (
-    <div className={classnames} style={Object.assign({ display: 'flex' }, getStyle(), style)} {...rest}>
+    <div className={classnames} style={Object.assign({}, getStyle(), style)} {...rest}>
       {toArray(children)?.map((child, index) => {
         const key = (child as ReactElement)?.key || index;
         return (
