@@ -1,7 +1,7 @@
 import React from 'react';
-import { createFromIconfontCN, Space } from '@emooa/ui';
+import { Icon, Space } from '@emooa/ui';
 
-const IconFont = createFromIconfontCN({
+const IconFont = Icon.createFromIconfontCN({
   url: [
     '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overridden)
     '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python

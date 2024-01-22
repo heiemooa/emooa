@@ -70,7 +70,8 @@ export interface FeatureCollection extends GeoBase {
   features: Feature[];
 }
 
-interface CanvasProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement> {
+export interface GeoJSONProps
+  extends React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement> {
   data?:
     | Point
     | MultiPoint
@@ -81,6 +82,8 @@ interface CanvasProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLC
     | GeometryCollection
     | Feature
     | FeatureCollection;
+  fillStyle?: string | CanvasGradient | CanvasPattern; // fill color
+  strokeStyle?: string | CanvasGradient | CanvasPattern; // stroke color
+  globalAlpha?: number; // The value range is between 0 and 1
+  lineWidth?: number; // Default 1px
 }
-
-export type GeoJSONProps = CanvasProps & Properties;

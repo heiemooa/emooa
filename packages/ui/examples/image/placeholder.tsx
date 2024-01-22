@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from '@emooa/ui';
 
-export default () => (
+const App: React.FC = () => (
   <div style={{ display: 'flex', textAlign: 'center' }}>
     <div style={{ marginRight: 10 }}>
       <Image
@@ -12,12 +12,10 @@ export default () => (
       <p>修改占位符</p>
     </div>
     <div>
-      <Image
-        src="https://api.emooa.com/aimg?idx=3"
-        placeholder={false}
-        height={150}
-      />
+      <Image src="https://api.emooa.com/aimg?idx=3" placeholder={false} height={150} />
       <p>无占位符</p>
     </div>
   </div>
 );
+
+export default App;

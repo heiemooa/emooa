@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
 export type SpaceAlign = 'start' | 'end' | 'center' | 'baseline';
 
-export interface SpaceProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * @zh 对齐方式
    * @en Alignment of items

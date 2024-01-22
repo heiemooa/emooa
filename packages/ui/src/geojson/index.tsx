@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { Coordinates, GeoJSONProps, Geometry } from './interface';
 import { ConfigContext } from '../config-provider';
 
-const GeoJSON: React.FC<GeoJSONProps> = props => {
+const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
 
@@ -303,6 +303,9 @@ const GeoJSON: React.FC<GeoJSONProps> = props => {
       }
     });
   };
+
+  useImperativeHandle(pref, () => ref.current);
+
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
@@ -334,6 +337,6 @@ const GeoJSON: React.FC<GeoJSONProps> = props => {
   }, [data]);
 
   return <canvas className={classnames} ref={ref} {...rest} />;
-};
+});
 
 export default GeoJSON;

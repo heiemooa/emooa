@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, forwardRef, ReactElement } from 'react';
+import React, { useContext, Fragment, forwardRef, ReactElement, useRef } from 'react';
 import { isArray, isNumber } from '../_utils/is';
 import { SpaceSize, SpaceProps } from './interface';
 import { ConfigContext } from '../config-provider';
@@ -18,7 +18,7 @@ function toArray(children) {
   return childrenList;
 }
 
-const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
+const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) => {
   const { prefixCls, getPrefixCls, size: componentSize, components }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
@@ -97,7 +97,7 @@ const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
   };
 
   return (
-    <div className={classnames} style={Object.assign({}, getStyle(), style)} {...rest}>
+    <div ref={ref} className={classnames} style={Object.assign({}, getStyle(), style)} {...rest}>
       {toArray(children)?.map((child, index) => {
         const key = (child as ReactElement)?.key || index;
         return (
@@ -109,8 +109,11 @@ const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
       })}
     </div>
   );
-};
-
-// const SpaceComponent = forwardRef<unknown, SpaceProps>(Space);
+});
 
 export default Space;
+
+const A = () => {
+  const ref = useRef();
+  return <Space ref={ref} />;
+};

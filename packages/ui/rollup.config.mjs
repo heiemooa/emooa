@@ -10,6 +10,10 @@ const pkg = JSON.parse(readFileSync('./package.json'));
 export default [
   {
     input: './src/index.ts',
+    treeshake: {
+      propertyReadSideEffects: false,
+      moduleSideEffects: 'no-external',
+    },
     output: [
       {
         format: 'esm',

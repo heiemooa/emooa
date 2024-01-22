@@ -62,9 +62,9 @@ export default () => (
 ### 从 iconfont.cn 加载 Icon
 
 ```bash
-import { createFromIconfontCN } from '@emooa/ui';
+import { Icon } from '@emooa/ui';
 
-const IconFont = createFromIconfontCN({
+const IconFont = Icon.createFromIconfontCN({
   url: 'xxx',
 });
 

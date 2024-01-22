@@ -2,12 +2,12 @@
  * 参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { ImageProps } from './interface';
 import { ConfigContext } from '../config-provider';
 
-const Image: React.FC<ImageProps> = props => {
+const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
   const ref = useRef<HTMLImageElement>(null);
   const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
 
@@ -23,6 +23,8 @@ const Image: React.FC<ImageProps> = props => {
   }: ImageProps = Object.assign({}, components?.Image, props);
 
   const classnames = classNames(prefixCls, getPrefixCls('image'), className);
+
+  useImperativeHandle(pref, () => ref.current);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -65,6 +67,6 @@ const Image: React.FC<ImageProps> = props => {
   }, [src]);
 
   return <img ref={ref} className={classnames} {...rest} />;
-};
+});
 
 export default Image;

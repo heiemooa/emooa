@@ -58,10 +58,10 @@ Other attributes [svg.](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribu
 
 ### Load Icon on iconfont.cn
 
-```bash
-import { createFromIconfontCN } from '@emooa/ui';
+```js
+import { Icon } from '@emooa/ui';
 
-const IconFont = createFromIconfontCN({
+const IconFont = Icon.createFromIconfontCN({
   url: 'xxx',
 });
 
