@@ -4,5 +4,5 @@ interface IconBaseProps extends React.HTMLProps<SVGSVGElement> {
 }
 
 export interface IconProps<T extends string = string> extends IconBaseProps {
-  icon: T;
+  type?: T;
 }

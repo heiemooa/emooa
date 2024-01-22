@@ -9,7 +9,7 @@ import { ConfigContext } from '../config-provider';
 
 const Image: React.FC<ImageProps> = props => {
   const ref = useRef<HTMLImageElement>(null);
-  const { prefixCls, getPrefixCls, componentConfig } = useContext(ConfigContext);
+  const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
 
   const {
     src,
@@ -20,7 +20,7 @@ const Image: React.FC<ImageProps> = props => {
     onError,
     onLoad,
     ...rest
-  }: ImageProps = Object.assign({}, componentConfig?.Image, props);
+  }: ImageProps = Object.assign({}, components?.Image, props);
 
   const classnames = classNames(prefixCls, getPrefixCls('image'), className);
 

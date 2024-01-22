@@ -55,7 +55,7 @@ function setTheme(theme: ConfigProviderProps['theme']) {
 function ConfigProvider(props: ConfigProviderProps) {
   const _props: ConfigProviderProps = Object.assign({}, DefaultConfigProviderProps, props);
 
-  const { theme, prefixCls, children } = props;
+  const { theme, prefixCls, children } = _props;
 
   useEffect(() => {
     setTheme(theme);

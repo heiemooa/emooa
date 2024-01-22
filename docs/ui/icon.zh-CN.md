@@ -21,7 +21,7 @@ import { Icon } from '@emooa/ui';
 
 export default () => (
   <>
-    <Icon icon="icon-image-fill" color="red" />
+    <Icon type="icon-image-fill" color="red" />
   </>
 );
 
@@ -52,6 +52,7 @@ export default () => (
 | --- | --- | --- | --- |
 | className | `string`              | -       | 设置图标的样式名                              |
 | style     | `CSSProperties`       | -       | 设置图标的样式，例如 `fontSize` 和 `color`	   |
+| type      | `string`              | -       | 图片名称	                                 	    |
 | color     | `string`              | -       | 颜色	                                 	    |
 | spin      | `boolean`             | false   | 是否有旋转动画	                         	    |
 

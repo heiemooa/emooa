@@ -4,15 +4,15 @@ import { IconProps } from './interface';
 import { ConfigContext } from '../config-provider';
 
 const Icon: React.FC<IconProps> = props => {
-  const { prefixCls, getPrefixCls, componentConfig } = React.useContext(ConfigContext);
+  const { prefixCls, getPrefixCls, components } = React.useContext(ConfigContext);
 
-  const { icon, className, ...rest }: IconProps = Object.assign({}, componentConfig?.Icon, props);
+  const { type, className, ...rest }: IconProps = Object.assign({}, components?.Icon, props);
 
   const classnames = classNames(
     prefixCls,
     getPrefixCls('icon'),
     {
-      [`${prefixCls}-${icon}`]: !!icon,
+      [`${prefixCls}-${type}`]: !!type,
     },
     className,
   );
@@ -27,7 +27,7 @@ const Icon: React.FC<IconProps> = props => {
       cursor={!!rest.onClick ? 'pointer' : 'auto'}
       {...rest}
     >
-      <use xlinkHref={`#${icon}`}></use>
+      <use xlinkHref={`#${type}`}></use>
     </svg>
   );
 };

@@ -7,7 +7,7 @@ import { SpaceProps } from '../space/interface';
 
 export type ThemeConfig = Record<string, any>;
 
-export type ComponentConfig = {
+export type Components = {
   Image?: ImageProps;
   Icon?: IconProps;
   GeoJSON?: GeoJSONProps;
@@ -22,7 +22,7 @@ export interface ConfigProviderProps {
    * @zh 用于全局配置所有组件的默认参数
    * @en Default parameters for global configuration of all components
    */
-  componentConfig?: ComponentConfig;
+  components?: Components;
   /**
    * @zh 设置语言包
    * @en Language package setting
@@ -38,7 +38,7 @@ export interface ConfigProviderProps {
    * @en Configure the default size of the component, which will only take effect for components that support the `size` property.
    * @defaultValue default
    */
-  size?: 'mini' | 'small' | 'default' | 'large';
+  size?: 'mini' | 'small' | 'medium' | 'large';
   /**
    * @zh 全局组件类名前缀
    * @en Global ClassName prefix
@@ -46,11 +46,5 @@ export interface ConfigProviderProps {
    */
   prefixCls?: string;
   getPrefixCls?: (componentName: string, customPrefix?: string) => string;
-  /**
-   * @zh 全局配置组件内的空组件。
-   * @en Empty component in component.
-   */
-  renderEmpty?: (componentName?: string) => ReactNode;
-  zIndex?: number;
   children?: ReactNode;
 }

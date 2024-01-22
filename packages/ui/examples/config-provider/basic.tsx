@@ -1,37 +1,40 @@
-import React from 'react';
-import { Icon, ConfigProvider, Space, Image } from '@emooa/ui';
-import en from '@emooa/ui/esm/_locale/en-US';
+import React, { useState } from 'react';
+import { ConfigProvider, Space, Image } from '@emooa/ui';
 
-console.log(1, en);
-export default () => (
-  <ConfigProvider
-    locale={en}
-    prefixCls="eui"
-    componentConfig={{
-      Space: {
-        className: 'space',
-        size: 'large',
-        align: 'start',
-      },
-      Image: {
-        className: 'image',
-        src: '',
-      },
-      Icon: {
-        className: 'icon',
-        icon: '',
-      },
-    }}
-  >
-    <Space>
-      <Icon icon="icon-image-fill" />
-      <Icon icon="icon-image-fill" color="red" />
-      <Icon icon="icon-image-fill" color="green" />
-    </Space>
-    <Space>
-      <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
-      <Image src="https://api.emooa.com/aimg?idx=2" height={80} />
-      <Image src="https://api.emooa.com/aimg?idx=3" height={60} />
-    </Space>
-  </ConfigProvider>
-);
+const App: React.FC = () => {
+  const [size, setSize] = useState<'small' | 'mini' | 'medium' | 'large'>('small');
+  return (
+    <>
+      <Space style={{ marginBottom: 10 }}>
+        <button onClick={() => setSize('mini')} style={{ color: size === 'mini' ? 'red' : undefined }}>
+          mini
+        </button>
+        <button onClick={() => setSize('small')} style={{ color: size === 'small' ? 'red' : undefined }}>
+          small
+        </button>
+        <button onClick={() => setSize('medium')} style={{ color: size === 'medium' ? 'red' : undefined }}>
+          medium
+        </button>
+        <button onClick={() => setSize('large')} style={{ color: size === 'large' ? 'red' : undefined }}>
+          large
+        </button>
+      </Space>
+      <ConfigProvider
+        size={size}
+        components={{
+          Image: {
+            className: 'image',
+          },
+        }}
+      >
+        <Space>
+          <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
+          <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
+          <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
+        </Space>
+      </ConfigProvider>
+    </>
+  );
+};
+
+export default App;

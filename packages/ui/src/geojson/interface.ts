@@ -71,7 +71,7 @@ export interface FeatureCollection extends GeoBase {
 }
 
 interface CanvasProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement> {
-  data:
+  data?:
     | Point
     | MultiPoint
     | LineString

@@ -21,7 +21,7 @@ import { Icon } from '@emooa/ui';
 
 export default () => (
   <>
-    <Icon icon="icon-image-fill" color="red" />
+    <Icon type="icon-image-fill" color="red" />
   </>
 );
 
@@ -49,6 +49,7 @@ export default () => (
 | --- | --- | --- | --- |
 | className | `string`              | -       | Set the style name of the icon                               |
 | style     | `CSSProperties`       | -       | Set the style of the icon, such as `fontSize` and `color`	   |
+| type      | `string`              | -       | Icon name	                                 	                     |
 | color     | `string`              | -       | Color	                                 	                     |
 | spin      | `boolean`             | false   | Is there a rotation animation?	                        	    |
 

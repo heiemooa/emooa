@@ -5,7 +5,7 @@ import { ConfigContext } from '../config-provider';
 
 const GeoJSON: React.FC<GeoJSONProps> = props => {
   const ref = useRef<HTMLCanvasElement>(null);
-  const { prefixCls, getPrefixCls, componentConfig } = useContext(ConfigContext);
+  const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
 
   const {
     data,
@@ -15,7 +15,7 @@ const GeoJSON: React.FC<GeoJSONProps> = props => {
     lineWidth = 1,
     className,
     ...rest
-  }: GeoJSONProps = Object.assign({}, componentConfig?.GeoJSON, props);
+  }: GeoJSONProps = Object.assign({}, components?.GeoJSON, props);
 
   const classnames = classNames(prefixCls, getPrefixCls('geojson'), className);
 

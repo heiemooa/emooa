@@ -3,10 +3,10 @@ import { Icon, Space } from '@emooa/ui';
 
 const App: React.FC = () => (
   <Space>
-    <Icon icon="icon-image-fill" />
-    <Icon icon="icon-image-fill" color="red" />
-    <Icon icon="icon-image-fill" color="green" />
-    <Icon icon="icon-image-fill" color="orange" />
+    <Icon type="icon-image-fill" />
+    <Icon type="icon-image-fill" color="red" />
+    <Icon type="icon-image-fill" color="green" />
+    <Icon type="icon-image-fill" color="orange" />
   </Space>
 );
 

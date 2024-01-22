@@ -10,10 +10,10 @@ const IconFont = createFromIconfontCN({
 
 const App: React.FC = () => (
   <Space>
-    <IconFont icon="icon-javascript" />
-    <IconFont icon="icon-java" />
-    <IconFont icon="icon-shoppingcart" />
-    <IconFont icon="icon-python" />
+    <IconFont type="icon-javascript" />
+    <IconFont type="icon-java" />
+    <IconFont type="icon-shoppingcart" />
+    <IconFont type="icon-python" />
   </Space>
 );
 

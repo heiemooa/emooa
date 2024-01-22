@@ -19,19 +19,18 @@ function toArray(children) {
 }
 
 const Space: React.FC<SpaceProps> = (props: SpaceProps) => {
-  const { prefixCls, getPrefixCls, componentConfig }: ConfigProviderProps = useContext(ConfigContext);
-
+  const { prefixCls, getPrefixCls, size: componentSize, components }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
     children,
-    size = 'small',
+    size = componentSize ?? 'small',
     direction = 'horizontal',
     align,
     wrap = true,
     split,
     style,
     ...rest
-  }: SpaceProps = Object.assign({}, componentConfig?.Space, props);
+  }: SpaceProps = Object.assign({}, components?.Space, props);
 
   const innerAlign = align || (direction === 'horizontal' ? 'center' : '');
 

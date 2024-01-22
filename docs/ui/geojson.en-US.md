@@ -3,6 +3,8 @@ nav: Components
 group: General
 order: 1
 toc: content
+demo:
+  cols: 2
 ---
 
 # GeoJSON
@@ -21,7 +23,7 @@ Draw via Canvas and fill with color.
 <code src="../../packages/ui/examples/geojson/line-string.tsx">LineString</code>
 <code src="../../packages/ui/examples/geojson/mult-line-string.tsx">MultiLineString</code>
 <code src="../../packages/ui/examples/geojson/polygon.tsx">Polygon</code>
-<code src="../../packages/ui/examples/geojson/mult-polygon.tsx">Multpolygon</code>
+<code src="../../packages/ui/examples/geojson/mult-polygon.tsx" description="Polygon with hole.">Multpolygon</code>
 <code src="../../packages/ui/examples/geojson/geometry-collection.tsx">GeometryCollection</code>
 <code src="../../packages/ui/examples/geojson/feature.tsx" description="If the component defines a canvas property, it will be inherited and applied to the feature object, and the properties of the feature object will also be inherited and applied to the geometry object. Characteristic object types include `Point`、`MultiPoint`、`LineString`、`MultiLineString`、`Polygon` adn `MultiPolygon`。">Feature</code>
 <code src="../../packages/ui/examples/geojson/feature-collection.tsx" description="While inheriting the component canvas properties, it supports setting properties individually for each Feature object.">Feature</code>
