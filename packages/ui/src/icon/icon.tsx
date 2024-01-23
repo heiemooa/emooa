@@ -1,14 +1,7 @@
-import React, {
-  Component,
-  ForwardRefExoticComponent,
-  RefAttributes,
-  forwardRef,
-  useContext,
-  useImperativeHandle,
-} from 'react';
+import React, { ForwardRefExoticComponent, RefAttributes, forwardRef, useContext } from 'react';
 import classNames from 'classnames';
-import { CustomIconOptions, IconProps } from './interface';
-import { ConfigConsumer, ConfigContext } from '../config-provider';
+import { IconProps } from './interface';
+import { ConfigContext } from '../config-provider';
 
 const cache = new Set<string>();
 
@@ -37,7 +30,7 @@ function createScriptUrlElements(urls: string[], index: number = 0): void {
 
 createScriptUrlElements(['https://at.alicdn.com/t/c/font_4218892_xxgw44ykptf.js']);
 
-function createFromIconfontCN<T extends string = string>(props: CustomIconOptions = {}): React.FC<IconProps<T>> {
+function createFromIconfontCN(props) {
   const { url, options = {} } = props;
 
   /**
@@ -60,14 +53,18 @@ function createFromIconfontCN<T extends string = string>(props: CustomIconOption
     }
   }
 
-  const Iconfont = React.forwardRef<SVGSVGElement, IconProps<T>>((props, ref) => {
-    return <Icon {...options} {...props} ref={ref} />;
+  const Iconfont = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
+    return <Icon ref={ref} {...options} {...props} />;
   });
 
   return Iconfont;
 }
 
-const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
+interface IconComponent extends ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>> {
+  createFromIconfontCN: typeof createFromIconfontCN; // 假设 createFromIconfontCN 是一个函数
+}
+
+const Icon: IconComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
   const { type, className, ...rest }: IconProps = Object.assign({}, components?.Icon, props);
 
@@ -94,43 +91,8 @@ const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
       <use xlinkHref={`#${type}`}></use>
     </svg>
   );
-});
+}) as IconComponent; // 避免 TS 不知道 Icon 组件包含 createFromIconfontCN 属性
 
-Icon['createFromIconfontCN'] = createFromIconfontCN;
-
-// class Icon extends Component<IconProps> {
-//   static createFromIconfontCN = createFromIconfontCN;
-
-//   renderIcon = ({ prefixCls, getPrefixCls, components }) => {
-//     const { type, className, ...rest }: IconProps = Object.assign({}, components?.Icon, this.props);
-
-//     const classnames = classNames(
-//       prefixCls,
-//       getPrefixCls('icon'),
-//       {
-//         [`${prefixCls}-${type}`]: !!type,
-//       },
-//       className,
-//     );
-
-//     return (
-//       <svg
-//         className={classnames}
-//         height="1em"
-//         width="1em"
-//         aria-hidden="true"
-//         fill="currentColor"
-//         cursor={!!rest.onClick ? 'pointer' : 'auto'}
-//         {...rest}
-//       >
-//         <use xlinkHref={`#${type}`}></use>
-//       </svg>
-//     );
-//   };
-
-//   render(): React.ReactNode {
-//     return <ConfigConsumer>{this.renderIcon}</ConfigConsumer>;
-//   }
-// }
+Icon.createFromIconfontCN = createFromIconfontCN;
 
 export default Icon;
