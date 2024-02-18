@@ -19,7 +19,13 @@ function toArray(children) {
 }
 
 const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) => {
-  const { prefixCls, getPrefixCls, size: componentSize, components }: ConfigProviderProps = useContext(ConfigContext);
+  const {
+    prefixCls,
+    getPrefixCls,
+    size: componentSize,
+    components,
+    rtl,
+  }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
     children,
@@ -34,6 +40,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
 
   const innerAlign = align || (direction === 'horizontal' ? 'center' : '');
 
+  console.log(111, rtl);
   const space = getPrefixCls('space');
   const classnames = classNames(
     prefixCls,
@@ -42,6 +49,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
       [`${space}-${direction}`]: direction,
       [`${space}-align-${innerAlign}`]: innerAlign,
       [`${space}-wrap`]: wrap,
+      [`${space}-rtl`]: rtl,
     },
     className,
   );
@@ -91,6 +99,10 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
 
     if (direction === 'vertical') {
       styles['flexDirection'] = 'column';
+    }
+
+    if (rtl) {
+      styles['direction'] = 'rtl';
     }
 
     return styles;

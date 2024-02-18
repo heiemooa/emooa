@@ -19,10 +19,9 @@ Use React's [context](https://legacy.reactjs.org/docs/context.html) feature to c
 ```js
 import React from 'react';
 import { ConfigProvider } from '@emooa/ui';
-import en from '@emooa/ui/esm/_locale/en-US';
 
 const App: React.FC = () => (
-  <ConfigProvider locale={en}>
+  <ConfigProvider locale="en">
     <XXXApp />
   </ConfigProvider>
 );
@@ -33,8 +32,9 @@ export default App;
 
 ## Examples
 
-<code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>
 <code src="../../packages/ui/examples/config-provider/language.tsx" description="Set the internationalized languages.">Languages</code>
+<code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>
+<code src="../../packages/ui/examples/config-provider/rtl.tsx" description="Set the component to a view that reads from right to left.">RTL View</code>
 
 
 ## API
@@ -54,7 +54,6 @@ export default App;
 ```ts
 export interface Locale {
   locale: string;
-  dayjsLocale?: string;
 }
 ```
 

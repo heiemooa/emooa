@@ -1,8 +1,7 @@
-import 'dayjs/locale/en';
+import 'dayjs/locale/zh-cn';
 import { Locale } from './interface';
 
 const locale: Locale = {
-  locale: 'en-US',
-  dayjsLocale: 'en',
+  locale: 'zh-cn',
 };
 export default locale;

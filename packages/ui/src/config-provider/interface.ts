@@ -27,6 +27,9 @@ export interface ConfigProviderProps {
    * @zh 设置语言包
    * @en Language package setting
    */
+  locales?: {
+    [key: string]: Locale;
+  };
   locale?: Locale;
   /**
    * @zh 主题配置
@@ -40,9 +43,13 @@ export interface ConfigProviderProps {
    */
   size?: 'mini' | 'small' | 'medium' | 'large';
   /**
+   * @zh 视图的表现形式是从右开始向左结束。
+   * @en View starts from the right and ends on the left.
+   */
+  rtl?: boolean;
+  /**
    * @zh 全局组件类名前缀
    * @en Global ClassName prefix
-   * @defaultValue arco
    */
   prefixCls?: string;
   getPrefixCls?: (componentName: string, customPrefix?: string) => string;

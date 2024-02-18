@@ -1,3 +1,2 @@
-import zhCN from './zh-CN';
-
-export default zhCN;
+export { default as en } from './en';
+export { default as zhCN } from './zh-cn';
