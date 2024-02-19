@@ -51,6 +51,8 @@ demo:
 
 | **参数** | **类型** | **默认值** | **定义** |
 | --- | --- | --- | --- |
+| className | `string`              | -        | 组件名称       |
+| style     | `CSSProperties`       | -        | 组件样式	    |
 | Data |`Point` `MultiPoint` `LineString` `MultiLineString` `Polygon` `MultiPolygon` `GeometryCollection` `Feature` `FeatureCollection` (必填) | - | [GeoJSON](https://geojson.org/) |
 | fillStyle | `string` `CanvasGradient` `CanvasPattern` | - | 填充颜色 |
 | strokeStyle | `string` `CanvasGradient` `CanvasPattern` | #333 | 线条颜色 |

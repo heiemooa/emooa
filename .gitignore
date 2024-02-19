@@ -1,7 +1,8 @@
 node_modules/
-packages/*/lib
-packages/*/esm
-packages/*/cjs
+packages/**/*/lib
+packages/**/*/esm
+packages/**/*/cjs
+packages/icon/icons.json
 
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 

@@ -9,6 +9,14 @@ demo:
 
 # Icon
 
+## Usage
+
+To use the icon component, you need to install the `@emooa/icon` icon component package
+
+```bash
+yarn add @emooa/icon --save
+```
+
 This is a brand new way of use, and it should be said that this is the mainstream in the future. This usage is actually a collection of svg, which has the following characteristics:
 
 - Completely offline use, no need to download font files from CDN, icons will not appear square due to network problems, and no local deployment of font files is required.
@@ -16,26 +24,33 @@ This is a brand new way of use, and it should be said that this is the mainstrea
 - Support multi-color icons.
 - All icons will be rendered with `<svg>` tags and inherit all the attribute APIs of `<svg>`. You can use color and className to set the size of the icon and the color of the monochrome icon. For example:
 
-```bash
-import { Icon } from '@emooa/ui';
+```js
+import { IconApps } from '@emooa/icon';
 
 export default () => (
   <>
-    <Icon type="icon-image-fill" color="red" />
+    <IconApps color="red" />
   </>
 );
 
 ```
 
+## Icon List
+
+```jsx
+import IconList from '../../packages/icon/examples/IconList.tsx';
+
+export default () => <IconList lang="en-US"/>
+```
 ## Usage
 
 - Massive `Emooa UI iconfont` icons.
-- Supports importing customized [iconfont](https://www.iconfont.cn/) icons.
+- Supports importing customized [iconfont.cn](https://www.iconfont.cn/) or [iconbox](https://arco.design/iconbox) icons.
 - Supports adjusting styles through `font-size` and `color` like `css` fonts.
 
 ## Examples
 
-<code src="../../packages/ui/examples/icon/basic.tsx" description="Support custom icon color.">Basic</code>
+<code src="../../packages/ui/examples/icon/basic.tsx" description="Reference the Icon component through @emooa/icons to support custom icon colors.">Basic</code>
 <code src="../../packages/ui/examples/icon/size.tsx" description="Support setting icon size.">Size</code>
 <code src="../../packages/ui/examples/icon/iconfont.tsx" description="For users who use [iconfont.cn](https://www.iconfont.cn/), you can easily use icons in existing projects by setting the `url` field in the `createFromIconfontCN` method parameter object.">Use iconfont.cn</code>
 <code src="../../packages/ui/examples/icon/iconfont2.tsx" description="`url` can reference multiple resources, and users can flexibly manage [iconfont.cn](https://www.iconfont.cn/) icons. If resource icons have the same name, they will be overwritten in array order.">Multiple resources from iconfont.cn</code>

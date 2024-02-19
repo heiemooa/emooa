@@ -40,7 +40,6 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
 
   const innerAlign = align || (direction === 'horizontal' ? 'center' : '');
 
-  console.log(111, rtl);
   const space = getPrefixCls('space');
   const classnames = classNames(
     prefixCls,

@@ -30,6 +30,8 @@ Avoid components that are too close together to create a unified space.
 
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |
+| className | `string`              | -        | The className of Space       |
+| style     | `CSSProperties`       | -        | The style properties of Space	        |
 | align     | `start` `end` `center` `baseline` | -            | Align items	        |
 | direction | `vertical` `horizontal`           | `horizontal` | The space direction    |
 | size      | [Size](#size) ｜[Size[]](#size)   | `small`      | The space size		    |

@@ -52,6 +52,8 @@ GeoJSON objects are divided into three types: geometric objects, feature objects
 
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |
+| className | `string`              | -        | The className of GeoJSON     |
+| style     | `CSSProperties`       | -        | The style of GeoJSON    	    |
 | Data |`Point` `MultiPoint` `LineString` `MultiLineString` `Polygon` `MultiPolygon` `GeometryCollection` `Feature` `FeatureCollection` (Required) | - | [GeoJSON](https://geojson.org/) |
 | fillStyle | `string` `CanvasGradient` `CanvasPattern` | - | The fill style color. |
 | strokeStyle | `string` `CanvasGradient` `CanvasPattern` | #333 | The stroke style color. |

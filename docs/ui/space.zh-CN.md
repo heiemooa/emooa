@@ -30,6 +30,8 @@ toc: content
 
 | **参数** | **类型** | **默认值** | **定义** |
 | --- | --- | --- | --- |
+| className | `string`              | -        | 组件名称       |
+| style     | `CSSProperties`       | -        | 组件样式	    |
 | align     | `start` `end` `center` `baseline` | -            | 对齐方式	        |
 | direction | `vertical` `horizontal`           | `horizontal` | 间距方向	        |
 | size      | [Size](#size) ｜[Size[]](#size)   | `small`      | 间距大小	        |

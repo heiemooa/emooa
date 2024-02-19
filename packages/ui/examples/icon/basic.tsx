@@ -1,13 +1,15 @@
 import React from 'react';
-import { Icon, Space } from '@emooa/ui';
+import { Space } from '@emooa/ui';
+import { IconApps, IconCheckCircle, IconWoman, IconCloseCircle, IconMan } from '@emooa/icon';
 
 const App: React.FC = () => {
   return (
     <Space>
-      <Icon type="icon-image-fill" />
-      <Icon type="icon-image-fill" color="red" />
-      <Icon type="icon-image-fill" color="green" />
-      <Icon type="icon-image-fill" color="orange" />
+      <IconApps />
+      <IconCheckCircle color="green" />
+      <IconCloseCircle color="red" />
+      <IconWoman color="lightsalmon" />
+      <IconMan color="lightskyblue" />
     </Space>
   );
 };

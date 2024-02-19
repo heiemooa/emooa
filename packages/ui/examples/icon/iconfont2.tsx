@@ -4,7 +4,7 @@ import { Icon, Space } from '@emooa/ui';
 const IconFont = Icon.createFromIconfontCN({
   url: [
     '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overridden)
-    '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python
+    '//sf1-cdn-tos.toutiaostatic.com/obj/iconfont/index_8132353a46ca4ac1314b8903202269af.js', // icon-person, icon-flag
   ],
 });
 
@@ -12,8 +12,8 @@ const App: React.FC = () => (
   <Space>
     <IconFont type="icon-javascript" />
     <IconFont type="icon-java" />
-    <IconFont type="icon-shoppingcart" />
-    <IconFont type="icon-python" />
+    <IconFont type="icon-person" />
+    <IconFont type="icon-flag" />
   </Space>
 );
 

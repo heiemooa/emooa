@@ -1,11 +1,12 @@
 import React from 'react';
-import { Space, Icon } from '@emooa/ui';
+import { Space } from '@emooa/ui';
+import { IconDelete, IconEdit, IconAttachment } from '@emooa/icon';
 
 const App: React.FC = () => (
   <Space split="|">
-    <Icon type="icon-lajitong" color="grey" />
-    <Icon type="icon-star" color="grey" />
-    <Icon type="icon-lajitong" color="red" />
+    <IconEdit />
+    <IconAttachment />
+    <IconDelete color="red" />
   </Space>
 );
 
