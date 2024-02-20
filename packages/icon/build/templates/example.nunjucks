@@ -72,6 +72,15 @@ export default function ({ lang = 'zh-CN' }) {
   const iconItemStyle = (name) => ({ border: '1px solid #eee', padding: 10, textAlign: 'center', aspectRatio: 3/2, cursor: 'pointer', background: hover === name ? '#efefef': 'initial', transition: 'all .3s', borderRadius: 4 });
   const iconItemNameStyle = { marginTop: 10,  overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 12, color: '#777' }
 
+  const copy = name => {
+    const input = document.createElement('input');
+    document.body.appendChild(input);
+    input.value = `<${name} />`;
+    input.select();
+    document.execCommand('copy', false);
+    input.remove();
+  };
+
   return (
     <div>
       <Space style={spaceStyle}>
@@ -102,7 +111,10 @@ export default function ({ lang = 'zh-CN' }) {
                 const Tag = icons[n.componentName];
                 const newIcon = newIcons.find(_n => _n.name === n.componentName);
                 return (
-                  <div key={n.componentName} aria-label={n.componentName} style={iconItemStyle(n.componentName)} onMouseEnter={() => setHover(n.componentName)} onMouseLeave={() => setHover('')}>
+                  <div key={n.componentName} aria-label={n.componentName} style={iconItemStyle(n.componentName)} onMouseEnter={() => setHover(n.componentName)} onMouseLeave={() => setHover('')} onClick={(e) => {
+                    e.stopPropagation()
+                    copy(n.componentName)
+                  }}>
                     <Tag
                       strokeWidth={strokeWidth}
                       strokeLinecap={lineCap}

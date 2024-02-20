@@ -1,6 +1,8 @@
 ---
 nav: 组件
-group: 通用
+group: 
+    title: 布局
+    order: 1
 order: 0
 toc: content
 ---

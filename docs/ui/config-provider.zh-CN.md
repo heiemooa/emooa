@@ -2,7 +2,7 @@
 nav: 组件
 group: 
     title: 其他
-    order: 1
+    order: 2
 order: 0
 toc: content
 ---
