@@ -1,0 +1,48 @@
+{
+  "name": "@emooa/icon",
+  "version": "0.0.0",
+  "description": "Emooa react icon component",
+  "author": "heiemooa <243973775@qq.com>",
+  "homepage": "https://docs.emooa.com/ui/icon",
+  "keywords": [
+    "icon",
+    "react",
+    "ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heiemooa/emooa.git"
+  },
+  "license": "ISC",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
+  "directories": {
+    "lib": "esm",
+    "test": "__tests__"
+  },
+  "files": [
+    "esm",
+    "cjs"
+  ],
+  "scripts": {
+    "test": "jest",
+    "rimraf": "rimraf esm && rimraf cjs && rimraf lib",
+    "build": "yarn run rimraf && tsc && cp -r build/templates lib/templates && cd lib/ && node generate.js && node generate-example.js && node generate-json.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-arrow-functions": "^7.23.3",
+    "@babel/plugin-transform-destructuring": "^7.23.3",
+    "@babel/plugin-transform-runtime": "^7.23.9",
+    "@babel/plugin-transform-spread": "^7.23.3",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "nunjucks": "^3.2.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

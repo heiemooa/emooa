@@ -1,0 +1,110 @@
+.dumi-default-doc-layout {
+  main {
+    max-width: 100%;
+  }
+  .dumi-default-header:not([data-static]) {
+    &::before {
+      content: '';
+      background-image: linear-gradient(-45deg, #95f3d9, #369eff, #ffcb47, #e34ba9);
+      background-size: 400% 400%;
+      border-radius: inherit;
+      animation: 5s animation-1gj30q7 5s ease infinite;
+      pointer-events: none;
+      position: absolute;
+      z-index: 0;
+      top: -100px;
+      left: 30vw;
+      transform: rotate(15deg);
+      width: 60vw;
+      height: 200px;
+      opacity: 0.2;
+      filter: blur(100px);
+    }
+
+    .dumi-default-header-left {
+      width: 200px;
+    }
+  }
+  .dumi-default-hero-title > span {
+    font-size: 180px;
+    font-weight: 400;
+    background-image: linear-gradient(-45deg, #ffcb47, #e34ba9, #369eff, #95f3d9);
+    background-size: 400% 400%;
+    animation: 5s animation-1gj30q7 5s ease infinite;
+  }
+  .dumi-default-header {
+    &-content {
+      max-width: 100%;
+      height: 64px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+      background-color: rgba(248, 248, 248, 0.4);
+
+      .dumi-default-navbar > li:not(:last-child) {
+        margin-inline-end: 24px;
+      }
+      .dumi-default-navbar > li > a.active::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+      }
+    }
+    .dumi-default-search-bar-input {
+      font-size: 0.8125rem;
+    }
+  }
+
+  .dumi-default-hero::before {
+    content: '';
+    background-image: linear-gradient(-45deg, #ffcb47, #e34ba9, #369eff, #95f3d9);
+    backdrop-filter: blur(100px);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    animation: 5s animation-1gj30q7 5s ease infinite;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 20vw;
+    // transform: rotate(5deg);
+    width: 60vw;
+    height: 400px;
+    opacity: 0.2;
+    filter: blur(100px);
+  }
+
+  .dumi-default-sidebar {
+    padding-inline-end: 16px;
+    width: 200px;
+  }
+  .dumi-default-sidebar > dl > dd > a {
+    font-size: 0.875rem;
+  }
+
+  .dumi-default-content {
+    article {
+      .dumi-default-previewer-meta {
+        .dumi-default-previewer-desc {
+          .markdown {
+            padding-top: 24px;
+            p {
+              font-size: 0.8125rem;
+              color: grey;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes animation-1gj30q7 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

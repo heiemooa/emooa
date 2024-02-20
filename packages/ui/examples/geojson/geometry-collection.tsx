@@ -1,7 +1,7 @@
 import React from 'react';
 import { GeoJSON } from '@emooa/ui';
 
-const App = () => (
+const App: React.FC = () => (
   <GeoJSON
     style={{ width: '100%', height: 200 }}
     fillStyle="Honeydew"

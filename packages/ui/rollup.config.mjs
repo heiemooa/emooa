@@ -10,11 +10,16 @@ const pkg = JSON.parse(readFileSync('./package.json'));
 export default [
   {
     input: './src/index.ts',
+    treeshake: {
+      propertyReadSideEffects: false,
+      moduleSideEffects: 'no-external',
+    },
     output: [
       {
         format: 'esm',
-        sourcemap: true,
+        sourcemap: false,
         dir: path.dirname(pkg.module),
+        exports: 'named',
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下
       },
@@ -22,7 +27,12 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ outDir: 'esm', declaration: true, declarationDir: 'esm' }),
+      typescript({
+        sourceMap: false, // 禁用源映射
+        outDir: 'esm',
+        declaration: true,
+        declarationDir: 'esm',
+      }),
       postcss(),
     ],
     external: ['react', 'react-dom'], // 将这些模块视为外部模块，不会打包进 bundle
@@ -32,7 +42,8 @@ export default [
     output: [
       {
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
+        exports: 'named',
         dir: path.dirname(pkg.main),
         preserveModules: true, // 保留模块结构
         preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下
@@ -41,7 +52,12 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ outDir: 'cjs', declaration: true, declarationDir: 'cjs' }),
+      typescript({
+        sourceMap: false, // 禁用源映射
+        outDir: 'cjs',
+        declaration: true,
+        declarationDir: 'cjs',
+      }),
       postcss(),
     ],
     external: ['react', 'react-dom'], // 将这些模块视为外部模块，不会打包进 bundle

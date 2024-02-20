@@ -1,0 +1,26 @@
+import React, { useContext } from 'react';
+import { IconContext } from '../context';
+
+function {{ iconName }}Component (iconProps, ref) {
+  const { prefixCls = 'eui' } = useContext(IconContext);
+  const { spin, className, ...rest } = iconProps;
+  const props = {
+    height: '1em',
+    width: '1em',
+    "aria-hidden": true,
+    cursor: !!rest.onClick ? 'pointer' : 'inherit',
+    focusable: false,
+    ref,
+    className: `${className ? className + ' ' : ''}${prefixCls}-icon ${prefixCls}-icon-{{iconClassName}}`,
+    ...rest,
+  };
+
+  if (spin) {
+    props.className = `${props.className} ${prefixCls}-icon-loading`;
+  }
+  return {{ svg }};
+}
+
+const {{ iconName }} = React.forwardRef({{ iconName }}Component);
+
+export default {{ iconName }};

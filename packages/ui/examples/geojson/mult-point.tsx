@@ -1,7 +1,7 @@
 import React from 'react';
 import { GeoJSON } from '@emooa/ui';
 
-const App = () => (
+const App: React.FC = () => (
   <GeoJSON
     fillStyle="green"
     data={{

@@ -8,8 +8,9 @@
     "sourceMap": true,
     "removeComments": true,
     "lib": ["es6", "DOM"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
-  "include": [ ".dumirc.ts",],
-  "exclude": ["node_modules", "docs/*/*.md"],
+  "include": [".dumirc.ts"],
+  "exclude": ["node_modules", "docs/*/*.md"]
 }

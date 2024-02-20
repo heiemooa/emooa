@@ -1,0 +1,127 @@
+// 用在组件文档里，展示所有 Icon
+import React, { useState } from 'react';
+import { Space } from '@emooa/ui';
+import * as icons from '@emooa/icon';
+
+const svgData = JSON.parse('{{ svgData | safe }}');
+const newIcons = JSON.parse('{{ newIcons | safe }}');
+
+const locale = {
+  'zh-CN': {
+    title: '图标配置',
+    line: '线性图标',
+    fill: '面性图标',
+    color: '多色图标',
+    search: '搜索图标，点击可复制图标用法',
+    'stroke-width': '线宽：',
+    size: '图标大小：',
+    lineJoin: '拐角：',
+    lineCap: '端点：',
+    desc1: '全局配置（将以下的类添加到 css 中）:',
+    desc2: (
+      <span>
+        单个组件的话可以直接将以上样式写到 <code>IconXXX</code> 的 <code>style</code> 中
+      </span>
+    ),
+    'show-config': '显示配置',
+    add: '添加',
+  },
+  'en-US': {
+    title: 'Icon Configuration',
+    line: 'Stroke',
+    fill: 'Fill',
+    color: 'Color',
+    search: 'Search icon, click to copy usage',
+    'stroke-width': 'Stroke Width:',
+    size: 'Size:',
+    lineJoin: 'Line Join:',
+    lineCap: 'Line Cap:',
+    desc1: 'Global configuration (add the following class to css):',
+    desc2: (
+      <span>
+        For a single component, you can directly write the above style to the <code>style</code>
+        of <code>IconXXX</code>
+      </span>
+    ),
+    'show-config': 'Show Config',
+    add: 'Add',
+  },
+};
+
+export default function ({ lang = 'zh-CN' }) {
+  const [type, setType] = useState('outline');
+  const [filter, setFilter] = useState('');
+  const [strokeWidth, setStrokeWidth] = useState(3);
+  const [lineCap, setLineCap] = useState('butt');
+  const [lineJoin, setLineJoin] = useState('miter');
+  const [fontSize, setFontSize] = useState(32);
+  const [hover, setHover] = useState('');
+  const iconStyle = (name) => ({ fontSize, transform: name === hover ? 'scale(1.3)': 'initial', transition: 'all .3s' });
+
+  const i18n = JSON.parse('{{ i18n | safe }}')[lang];
+
+  const t = locale[lang];
+
+  const spaceStyle = { marginBottom: 10 };
+  const outlineStyle = { color: type === 'outline' ? 'red' : undefined };
+  const fillStyle = { color: type === 'fill' ? 'red' : undefined };
+  const colorStyle = { color: type === 'color' ? 'red' : undefined };
+  const iconListStyle = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gridGap: 10, color: '#333' };
+  const borderStyle = { border: '1px solid #eee', padding: 10, margin: '20px 0' };
+  const borderBottomStyle = { borderBottom: '1px solid #eee', padding: 10, marginBottom: 10 };
+  const iconItemStyle = (name) => ({ border: '1px solid #eee', padding: 10, textAlign: 'center', aspectRatio: 3/2, cursor: 'pointer', background: hover === name ? '#efefef': 'initial', transition: 'all .3s', borderRadius: 4 });
+  const iconItemNameStyle = { marginTop: 10,  overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 12, color: '#777' }
+
+  return (
+    <div>
+      <Space style={spaceStyle}>
+        <button onClick={() => setType('outline')} style={outlineStyle}>
+          {t.line}
+        </button>
+        <button onClick={() => setType('fill')} style={fillStyle}>
+          {t.fill}
+        </button>
+        <button onClick={() => setType('color')} style={colorStyle}>
+          {t.color}
+        </button>
+      </Space>
+      {Object.keys(svgData).map(key => {
+        const filteredData =
+          filter && svgData[key][type]
+            ? svgData[key][type].filter(s => {
+                return s.componentName.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+              })
+            : svgData[key][type];
+        return filteredData && filteredData.length ? (
+          <div key={key} style={borderStyle}>
+            <div id={i18n[key]} style={borderBottomStyle}>
+              {i18n[key]}
+            </div>
+            <div style={iconListStyle}>
+              {filteredData.map(n => {
+                const Tag = icons[n.componentName];
+                const newIcon = newIcons.find(_n => _n.name === n.componentName);
+                return (
+                  <div key={n.componentName} aria-label={n.componentName} style={iconItemStyle(n.componentName)} onMouseEnter={() => setHover(n.componentName)} onMouseLeave={() => setHover('')}>
+                    <Tag
+                      strokeWidth={strokeWidth}
+                      strokeLinecap={lineCap}
+                      strokeLinejoin={lineJoin}
+                      style={iconStyle(n.componentName)}
+                      />
+                    <div style={iconItemNameStyle}>{n.componentName}</div>
+                    {newIcon ? (
+                      <span className="version">
+                        {newIcon.version} {t.add}
+                      </span>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : null;
+      })}
+    </div>
+  );
+}

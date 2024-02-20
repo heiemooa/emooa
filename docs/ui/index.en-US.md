@@ -1,5 +1,5 @@
 ---
-nav: UI Components
+nav: Components
 group:
   title: Introduction
   order: -1
