@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { lighten } from './util';
 import { ConfigProviderProps } from './interface';
-import omit from '../_utils/omit';
+import omit from '@/_utils/omit';
 import { ConfigContext, DefaultConfigProviderProps } from './context';
-import { isObject } from '../_utils/is';
+import { isObject } from '@/_utils/is';
 
 const colorList = {
   primaryColor: {
@@ -62,7 +62,7 @@ function ConfigProvider(props: ConfigProviderProps) {
   }, [theme]);
 
   function getPrefixCls(componentName: string) {
-    return `${prefixCls}-${componentName}`;
+    return componentName ? `${prefixCls}-${componentName}` : prefixCls;
   }
 
   const config: ConfigProviderProps = {

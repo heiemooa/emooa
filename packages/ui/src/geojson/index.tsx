@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { Coordinates, GeoJSONProps, Geometry } from './interface';
-import { ConfigContext } from '../config-provider';
+import { ConfigContext } from '@/config-provider';
+import useStyle from './style';
 
 const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
   const ref = useRef<HTMLCanvasElement>(null);
-  const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
+  const { getPrefixCls, components } = useContext(ConfigContext);
 
   const {
     data,
@@ -17,7 +18,10 @@ const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
     ...rest
   }: GeoJSONProps = Object.assign({}, components?.GeoJSON, props);
 
-  const classnames = classNames(prefixCls, getPrefixCls('geojson'), className);
+  const prefixCls = getPrefixCls('geojson');
+  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+
+  const classnames = classNames(prefixCls, hashId, cssVarCls, className);
 
   const getLonlat = (geometries: Geometry[], index = 0 | 1): number[] => {
     return geometries
@@ -336,7 +340,7 @@ const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
     draw(ctx, offsetGeometries, scaleMinMaxOffset);
   }, [data]);
 
-  return <canvas className={classnames} ref={ref} {...rest} />;
+  return wrapCSSVar(<canvas className={classnames} ref={ref} {...rest} />);
 });
 
 export default GeoJSON;

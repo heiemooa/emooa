@@ -1,9 +1,10 @@
 import React, { useContext, Fragment, forwardRef, ReactElement, useRef } from 'react';
-import { isArray, isNumber } from '../_utils/is';
-import { SpaceSize, SpaceProps } from './interface';
-import { ConfigContext } from '../config-provider';
+import { SpaceProps } from './interface';
+import { ConfigContext } from '@/config-provider';
 import classNames from 'classnames';
-import { ConfigProviderProps } from '../config-provider/interface';
+import { ConfigProviderProps } from '@/config-provider/interface';
+import useStyle from './style';
+import { isPresetSize, isValidGapNumber } from '@/_utils/gap';
 
 function toArray(children) {
   let childrenList = [];
@@ -19,13 +20,7 @@ function toArray(children) {
 }
 
 const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) => {
-  const {
-    prefixCls,
-    getPrefixCls,
-    size: componentSize,
-    components,
-    rtl,
-  }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, size: componentSize, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
     children,
@@ -40,85 +35,56 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
 
   const innerAlign = align || (direction === 'horizontal' ? 'center' : '');
 
-  const space = getPrefixCls('space');
+  const prefixCls = getPrefixCls('space');
+  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [horizontalSize, verticalSize] = Array.isArray(size) ? size : ([size, size] as const);
+
+  const isPresetVerticalSize = isPresetSize(verticalSize);
+  const isPresetHorizontalSize = isPresetSize(horizontalSize);
+  const isValidVerticalSize = isValidGapNumber(verticalSize);
+  const isValidHorizontalSize = isValidGapNumber(horizontalSize);
+
   const classnames = classNames(
     prefixCls,
-    space,
+    hashId,
     {
-      [`${space}-${direction}`]: direction,
-      [`${space}-align-${innerAlign}`]: innerAlign,
-      [`${space}-wrap`]: wrap,
-      [`${space}-rtl`]: rtl,
+      [`${prefixCls}-${direction}`]: direction,
+      [`${prefixCls}-align-${innerAlign}`]: innerAlign,
+      [`${prefixCls}-wrap`]: wrap,
+      [`${prefixCls}-rtl`]: rtl,
+      [`${prefixCls}-gap-row-${verticalSize}`]: isPresetVerticalSize,
+      [`${prefixCls}-gap-col-${horizontalSize}`]: isPresetHorizontalSize,
     },
     className,
+    cssVarCls,
   );
 
-  function getMargin(size: SpaceSize) {
-    if (isNumber(size)) {
-      return size;
-    }
-    switch (size) {
-      case 'mini':
-        return 4;
-      case 'small':
-        return 8;
-      case 'medium':
-        return 16;
-      case 'large':
-        return 24;
-      default:
-        return 8;
-    }
-  }
+  const getStyle = (): React.CSSProperties => {
+    const styles = {};
 
-  const getStyle = () => {
-    const styles = {
-      display: 'flex',
-    };
-
-    if (typeof size === 'string' || typeof size === 'number') {
-      const margin = getMargin(size);
-      styles['gap'] = margin;
-    }
-    if (isArray(size)) {
-      styles['gap'] = `${getMargin(size[0])}px ${getMargin(size[1])}px`;
+    if (!isPresetHorizontalSize && isValidHorizontalSize) {
+      styles['columnGap'] = horizontalSize;
     }
 
-    if (wrap) {
-      styles['flexWrap'] = 'wrap';
-    }
-
-    if (innerAlign) {
-      styles['alignItems'] = innerAlign;
-    }
-
-    if (direction === 'horizontal') {
-      styles['flexDirection'] = 'row';
-    }
-
-    if (direction === 'vertical') {
-      styles['flexDirection'] = 'column';
-    }
-
-    if (rtl) {
-      styles['direction'] = 'rtl';
+    if (!isPresetVerticalSize && isValidVerticalSize) {
+      styles['rowGap'] = verticalSize;
     }
 
     return styles;
   };
 
-  return (
+  return wrapCSSVar(
     <div ref={ref} className={classnames} style={Object.assign({}, getStyle(), style)} {...rest}>
       {toArray(children)?.map((child, index) => {
         const key = (child as ReactElement)?.key || index;
         return (
           <Fragment key={key}>
-            {split && index > 0 && <span className={`${space}-item-split`}>{split}</span>}
-            <div className={`${space}-item`}>{child}</div>
+            {split && index > 0 && <span className={`${prefixCls}-item-split`}>{split}</span>}
+            <div className={`${prefixCls}-item`}>{child}</div>
           </Fragment>
         );
       })}
-    </div>
+    </div>,
   );
 });
 

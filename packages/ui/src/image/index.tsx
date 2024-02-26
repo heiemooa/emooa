@@ -5,11 +5,12 @@
 import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import { ImageProps } from './interface';
-import { ConfigContext } from '../config-provider';
+import { ConfigContext } from '@/config-provider';
+import useStyle from './style';
 
 const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
   const ref = useRef<HTMLImageElement>(null);
-  const { prefixCls, getPrefixCls, components } = useContext(ConfigContext);
+  const { getPrefixCls, components } = useContext(ConfigContext);
 
   const {
     src,
@@ -22,7 +23,11 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
     ...rest
   }: ImageProps = Object.assign({}, components?.Image, props);
 
-  const classnames = classNames(prefixCls, getPrefixCls('image'), className);
+  const prefixCls = getPrefixCls('image');
+
+  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+
+  const classnames = classNames(prefixCls, hashId, cssVarCls, className);
 
   useImperativeHandle(pref, () => ref.current);
 
@@ -66,7 +71,7 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
     };
   }, [src]);
 
-  return <img ref={ref} className={classnames} {...rest} />;
+  return wrapCSSVar(<img ref={ref} className={classnames} {...rest} />);
 });
 
 export default Image;

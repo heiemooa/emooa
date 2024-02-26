@@ -32,6 +32,7 @@
     "build": "yarn run rimraf && rollup -c"
   },
   "devDependencies": {
+    "@ctrl/tinycolor": "^4.0.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
@@ -42,9 +43,12 @@
     "rollup-plugin-postcss": "^4.0.2"
   },
   "dependencies": {
+    "@emotion/hash": "^0.9.1",
+    "@emotion/unitless": "^0.8.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "stylis": "^4.3.1"
   },
   "publishConfig": {
     "access": "public"
