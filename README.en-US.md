@@ -20,6 +20,14 @@ yarn add @emooa/logger
 yarn add @emooa/logger
 ```
 
+#### [@emooa/icon](/docs/ui/icon.zh-CN.md)
+
+`@emooa/icon` includes a large number of `iconfont` icons and supports dynamically customized icon libraries.
+
+```
+yarn add @emooa/icon
+```
+
 ## Development Process
 
 #### 1. Create a new module

@@ -42,4 +42,14 @@ toc: content
 
 ### Size
 
-`small` | `middle` | `large` | `number`
+`mini` | `small` | `medium` | `large` | `number`
+
+## 主题变量 Theme
+
+## Token
+| **参数** | **类型** | **默认值** | **定义** |
+| --- | --- | --- | --- |
+| paddingXXS    | `number` | 4        | 控制元素的最小内间距，对应 size 为 `mini`。   |
+| paddingXS     | `number` | 8        | 控制元素的小内间距，对应 size 为 `small`。    |
+| padding       | `number` | 16       | 控制元素的内间距，对应 size 为 `medium` 。    |
+| paddingLG     | `number` | 24       | 控制元素的大内间距，对应 size 为 `large`。  |

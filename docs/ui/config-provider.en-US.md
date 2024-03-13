@@ -36,6 +36,43 @@ export default App;
 <code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>
 <code src="../../packages/ui/examples/config-provider/rtl.tsx" description="Set the component to a view that reads from right to left.">RTL View</code>
 
+### Get Eui Token
+
+If you want to use the Theme Token under the current theme, we provide 2 ways to obtain it.
+
+```js
+import React from 'react';
+import { ConfigProvider, Theme } from '@emooa/ui';
+
+const { useToken, getToken } = Theme;
+const theme = {
+  token: {
+    colorPrimary: '#123456',
+  },
+};
+
+// Method one, obtain through static method
+const token = getToken(theme);
+
+// Method two, through component hook method
+const App = () => {
+  const { token } = useToken();
+  return null;
+};
+
+const Demo: React.FC = () => {
+  return (
+    <>
+      <ConfigProvider theme={theme}>
+        <App />
+      </ConfigProvider>
+    </>
+  );
+};
+
+export default Demo;
+
+```
 
 ## API
 
@@ -67,7 +104,6 @@ export type Components = {
 };
 ```
 
-### Theme
-```ts
+## 主题变量 Theme
+
 // TODO
-```

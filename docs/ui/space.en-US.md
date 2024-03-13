@@ -42,4 +42,14 @@ Avoid components that are too close together to create a unified space.
 
 ### Size
 
-`small` | `middle` | `medium` | `large` | `number`
+`mini` | `small` | `medium` | `large` | `number`
+
+## Theme
+
+## Token
+| **Parameters** | **Type** | **Default value** | **Definition** |
+| --- | --- | --- | --- |
+| paddingXXS    | `number` | 4        | Controls the minimum inner spacing of elements, corresponding size is `mini`.   |
+| paddingXS     | `number` | 8        | Controls the small inner spacing of elements, corresponding size is `small`.    |
+| padding       | `number` | 16       | Controls the inner spacing of elements, corresponding size is `medium`.    |
+| paddingLG     | `number` | 24       | Controls the large inner spacing of elements, corresponding size is `large`.  |
