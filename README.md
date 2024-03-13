@@ -20,6 +20,14 @@ yarn add @emooa/logger
 yarn add @emooa/ui
 ```
 
+#### [@emooa/icon](/docs/ui/icon.zh-CN.md)
+
+`@emooa/icon` 包括海量的 `iconfont` 图标，且支持动态自定义的图标库。
+
+```
+yarn add @emooa/icon
+```
+
 ## 开发流程
 
 #### 1. 创建新的模块
