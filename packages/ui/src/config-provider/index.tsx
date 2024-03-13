@@ -1,65 +1,15 @@
-import React, { useEffect } from 'react';
-import { lighten } from './util';
+import React from 'react';
 import { ConfigProviderProps } from './interface';
 import omit from '@/_utils/omit';
 import { ConfigContext, DefaultConfigProviderProps } from './context';
-import { isObject } from '@/_utils/is';
-
-const colorList = {
-  primaryColor: {
-    default: '--arcoblue-6',
-    hover: '--arcoblue-5',
-    active: '--arcoblue-7',
-  },
-  successColor: {
-    default: '--green-6',
-    hover: '--green-5',
-    active: '--green-7',
-  },
-  infoColor: {
-    default: '--arcoblue-6',
-    hover: '--arcoblue-5',
-    active: '--arcoblue-7',
-  },
-  warningColor: {
-    default: '--orangered-6',
-    hover: '--orangered-5',
-    active: '--orangered-7',
-  },
-  dangerColor: {
-    default: '--red-6',
-    hover: '--red-5',
-    active: '--red-7',
-  },
-};
-
-function setTheme(theme: ConfigProviderProps['theme']) {
-  if (theme && isObject(theme)) {
-    const root = document.body;
-    Object.keys(colorList).forEach(color => {
-      if (theme[color]) {
-        root.style.setProperty(colorList[color].default, lighten(theme[color], 0));
-
-        if (!theme[`${color}Hover`]) {
-          root.style.setProperty(colorList[color].hover, lighten(theme[color], 10));
-        }
-
-        if (!theme[`${color}Active`]) {
-          root.style.setProperty(colorList[color].active, lighten(theme[color], -10));
-        }
-      }
-    });
-  }
-}
+import { EuiTokenContext, defaultTheme } from '@/_theme/context';
+import seedToken from '@/_theme/themes/seed';
+import { EuiTokenProviderProps } from '@/_theme/interface';
 
 function ConfigProvider(props: ConfigProviderProps) {
   const _props: ConfigProviderProps = Object.assign({}, DefaultConfigProviderProps, props);
 
-  const { theme, prefixCls, children } = _props;
-
-  useEffect(() => {
-    setTheme(theme);
-  }, [theme]);
+  const { prefixCls, theme, children } = _props;
 
   function getPrefixCls(componentName: string) {
     return componentName ? `${prefixCls}-${componentName}` : prefixCls;
@@ -70,6 +20,44 @@ function ConfigProvider(props: ConfigProviderProps) {
     getPrefixCls,
   };
 
+  // ================================ Dynamic theme ================================
+  const memoTheme = React.useMemo(() => {
+    const { token, components, cssVar, hashed = true, ...rest } = theme || {};
+
+    const parsedComponents: any = {};
+    Object.entries(components || {}).forEach(([componentName, componentToken]) => {
+      const parsedToken: typeof componentToken & { theme?: typeof defaultTheme } = {
+        ...componentToken,
+      };
+      parsedComponents[componentName] = parsedToken;
+    });
+
+    const mergedToken = {
+      ...seedToken,
+      ...token,
+    };
+
+    return {
+      ...rest,
+      hashed,
+      token: mergedToken,
+      theme: defaultTheme,
+      components: parsedComponents,
+      override: {
+        override: mergedToken,
+        ...parsedComponents,
+      },
+      cssVar: cssVar as Exclude<EuiTokenProviderProps['cssVar'], boolean>,
+    };
+  }, [theme]);
+
+  if (theme) {
+    return (
+      <ConfigContext.Provider value={config}>
+        <EuiTokenContext.Provider value={memoTheme}>{children}</EuiTokenContext.Provider>
+      </ConfigContext.Provider>
+    );
+  }
   return <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>;
 }
 

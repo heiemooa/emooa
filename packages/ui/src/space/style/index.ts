@@ -100,7 +100,4 @@ export default genStyleHooks(
     return [genSpaceStyle(spaceToken), genSpaceGapStyle(spaceToken)];
   },
   prepareComponentToken,
-  {
-    resetStyle: false,
-  },
 );

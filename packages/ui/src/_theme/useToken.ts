@@ -1,7 +1,7 @@
 import React from 'react';
 import Theme from '@/_cssinjs/theme/Theme';
-import { AliasToken, GlobalToken, BaseToken, SeedToken } from './interface';
-import { EuiTokenContext, EuiTokenProviderProps, defaultTheme } from './context';
+import { AliasToken, GlobalToken, BaseToken, SeedToken, EuiTokenProviderProps } from './interface';
+import { EuiTokenContext } from './context';
 import useCacheToken from '@/_cssinjs/hooks/useCacheToken';
 import defaultSeedToken from './themes/seed';
 import formatToken from './util/alias';
@@ -61,7 +61,7 @@ const preserve: {
   screenXXLMin: true,
 };
 
-export const getComputedToken = (
+const getComputedToken = (
   originToken: SeedToken,
   overrideToken: EuiTokenProviderProps['components'] & {
     override?: Partial<AliasToken>;
@@ -112,29 +112,23 @@ export default function useToken(): [
   realToken: GlobalToken,
   cssVar?: EuiTokenProviderProps['cssVar'],
 ] {
-  const { token: rootEuiToken, hashed, theme, override, cssVar } = React.useContext(EuiTokenContext);
+  const { token: rootToken, hashed, theme, override, cssVar } = React.useContext(EuiTokenContext);
 
   const salt = `version-${hashed || ''}`;
 
-  const mergedTheme = theme || defaultTheme;
-
-  const [token, hashId, realToken] = useCacheToken<GlobalToken, SeedToken>(
-    mergedTheme,
-    [defaultSeedToken, rootEuiToken],
-    {
-      salt,
-      override,
-      getComputedToken,
-      formatToken,
-      cssVar: cssVar && {
-        prefix: cssVar.prefix,
-        key: cssVar.key,
-        unitless,
-        ignore,
-        preserve,
-      },
+  const [token, hashId, realToken] = useCacheToken<GlobalToken, SeedToken>(theme, [defaultSeedToken, rootToken], {
+    salt,
+    override,
+    getComputedToken,
+    formatToken,
+    cssVar: cssVar && {
+      prefix: cssVar.prefix,
+      key: cssVar.key,
+      unitless,
+      ignore,
+      preserve,
     },
-  );
+  });
 
-  return [mergedTheme, realToken, hashed ? hashId : '', token, cssVar];
+  return [theme, realToken, hashed ? hashId : '', token, cssVar];
 }

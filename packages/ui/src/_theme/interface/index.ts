@@ -45,3 +45,16 @@ export type UseComponentStyleResult = [(node: React.ReactNode) => React.ReactEle
 export type GenerateStyle<ComponentToken extends AnyObject = AliasToken, ReturnType = CSSInterpolation> = (
   token: ComponentToken,
 ) => ReturnType;
+
+export interface EuiTokenProviderProps {
+  token: Partial<AliasToken>;
+  theme?: Theme<SeedToken, BaseToken>;
+  components?: ComponentsToken;
+  /** Just merge `token` & `override` at top to save perf */
+  override: { override: Partial<AliasToken> } & ComponentsToken;
+  hashed?: string | boolean;
+  cssVar?: {
+    prefix?: string;
+    key?: string;
+  };
+}

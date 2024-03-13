@@ -4,8 +4,8 @@ import { ImageProps } from '@/image/interface';
 import { IconProps } from '@/icon/interface';
 import { GeoJSONProps } from '@/geojson/interface';
 import { SpaceProps } from '@/space/interface';
+import { EuiTokenProviderProps } from '@/_theme/interface';
 
-export type ThemeConfig = Record<string, any>;
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
@@ -36,7 +36,7 @@ export interface ConfigProviderProps {
    * @zh 主题配置
    * @en Theme Configuration
    */
-  theme?: ThemeConfig;
+  theme?: EuiTokenProviderProps;
   /**
    * @zh 配置组件的默认尺寸，只会对支持`size`属性的组件生效。
    * @en Configure the default size of the component, which will only take effect for components that support the `size` property.

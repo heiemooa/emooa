@@ -89,8 +89,3 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
 });
 
 export default Space;
-
-const A = () => {
-  const ref = useRef();
-  return <Space ref={ref} />;
-};

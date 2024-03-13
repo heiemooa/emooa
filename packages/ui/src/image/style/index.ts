@@ -30,7 +30,4 @@ export default genStyleHooks(
     return [genImageStyle(imageToken)];
   },
   prepareComponentToken,
-  {
-    resetStyle: false,
-  },
 );

@@ -26,7 +26,4 @@ export default genStyleHooks(
     return [genGeoJSONStyle(imageToken)];
   },
   prepareComponentToken,
-  {
-    resetStyle: false,
-  },
 );
