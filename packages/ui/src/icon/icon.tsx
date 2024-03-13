@@ -1,7 +1,7 @@
 import React, { ForwardRefExoticComponent, RefAttributes, forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { IconProps } from './interface';
-import { ConfigContext } from '../config-provider';
+import { ConfigContext } from '@/config-provider';
 import createFromIconfontCN from './createFromIconfontCN';
 
 interface IconComponent extends ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>> {

@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
-import { Locale } from '../_locale/interface';
-import { ImageProps } from '../image/interface';
-import { IconProps } from '../icon/interface';
-import { GeoJSONProps } from '../geojson/interface';
-import { SpaceProps } from '../space/interface';
+import { Locale } from '@/_locale/interface';
+import { ImageProps } from '@/image/interface';
+import { IconProps } from '@/icon/interface';
+import { GeoJSONProps } from '@/geojson/interface';
+import { SpaceProps } from '@/space/interface';
+import { EuiTokenProviderProps } from '@/_theme/interface';
 
-export type ThemeConfig = Record<string, any>;
+export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
   Image?: ImageProps;
@@ -35,13 +36,13 @@ export interface ConfigProviderProps {
    * @zh 主题配置
    * @en Theme Configuration
    */
-  theme?: ThemeConfig;
+  theme?: EuiTokenProviderProps;
   /**
    * @zh 配置组件的默认尺寸，只会对支持`size`属性的组件生效。
    * @en Configure the default size of the component, which will only take effect for components that support the `size` property.
    * @defaultValue default
    */
-  size?: 'mini' | 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * @zh 视图的表现形式是从右开始向左结束。
    * @en View starts from the right and ends on the left.
@@ -52,6 +53,6 @@ export interface ConfigProviderProps {
    * @en Global ClassName prefix
    */
   prefixCls?: string;
-  getPrefixCls?: (componentName: string, customPrefix?: string) => string;
+  getPrefixCls?: (componentName?: string, customPrefix?: string) => string;
   children?: ReactNode;
 }
