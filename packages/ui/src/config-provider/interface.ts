@@ -40,7 +40,7 @@ export interface ConfigProviderProps {
   /**
    * @zh 配置组件的默认尺寸，只会对支持`size`属性的组件生效。
    * @en Configure the default size of the component, which will only take effect for components that support the `size` property.
-   * @defaultValue default
+   * @defaultValue medium
    */
   size?: Size;
   /**

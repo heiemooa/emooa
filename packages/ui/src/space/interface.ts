@@ -16,9 +16,9 @@ export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   direction?: 'vertical' | 'horizontal';
   /**
-   * @zh 尺寸。( `2.15.0` 开始支持数组形式 )
-   * @en The space size. ( Array format add in `2.15.0` )
-   * @defaultValue small
+   * @zh 尺寸
+   * @en The space size
+   * @defaultValue medium
    */
   size?: SpaceSize | SpaceSize[];
   /**
@@ -29,7 +29,6 @@ export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * @zh 设置分隔符
    * @en Set separator
-   * @version 2.22.0
    */
   split?: ReactNode;
 }
