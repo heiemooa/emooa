@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, forwardRef, ReactElement, useRef } from 'react';
+import React, { useContext, Fragment, forwardRef, ReactElement } from 'react';
 import { SpaceProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import classNames from 'classnames';

@@ -5,10 +5,12 @@ import { IconProps } from '@/icon/interface';
 import { GeoJSONProps } from '@/geojson/interface';
 import { SpaceProps } from '@/space/interface';
 import { EuiTokenProviderProps } from '@/_theme/interface';
+import { ButtonProps } from '@/button/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
+  Button?: ButtonProps;
   Image?: ImageProps;
   Icon?: IconProps;
   GeoJSON?: GeoJSONProps;
