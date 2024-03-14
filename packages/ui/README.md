@@ -1,4 +1,4 @@
-# Emooa UI
+# [Emooa UI](https://docs.emooa.com/ui)
 
 An enterprise-class UI design language and React UI library.
 
@@ -29,11 +29,14 @@ yarn add @emooa/ui
 Simple example
 
 ```ts
-import React from "react";
-import { Image, GeoJSON } from "@emooa/ui";
+import { Button, GeoJSON, Image, Space } from "@emooa/ui";
 
 export default () => (
   <>
+    <Space>
+      <Button type="primary">Primary Button<Button/>
+      <Button>Secondary Button<Button/>
+    <Space/>
     <Image url="https://api.emooa.com/aimg" />
     <GeoJSON
       data={{
@@ -51,7 +54,7 @@ export default () => (
           },
         },
         properties: {
-          name: 'name',
+          name: '线',
         },
       }}
     />
@@ -61,9 +64,7 @@ export default () => (
 
 ## Components
 
-- [Image](/docs/ui/image.en-US.md)
-
-- [GeoJSON](/docs/ui/geojson.en-US.md)
+At present, common components such as `Button`, `Icon`, `Image`, `GeoJSON`, and `Space` have been implemented, and are being gradually added. For details, see [Emooa UI Components] (https://docs.emooa.com/ui ).
 
 ## License
 

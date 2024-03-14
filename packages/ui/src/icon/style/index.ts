@@ -6,9 +6,9 @@ export interface ComponentToken {
   // Component token here
 }
 
-interface GeoJSONToken extends FullToken<'GeoJSON'> {}
+interface IconToken extends FullToken<'Icon'> {}
 
-const genGeoJSONStyle: GenerateStyle<GeoJSONToken> = token => {
+const genIconStyle: GenerateStyle<IconToken> = token => {
   const { componentCls } = token;
 
   return {
@@ -17,13 +17,13 @@ const genGeoJSONStyle: GenerateStyle<GeoJSONToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'GeoJSON'> = () => ({});
+export const prepareComponentToken: GetDefaultToken<'Icon'> = () => ({});
 
 export default genStyleHooks(
-  'GeoJSON',
+  'Icon',
   token => {
-    const geojsonToken = mergeToken<GeoJSONToken>(token, {});
-    return [genGeoJSONStyle(geojsonToken)];
+    const iconToken = mergeToken<IconToken>(token, {});
+    return [genIconStyle(iconToken)];
   },
   prepareComponentToken,
 );

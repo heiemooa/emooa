@@ -1,5 +1,5 @@
 
-# Emooa UI
+# [Emooa UI](https://docs.emooa.com/ui)
 
 企业级 UI 设计语言和 React UI 库。
 
@@ -31,10 +31,14 @@ yarn add @emooa/ui
 简单的例子
 
 ```ts
-import { Image, GeoJSON } from "@emooa/ui";
+import { Button, GeoJSON, Image, Space } from "@emooa/ui";
 
 export default () => (
   <>
+    <Space>
+      <Button type="primary">Primary Button<Button/>
+      <Button>Secondary Button<Button/>
+    <Space/>
     <Image url="https://api.emooa.com/aimg" />
     <GeoJSON
       data={{
@@ -62,9 +66,7 @@ export default () => (
 
 ## 组件
 
-- [Image](/docs/ui/image.md)
-
-- [GeoJSON](/docs/ui/geojson.md)
+目前已经实现 `Button`、`Icon`、`Image`、`GeoJSON`、`Space` 等常见组件，并在逐步扩充，具体见 [Emooa UI Components](https://docs.emooa.com/ui)。
 
 ## Licensed
 

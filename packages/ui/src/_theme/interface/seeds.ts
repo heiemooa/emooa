@@ -125,7 +125,7 @@ export interface SeedToken {
    * @desc Emooa UI 中按钮和输入框等基础控件的高度
    * @default 32
    */
-  controlHeight: number;
+  baseHeight: number;
 
   //  ----------   zIndex   ---------- //
 
@@ -164,6 +164,36 @@ export interface SeedToken {
    * @name 动画基础时长。
    */
   motionBase: number;
+
+  /**
+   * @name CSS 过渡函数
+   * @desc 线性
+   */
+  motionLinear: string;
+
+  /**
+   * @name CSS 过渡函数
+   * @desc 标准
+   */
+  motionStandard: string;
+
+  /**
+   * @name CSS 过渡函数
+   * @desc 过冲
+   */
+  motionOvershoot: string;
+
+  /**
+   * @name CSS 过渡函数
+   * @desc 减速
+   */
+  motionDecelerate: string;
+
+  /**
+   * @name CSS 过渡函数
+   * @desc  加速
+   */
+  motionAccelerate: string;
 
   //  ----------   Style   ---------- //
 

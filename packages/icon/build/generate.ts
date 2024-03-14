@@ -105,6 +105,31 @@ fs.outputFile('../cjs/index.js', transform.code, err => {
 });
 /** 生成入口 js 文件结束 * */
 
+/** 生成 css 文件 */
+const css = `
+.eui-icon {
+  vertical-align: -2px;
+}
+.eui-icon.eui-icon-loading {
+  animation: icon-loading-circle 1s linear infinite;
+}
+@keyframes icon-loading-circle {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+`;
+fs.outputFile('../esm/index.css', css, err => {
+  if (err) return;
+  console.log('Generate css file success!'); // eslint-disable-line
+});
+
+fs.outputFile('../cjs/index.css', css, err => {
+  if (err) return;
+  console.log('Generate commonjs css file success!'); // eslint-disable-line
+});
+/** 生成 css 文件结束 */
+
 /** 生成 context 文件 */
 const contextJsx = `import { createContext } from 'react';
 

@@ -72,6 +72,10 @@
     filter: blur(100px);
   }
 
+  .dumi-default-doc-layout-mobile-bar {
+    top: 60px;
+  }
+
   .dumi-default-sidebar {
     padding-inline-end: 16px;
     width: 200px;
@@ -106,5 +110,11 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .dumi-default-doc-layout > main > .dumi-default-doc-layout-toc-wrapper {
+    display: none;
   }
 }

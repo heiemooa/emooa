@@ -376,25 +376,25 @@ interface ColorErrorBaseToken {
    * @name 错误色的描边色
    * @desc 错误色的描边色
    */
-  colorErrorBorder: string; // 3
+  colorErrorBorder: string; // 2
 
   /**
    * @name 错误色的描边色悬浮态
    * @desc 错误色的描边色悬浮态
    */
-  colorErrorBorderHover: string; // 4
+  colorErrorBorderHover: string; // 3
 
   /**
    * @name 错误色的深色悬浮态
    * @desc 错误色的深色悬浮态
    */
-  colorErrorHover: string; // 5
+  colorErrorHover: string; // 4
 
   /**
    * @name 错误色
    * @desc 错误色
    */
-  colorError: string; // 6
+  colorError: string; // 5
 
   /**
    * @name 错误色的深色激活态

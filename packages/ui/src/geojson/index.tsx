@@ -21,7 +21,7 @@ const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
   const prefixCls = getPrefixCls('geojson');
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
-  const classnames = classNames(prefixCls, hashId, cssVarCls, className);
+  const classnames = classNames(hashId, prefixCls, cssVarCls, className);
 
   const getLonlat = (geometries: Geometry[], index = 0 | 1): number[] => {
     return geometries

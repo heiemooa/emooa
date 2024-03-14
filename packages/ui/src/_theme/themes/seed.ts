@@ -7,7 +7,7 @@ export const defaultPresetColors: PresetColorType = {
   green: '#52C41A',
   magenta: '#EB2F96',
   pink: '#eb2f96',
-  red: '#F5222D',
+  red: '#ff4d4f',
   orange: '#FA8C16',
   yellow: '#FADB14',
   volcano: '#FA541C',
@@ -24,7 +24,7 @@ const seedToken: SeedToken = {
   colorPrimary: '#1677ff',
   colorSuccess: '#52c41a',
   colorWarning: '#faad14',
-  colorError: '#ff4d4f',
+  colorError: '#f5222d',
   colorInfo: '#1677ff',
   colorLink: '',
   colorTextBase: '',
@@ -45,17 +45,22 @@ const seedToken: SeedToken = {
   // Motion
   motionUnit: 0.1,
   motionBase: 0,
+  motionLinear: 'cubic-bezier(0, 0, 1, 1)', // 线性
+  motionStandard: 'cubic-bezier(0.34, 0.69, 0.1, 1)', // 标准
+  motionOvershoot: 'cubic-bezier(0.3, 1.3, 0.3, 1)', // 过冲
+  motionDecelerate: 'cubic-bezier(0.4, 0.8, 0.74, 1)', // 减速
+  motionAccelerate: 'cubic-bezier(0.26, 0, 0.6, 0.2)', //// 加速
 
   // Radius
-  borderRadius: 6,
+  borderRadius: 4,
 
   // Size
   sizeUnit: 4,
   sizeStep: 4,
   sizePopupArrow: 16,
 
-  // Control Base
-  controlHeight: 32,
+  // Base
+  baseHeight: 32,
 
   // zIndex
   zIndexBase: 0,

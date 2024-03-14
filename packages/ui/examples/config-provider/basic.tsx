@@ -19,6 +19,7 @@ const App: React.FC = () => {
           large
         </button>
       </Space>
+      <br />
       <ConfigProvider
         size={size}
         components={{
