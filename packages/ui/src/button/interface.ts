@@ -1,4 +1,7 @@
+import { Size } from '@/config-provider/interface';
 import { ReactNode } from 'react';
+
+export type { Size as ButtonSize } from '@/config-provider/interface';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
@@ -13,7 +16,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
    * @en The Button size
    * @defaultValue medium
    */
-  size?: 'mini' | 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * @zh 按钮状态
    * @en Status of the button

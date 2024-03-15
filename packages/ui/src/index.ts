@@ -1,3 +1,6 @@
+export { default as Button } from './button';
+export type { ButtonProps } from './button/interface';
+
 export { default as Image } from './image';
 export type { ImageProps } from './image/interface';
 

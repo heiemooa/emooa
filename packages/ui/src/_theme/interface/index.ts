@@ -44,6 +44,7 @@ export type UseComponentStyleResult = [(node: React.ReactNode) => React.ReactEle
 
 export type GenerateStyle<ComponentToken extends AnyObject = AliasToken, ReturnType = CSSInterpolation> = (
   token: ComponentToken,
+  type?: string,
 ) => ReturnType;
 
 export interface EuiTokenProviderProps {

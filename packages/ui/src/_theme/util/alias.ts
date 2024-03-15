@@ -76,16 +76,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
 
     // Control
     lineWidth: mergedToken.lineWidth,
-    controlOutlineWidth: mergedToken.lineWidth * 2,
-    // Checkbox size and expand icon size
-    controlInteractiveSize: mergedToken.controlHeight / 2,
-
-    controlItemBgHover: mergedToken.colorFillTertiary,
-    controlItemBgActive: mergedToken.colorPrimaryBg,
-    controlItemBgActiveHover: mergedToken.colorPrimaryBgHover,
-    controlItemBgActiveDisabled: mergedToken.colorFill,
-    controlOutline: getAlphaColor(mergedToken.colorPrimaryBg, mergedToken.colorBgContainer),
-
     lineType: mergedToken.lineType,
     borderRadius: mergedToken.borderRadius,
     borderRadiusXS: mergedToken.borderRadiusXS,
@@ -97,9 +87,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     linkDecoration: 'none',
     linkHoverDecoration: 'none',
     linkFocusDecoration: 'none',
-
-    controlPaddingHorizontal: 12,
-    controlPaddingHorizontalSM: 8,
 
     paddingXXS: mergedToken.sizeXXS,
     paddingXS: mergedToken.sizeXS,

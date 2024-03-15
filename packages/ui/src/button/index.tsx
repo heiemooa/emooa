@@ -4,7 +4,7 @@ import { ConfigContext } from '@/config-provider';
 import classNames from 'classnames';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import useStyle from './style';
-import IconLoading from '../../../icon/IconLoading';
+import { IconLoading } from '@emooa/icon';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props: ButtonProps, ref) => {
   const { getPrefixCls, size: componentSize, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
@@ -29,10 +29,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props: ButtonProps, r
   const classnames = classNames(
     prefixCls,
     hashId,
+    `${prefixCls}-${type}`,
+    `${prefixCls}-${size}`,
     {
       [`${prefixCls}-${status}`]: status !== 'default',
-      [`${prefixCls}-${type}`]: type !== 'default',
-      [`${prefixCls}-${size}`]: size !== 'medium',
       [`${prefixCls}-${shape}`]: shape !== 'default',
       [`${prefixCls}-rtl`]: rtl,
       [`${prefixCls}-loading`]: loading,

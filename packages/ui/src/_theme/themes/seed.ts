@@ -45,6 +45,11 @@ const seedToken: SeedToken = {
   // Motion
   motionUnit: 0.1,
   motionBase: 0,
+  motionLinear: 'cubic-bezier(0, 0, 1, 1)', // 线性
+  motionStandard: 'cubic-bezier(0.34, 0.69, 0.1, 1)', // 标准
+  motionOvershoot: 'cubic-bezier(0.3, 1.3, 0.3, 1)', // 过冲
+  motionDecelerate: 'cubic-bezier(0.4, 0.8, 0.74, 1)', // 减速
+  motionAccelerate: 'cubic-bezier(0.26, 0, 0.6, 0.2)', //// 加速
 
   // Radius
   borderRadius: 6,
@@ -54,8 +59,8 @@ const seedToken: SeedToken = {
   sizeStep: 4,
   sizePopupArrow: 16,
 
-  // Control Base
-  controlHeight: 32,
+  // Base
+  baseHeight: 32,
 
   // zIndex
   zIndexBase: 0,
