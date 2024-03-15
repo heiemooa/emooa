@@ -92,7 +92,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     paddingXS: mergedToken.sizeXS,
     paddingSM: mergedToken.sizeSM,
     padding: mergedToken.size,
-    paddingMD: mergedToken.sizeMD,
     paddingLG: mergedToken.sizeLG,
     paddingXL: mergedToken.sizeXL,
 
@@ -107,7 +106,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     marginXS: mergedToken.sizeXS,
     marginSM: mergedToken.sizeSM,
     margin: mergedToken.size,
-    marginMD: mergedToken.sizeMD,
     marginLG: mergedToken.sizeLG,
     marginXL: mergedToken.sizeXL,
     marginXXL: mergedToken.sizeXXL,

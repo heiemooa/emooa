@@ -28,7 +28,6 @@ export const ignore: {
   size: true,
   sizeSM: true,
   sizeLG: true,
-  sizeMD: true,
   sizeXS: true,
   sizeXXS: true,
   sizeXL: true,

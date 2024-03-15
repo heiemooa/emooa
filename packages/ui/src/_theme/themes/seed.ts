@@ -52,7 +52,7 @@ const seedToken: SeedToken = {
   motionAccelerate: 'cubic-bezier(0.26, 0, 0.6, 0.2)', //// 加速
 
   // Radius
-  borderRadius: 6,
+  borderRadius: 4,
 
   // Size
   sizeUnit: 4,

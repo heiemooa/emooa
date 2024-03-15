@@ -125,7 +125,7 @@ export interface SeedToken {
    * @desc Emooa UI 中按钮和输入框等基础控件的高度
    * @default 32
    */
-  height: number;
+  baseHeight: number;
 
   //  ----------   zIndex   ---------- //
 

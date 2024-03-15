@@ -156,11 +156,6 @@ export interface AliasToken extends BaseToken {
    */
   padding: number;
   /**
-   * @name 中等内间距
-   * @desc 控制元素的中等内间距。
-   */
-  paddingMD: number;
-  /**
    * @name 大内间距
    * @desc 控制元素的大内间距。
    */
@@ -224,11 +219,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制元素外边距，中等尺寸。
    */
   margin: number;
-  /**
-   * @name 外边距 MD
-   * @desc 控制元素外边距，中大尺寸。
-   */
-  marginMD: number;
   /**
    * @name 外边距 LG
    * @desc 控制元素外边距，大尺寸。
