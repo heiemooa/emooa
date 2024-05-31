@@ -63,6 +63,10 @@ function ConfigProvider(props: ConfigProviderProps) {
 
 ConfigProvider.ConfigContext = ConfigContext;
 
+if (process.env.NODE_ENV !== 'production') {
+  ConfigProvider.displayName = 'ConfigProvider';
+}
+
 export default ConfigProvider;
 
 const ConfigConsumer = ConfigContext.Consumer;

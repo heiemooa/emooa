@@ -88,4 +88,8 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
   );
 });
 
+if (process.env.NODE_ENV !== 'production') {
+  Space.displayName = 'Space';
+}
+
 export default Space;

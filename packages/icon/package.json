@@ -1,6 +1,6 @@
 {
   "name": "@emooa/icon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Emooa react icon component",
   "author": "heiemooa <243973775@qq.com>",
   "homepage": "https://docs.emooa.com/ui/icon",
@@ -40,9 +40,15 @@
     "@babel/plugin-transform-spread": "^7.23.3",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
+    "identity-obj-proxy": "^3.0.0",
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
     "react": "^18.2.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.css$": "identity-obj-proxy"
+    }
   }
 }

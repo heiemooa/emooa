@@ -74,4 +74,8 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
   return wrapCSSVar(<img ref={ref} className={classnames} {...rest} />);
 });
 
+if (process.env.NODE_ENV !== 'production') {
+  Image.displayName = 'Image';
+}
+
 export default Image;
