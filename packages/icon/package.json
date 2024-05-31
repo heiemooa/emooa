@@ -40,9 +40,15 @@
     "@babel/plugin-transform-spread": "^7.23.3",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
+    "identity-obj-proxy": "^3.0.0",
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
     "react": "^18.2.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.css$": "identity-obj-proxy"
+    }
   }
 }
