@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ConfigProvider, Space, Image, Button } from '@emooa/ui';
-import { IconSettings } from '@emooa/icon';
+import { IconDelete, IconLeft, IconMessage, IconRight, IconSettings, IconStar } from '@emooa/icon';
 
 const ButtonGroup = Button.Group;
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
         </Space>
-        <Space size="large">
+        <Space size="large" style={{ width: '100%', marginTop: 10 }}>
           <ButtonGroup>
             <Button type="primary" icon={<IconLeft />} shape="round" style={{ padding: '0 8px' }}>
               Prev
@@ -49,9 +49,6 @@ const App: React.FC = () => {
               Delete
             </Button>
           </ButtonGroup>
-        </Space>
-        <Space style={{ width: '100%' }}>
-          <Button icon={<IconSettings />}>设置</Button>
         </Space>
       </ConfigProvider>
     </>

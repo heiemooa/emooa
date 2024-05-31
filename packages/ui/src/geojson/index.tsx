@@ -343,4 +343,8 @@ const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
   return wrapCSSVar(<canvas className={classnames} ref={ref} {...rest} />);
 });
 
+if (process.env.NODE_ENV !== 'production') {
+  GeoJSON.displayName = 'GeoJSON';
+}
+
 export default GeoJSON;

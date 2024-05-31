@@ -25,7 +25,7 @@ function processChildren(children?: ReactNode) {
   return React.Children.map(childrenList, child => (typeof child === 'string' ? <span>{child}</span> : child));
 }
 
-const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props: ButtonProps, ref) => {
+const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props: ButtonProps, ref) => {
   const { getPrefixCls, size: componentSize, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
@@ -120,10 +120,14 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((p
   );
 });
 
-const ButtonComponent = Button as typeof Button & {
+const Button = ButtonComponent as typeof ButtonComponent & {
   Group: typeof Group;
 };
 
-ButtonComponent.Group = Group;
+Button.Group = Group;
+
+if (process.env.NODE_ENV !== 'production') {
+  Button.displayName = 'Button';
+}
 
 export default Button;

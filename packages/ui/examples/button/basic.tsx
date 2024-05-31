@@ -1,10 +1,7 @@
 import React from 'react';
-import { Space, Button, Theme } from '@emooa/ui';
+import { Space, Button } from '@emooa/ui';
 
-const { useToken } = Theme;
 const App: React.FC = () => {
-  const token = useToken();
-  console.log('token', token);
   return (
     <Space direction="vertical">
       <Space>

@@ -5,7 +5,7 @@ import { ConfigContext } from '@/config-provider';
 import createFromIconfontCN from './createFromIconfontCN';
 import useStyle from './style';
 
-const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
+const IconComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const { getPrefixCls, components } = useContext(ConfigContext);
 
   const { type, className, ...rest }: IconProps = Object.assign({}, components?.Icon, props);
@@ -39,10 +39,14 @@ const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   );
 });
 
-const IconComponent = Icon as typeof Icon & {
+const Icon = IconComponent as typeof IconComponent & {
   createFromIconfontCN: typeof createFromIconfontCN;
 };
 
-IconComponent.createFromIconfontCN = createFromIconfontCN;
+Icon.createFromIconfontCN = createFromIconfontCN;
+
+if (process.env.NODE_ENV !== 'production') {
+  Icon.displayName = 'Icon';
+}
 
 export default Icon;
