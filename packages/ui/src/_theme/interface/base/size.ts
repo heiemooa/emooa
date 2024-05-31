@@ -18,12 +18,6 @@ export interface SizeBaseToken {
    */
   sizeLG: number;
   /**
-   * @name 中等尺寸
-   * @desc MD
-   * @default 20
-   */
-  sizeMD: number;
-  /**
    * @name 默认尺寸
    * @default 16
    */

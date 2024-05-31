@@ -103,12 +103,6 @@ export interface AliasToken extends BaseToken {
   colorHighlight: string;
 
   /**
-   * @name 输入组件的 Outline 颜色
-   * @desc 控制输入组件的外轮廓线颜色。
-   */
-  controlOutline: string;
-
-  /**
    * @name 警告状态下的 Outline 颜色
    * @desc 控制输入组件警告状态下的外轮廓线颜色。
    */
@@ -132,44 +126,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制标题类组件（如 h1、h2、h3）或选中项的字体粗细。
    */
   fontWeightStrong: number;
-
-  // Control
-
-  /**
-   * @name 输入组件的外轮廓线宽度
-   * @desc 控制输入组件的外轮廓线宽度。
-   */
-  controlOutlineWidth: number;
-
-  /**
-   * @name 控制组件项在鼠标悬浮时的背景颜色
-   * @desc 控制组件项在鼠标悬浮时的背景颜色。
-   */
-  controlItemBgHover: string; // Note. It also is a color
-
-  /**
-   * @name 控制组件项在激活状态下的背景颜色
-   * @desc 控制组件项在激活状态下的背景颜色。
-   */
-  controlItemBgActive: string; // Note. It also is a color
-
-  /**
-   * @name 控制组件项在鼠标悬浮且激活状态下的背景颜色
-   * @desc 控制组件项在鼠标悬浮且激活状态下的背景颜色。
-   */
-  controlItemBgActiveHover: string; // Note. It also is a color
-
-  /**
-   * @name 控制组件的交互大小
-   * @desc 控制组件的交互大小。
-   */
-  controlInteractiveSize: number;
-
-  /**
-   * @name 控制组件项在禁用状态下的激活背景颜色
-   * @desc 控制组件项在禁用状态下的激活背景颜色。
-   */
-  controlItemBgActiveDisabled: string; // Note. It also is a color
 
   // Line
   /**
@@ -199,11 +155,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制元素的内间距。
    */
   padding: number;
-  /**
-   * @name 中等内间距
-   * @desc 控制元素的中等内间距。
-   */
-  paddingMD: number;
   /**
    * @name 大内间距
    * @desc 控制元素的大内间距。
@@ -269,11 +220,6 @@ export interface AliasToken extends BaseToken {
    */
   margin: number;
   /**
-   * @name 外边距 MD
-   * @desc 控制元素外边距，中大尺寸。
-   */
-  marginMD: number;
-  /**
    * @name 外边距 LG
    * @desc 控制元素外边距，大尺寸。
    */
@@ -320,17 +266,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制链接聚焦时文本的装饰样式。
    */
   linkFocusDecoration: React.CSSProperties['textDecoration'];
-
-  /**
-   * @name 控制水平内间距
-   * @desc 控制元素水平内间距。
-   */
-  controlPaddingHorizontal: number;
-  /**
-   * @name 控制中小尺寸水平内间距
-   * @desc 控制元素中小尺寸水平内间距。
-   */
-  controlPaddingHorizontalSM: number;
 
   // Media queries breakpoints
   /**

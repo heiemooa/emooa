@@ -11,6 +11,7 @@ const App: React.FC = () => {
         <button onClick={() => setI18n(zhCN)}>zh-CN</button>
         <button onClick={() => setI18n(en)}>en</button>
       </Space>
+      <br />
       <ConfigProvider locale={i18n}>
         <Space>
           <Image src="https://api.emooa.com/aimg?idx=1" height={100} />

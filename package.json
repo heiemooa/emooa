@@ -11,7 +11,8 @@
     "test": "lerna run test --stream",
     "build": "lerna run build",
     "exec": "lerna exec -- yarn",
-    "publish": "lerna run build && lerna publish"
+    "publish": "lerna run build && lerna publish",
+    "local:build": "yarn run build && rm -rf node_modules && yarn run exec"
   },
   "repository": {
     "type": "git",
