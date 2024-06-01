@@ -1,6 +1,6 @@
 // 用在组件文档里，展示所有 Icon
 import React, { useState } from 'react';
-import { Space } from '@emooa/ui';
+import { Space, Button } from '@emooa/ui';
 import * as icons from '@emooa/icon';
 
 const svgData = JSON.parse('{{ svgData | safe }}');
@@ -62,7 +62,7 @@ export default function ({ lang = 'zh-CN' }) {
 
   const t = locale[lang];
 
-  const spaceStyle = { marginBottom: 10 };
+  const spaceStyle = { marginBottom: 10, width: '100%' };
   const outlineStyle = { color: type === 'outline' ? 'red' : undefined };
   const fillStyle = { color: type === 'fill' ? 'red' : undefined };
   const colorStyle = { color: type === 'color' ? 'red' : undefined };
@@ -84,15 +84,83 @@ export default function ({ lang = 'zh-CN' }) {
   return (
     <div>
       <Space style={spaceStyle}>
-        <button onClick={() => setType('outline')} style={outlineStyle}>
-          {t.line}
-        </button>
-        <button onClick={() => setType('fill')} style={fillStyle}>
-          {t.fill}
-        </button>
-        <button onClick={() => setType('color')} style={colorStyle}>
-          {t.color}
-        </button>
+        <h4>类型：</h4>
+        <Button.Group>
+          <Button onClick={() => setType('outline')} type={type === 'outline' ? 'primary' : 'secondary'}>
+            {t.line}
+          </Button>
+          <Button onClick={() => setType('fill')} type={type === 'fill' ? 'primary' : 'secondary'}>
+            {t.fill}
+          </Button>
+          <Button onClick={() => setType('color')} type={type === 'color' ? 'primary' : 'secondary'}>
+            {t.color}
+          </Button>
+        </Button.Group>
+      </Space>
+      <Space style={spaceStyle}>
+        <h4>线宽：</h4>
+        <Button.Group>
+          <Button onClick={() => setStrokeWidth(1)} type={strokeWidth === 1 ? 'primary' : 'secondary'}>
+            1
+          </Button>
+          <Button onClick={() => setStrokeWidth(3)} type={strokeWidth === 3 ? 'primary' : 'secondary'}>
+            3
+          </Button>
+          <Button onClick={() => setStrokeWidth(5)} type={strokeWidth === 5 ? 'primary' : 'secondary'}>
+            5
+          </Button>
+        </Button.Group>
+      </Space>
+       <Space style={spaceStyle}>
+        <h4>图标大小：</h4>
+        <Button.Group>
+          <Button onClick={() => setFontSize(24)} type={strokeWidth === 24 ? 'primary' : 'secondary'}>
+            24
+          </Button>
+          <Button onClick={() => setStrokeWidth(32)} type={strokeWidth === 32 ? 'primary' : 'secondary'}>
+            32
+          </Button>
+          <Button onClick={() => setStrokeWidth(48)} type={strokeWidth === 48 ? 'primary' : 'secondary'}>
+            48
+          </Button>
+        </Button.Group>
+      </Space>
+      <Space style={spaceStyle}>
+        <h4>拐角：</h4>
+        <Button.Group>
+          <Button onClick={() => setLineJoin('arcs')} type={lineJoin === 'arcs' ? 'primary' : 'secondary'}>
+            arcs
+          </Button>
+          <Button onClick={() => setLineJoin('bevel')} type={lineJoin === 'bevel' ? 'primary' : 'secondary'}>
+            bevel
+          </Button>
+          <Button onClick={() => setLineJoin('miter')} type={lineJoin === 'miter' ? 'primary' : 'secondary'}>
+            miter
+          </Button>
+          <Button onClick={() => setLineJoin('miter-clip')} type={lineJoin === 'miter-clip' ? 'primary' : 'secondary'}>
+            miter-clip
+          </Button>
+          <Button
+            onClick={() => setLineJoin('miter-round')}
+            type={lineJoin === 'miter-round' ? 'primary' : 'secondary'}
+          >
+            miter-round
+          </Button>
+        </Button.Group>
+      </Space>
+       <Space style={spaceStyle}>
+        <h4>端点：</h4>
+        <Button.Group>
+          <Button onClick={() => setLineCap('butt')} type={lineCap === 'butt' ? 'primary' : 'secondary'}>
+            butt
+          </Button>
+          <Button onClick={() => setLineCap('round')} type={lineCap === 'round' ? 'primary' : 'secondary'}>
+            round
+          </Button>
+          <Button onClick={() => setLineCap('square')} type={lineCap === 'square' ? 'primary' : 'secondary'}>
+            square
+          </Button>
+        </Button.Group>
       </Space>
       {Object.keys(svgData).map(key => {
         const filteredData =

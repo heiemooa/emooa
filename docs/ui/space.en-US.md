@@ -46,7 +46,7 @@ Avoid components that are too close together to create a unified space.
 
 ## Theme
 
-## Token
+### Space Token
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |
 | paddingXXS    | `number` | 4        | Controls the minimum inner spacing of elements, corresponding size is `mini`.   |

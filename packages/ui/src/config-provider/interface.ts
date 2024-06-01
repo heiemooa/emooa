@@ -6,11 +6,13 @@ import { GeoJSONProps } from '@/geojson/interface';
 import { SpaceProps } from '@/space/interface';
 import { EuiTokenProviderProps } from '@/_theme/interface';
 import { ButtonProps } from '@/button/interface';
+import { DividerProps } from '../divider/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
   Button?: ButtonProps;
+  Divider?: DividerProps;
   Image?: ImageProps;
   Icon?: IconProps;
   GeoJSON?: GeoJSONProps;
