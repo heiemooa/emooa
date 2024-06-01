@@ -1,7 +1,6 @@
 import React, { type FC } from 'react';
 
 const HeaderExtra: FC = () => {
-  console.log(location);
   const pathname = location.pathname;
   return (
     <div

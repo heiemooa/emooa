@@ -46,7 +46,7 @@ toc: content
 
 ## 主题变量 Theme
 
-## Token
+### Space Token
 | **参数** | **类型** | **默认值** | **定义** |
 | --- | --- | --- | --- |
 | paddingXXS    | `number` | 4        | 控制元素的最小内间距，对应 size 为 `mini`。   |

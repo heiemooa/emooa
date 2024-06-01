@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Space, Image, Button } from '@emooa/ui';
+import { ConfigProvider, Space, Image, Button, Divider } from '@emooa/ui';
 import { IconDelete, IconLeft, IconMessage, IconRight, IconSettings, IconStar } from '@emooa/icon';
 
 const ButtonGroup = Button.Group;
@@ -20,13 +20,15 @@ const App: React.FC = () => {
           {rtl ? '关闭' : '开启'}
         </Button>
       </Space>
+      <Divider />
       <ConfigProvider rtl={rtl}>
         <Space style={{ width: '100%' }}>
           <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
         </Space>
-        <Space size="large" style={{ width: '100%', marginTop: 10 }}>
+        <Divider />
+        <Space size="large" style={{ width: '100%' }}>
           <ButtonGroup>
             <Button type="primary" icon={<IconLeft />} shape="round" style={{ padding: '0 8px' }}>
               Prev

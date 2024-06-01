@@ -60,7 +60,7 @@ A button is a command component that initiates an immediate action in response t
 
 ## Theme
 
-## Token
+### Button Token
 // TODO
 <!-- | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- | -->

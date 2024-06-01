@@ -122,6 +122,12 @@ export interface AliasToken extends BaseToken {
   fontSizeIcon: number;
 
   /**
+   * @name 标题类组件
+   * @desc 控制标题类组件
+   */
+  fontWeight: number;
+
+  /**
    * @name 标题类组件（如 h1、h2、h3）或选中项的字体粗细
    * @desc 控制标题类组件（如 h1、h2、h3）或选中项的字体粗细。
    */

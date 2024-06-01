@@ -104,6 +104,6 @@ export type Components = {
 };
 ```
 
-## 主题变量 Theme
+## Theme
 
 // TODO

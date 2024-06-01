@@ -82,6 +82,7 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     borderRadiusSM: mergedToken.borderRadiusSM,
     borderRadiusLG: mergedToken.borderRadiusLG,
 
+    fontWeight: 500,
     fontWeightStrong: 600,
 
     linkDecoration: 'none',
