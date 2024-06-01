@@ -98,6 +98,8 @@ export interface Locale {
 ### Components
 ```ts
 export type Components = {
+  Button?: ButtonProps;
+  Divider?: DividerProps;
   Icon?: IconProps;
   Image?: ImageProps;
   Space?: SpaceProps;

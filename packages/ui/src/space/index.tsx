@@ -20,11 +20,11 @@ function toArray(children) {
 }
 
 const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) => {
-  const { getPrefixCls, size: componentSize, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const {
     className,
     children,
-    size = componentSize ?? 'small',
+    size = components?.Space?.size ?? 'small',
     direction = 'horizontal',
     align,
     wrap = true,

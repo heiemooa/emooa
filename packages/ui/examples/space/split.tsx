@@ -1,9 +1,9 @@
 import React from 'react';
-import { Space } from '@emooa/ui';
+import { Divider, Space } from '@emooa/ui';
 import { IconDelete, IconEdit, IconAttachment } from '@emooa/icon';
 
 const App: React.FC = () => (
-  <Space split="|">
+  <Space split={<Divider type="vertical" />}>
     <IconEdit />
     <IconAttachment />
     <IconDelete color="red" />
