@@ -1,6 +1,8 @@
 ---
 nav: Components
-group: General
+group: 
+    title: General
+    order: 2
 order: 0
 toc: content
 ---

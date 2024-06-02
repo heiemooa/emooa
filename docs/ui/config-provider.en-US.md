@@ -2,7 +2,7 @@
 nav: Components
 group: 
     title: Other
-    order: 2
+    order: 3
 order: 0
 toc: content
 ---
