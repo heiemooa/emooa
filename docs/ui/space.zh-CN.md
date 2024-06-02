@@ -36,13 +36,10 @@ toc: content
 | style     | `CSSProperties`       | -        | 组件样式	    |
 | align     | `start` `end` `center` `baseline` | -            | 对齐方式	        |
 | direction | `vertical` `horizontal`           | `horizontal` | 间距方向	        |
-| size      | [Size](#size) ｜[Size[]](#size)   | `small`      | 间距大小	        |
+| size      | `mini` `small` `medium` `large` `number`   | `small`      | 间距大小	        |
 | split     | `ReactNode`                       | -            | 设置拆分	        |
 | wrap      | `boolean`                         | true         | 是否自动换行        |
 
-### Size
-
-`mini` | `small` | `medium` | `large` | `number`
 
 ## 主题变量 Theme
 

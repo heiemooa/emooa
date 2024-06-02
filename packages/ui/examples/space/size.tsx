@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
-import { Space, SpaceSize, Image } from '@emooa/ui';
+import { Space, SpaceSize, Image, Button, Divider } from '@emooa/ui';
 
 const App: React.FC = () => {
   const [size, setSize] = useState<SpaceSize | SpaceSize[]>('small');
   return (
-    <Space direction="vertical" size={24}>
-      <Space>
-        <button onClick={() => setSize('mini')} style={{ color: size === 'mini' ? 'red' : undefined }}>
+    <>
+      <Button.Group>
+        <Button onClick={() => setSize('mini')} type={size === 'mini' ? 'primary' : 'secondary'}>
           mini
-        </button>
-        <button onClick={() => setSize('small')} style={{ color: size === 'small' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('small')} type={size === 'small' ? 'primary' : 'secondary'}>
           small
-        </button>
-        <button onClick={() => setSize('medium')} style={{ color: size === 'medium' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('medium')} type={size === 'medium' ? 'primary' : 'secondary'}>
           medium
-        </button>
-        <button onClick={() => setSize('large')} style={{ color: size === 'large' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('large')} type={size === 'large' ? 'primary' : 'secondary'}>
           large
-        </button>
-        <button onClick={() => setSize(12)} style={{ color: size === 12 ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize(12)} type={size === 12 ? 'primary' : 'secondary'}>
           12
-        </button>
-        <button onClick={() => setSize(24)} style={{ color: size === 24 ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize(24)} type={size === 24 ? 'primary' : 'secondary'}>
           [24, 24]
-        </button>
-      </Space>
+        </Button>
+      </Button.Group>
+      <Divider />
       <Space size={size}>
         <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
         <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
         <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
       </Space>
-    </Space>
+    </>
   );
 };
 

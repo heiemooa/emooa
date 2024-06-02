@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Space, Image } from '@emooa/ui';
+import { ConfigProvider, Space, Image, Button, Divider } from '@emooa/ui';
 
 const App: React.FC = () => {
   const [size, setSize] = useState<'small' | 'mini' | 'medium' | 'large'>('small');
   return (
     <>
-      <Space style={{ marginBottom: 10 }}>
-        <button onClick={() => setSize('mini')} style={{ color: size === 'mini' ? 'red' : undefined }}>
+      <Button.Group>
+        <Button onClick={() => setSize('mini')} type={size === 'mini' ? 'primary' : 'secondary'}>
           mini
-        </button>
-        <button onClick={() => setSize('small')} style={{ color: size === 'small' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('small')} type={size === 'small' ? 'primary' : 'secondary'}>
           small
-        </button>
-        <button onClick={() => setSize('medium')} style={{ color: size === 'medium' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('medium')} type={size === 'medium' ? 'primary' : 'secondary'}>
           medium
-        </button>
-        <button onClick={() => setSize('large')} style={{ color: size === 'large' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setSize('large')} type={size === 'large' ? 'primary' : 'secondary'}>
           large
-        </button>
-      </Space>
-      <br />
+        </Button>
+      </Button.Group>
+      <Divider />
       <ConfigProvider
         components={{
           Image: {

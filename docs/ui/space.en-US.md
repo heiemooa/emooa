@@ -36,7 +36,7 @@ Avoid components that are too close together to create a unified space.
 | style     | `CSSProperties`       | -        | The style properties of Space	        |
 | align     | `start` `end` `center` `baseline` | -            | Align items	        |
 | direction | `vertical` `horizontal`           | `horizontal` | The space direction    |
-| size      | [Size](#size) ｜[Size[]](#size)   | `small`      | The space size		    |
+| size      | `mini` `small` `medium` `large` `number`   | `small`      | `small`      | The space size		    |
 | split     | `ReactNode`                       | -            | Set split		        |
 | wrap      | `boolean`                         | true         | Auto wrap line         |
 
