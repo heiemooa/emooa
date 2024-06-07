@@ -1,25 +1,40 @@
 /**
- * 参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+ * lazy 懒加载参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 
-import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
 import { ImageProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import useStyle from './style';
+import { IconImageClose, IconLoading } from '@emooa/icon';
+import { ConfigProviderProps } from '@/config-provider/interface';
 
-const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
-  const ref = useRef<HTMLImageElement>(null);
-  const { getPrefixCls, components } = useContext(ConfigContext);
+type Loaded = 'loading' | 'error' | 'loaded';
+
+const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
+  const refImg = useRef<HTMLImageElement>(null);
+  const timeout = useRef<NodeJS.Timeout>(null);
+  const observer = useRef<IntersectionObserver>(null);
+  const [loaded, setLoaded] = useState<Loaded>('loading');
+  const loading = useRef(false);
+
+  const { getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
 
   const {
     src,
     delay = 300,
-    placeholder = 'data:image/svg+xml;base64,PHN2ZyB0PSIxNzA1MDI4NDQ4OTQxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ0MjUiIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4Ij48cGF0aCBkPSJNOTI4IDg5Nkg5NmMtNTMuMDIgMC05Ni00Mi45OC05Ni05NlYyMjRjMC01My4wMiA0Mi45OC05NiA5Ni05Nmg4MzJjNTMuMDIgMCA5NiA0Mi45OCA5NiA5NnY1NzZjMCA1My4wMi00Mi45OCA5Ni05NiA5NnpNMjI0IDI0MGMtNjEuODU2IDAtMTEyIDUwLjE0NC0xMTIgMTEyczUwLjE0NCAxMTIgMTEyIDExMiAxMTItNTAuMTQ0IDExMi0xMTItNTAuMTQ0LTExMi0xMTItMTEyek0xMjggNzY4aDc2OFY1NDRsLTE3NS4wMy0xNzUuMDNjLTkuMzcyLTkuMzcyLTI0LjU2OC05LjM3Mi0zMy45NDIgMEw0MTYgNjQwbC0xMTEuMDMtMTExLjAzYy05LjM3Mi05LjM3Mi0yNC41NjgtOS4zNzItMzMuOTQyIDBMMTI4IDY3MnY5NnoiIGZpbGw9IiNmOGY4ZjgiIHAtaWQ9IjQ0MjYiPjwvcGF0aD48L3N2Zz4=',
-    options,
+    placeholder,
     className,
     onError,
     onLoad,
+    preview = true,
+    lazy,
+    width,
+    height,
+    style,
+    error,
+    alt,
     ...rest
   }: ImageProps = Object.assign({}, components?.Image, props);
 
@@ -27,51 +42,168 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, pref) => {
 
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
-  const classnames = classNames(prefixCls, hashId, cssVarCls, className);
-
-  useImperativeHandle(pref, () => ref.current);
+  const classnames = classNames(
+    hashId,
+    prefixCls,
+    {
+      [`${prefixCls}-rtl`]: rtl,
+      [`${prefixCls}-loading`]: loaded === 'loading',
+      [`${prefixCls}-loading-error`]: loaded === 'error',
+      [`${prefixCls}-with-preview`]: loaded === 'loaded' && preview,
+    },
+    cssVarCls,
+    className,
+  );
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (ref.current!.getAttribute('data-lazy')) return;
-          if (placeholder && typeof placeholder === 'string') {
-            timeoutId = setTimeout(() => {
-              if (!ref.current!.src) {
-                ref.current!.src = placeholder as string;
-              }
-            }, delay);
-          }
-
-          const image = ref.current!.cloneNode(true) as HTMLImageElement;
-          image.src = src;
-          image.onload = e => {
-            clearTimeout(timeoutId);
-            ref.current!.replaceWith(image);
-            ref.current!.setAttribute('data-lazy', 'success');
-            observer.unobserve(entry.target);
-            onLoad?.(e);
-          };
-          image.onerror = e => {
-            ref.current!.setAttribute('data-lazy', 'error');
-            onError?.(e);
-          };
-        }
-      });
-    }, options);
-
-    observer.observe(ref.current!);
-
+    if (!refImg.current) return;
+    onImageLazyLoad();
     return () => {
-      observer.disconnect();
-      clearTimeout(timeoutId);
+      observer.current?.disconnect?.();
+      clearTimeout(timeout.current);
     };
   }, [src]);
 
-  return wrapCSSVar(<img ref={ref} className={classnames} {...rest} />);
+  const onImageLazyLoad = () => {
+    loading.current = true;
+
+    /**
+     * 懒加载
+     */
+    if (lazy) {
+      const options = typeof lazy === 'boolean' ? undefined : lazy;
+      observer.current = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+          if (entry.isIntersecting) {
+            onImageLoad();
+          }
+        });
+      }, options);
+      observer.current.observe(refImg.current!);
+    } else {
+      /**
+       * 普通加载
+       */
+      onImageLoad();
+    }
+  };
+
+  /**
+   * 加载图片
+   */
+  const onImageLoad = () => {
+    if (refImg.current.src !== src) {
+      refImg.current.src = src;
+    } else {
+      if (refImg.current.getAttribute('image-lazy') === 'error') {
+        refImg.current.src = `${src}?${Date.now()}`;
+      }
+    }
+
+    if (loading.current && !refImg.current.complete) {
+      timeout.current = setTimeout(() => {
+        setLoaded('loading');
+      }, delay);
+    }
+  };
+
+  /**
+   * 加载成功
+   */
+  function onImgLoaded(e) {
+    loading.current = false;
+    setLoaded('loaded');
+    clearTimeout(timeout.current);
+    if (lazy) {
+      observer.current.unobserve(e.target);
+    }
+    onLoad?.(e);
+  }
+
+  /**
+   * 加载失败
+   */
+  function onImgLoadError(e) {
+    loading.current = false;
+    setLoaded('error');
+    clearTimeout(timeout.current);
+    onError?.(e);
+  }
+
+  const DefaultError = (
+    <div className={`${prefixCls}-error`}>
+      <div className={`${prefixCls}-error-spin`}>
+        <IconImageClose />
+        <div className={`${prefixCls}-error-spin-text`}>{alt}</div>
+      </div>
+    </div>
+  );
+
+  const renderError = () => {
+    return error || DefaultError;
+  };
+
+  const DefaultLoader = (
+    <div className={`${prefixCls}-loader`}>
+      <div className={`${prefixCls}-loader-spin`}>
+        <IconLoading />
+        <div className={`${prefixCls}-loader-spin-text`}>Loading</div>
+      </div>
+    </div>
+  );
+
+  const renderLoader = () => {
+    if (!placeholder) return DefaultLoader;
+    const ele = placeholder ? (
+      <div className={`${prefixCls}-loader`}>
+        {typeof placeholder === 'string' ? (
+          <img className={`${prefixCls}-placeholder`} src={placeholder} {...rest} width={width} height={height} />
+        ) : (
+          placeholder
+        )}
+      </div>
+    ) : (
+      DefaultLoader
+    );
+    // 懒加载展示占位。
+    if (lazy || placeholder) {
+      return ele;
+    }
+    return null;
+  };
+
+  return wrapCSSVar(
+    <div
+      ref={ref}
+      className={classnames}
+      style={Object.assign(
+        {
+          width,
+          height,
+        },
+        style,
+      )}
+    >
+      <img
+        className={`${prefixCls}-img`}
+        ref={refImg}
+        {...rest}
+        alt={alt}
+        width={width}
+        height={height}
+        onLoad={onImgLoaded}
+        onError={onImgLoadError}
+        src={lazy ? undefined : src}
+        image-lazy={loaded}
+      />
+      {loaded !== 'loaded' && (
+        <div className={`${prefixCls}-overlay`}>
+          {loaded === 'error' && renderError()}
+          {loaded === 'loading' && renderLoader()}
+        </div>
+      )}
+    </div>,
+  );
 });
 
 if (process.env.NODE_ENV !== 'production') {
