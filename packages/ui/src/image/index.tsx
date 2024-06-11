@@ -2,21 +2,20 @@
  * lazy 懒加载参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 
-import React, { useRef, useEffect, useContext, forwardRef, useImperativeHandle, useState } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef } from 'react';
 import classNames from 'classnames';
 import { ImageProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import useStyle from './style';
 import { IconImageClose, IconLoading } from '@emooa/icon';
 import { ConfigProviderProps } from '@/config-provider/interface';
-
-type Loaded = 'loading' | 'error' | 'loaded';
+import useImageStatus from './hooks/useImageStatus';
 
 const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
   const timeout = useRef<NodeJS.Timeout>(null);
   const observer = useRef<IntersectionObserver>(null);
-  const [loaded, setLoaded] = useState<Loaded>('loading');
+  const { status, setStatus, isBeforeLoad, isLoading, isLoaded, isError } = useImageStatus('beforeLoad');
   const loading = useRef(false);
 
   const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
@@ -47,9 +46,9 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     prefixCls,
     {
       [`${prefixCls}-rtl`]: rtl,
-      [`${prefixCls}-loading`]: loaded === 'loading',
-      [`${prefixCls}-loading-error`]: loaded === 'error',
-      [`${prefixCls}-with-preview`]: loaded === 'loaded' && preview,
+      [`${prefixCls}-loading`]: isLoading,
+      [`${prefixCls}-loading-error`]: isError,
+      [`${prefixCls}-with-preview`]: isLoaded && preview,
     },
     cssVarCls,
     className,
@@ -105,10 +104,10 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     if (loading.current && !refImg.current.complete) {
       if (delay) {
         timeout.current = setTimeout(() => {
-          setLoaded('loading');
+          setStatus('loading');
         }, delay);
       } else {
-        setLoaded('loading');
+        setStatus('loading');
       }
     }
   };
@@ -119,7 +118,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   function onImgLoaded(e) {
     loading.current = false;
     clearTimeout(timeout.current);
-    setLoaded('loaded');
+    setStatus('loaded');
     if (lazy) {
       observer.current.unobserve(e.target);
     }
@@ -132,7 +131,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   function onImgLoadError(e) {
     loading.current = false;
     clearTimeout(timeout.current);
-    setLoaded('error');
+    setStatus('error');
     onError?.(e);
   }
 
@@ -203,13 +202,13 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         onLoad={onImgLoaded}
         onError={onImgLoadError}
         src={lazy ? undefined : src}
-        image-lazy={loaded}
+        image-lazy={status}
         {...rest}
       />
-      {loaded !== 'loaded' && (
+      {!isLoaded && (
         <div className={`${prefixCls}-overlay`}>
-          {loaded === 'error' && renderError()}
-          {loaded === 'loading' && renderLoader()}
+          {isError && renderError()}
+          {isLoading && renderLoader()}
         </div>
       )}
     </div>,

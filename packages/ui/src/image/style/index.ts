@@ -17,6 +17,10 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       display: 'inline-block',
       verticalAlign: 'middle',
 
+      '&-rtl': {
+        direction: 'rtl',
+      },
+
       '&-loading,&-loading-error': {
         [`${componentCls}-img`]: {
           visibility: 'hidden',
