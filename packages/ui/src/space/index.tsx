@@ -50,7 +50,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
     {
       [`${prefixCls}-${direction}`]: direction,
       [`${prefixCls}-align-${innerAlign}`]: innerAlign,
-      [`${prefixCls}-wrap`]: wrap,
+      [`${prefixCls}-wrap`]: wrap && direction === 'horizontal',
       [`${prefixCls}-rtl`]: rtl,
       [`${prefixCls}-gap-row-${verticalSize}`]: isPresetVerticalSize,
       [`${prefixCls}-gap-col-${horizontalSize}`]: isPresetHorizontalSize,

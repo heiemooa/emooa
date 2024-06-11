@@ -3,7 +3,7 @@ interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes
   src?: string;
   error?: React.ReactNode; // 错误状态下显示的内容
   delay?: number; // The placeholder will be rendered if the url is not loaded within the delay time range.
-  placeholder?: string | React.ReactNode; // Default image placeholder
+  placeholder?: boolean | string | React.ReactNode; // Default image placeholder
   onError?: (e: any) => void;
   onLoad?: (e: any) => void;
 }

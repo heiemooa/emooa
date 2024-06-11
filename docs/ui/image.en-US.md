@@ -16,10 +16,10 @@ When lazy loading of images is required.
 ## Examples
 
 <code src="../../packages/ui/examples/image/basic.tsx">Basic</code>
-<code src="../../packages/ui/examples/image/delay.tsx" description="When loading a large image, placeholders will be loaded after a certain time.">Lazy loading placeholder</code>
-<code src="../../packages/ui/examples/image/placeholder.tsx" description="Use custom placeholders and do not load placeholders.">Placeholder</code>
-<code src="../../packages/ui/examples/image/process.tsx" description="Asynchronously observe the intersection changes between the target element and the ancestor element or the top-level document viewport to determine the loading timing.">Lazy loading of boundary configuration</code>
-<code src="../../packages/ui/examples/image/error.tsx" description="Load failed to display image placeholder.">Fault tolerant</code>
+<code src="../../packages/ui/examples/image/delay.tsx" description="By setting `delay`, the delayed placeholder is enabled by default. When loading a large image, the placeholder will be loaded after a certain time.">Lazy loading placeholder</code>
+<code src="../../packages/ui/examples/image/placeholder.tsx" description="By default, the loading effect is not displayed. You can display the default loading effect by setting `placeholder=true`. Supports custom placeholders.">Placeholder</code>
+<code src="../../packages/ui/examples/image/process.tsx" description="Setting `lazy` can enable lazy loading, and the image will not be loaded until it appears in the viewport. The `lazy` attribute is implemented based on the `IntersectionObserver API`. Supports asynchronous observation of intersection changes between target elements and ancestor elements or top-level document viewports to determine loading timing.">Lazy loading of boundary configuration</code>
+<code src="../../packages/ui/examples/image/error.tsx" description="If loading fails, the image failure placeholder is displayed. Supports setting `error` to customize the error placeholder.">Fault tolerant</code>
 
 
 
@@ -30,18 +30,20 @@ When lazy loading of images is required.
 | --- | --- | --- | --- |
 | className | `string`              | -        | The className of Image     |
 | style     | `CSSProperties`       | -        | The style of Image 	    |
-| url | string (Required) | - | Image url path. |
-| placeholder | string ｜ boolean | <img src="data:image/svg+xml;base64,PHN2ZyB0PSIxNzA1MDI4NDQ4OTQxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ0MjUiIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4Ij48cGF0aCBkPSJNOTI4IDg5Nkg5NmMtNTMuMDIgMC05Ni00Mi45OC05Ni05NlYyMjRjMC01My4wMiA0Mi45OC05NiA5Ni05Nmg4MzJjNTMuMDIgMCA5NiA0Mi45OCA5NiA5NnY1NzZjMCA1My4wMi00Mi45OCA5Ni05NiA5NnpNMjI0IDI0MGMtNjEuODU2IDAtMTEyIDUwLjE0NC0xMTIgMTEyczUwLjE0NCAxMTIgMTEyIDExMiAxMTItNTAuMTQ0IDExMi0xMTItNTAuMTQ0LTExMi0xMTItMTEyek0xMjggNzY4aDc2OFY1NDRsLTE3NS4wMy0xNzUuMDNjLTkuMzcyLTkuMzcyLTI0LjU2OC05LjM3Mi0zMy45NDIgMEw0MTYgNjQwbC0xMTEuMDMtMTExLjAzYy05LjM3Mi05LjM3Mi0yNC41NjgtOS4zNzItMzMuOTQyIDBMMTI4IDY3MnY5NnoiIGZpbGw9IiNmOGY4ZjgiIHAtaWQ9IjQ0MjYiPjwvcGF0aD48L3N2Zz4="> | Load placeholder, use default placeholder or false |
-| delay | number | 300 | (ms) The placeholder will be rendered if the url is not loaded within the delay time range. |
+| url | `string` | - | Image url path. |
+| placeholder | `boolean` `string` `React.ReactNode` | -- | Load placeholder, use default placeholder or false |
+| preview | `boolean` | true | Whether to enable preview |
+| error | `React.ReactNode` | -- | error placeholder |
+| delay | number | -- | (ms) The placeholder will be rendered if the url is not loaded within the delay time range. |
 | options | [Options](#options) | - | `IntersectionObserver` properties api. |
 | onError | (event: Event) => void | - | Triggered when image loading fails. |
 | onLoad | (event: Event) => void | - | Triggered when image loading success. |
 
 Other attributes [img.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes)
 
-### Options
+### Lazy
 
-Optional `Options` property reference [IntersectionObserver.](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
+Optional `Lazy Options` property reference [IntersectionObserver.](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
 
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |

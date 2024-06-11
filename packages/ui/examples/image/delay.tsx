@@ -7,10 +7,10 @@ const App: React.FC = () => {
   return (
     <>
       <Button type="primary" onClick={() => setTimestamp(Date.now())}>
-        Reload
+        Delay Load
       </Button>
       <Divider />
-      <Image src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`} delay={300} height={150} />
+      <Image src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`} delay={300} height={120} width={200} />
     </>
   );
 };

@@ -32,33 +32,36 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
         [`${componentCls}-error`]: {
           height: '100%',
-          width: '100%',
-          background: token.colorErrorBg,
+          minWidth: '100%',
+          background: token.colorBgLayout,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          textAlign: 'center',
+          color: token.colorTextPlaceholder,
 
-          '&-spin': {
-            textAlign: 'center',
-
-            '&-text': {},
+          [`${componentCls}-error-icon`]: {
+            fontSize: '4em',
           },
         },
 
         [`${componentCls}-loader`]: {
           height: '100%',
           width: '100%',
-          background: token.colorInfoBg,
+          background: token.colorBgLayout,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          textAlign: 'center',
+          color: token.colorTextSecondary,
 
-          '&-spin': {
-            textAlign: 'center',
+          [`${componentCls}-loader-spin`]: {
+            fontSize: '2em',
           },
 
-          '&-placeholder': {
+          [`${componentCls}-loader-placeholder`]: {
             filter: 'blur(5px)',
+            transition: `all ${token.motionDurationMid} ${token.motionStandard}`,
           },
         },
       },
@@ -73,7 +76,6 @@ export default genStyleHooks(
   'Image',
   token => {
     const imageToken = mergeToken<ImageToken>(token, {});
-    console.log(genImageStyle(imageToken));
     return [genImageStyle(imageToken)];
   },
   prepareComponentToken,

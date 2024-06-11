@@ -12,18 +12,18 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 
 type Loaded = 'loading' | 'error' | 'loaded';
 
-const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
+const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
   const timeout = useRef<NodeJS.Timeout>(null);
   const observer = useRef<IntersectionObserver>(null);
   const [loaded, setLoaded] = useState<Loaded>('loading');
   const loading = useRef(false);
 
-  const { getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
 
   const {
     src,
-    delay = 300,
+    delay,
     placeholder,
     className,
     onError,
@@ -97,13 +97,19 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
     } else {
       if (refImg.current.getAttribute('image-lazy') === 'error') {
         refImg.current.src = `${src}?${Date.now()}`;
+        refImg.current.getAttribute('image-lazy') === 'loading';
+        loading.current = true;
       }
     }
 
     if (loading.current && !refImg.current.complete) {
-      timeout.current = setTimeout(() => {
+      if (delay) {
+        timeout.current = setTimeout(() => {
+          setLoaded('loading');
+        }, delay);
+      } else {
         setLoaded('loading');
-      }, delay);
+      }
     }
   };
 
@@ -112,8 +118,8 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
    */
   function onImgLoaded(e) {
     loading.current = false;
-    setLoaded('loaded');
     clearTimeout(timeout.current);
+    setLoaded('loaded');
     if (lazy) {
       observer.current.unobserve(e.target);
     }
@@ -125,39 +131,43 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
    */
   function onImgLoadError(e) {
     loading.current = false;
-    setLoaded('error');
     clearTimeout(timeout.current);
+    setLoaded('error');
     onError?.(e);
   }
 
-  const DefaultError = (
+  const renderError = () => (
     <div className={`${prefixCls}-error`}>
-      <div className={`${prefixCls}-error-spin`}>
-        <IconImageClose />
-        <div className={`${prefixCls}-error-spin-text`}>{alt}</div>
-      </div>
+      {error || (
+        <div className={`${prefixCls}-error-icon`}>
+          <IconImageClose />
+          <div className={`${prefixCls}-error-icon-text`}>{alt}</div>
+        </div>
+      )}
     </div>
   );
-
-  const renderError = () => {
-    return error || DefaultError;
-  };
 
   const DefaultLoader = (
     <div className={`${prefixCls}-loader`}>
       <div className={`${prefixCls}-loader-spin`}>
         <IconLoading />
-        <div className={`${prefixCls}-loader-spin-text`}>Loading</div>
+        <div className={`${prefixCls}-loader-spin-text`}>{locale.Image.loading}</div>
       </div>
     </div>
   );
 
   const renderLoader = () => {
-    if (!placeholder) return DefaultLoader;
+    if (placeholder === true) return DefaultLoader;
     const ele = placeholder ? (
       <div className={`${prefixCls}-loader`}>
         {typeof placeholder === 'string' ? (
-          <img className={`${prefixCls}-placeholder`} src={placeholder} {...rest} width={width} height={height} />
+          <img
+            className={`${prefixCls}-loader-placeholder`}
+            src={placeholder}
+            width={width}
+            height={height}
+            {...rest}
+          />
         ) : (
           placeholder
         )}
@@ -166,7 +176,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
       DefaultLoader
     );
     // 懒加载展示占位。
-    if (lazy || placeholder) {
+    if (lazy || placeholder || delay) {
       return ele;
     }
     return null;
@@ -187,7 +197,6 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
       <img
         className={`${prefixCls}-img`}
         ref={refImg}
-        {...rest}
         alt={alt}
         width={width}
         height={height}
@@ -195,6 +204,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, pref) => {
         onError={onImgLoadError}
         src={lazy ? undefined : src}
         image-lazy={loaded}
+        {...rest}
       />
       {loaded !== 'loaded' && (
         <div className={`${prefixCls}-overlay`}>

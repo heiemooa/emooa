@@ -24,9 +24,8 @@ const App: React.FC = () => {
       <Divider />
       <ConfigProvider locale={langs[lang]}>
         <Space>
-          <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
-          <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
-          <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
+          <Image src={`https://api.emooa.com/aimg?idx=1&lang=${lang}`} height={100} placeholder={true} />
+          <Image src={`https://api.emooa.com/aimg?idx=2&lang=${lang}`} height={100} placeholder={true} />
         </Space>
       </ConfigProvider>
     </>
