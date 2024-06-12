@@ -34,8 +34,6 @@ export const ignore: {
   sizeXXL: true,
   sizeUnit: true,
   sizeStep: true,
-  motionBase: true,
-  motionUnit: true,
 };
 
 const preserve: {

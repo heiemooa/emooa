@@ -32,9 +32,9 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
   // Motion
   if (mergedToken.motion === false) {
     const fastDuration = '0s';
-    mergedToken.motionDurationFast = fastDuration;
-    mergedToken.motionDurationMid = fastDuration;
-    mergedToken.motionDurationSlow = fastDuration;
+    mergedToken.motions.durationFast = fastDuration;
+    mergedToken.motions.durationMid = fastDuration;
+    mergedToken.motions.durationSlow = fastDuration;
   }
 
   // Generate alias token

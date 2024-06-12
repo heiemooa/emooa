@@ -23,8 +23,10 @@ export default function derivative(token: SeedToken): BaseToken {
 
   return {
     ...token,
-    colors: Object.assign({}, token.colors, colorPalettes),
+    // Motion
+    motions: genMotionBaseToken(token),
     // Colors
+    colors: Object.assign({}, token.colors, colorPalettes),
     ...genColorBaseToken(token, {
       generateColorPalettes,
       generateNeutralColorPalettes,
@@ -33,8 +35,6 @@ export default function derivative(token: SeedToken): BaseToken {
     ...genFontBaseToken(token.fontSize),
     // Size
     ...genSizeBaseToken(token),
-    // Motion
-    ...genMotionBaseToken(token),
     // Others
     ...genOtherBaseToken(token),
   };

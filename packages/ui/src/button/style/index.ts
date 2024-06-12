@@ -47,7 +47,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
       textAlign: 'center',
       lineHeight: token.lineHeight,
       outline: 'none',
-      transition: `all ${token.motionDurationMid} ${token.motionStandard}`,
+      transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
 
       [`&:not(${componentCls}-rtl)`]: {
         '& > svg + span': {
@@ -77,7 +77,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
           cursor: 'auto',
 
           [`${euiCls}-icon-loading`]: {
-            transition: `width ${token.motionDurationMid} ${token.motionStandard}, opacity ${token.motionDurationSlow} ${token.motionStandard}`,
+            transition: `width ${token.motions.durationMid} ${token.motions.standard}, opacity ${token.motions.durationSlow} ${token.motions.standard}`,
           },
         },
       },

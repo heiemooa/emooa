@@ -1,3 +1,4 @@
+import { MotionBaseToken } from './base';
 import type { ColorPalettes, PresetColorType } from './presetColors';
 // ======================================================================
 // ==                            Seed Token                            ==
@@ -154,53 +155,11 @@ export interface SeedToken {
   //  ----------   motion   ---------- //
 
   /**
-   * @name 动画时长变化单位
-   * @desc 用于控制动画时长的变化单位
-   * @default 100 ms
-   */
-  motionUnit: number;
-
-  /**
-   * @name 动画基础时长。
-   */
-  motionBase: number;
-
-  /**
-   * @name CSS 过渡函数
-   * @desc 线性
-   */
-  motionLinear: string;
-
-  /**
-   * @name CSS 过渡函数
-   * @desc 标准
-   */
-  motionStandard: string;
-
-  /**
-   * @name CSS 过渡函数
-   * @desc 过冲
-   */
-  motionOvershoot: string;
-
-  /**
-   * @name CSS 过渡函数
-   * @desc 减速
-   */
-  motionDecelerate: string;
-
-  /**
-   * @name CSS 过渡函数
-   * @desc  加速
-   */
-  motionAccelerate: string;
-
-  //  ----------   Style   ---------- //
-
-  /**
    * @name 动画风格
    * @desc 用于配置动画效果，为 `false` 时则关闭动画
    * @default false
    */
   motion: boolean;
+
+  motions: MotionBaseToken;
 }

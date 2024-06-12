@@ -28,6 +28,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     onError,
     onLoad,
     preview = true,
+    motion = true,
     lazy,
     width,
     height,
@@ -46,6 +47,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     prefixCls,
     {
       [`${prefixCls}-rtl`]: rtl,
+      [`${prefixCls}-motion`]: motion,
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-loading-error`]: isError,
       [`${prefixCls}-with-preview`]: isLoaded && preview,

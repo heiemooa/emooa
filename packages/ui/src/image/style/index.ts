@@ -1,5 +1,6 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
+import { zoomIn, zoomOut } from '@/_theme/style/motion';
 
 /** Component only token. Which will handle additional calculation of alias token */
 export interface ComponentToken {
@@ -16,6 +17,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       position: 'relative',
       display: 'inline-block',
       verticalAlign: 'middle',
+      overflow: 'hidden',
 
       '&-rtl': {
         direction: 'rtl',
@@ -24,6 +26,14 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       '&-loading,&-loading-error': {
         [`${componentCls}-img`]: {
           visibility: 'hidden',
+        },
+      },
+
+      [`&-motion > ${componentCls}-img`]: {
+        '&[image-lazy="loaded"]': {
+          animationName: zoomIn,
+          animationDuration: token.motions.durationMid,
+          animationTimingFunction: token.motions.decelerate,
         },
       },
 
@@ -65,7 +75,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
           [`${componentCls}-loader-placeholder`]: {
             filter: 'blur(5px)',
-            transition: `all ${token.motionDurationMid} ${token.motionStandard}`,
+            transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
           },
         },
       },

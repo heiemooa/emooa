@@ -1,12 +1,11 @@
 import type { MotionBaseToken, SeedToken } from '../../interface';
 
 export default function genMotionBaseToken(token: SeedToken): MotionBaseToken {
-  const { motionUnit, motionBase } = token;
+  const { motions } = token;
 
-  return {
-    // motion
-    motionDurationFast: `${(motionBase + motionUnit).toFixed(1)}s`,
-    motionDurationMid: `${(motionBase + motionUnit * 2).toFixed(1)}s`,
-    motionDurationSlow: `${(motionBase + motionUnit * 3).toFixed(1)}s`,
-  };
+  return Object.assign({}, motions, {
+    durationFast: `${(motions.base + motions.unit).toFixed(1)}s`,
+    durationMid: `${(motions.base + motions.unit * 2).toFixed(1)}s`,
+    durationSlow: `${(motions.base + motions.unit * 3).toFixed(1)}s`,
+  });
 }

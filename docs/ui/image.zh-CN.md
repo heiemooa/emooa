@@ -35,6 +35,7 @@ toc: content
 | src | `string` | - | 图片地址 |
 | placeholder | `boolean` `string` `React.ReactNode` | -- | 加载占位符 |
 | preview | `boolean` | true | 是否开启预览 |
+| motion | `boolean` | true | 是否开启加载成功的动画 |
 | error | `React.ReactNode` | -- | 错误占位符 |
 | delay | `number` | -- | (ms) 如果在延迟时间范围内 url 未加载，则将渲染占位符。 |
 | lazy | `boolean` [Lazy](#lazy) | - | `IntersectionObserver` 属性 API，异步观察目标元素与祖先元素或顶级文档视口的交集变化，判断加载时机。 |
