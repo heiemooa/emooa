@@ -33,7 +33,7 @@ When lazy loading of images is required.
 | url | `string` | - | Image url path. |
 | placeholder | `boolean` `string` `React.ReactNode` | -- | Load placeholder, use default placeholder or false |
 | preview | `boolean` | true | Whether to enable preview |
-| motion | `boolean` | true | Whether to enable the animation of successful loading |
+| motion | `boolean` | false | Whether to enable the animation of successful loading |
 | error | `React.ReactNode` | -- | error placeholder |
 | delay | number | -- | (ms) The placeholder will be rendered if the url is not loaded within the delay time range. |
 | options | [Options](#options) | - | `IntersectionObserver` properties api. |

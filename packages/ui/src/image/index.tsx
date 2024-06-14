@@ -2,14 +2,17 @@
  * lazy 懒加载参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 
-import React, { useRef, useEffect, useContext, forwardRef } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
-import { ImageProps } from './interface';
+import { ImagePreviewProps, ImageProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import useStyle from './style';
 import { IconImageClose, IconLoading } from '@emooa/icon';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import useImageStatus from './hooks/useImageStatus';
+import useValue from '@/_utils/hooks/useValue';
+import ImagePreview from './ImagePreview';
+import { isEmptyObject, isObject } from '@/_utils/is';
 
 const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
@@ -25,18 +28,29 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     delay,
     placeholder,
     className,
-    onError,
-    onLoad,
-    preview = true,
-    motion = true,
+    preview: _preview = true,
+    motion = false,
     lazy,
     width,
     height,
     style,
     error,
     alt,
+    onError,
+    onLoad,
+    onClick,
     ...rest
   }: ImageProps = Object.assign({}, components?.Image, props);
+
+  const preview = useMemo<ImagePreviewProps>(() => {
+    if (_preview === false) return {};
+    return isObject(_preview) ? { ..._preview, src: _preview.src || src } : {};
+  }, [_preview]);
+
+  const [previewVisible, setPreviewVisible] = useValue(false, {
+    defaultValue: preview.defaultVisible,
+    value: preview.visible,
+  });
 
   const prefixCls = getPrefixCls('image');
 
@@ -50,7 +64,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
       [`${prefixCls}-motion`]: motion,
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-loading-error`]: isError,
-      [`${prefixCls}-with-preview`]: isLoaded && preview,
+      [`${prefixCls}-with-preview`]: isLoaded && !!_preview,
     },
     cssVarCls,
     className,
@@ -183,6 +197,18 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     return null;
   };
 
+  function onImgClick(e) {
+    if (preview) {
+      togglePreviewVisible(true);
+    }
+    onClick?.(e);
+  }
+
+  function togglePreviewVisible(newVisible) {
+    // previewProps.onVisibleChange && previewProps.onVisibleChange(newVisible, previewVisible);
+    setPreviewVisible(newVisible);
+  }
+
   return wrapCSSVar(
     <div
       ref={ref}
@@ -205,6 +231,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         onError={onImgLoadError}
         src={lazy ? undefined : src}
         image-lazy={status}
+        onClick={onImgClick}
         {...rest}
       />
       {!isLoaded && (
@@ -212,6 +239,9 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
           {isError && renderError()}
           {isLoading && renderLoader()}
         </div>
+      )}
+      {isLoaded && _preview && (
+        <ImagePreview visible={previewVisible} onVisibleChange={togglePreviewVisible} {...preview} />
       )}
     </div>,
   );
