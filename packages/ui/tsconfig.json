@@ -4,8 +4,8 @@
     "outDir": "./lib",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["components/*"]
     }
   },
-  "include": ["./src"]
+  "include": ["components"]
 }

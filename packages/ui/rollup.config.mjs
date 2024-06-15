@@ -9,7 +9,7 @@ const pkg = JSON.parse(readFileSync('./package.json'));
 
 export default [
   {
-    input: './src/index.ts',
+    input: './components/index.ts',
     treeshake: {
       propertyReadSideEffects: false,
       moduleSideEffects: 'no-external',
@@ -21,7 +21,7 @@ export default [
         dir: path.dirname(pkg.module),
         exports: 'named',
         preserveModules: true, // 保留模块结构
-        preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下
+        preserveModulesRoot: 'components', // 将保留的模块放在根级别的此路径下
       },
     ],
     plugins: [
@@ -38,7 +38,7 @@ export default [
     external: ['react', 'react-dom'], // 将这些模块视为外部模块，不会打包进 bundle
   },
   {
-    input: './src/index.ts',
+    input: './components/index.ts',
     output: [
       {
         format: 'cjs',
@@ -46,7 +46,7 @@ export default [
         exports: 'named',
         dir: path.dirname(pkg.main),
         preserveModules: true, // 保留模块结构
-        preserveModulesRoot: 'src', // 将保留的模块放在根级别的此路径下
+        preserveModulesRoot: 'components', // 将保留的模块放在根级别的此路径下
       },
     ],
     plugins: [
