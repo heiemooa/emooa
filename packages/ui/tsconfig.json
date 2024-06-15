@@ -7,5 +7,5 @@
       "@/*": ["components/*"]
     }
   },
-  "include": ["components"]
+  "include": ["components", "src"]
 }
