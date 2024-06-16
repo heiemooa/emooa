@@ -1,6 +1,7 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
-import { zoomIn, zoomOut } from '@/_theme/style/motion';
+import { zoom } from '@/_theme/style/motion';
+import genImagePreviewStyle from './image-preview';
 
 /** Component only token. Which will handle additional calculation of alias token */
 export interface ComponentToken {
@@ -31,7 +32,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
       [`&-motion > ${componentCls}-img`]: {
         '&[image-lazy="loaded"]': {
-          animationName: zoomIn,
+          animationName: zoom.zoomIn,
           animationDuration: token.motions.durationMid,
           animationTimingFunction: token.motions.decelerate,
         },
@@ -90,7 +91,7 @@ export default genStyleHooks(
   'Image',
   token => {
     const imageToken = mergeToken<ImageToken>(token, {});
-    return [genImageStyle(imageToken)];
+    return [genImageStyle(imageToken), genImagePreviewStyle(imageToken)];
   },
   prepareComponentToken,
 );

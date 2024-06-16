@@ -1,4 +1,4 @@
-import { CSSProperties, ImgHTMLAttributes, ReactNode } from 'react';
+import { CSSProperties, ImgHTMLAttributes, ReactElement, ReactNode } from 'react';
 
 /**
  * @title Image.Preview
@@ -39,12 +39,12 @@ export interface ImagePreviewProps {
   //  * @defaultValue 316
   //  */
   // breakPoint?: number;
-  // /**
-  //  * @zh 点击 mask 是否触发关闭
-  //  * @en Whether click mask to close
-  //  * @defaultValue true
-  //  */
-  // maskClosable?: boolean;
+  /**
+   * @zh 点击 mask 是否触发关闭
+   * @en Whether click mask to close
+   * @defaultValue true
+   */
+  maskClosable?: boolean;
   // /**
   //  * @zh 是否显示关闭按钮
   //  * @en Whether display close button
@@ -63,13 +63,12 @@ export interface ImagePreviewProps {
   //  * @defaultValue ['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']
   //  */
   // actionsLayout?: string[];
-  // /**
-  //  * @zh 在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。
-  //  * @en The zoom percentage in the current array is used when previewing zooms. If `100%` is not included, the `100%` scale will be automatically added in the most adjacent position.
-  //  * @defaultValue [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500];
-  //  * @version 2.30.0
-  //  */
-  // scales?: number[];
+  /**
+   * @zh 在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。
+   * @en The zoom percentage in the current array is used when previewing zooms. If `100%` is not included, the `100%` scale will be automatically added in the most adjacent position.
+   * @defaultValue [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500];
+   */
+  scales?: number[];
   /**
    * @zh 切换可见状态触发的事件
    * @en Callback when visibility changes
@@ -81,19 +80,19 @@ export interface ImagePreviewProps {
    * @defaultValue () => document.body
    */
   getPopupContainer?: () => HTMLElement;
-  // /**
-  //  * @zh  按 `ESC` 键关闭预览
-  //  * @en Whether to enable pressing `ESC` to close the preview.
-  //  * @defaultValue true
-  //  * @version 2.24.0
-  //  */
-  // escToExit?: boolean;
-  // /**
-  //  * @zh 自定义 IMG 元素的渲染
-  //  * @en Rendering of custom IMG elements
-  //  * @version 2.58.0
-  //  */
-  // imageRender?: (originalNode: ReactElement) => ReactNode;
+  /**
+   * @zh  按 `ESC` 键关闭预览
+   * @en Whether to enable pressing `ESC` to close the preview.
+   * @defaultValue true
+   * @version 2.24.0
+   */
+  escToExit?: boolean;
+  /**
+   * @zh 自定义 IMG 元素的渲染
+   * @en Rendering of custom IMG elements
+   * @version 2.58.0
+   */
+  imageRender?: (originalNode: ReactElement) => ReactNode;
   // /**
   //  * @zh 开启位置修正
   //  * @en Enable position correction

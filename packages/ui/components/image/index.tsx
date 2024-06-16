@@ -9,10 +9,10 @@ import { ConfigContext } from '@/config-provider';
 import useStyle from './style';
 import { IconImageClose, IconLoading } from '@emooa/icon';
 import { ConfigProviderProps } from '@/config-provider/interface';
-import useImageStatus from './hooks/useImageStatus';
+import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
-import { isEmptyObject, isObject } from '@/_utils/is';
+import { isObject } from '@/_utils/is';
 
 const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
@@ -44,7 +44,7 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
 
   const preview = useMemo<ImagePreviewProps>(() => {
     if (_preview === false) return {};
-    return isObject(_preview) ? { ..._preview, src: _preview.src || src } : {};
+    return isObject(_preview) ? { ..._preview, src: _preview.src || src } : { src };
   }, [_preview]);
 
   const [previewVisible, setPreviewVisible] = useValue(false, {
