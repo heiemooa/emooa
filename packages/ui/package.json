@@ -27,7 +27,7 @@
     "cjs"
   ],
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "test": "jest",
     "rimraf": "rimraf esm && rimraf cjs",
     "build": "yarn run rimraf && rollup -c"

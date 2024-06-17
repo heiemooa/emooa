@@ -13,6 +13,8 @@ import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
 import { isObject } from '@/_utils/is';
+import ImageFooter from './ImageFooter';
+import useFooter from './utils/hooks/useFooter';
 
 const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
@@ -39,6 +41,9 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     onError,
     onLoad,
     onClick,
+    title,
+    actions,
+    description,
     ...rest
   }: ImageProps = Object.assign({}, components?.Image, props);
 
@@ -51,6 +56,8 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     defaultValue: preview.defaultVisible,
     value: preview.visible,
   });
+
+  const [showFooter] = useFooter({ title, description, actions });
 
   const prefixCls = getPrefixCls('image');
 
@@ -65,6 +72,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-loading-error`]: isError,
       [`${prefixCls}-with-preview`]: isLoaded && !!_preview,
+      [`${prefixCls}-with-footer-inner`]: isLoaded && showFooter,
     },
     cssVarCls,
     className,
@@ -239,6 +247,9 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
           {isError && renderError()}
           {isLoading && renderLoader()}
         </div>
+      )}
+      {isLoaded && showFooter && (
+        <ImageFooter title={title} description={description} actions={actions} prefixCls={prefixCls} />
       )}
       {isLoaded && _preview && (
         <ImagePreview visible={previewVisible} onVisibleChange={togglePreviewVisible} {...preview} />

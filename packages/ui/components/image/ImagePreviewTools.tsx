@@ -1,31 +1,18 @@
 import classNames from 'classnames';
 import React, { HTMLAttributes, forwardRef } from 'react';
-import { IconMore } from '@emooa/icon';
 import { ImagePreviewActionProps } from './interface';
 
 interface ImagePreviewToolsProps extends HTMLAttributes<HTMLDivElement> {
   prefixCls: string;
   previewPrefixCls: string;
-  simple: boolean;
   actions: ImagePreviewActionProps[];
   actionsLayout: string[];
   defaultActions: ImagePreviewActionProps[];
 }
 
-const TriggerForTools = (props: HTMLAttributes<HTMLDivElement> & { prefixCls: string }) => {
-  const { style, className, prefixCls, children } = props;
-  return (
-    <div style={style} className={classNames(`${prefixCls}-trigger`, className)}>
-      {children}
-    </div>
-  );
-};
-
 const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((props, ref) => {
   const {
-    prefixCls,
     previewPrefixCls,
-    simple = false,
     actions: _actions = [],
     actionsLayout = [],
     defaultActions: _defaultActions = [],
@@ -51,7 +38,7 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
     actions.splice(extraIndex, 0, ...extraActions);
   }
 
-  const renderAction = (itemData: ImagePreviewActionProps, renderName = false) => {
+  const renderAction = (itemData: ImagePreviewActionProps) => {
     const { content, disabled, key, name, getContainer, onClick, ...rest } = itemData;
     const action = (
       <div
@@ -71,7 +58,6 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
         {...rest}
       >
         {content && <span className={`${previewPrefixCls}-tools-action-content`}>{content}</span>}
-        {renderName && name && <span className={`${previewPrefixCls}-tools-action-name`}>{name}</span>}
       </div>
     );
     if (getContainer) {
@@ -83,8 +69,8 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
   if (!actions.length) return null;
 
   const currentActions = actions.map(item => {
-    const action = renderAction(item, simple);
-    if (!simple && item.name && !item.getContainer) {
+    const action = renderAction(item);
+    if (item.name && !item.getContainer) {
       return (
         <div content={item.name} key={item.key}>
           {action}
@@ -95,34 +81,8 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
   });
 
   return (
-    <div
-      ref={ref}
-      className={classNames(
-        `${previewPrefixCls}-tools`,
-        {
-          [`${previewPrefixCls}-tools-simple`]: simple,
-        },
-        className,
-      )}
-      style={style}
-    >
-      {simple && (
-        <TriggerForTools
-          prefixCls={prefixCls}
-          className={`${previewPrefixCls}-trigger`}
-          //   popup={() => <div>{actionList}</div>}
-        >
-          {renderAction({
-            key: 'trigger',
-            content: (
-              <span>
-                <IconMore />
-              </span>
-            ),
-          })}
-        </TriggerForTools>
-      )}
-      {!simple && currentActions}
+    <div ref={ref} className={classNames(`${previewPrefixCls}-tools`, className)} style={style}>
+      {currentActions}
     </div>
   );
 });

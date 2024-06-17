@@ -49,6 +49,10 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
       outline: 'none',
       transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
 
+      '&:focus': {
+        outline: 0,
+      },
+
       [`&:not(${componentCls}-rtl)`]: {
         '& > svg + span': {
           marginLeft: token.paddingXS,

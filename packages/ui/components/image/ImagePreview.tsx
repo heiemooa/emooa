@@ -90,6 +90,7 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     getPopupContainer = () => document.body,
     escToExit = true,
     imageRender,
+    zIndex = 1000,
     ...rest
   }: ImagePreviewProps = Object.assign({}, components?.Image?.preview, props);
 

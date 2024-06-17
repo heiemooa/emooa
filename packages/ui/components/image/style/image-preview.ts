@@ -14,6 +14,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
         height: '100%',
         top: 0,
         left: 0,
+        zIndex: token.zIndexPopupBase,
 
         [`${componentCls}-preview-mask, ${componentCls}-preview-wrapper`]: {
           position: 'absolute',
@@ -54,7 +55,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
-          color: token.colorTextLightSolid,
+          color: token.colorWhite,
 
           // [`&`]: {
           //   animationName: fade.fadeIn,
@@ -83,7 +84,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
 
             '&:hover': {
               backgroundColor: 'rgba(255, 255,255, 0.1)',
-              color: token.colorTextLightSolid,
+              color: token.colorWhite,
             },
             '&:active': {
               transform: 'scale(0.95)',
@@ -104,7 +105,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
 
           '&:hover': {
             backgroundColor: 'rgba(255, 255,255, 0.1)',
-            color: token.colorTextLightSolid,
+            color: token.colorWhite,
           },
           '&:active': {
             transform: 'scale(0.95)',

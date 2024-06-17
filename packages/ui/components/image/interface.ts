@@ -15,7 +15,7 @@ export interface ImagePreviewActionProps extends HTMLAttributes<HTMLDivElement> 
    * @zh 内容
    * @en content
    */
-  content: ReactNode;
+  content: string;
   /**
    * @zh
    * 因为 content 只能定义内容，所以提供这个函数用于支持自定义外围元素，需要注意的是设置了 `getContainer`, 显示 `name` 的 `Tooltip` 将失效。
@@ -50,7 +50,6 @@ export interface ImagePreviewProps {
   /**
    * @zh 图片属性，透传至预览弹窗中的 `img` 标签上
    * @en Image props, passthrough to the `img` tag in the preview modal
-   * @version 2.39.0
    */
   imgAttributes?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>;
   /**
@@ -79,7 +78,6 @@ export interface ImagePreviewProps {
    * @zh 是否显示关闭按钮
    * @en Whether display close button
    * @defaultValue true
-   * @version 2.16.0
    */
   closable?: boolean;
   /**
@@ -114,18 +112,20 @@ export interface ImagePreviewProps {
    * @zh  按 `ESC` 键关闭预览
    * @en Whether to enable pressing `ESC` to close the preview.
    * @defaultValue true
-   * @version 2.24.0
    */
   escToExit?: boolean;
   /**
    * @zh 自定义 IMG 元素的渲染
    * @en Rendering of custom IMG elements
-   * @version 2.58.0
    */
   imageRender?: (originalNode: ReactElement) => ReactNode;
+  zIndex?: number;
 }
 
 interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
+  title?: string;
+  description?: string;
+  actions?: ReactNode[]; // 额外操作
   preview?: boolean | ImagePreviewProps; // 是否开启预览
   src?: string;
   error?: React.ReactNode; // 错误状态下显示的内容

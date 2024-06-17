@@ -18,7 +18,16 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       position: 'relative',
       display: 'inline-block',
       verticalAlign: 'middle',
-      overflow: 'hidden',
+
+      [`${componentCls}-img`]: {
+        verticalAlign: 'middle',
+      },
+
+      '&-with-preview': {
+        [`${componentCls}-img`]: {
+          cursor: 'zoom-in',
+        },
+      },
 
       '&-rtl': {
         direction: 'rtl',
@@ -77,6 +86,53 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           [`${componentCls}-loader-placeholder`]: {
             filter: 'blur(5px)',
             transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
+          },
+        },
+      },
+
+      '&-with-footer-inner': {
+        [`${componentCls}-footer`]: {
+          boxSizing: 'border-box',
+          paddingInline: token.paddingXS,
+          paddingBlock: token.paddingXXS,
+          alignItems: 'center',
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          color: token.colorWhite,
+        },
+      },
+
+      [`${componentCls}-footer`]: {
+        width: '100%',
+        maxWidth: '100%',
+        display: 'flex',
+        alignItems: 'flex-end',
+
+        '&-block': {
+          flex: 'auto',
+        },
+
+        [`${componentCls}-caption`]: {
+          '&-title': {
+            fontSize: token.fontSizeHeading5,
+            fontWeight: token.fontWeightStrong,
+          },
+
+          '&-description': {},
+        },
+
+        [`${componentCls}-actions`]: {
+          '&-list': {
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          },
+
+          '&-item': {
+            lineHeight: 1,
+            borderRadius: token.borderRadius,
+            cursor: 'pointer',
           },
         },
       },
