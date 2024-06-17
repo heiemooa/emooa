@@ -8,11 +8,11 @@ export interface ComponentToken {
   /**
    * 文本横向内间距
    */
-  textPaddingInline: CSSProperties['paddingInline'];
+  textPaddingInline?: CSSProperties['paddingInline'];
   /**
    * 文本与边缘距离
    */
-  orientationMargin: number;
+  orientationMargin?: number;
 }
 
 interface DividerToken extends FullToken<'Divider'> {
@@ -95,7 +95,7 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'Divider'> = token => ({
+const prepareComponentToken: GetDefaultToken<'Divider'> = token => ({
   textPaddingInline: token.margin,
   orientationMargin: token.marginXL,
 });

@@ -14,7 +14,7 @@ import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
 import { isObject } from '@/_utils/is';
 
-const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
+const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
   const timeout = useRef<NodeJS.Timeout>(null);
   const observer = useRef<IntersectionObserver>(null);
@@ -246,6 +246,12 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     </div>,
   );
 });
+
+const Image = ImageComponent as typeof ImageComponent & {
+  Preview: typeof ImagePreview;
+};
+
+Image.Preview = ImagePreview;
 
 if (process.env.NODE_ENV !== 'production') {
   Image.displayName = 'Image';

@@ -86,7 +86,7 @@ const genSpaceGapStyle: GenerateStyle<SpaceToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'Space'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'Space'> = () => ({});
 
 export default genStyleHooks(
   'Space',

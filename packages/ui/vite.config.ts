@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'components'),
-      '@icon': path.resolve(__dirname, '../icon'),
+      '@emooa/icon': path.resolve(__dirname, '../icon/esm/index'),
     },
   },
 });

@@ -17,7 +17,7 @@ const genGeoJSONStyle: GenerateStyle<GeoJSONToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'GeoJSON'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'GeoJSON'> = () => ({});
 
 export default genStyleHooks(
   'GeoJSON',

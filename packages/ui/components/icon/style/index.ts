@@ -17,7 +17,7 @@ const genIconStyle: GenerateStyle<IconToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'Icon'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'Icon'> = () => ({});
 
 export default genStyleHooks(
   'Icon',

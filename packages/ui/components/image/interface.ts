@@ -1,7 +1,43 @@
-import { CSSProperties, ImgHTMLAttributes, ReactElement, ReactNode } from 'react';
+import { CSSProperties, HTMLAttributes, ImgHTMLAttributes, ReactElement, ReactNode } from 'react';
 
 /**
- * @title Image.Preview
+ * @title ImagePreviewActionProps
+ * @zh `<Image.Preview>` 中类型 `ImagePreviewActionProps` 详细参数。
+ * @en Detailed parameters of type `ImagePreviewActionProps` in `<Image.Preview>`.
+ */
+export interface ImagePreviewActionProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * @zh 唯一标识
+   * @en Unique identifier
+   */
+  key: string;
+  /**
+   * @zh 内容
+   * @en content
+   */
+  content: ReactNode;
+  /**
+   * @zh
+   * 因为 content 只能定义内容，所以提供这个函数用于支持自定义外围元素，需要注意的是设置了 `getContainer`, 显示 `name` 的 `Tooltip` 将失效。
+   * @en
+   * Because content can only specify content, this function is provided to support custom peripheral elements.
+   * Note that if `getContainer` is set, the `Tooltip` displaying `name` will be invalid
+   */
+  getContainer?: (actionElement: ReactNode) => ReactNode;
+  /**
+   * @zh 名称
+   * @en name
+   */
+  name?: string;
+  /**
+   * @zh 是否禁用
+   * @en Whether disabled
+   */
+  disabled?: boolean;
+}
+
+/**
+ * @zh `<Image.Preview>` 详细参数。
  */
 export interface ImagePreviewProps {
   style?: CSSProperties;
@@ -17,12 +53,6 @@ export interface ImagePreviewProps {
    * @version 2.39.0
    */
   imgAttributes?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>;
-  /**
-   * @zh 自定义图片预览区域的额外节点
-   * @en Additional nodes add to the image preview area
-   * @version 2.53.0
-   */
-  extra?: ReactNode;
   /**
    * @zh 是否可见，受控属性
    * @en Whether is visible
@@ -45,24 +75,24 @@ export interface ImagePreviewProps {
    * @defaultValue true
    */
   maskClosable?: boolean;
-  // /**
-  //  * @zh 是否显示关闭按钮
-  //  * @en Whether display close button
-  //  * @defaultValue true
-  //  * @version 2.16.0
-  //  */
-  // closable?: boolean;
-  // /**
-  //  * @zh 额外操作，[ImagePreviewActionProps](#imagepreviewactionprops)
-  //  * @en Extra operations, [ImagePreviewActionProps](#imagepreviewactionprops)
-  //  */
-  // actions?: ImagePreviewActionProps[];
-  // /**
-  //  * @zh 控制条的布局
-  //  * @en The layout of the control bar
-  //  * @defaultValue ['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']
-  //  */
-  // actionsLayout?: string[];
+  /**
+   * @zh 是否显示关闭按钮
+   * @en Whether display close button
+   * @defaultValue true
+   * @version 2.16.0
+   */
+  closable?: boolean;
+  /**
+   * @zh 额外操作，[ImagePreviewActionProps](#imagepreviewactionprops)
+   * @en Extra operations, [ImagePreviewActionProps](#imagepreviewactionprops)
+   */
+  actions?: ImagePreviewActionProps[];
+  /**
+   * @zh 控制条的布局
+   * @en The layout of the control bar
+   * @defaultValue ['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']
+   */
+  actionsLayout?: string[];
   /**
    * @zh 在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。
    * @en The zoom percentage in the current array is used when previewing zooms. If `100%` is not included, the `100%` scale will be automatically added in the most adjacent position.
@@ -93,13 +123,6 @@ export interface ImagePreviewProps {
    * @version 2.58.0
    */
   imageRender?: (originalNode: ReactElement) => ReactNode;
-  // /**
-  //  * @zh 开启位置修正
-  //  * @en Enable position correction
-  //  * @defaultValue true
-  //  * @version 2.61.0
-  //  */
-  // resetTranslate?: boolean;
 }
 
 interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {

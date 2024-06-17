@@ -8,29 +8,29 @@ export interface ComponentToken {
   // Component token here
 
   // secondary
-  secondaryColorBg: string;
-  secondaryColor: string;
-  secondaryBorder: string;
+  secondaryColorBg?: string;
+  secondaryColor?: string;
+  secondaryBorder?: string;
 
   // primary
-  primaryColorBg: string;
-  primaryColor: string;
-  primaryBorder: string;
+  primaryColorBg?: string;
+  primaryColor?: string;
+  primaryBorder?: string;
 
   // dashed
-  dashedColorBg: string;
-  dashedColor: string;
-  dashedBorder: string;
+  dashedColorBg?: string;
+  dashedColor?: string;
+  dashedBorder?: string;
 
   // text
-  textColorBg: string;
-  textColor: string;
-  textBorder: string;
+  textColorBg?: string;
+  textColor?: string;
+  textBorder?: string;
 
   // outline
-  outlineColorBg: string;
-  outlineColor: string;
-  outlineBorder: string;
+  outlineColorBg?: string;
+  outlineColor?: string;
+  outlineBorder?: string;
 }
 
 interface ButtonToken extends FullToken<'Button'> {}
@@ -268,7 +268,7 @@ const genBtnFullStyle: GenerateStyle<ButtonToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'Button'> = token => ({
+const prepareComponentToken: GetDefaultToken<'Button'> = token => ({
   /**  Type  */
   // secondary
   secondaryColorBg: token.colorBorderSecondary,

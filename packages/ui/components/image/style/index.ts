@@ -85,7 +85,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 };
 
 // ============================== Export ==============================
-export const prepareComponentToken: GetDefaultToken<'Image'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'Image'> = () => ({});
 
 export default genStyleHooks(
   'Image',

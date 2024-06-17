@@ -1,4 +1,13 @@
-import React, { forwardRef, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { ImagePreviewProps } from './interface';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import { ConfigContext } from '@/config-provider';
@@ -21,13 +30,33 @@ import {
   IconZoomOut,
   IconOriginalSize,
   IconLoading,
-} from '@icon/esm';
+  IconClose,
+} from '@emooa/icon';
+import ImagePreviewTools from './ImagePreviewTools';
+import useStyle from './style';
 
-const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) => {
+/** 选择角度90度 */
+const ROTATE_STEP = 90;
+
+type ImagePreviewHandle = {
+  reset: () => void;
+};
+
+const useCSSVarCls = (prefixCls: string) => {
+  const [, , , , cssVar] = useToken();
+  return cssVar ? `${prefixCls}-css-var` : '';
+};
+
+const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePreviewProps>((props, ref) => {
   const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
-  const [, , hashId] = useToken();
+  const prefixCls = getPrefixCls('image');
+  const previewPrefixCls = `${prefixCls}-preview`;
+
+  const rootCls = useCSSVarCls(prefixCls);
+  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls, rootCls);
+
   const [moving, setMoving] = useState(false);
-  const { isLoading, setStatus } = useImageStatus('loading');
+  const { isLoading, isLoaded, setStatus } = useImageStatus('loading');
   const refMoveData = useRef({
     pageX: 0,
     pageY: 0,
@@ -39,7 +68,7 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
   const [rotate, setRotate] = useState(0);
   const [scaleValueVisible, setScaleValueVisible] = useState(false);
 
-  const refImageContainer = useRef<HTMLDivElement>();
+  const refRootWrapper = useRef<HTMLDivElement>();
   const refWrapper = useRef<HTMLDivElement>();
   const refImage = useRef<HTMLImageElement>();
   const keyboardEventOn = useRef<boolean>(false);
@@ -52,23 +81,17 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     defaultVisible,
     visible: _visible,
     onVisibleChange,
-    extra: extraNode = null,
     imgAttributes = {},
     scales = defaultScales,
     maskClosable = true,
-    // closable,
-    // breakPoint,
-    // actions,
-    // actionsLayout,
-    getPopupContainer,
-    escToExit,
+    closable = true,
+    actions,
+    actionsLayout = ['fullScreen', 'rotateLeft', 'rotateRight', 'zoomIn', 'zoomOut', 'originalSize', 'extra'],
+    getPopupContainer = () => document.body,
+    escToExit = true,
     imageRender,
-    // resetTranslate,
     ...rest
   }: ImagePreviewProps = Object.assign({}, components?.Image?.preview, props);
-
-  const prefixCls = getPrefixCls('image');
-  const previewPrefixCls = `${prefixCls}-preview`;
 
   const classnames = classNames(
     hashId,
@@ -78,6 +101,7 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
       [`${previewPrefixCls}-rtl`]: rtl,
     },
     className,
+    cssVarCls,
   );
 
   const [visible, setVisible] = useValue(false, {
@@ -109,10 +133,10 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     };
   }, [visible, moving]);
 
-  // useImperativeHandle<ImagePreviewHandle, ImagePreviewHandle>(ref, () => ({
-  //   reset,
-  //   getRootDOMNode: () => refRootWrapper.current,
-  // }));
+  useImperativeHandle<ImagePreviewHandle, ImagePreviewHandle>(ref, () => ({
+    reset,
+    getRootNode: () => refRootWrapper.current,
+  }));
 
   const [container, setContainer] = useState<HTMLElement>();
 
@@ -148,6 +172,7 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     setRotate(0);
   }
 
+  // Close when pressing esc
   useEffect(() => {
     const onKeyDown = e => {
       if (e) {
@@ -210,14 +235,14 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
   }
 
   // Anticlockwise rotation
-  // function onRotateLeft() {
-  //   setRotate(rotate === 0 ? 360 - ROTATE_STEP : rotate - ROTATE_STEP);
-  // }
+  function onRotateLeft() {
+    setRotate(rotate - ROTATE_STEP);
+  }
 
   // Clockwise rotation
-  // function onRotateRight() {
-  //   setRotate((rotate + ROTATE_STEP) % 360);
-  // }
+  function onRotateRight() {
+    setRotate(rotate + ROTATE_STEP);
+  }
 
   // Scale
   const showScaleValue = () => {
@@ -287,14 +312,6 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     }
   }
 
-  // function onWrapperResize(entry) {
-  //   if (entry && entry.length) {
-  //     const wrapperRect = entry[0].contentRect;
-  //     const nextSimple = wrapperRect.width < breakPoint;
-  //     setToolbarSimple(nextSimple);
-  //   }
-  // }
-
   // Check the translate and correct it if needed
   const checkAndFixTranslate = () => {
     if (!refWrapper.current || !refImage.current) return;
@@ -358,13 +375,6 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     reset();
   }, [src]);
 
-  // useUpdate(() => {
-  //   previewScales.updateScale(scales);
-  //   setScale(1);
-  // }, [scales]);
-
-  // Close when pressing esc
-
   const defaultActions = [
     {
       key: 'fullScreen',
@@ -372,18 +382,18 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
       content: <IconFullscreen />,
       onClick: onFullScreen,
     },
-    // {
-    //   key: 'rotateRight',
-    //   name: locale.Image.rotateRight,
-    //   content: <IconRotateRight />,
-    //   onClick: onRotateRight,
-    // },
-    // {
-    //   key: 'rotateLeft',
-    //   name: locale.Image.rotateLeft,
-    //   content: <IconRotateLeft />,
-    //   onClick: onRotateLeft,
-    // },
+    {
+      key: 'rotateRight',
+      name: locale.Image.rotateRight,
+      content: <IconRotateRight />,
+      onClick: onRotateRight,
+    },
+    {
+      key: 'rotateLeft',
+      name: locale.Image.rotateLeft,
+      content: <IconRotateLeft />,
+      onClick: onRotateLeft,
+    },
     {
       key: 'zoomIn',
       name: locale.Image.zoomIn,
@@ -433,15 +443,14 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
     return imageRender?.(image) ?? image;
   };
 
-  return (
+  return wrapCSSVar(
     <Portal visible={visible} getContainer={getContainer}>
-      <div className={classnames} ref={ref}>
+      <div className={classnames} ref={ref} style={style} {...rest}>
         <div className={`${previewPrefixCls}-mask`} />
         <div className={`${previewPrefixCls}-wrapper`} ref={refWrapper} onClick={onOutsideImgClick}>
           <div
             className={`${previewPrefixCls}-img-container`}
             onClick={onOutsideImgClick}
-            ref={refImageContainer}
             style={{ transform: `scale(${scale}, ${scale})` }}
           >
             {renderImage()}
@@ -452,9 +461,24 @@ const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>((props, ref) 
             )}
           </div>
           {scaleValueVisible && <div className={`${previewPrefixCls}-scale-value`}>{(scale * 100).toFixed(0)}%</div>}
+          {isLoaded && (
+            <ImagePreviewTools
+              prefixCls={prefixCls}
+              previewPrefixCls={previewPrefixCls}
+              actions={actions}
+              actionsLayout={actionsLayout}
+              defaultActions={defaultActions}
+              simple={false}
+            />
+          )}
+          {closable && (
+            <div className={`${previewPrefixCls}-close`} onClick={onCloseClick}>
+              <IconClose />
+            </div>
+          )}
         </div>
       </div>
-    </Portal>
+    </Portal>,
   );
 });
 
