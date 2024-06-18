@@ -12,9 +12,16 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
-import { isObject, isUndefined } from '@/_utils/is';
+import { isNumber, isObject, isUndefined } from '@/_utils/is';
 import ImageFooter from './ImageFooter';
 import useFooter from './utils/hooks/useFooter';
+import ImagePreviewGroup from './ImagePreviewGroup';
+import { PreviewGroupContext } from './previewGroupContext';
+import omit from '@/_utils/omit';
+
+type ImagePropsType = ImageProps & { _index?: number };
+
+let uuid = 0;
 
 const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
@@ -22,6 +29,14 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const observer = useRef<IntersectionObserver>(null);
   const { status, setStatus, isBeforeLoad, isLoading, isLoaded, isError } = useImageStatus('beforeLoad');
   const loading = useRef(false);
+
+  const {
+    previewGroup,
+    handleVisibleChange: handleGroupVisibleChange,
+    registerPreviewUrl,
+    registerPreviewProps,
+    setCurrentIndex,
+  } = useContext(PreviewGroupContext);
 
   const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
 
@@ -44,8 +59,10 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     title,
     actions,
     description,
+    index,
+    _index,
     ...rest
-  }: ImageProps = Object.assign({}, components?.Image, props);
+  }: ImagePropsType = Object.assign({}, components?.Image, props);
 
   const preview = useMemo<ImagePreviewProps>(() => {
     if (_preview === false) return {};
@@ -79,6 +96,30 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     cssVarCls,
     className,
   );
+
+  const id = useMemo(() => {
+    if (isNumber(index) || isNumber(_index)) {
+      uuid = isNumber(index) ? index : _index;
+      return uuid;
+    }
+    return uuid++;
+  }, []);
+
+  const availablePreviewProps = useMemo(() => {
+    return omit(preview, ['visible', 'defaultVisible', 'src', 'onVisibleChange']);
+  }, [preview]);
+
+  useEffect(() => {
+    if (!previewGroup) return;
+    const unRegister = registerPreviewProps(id, availablePreviewProps);
+    return () => unRegister(id);
+  }, [id, previewGroup, availablePreviewProps]);
+
+  useEffect(() => {
+    if (!previewGroup) return;
+    const unRegister = registerPreviewUrl(id, preview.src, !!_preview);
+    return () => unRegister(id);
+  }, [id, previewGroup, preview.src, _preview]);
 
   useEffect(() => {
     if (!refImg.current) return;
@@ -208,14 +249,17 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   };
 
   function onImgClick(e) {
-    if (preview) {
+    if (preview && previewGroup) {
+      setCurrentIndex(id);
+      handleGroupVisibleChange(true);
+    } else if (preview) {
       togglePreviewVisible(true);
     }
     onClick?.(e);
   }
 
   function togglePreviewVisible(newVisible) {
-    // previewProps.onVisibleChange && previewProps.onVisibleChange(newVisible, previewVisible);
+    preview.onVisibleChange?.(newVisible, previewVisible);
     setPreviewVisible(newVisible);
   }
 
@@ -254,7 +298,12 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         <ImageFooter title={title} description={description} actions={actions} prefixCls={prefixCls} />
       )}
       {isLoaded && _preview && (
-        <ImagePreview visible={previewVisible} onVisibleChange={togglePreviewVisible} {...preview} />
+        <ImagePreview
+          visible={previewVisible}
+          src={preview.src}
+          onVisibleChange={togglePreviewVisible}
+          {...availablePreviewProps}
+        />
       )}
     </div>,
   );
@@ -262,9 +311,11 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
 
 const Image = ImageComponent as typeof ImageComponent & {
   Preview: typeof ImagePreview;
+  PreviewGroup: typeof ImagePreviewGroup;
 };
 
 Image.Preview = ImagePreview;
+Image.PreviewGroup = ImagePreviewGroup;
 
 if (process.env.NODE_ENV !== 'production') {
   Image.displayName = 'Image';

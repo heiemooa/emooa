@@ -19,9 +19,16 @@ const wrapperStyle: React.CSSProperties = {
 };
 
 function App() {
-  const [visible, setVisible] = useState(false);
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
   const ref = useRef();
-
+  const srcList = [
+    'https://api.emooa.com/aimg?idx=1',
+    'https://api.emooa.com/aimg?idx=2',
+    'https://api.emooa.com/aimg?idx=3',
+    'https://api.emooa.com/aimg?idx=4',
+  ];
   return (
     <>
       <Divider>Image</Divider>
@@ -38,7 +45,7 @@ function App() {
               size="small"
               className="image-demo-action-item"
               onClick={e => {
-                setVisible(true);
+                setVisible1(true);
               }}
               type="text"
               style={{ color: '#fff' }}
@@ -57,9 +64,9 @@ function App() {
             />,
           ]}
           preview={{
-            visible,
+            visible: visible1,
             onVisibleChange: e => {
-              setVisible(false);
+              setVisible1(false);
             },
           }}
         />
@@ -87,12 +94,12 @@ function App() {
       <Divider>Image.Priview</Divider>
       <Button
         onClick={() => {
-          setVisible(true);
+          setVisible2(true);
         }}
       >
         Click me to preview image
       </Button>
-      <Image.Preview onVisibleChange={setVisible} visible={visible} src="https://api.emooa.com/aimg?idx=1" />
+      <Image.Preview onVisibleChange={setVisible2} visible={visible2} src="https://api.emooa.com/aimg?idx=1" />
       <Divider>Actions</Divider>
       <Image
         width={200}
@@ -108,15 +115,31 @@ function App() {
               key: 'info',
               content: <IconInfoCircle />,
               name: 'Info',
-              getContainer: action => {
-                return action;
-              },
             },
           ],
           actionsLayout: ['info', 'rotateRight', 'zoomIn', 'zoomOut', 'extra'],
         }}
         alt="lamp"
       />
+      <Divider>Image Preview Group</Divider>
+      <Space direction="vertical">
+        <Image.PreviewGroup>
+          <Space>
+            {srcList.map((src, index) => (
+              <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
+            ))}
+          </Space>
+        </Image.PreviewGroup>
+        <Image.PreviewGroup srcList={srcList} visible={visible3} onVisibleChange={setVisible3}>
+          <Button
+            onClick={() => {
+              setVisible3(true);
+            }}
+          >
+            Click me to preview group image
+          </Button>
+        </Image.PreviewGroup>
+      </Space>
       <Divider>Popup Container</Divider>
       <div style={wrapperStyle} ref={ref}>
         <Image

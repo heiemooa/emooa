@@ -114,6 +114,43 @@ export interface ImagePreviewProps {
   zIndex?: number;
 }
 
+export type PartialImagePreviewProps = Partial<ImagePreviewProps>;
+
+/**
+ * @title Image.PreviewGroup
+ */
+export interface ImagePreviewGroupProps extends Omit<PartialImagePreviewProps, 'src'> {
+  /**
+   * @zh 图片列表 （设置了本属性之后，将不再收集 Image 子组件的图片信息）
+   * @en Image path list（After setting this property, the information of the `Image` sub-component will no longer be collected)
+   */
+  srcList?: string[];
+  /**
+   * @zh 当前展示的图片的下标 (受控属性)
+   * @en The index of current image (controlled prop)
+   */
+  current?: number;
+  /**
+   * @zh 第一张展示的图片的下标
+   * @en The default index of first image
+   */
+  defaultCurrent?: number;
+  /**
+   * @zh 是否无限循环
+   * @en Whether to loop infinitely
+   */
+  loop?: boolean;
+  /**
+   * @zh 是否渲染图片列表，用于提前加载图片
+   * @en Whether to render the image list for loading images in advance
+   */
+  forceRender?: boolean;
+  /**
+   * @zh 切换图片触发的事件
+   * @en Callback when image switches
+   */
+  onChange?: (index: number) => void;
+}
 interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
   title?: string;
   description?: string;
@@ -126,6 +163,12 @@ interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes
   placeholder?: boolean | string | React.ReactNode; // Default image placeholder
   onError?: (e: any) => void;
   onLoad?: (e: any) => void;
+  /**
+   * @zh 使用 `Image.PreviewGroup`包裹时的预览索引，一般不用指定，当多图预览顺序出现问题时，可手动指定当前 `image` 的预览顺序
+   * @en Use `Image.PreviewGroup` to wrap the preview index. Generally, you don't need to specify it. When there is a problem with the preview order of multiple images, you can manually specify the preview order of the current `image`
+   * @version 2.23.0
+   */
+  index?: number;
 }
 
 export type ObserverImageProps = {

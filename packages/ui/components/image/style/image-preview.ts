@@ -96,6 +96,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             },
           },
         },
+
         [`${componentCls}-preview-close`]: {
           position: 'absolute',
           right: token.marginXL,
@@ -105,11 +106,11 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           alignItems: 'flex-start',
           backgroundColor: token.colorBgMask,
           borderRadius: '50%',
-          padding: token.padding,
+          padding: token.paddingSM,
           cursor: 'pointer',
 
           '&:hover': {
-            backgroundColor: 'rgba(255, 255,255, 0.1)',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
             color: token.colorWhite,
           },
           '&:active': {
@@ -135,6 +136,40 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
+        },
+        [`${componentCls}-preview-arrow`]: {
+          [`${componentCls}-preview-arrow-left, ${componentCls}-preview-arrow-right`]: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            borderRadius: '50%',
+            color: '#fefefe',
+            backgroundColor: 'rgba(255, 255,255, 0.3)',
+            cursor: 'pointer',
+            padding: token.paddingSM,
+
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255,255, 0.4)',
+            },
+
+            [`&${componentCls}-preview-arrow-disabled, &${componentCls}-preview-arrow-disabled:hover`]: {
+              color: 'rgba(255, 255,255, 0.3)',
+              backgroundColor: 'rgba(255, 255,255, 0.2)',
+              cursor: 'not-allowed',
+            },
+          },
+          [`${componentCls}-preview-arrow-left`]: {
+            left: token.marginXL,
+            top: '50%',
+            transform: 'translateY(-50%)',
+          },
+
+          [`${componentCls}-preview-arrow-right`]: {
+            right: token.marginXL,
+            top: '50%',
+            transform: 'translateY(-50%)',
+          },
         },
       },
     ],

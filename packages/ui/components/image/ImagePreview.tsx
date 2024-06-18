@@ -34,11 +34,14 @@ import {
 } from '@emooa/icon';
 import ImagePreviewTools from './ImagePreviewTools';
 import useStyle from './style';
+import ImagePreviewArrow from './ImagePreviewArrow';
+import { PreviewGroupContext } from './previewGroupContext';
+import useOverflowHidden from '@/_utils/hooks/useOverflowHidden';
 
 /** 选择角度90度 */
 const ROTATE_STEP = 90;
 
-type ImagePreviewHandle = {
+export type ImagePreviewHandle = {
   reset: () => void;
 };
 
@@ -47,8 +50,13 @@ const useCSSVarCls = (prefixCls: string) => {
   return cssVar ? `${prefixCls}-css-var` : '';
 };
 
-const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePreviewProps>((props, ref) => {
+const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>((props, ref) => {
   const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
+  const { previewGroup, previewUrlMap, currentIndex, setCurrentIndex, loop, previewPropsMap } =
+    useContext(PreviewGroupContext);
+
+  const mergedPreviewProps = previewGroup ? previewPropsMap.get(currentIndex) : {};
+
   const prefixCls = getPrefixCls('image');
   const previewPrefixCls = `${prefixCls}-preview`;
 
@@ -63,10 +71,6 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     originX: 0,
     originY: 0,
   });
-  const [translate, setTranslate] = useState({ x: 0, y: 0 });
-  const [scale, setScale] = useState(1);
-  const [rotate, setRotate] = useState(0);
-  const [scaleValueVisible, setScaleValueVisible] = useState(false);
 
   const refRootWrapper = useRef<HTMLDivElement>();
   const refWrapper = useRef<HTMLDivElement>();
@@ -92,7 +96,14 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     zIndex = 1000,
     extra = {},
     ...rest
-  }: ImagePreviewProps = Object.assign({}, components?.Image?.preview, props);
+  }: ImagePreviewProps = Object.assign({}, components?.Image?.preview, props, mergedPreviewProps);
+
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
+  const [rotate, setRotate] = useState(0);
+  const [scaleValueVisible, setScaleValueVisible] = useState(false);
+  const mergedSrc = previewGroup ? previewUrlMap.get(currentIndex) : src;
+  const [previewImgSrc, setPreviewImgSrc] = useState(mergedSrc);
 
   const [visible, setVisible] = useValue(false, {
     defaultValue: defaultVisible,
@@ -206,30 +217,28 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
       keyboardEventOn.current = false;
       off(document, 'keydown', onKeyDown);
     };
-  }, [visible, escToExit, moving, scale]);
+  }, [visible, escToExit, moving, currentIndex, scale]);
 
-  // useOverflowHidden(getContainer, { hidden: visible });
-
-  // const isFixed = useMemo(() => !isServerRendering && container === document.body, [container]);
+  useOverflowHidden(getContainer, { hidden: visible });
 
   // Jump to image at the specified index
-  // function jumpTo(index: number) {
-  //   const previewListLen = previewUrlMap.size;
-  //   if (infinite) {
-  //     index %= previewListLen;
-  //     if (index < 0) index = previewListLen - Math.abs(index);
-  //   }
-  //   if (index !== currentIndex && index >= 0 && index <= previewListLen - 1) {
-  //     setCurrentIndex(index);
-  //   }
-  // }
+  function jumpTo(index: number) {
+    const previewListLen = previewUrlMap.size;
+    if (loop) {
+      index %= previewListLen;
+      if (index < 0) index = previewListLen - Math.abs(index);
+    }
+    if (index !== currentIndex && index >= 0 && index <= previewListLen - 1) {
+      setCurrentIndex(index);
+    }
+  }
 
   function onPrev() {
-    // jumpTo(currentIndex - 1);
+    jumpTo(currentIndex - 1);
   }
 
   function onNext() {
-    // jumpTo(currentIndex + 1);
+    jumpTo(currentIndex + 1);
   }
 
   // Anticlockwise rotation
@@ -368,10 +377,10 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
 
   // Reset on first mount or image switches
   useEffect(() => {
-    // setPreviewImgSrc(mergedSrc);
-    setStatus(src ? 'loading' : 'loaded');
+    setPreviewImgSrc(mergedSrc);
+    setStatus(mergedSrc ? 'loading' : 'loaded');
     reset();
-  }, [src]);
+  }, [mergedSrc]);
 
   const defaultActions = [
     {
@@ -426,8 +435,8 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
           ...imgStyle,
           transform: `translate(${translate.x}px, ${translate.y}px) rotate(${rotate}deg)`,
         }}
-        // key={previewImgSrc}
-        src={src}
+        key={previewImgSrc}
+        src={previewImgSrc}
         {...restImg}
         onLoad={onImgLoaded}
         onError={onImgLoadError}
@@ -443,7 +452,7 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
 
   return wrapCSSVar(
     <Portal visible={visible} getContainer={getContainer}>
-      <div className={classnames} ref={ref} style={style} {...rest}>
+      <div className={classnames} ref={refRootWrapper} style={style} {...rest}>
         <div className={`${previewPrefixCls}-mask`} />
         <div className={`${previewPrefixCls}-wrapper`} ref={refWrapper} onClick={onOutsideImgClick}>
           <div
@@ -472,6 +481,15 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
             <div className={`${previewPrefixCls}-close`} onClick={onCloseClick}>
               <IconClose />
             </div>
+          )}
+          {previewGroup && (
+            <ImagePreviewArrow
+              previewCount={previewUrlMap.size}
+              current={currentIndex}
+              loop={loop}
+              onPrev={onPrev}
+              onNext={onNext}
+            />
           )}
         </div>
       </div>
