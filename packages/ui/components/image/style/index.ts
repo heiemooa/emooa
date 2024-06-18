@@ -18,6 +18,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       position: 'relative',
       display: 'inline-block',
       verticalAlign: 'middle',
+      overflow: 'hidden',
 
       [`${componentCls}-img`]: {
         verticalAlign: 'middle',
@@ -85,6 +86,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
           [`${componentCls}-loader-placeholder`]: {
             filter: 'blur(5px)',
+            transform: 'scale(1.2)',
             transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
           },
         },
@@ -92,6 +94,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
       '&-with-footer-inner': {
         [`${componentCls}-footer`]: {
+          background: 'linear-gradient(1turn,rgba(0,0,0,.3),transparent)',
           boxSizing: 'border-box',
           paddingInline: token.paddingXS,
           paddingBlock: token.paddingXXS,

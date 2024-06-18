@@ -12,15 +12,15 @@ const App: React.FC = () => {
         background: '#f5f5f5',
       }}
     >
-      <Image src="https://api.emooa.com/aimg?idx=1" lazy height={150} width={250} />
-      <Image src="https://api.emooa.com/aimg?idx=2" lazy height={150} width={250} />
-      <Image src="https://api.emooa.com/aimg?idx=3" lazy height={150} width={250} />
-      <Image src="https://api.emooa.com/aimg?idx=4" lazy height={150} width={250} />
+      <Image src="https://api.emooa.com/aimg?idx=1" lazy height={200} width={350} />
+      <Image src="https://api.emooa.com/aimg?idx=2" lazy height={200} width={350} />
+      <Image src="https://api.emooa.com/aimg?idx=3" lazy height={200} width={350} />
+      <Image src="https://api.emooa.com/aimg?idx=4" lazy height={200} width={350} />
       <Image
         src="https://api.emooa.com/aimg?idx=5"
         lazy={{ rootMargin: '100px 0px 0px 0px' }}
-        height={150}
-        width={250}
+        height={200}
+        width={350}
       />
     </Space>
   );

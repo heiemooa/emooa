@@ -2,11 +2,25 @@ import Button from '@/button';
 import Divider from '@/divider';
 import Image from '@/image';
 import Space from '@/space';
-import { IconDownload, IconEye, IconMore } from '@emooa/icon';
-import React, { useState } from 'react';
+import Theme from '@/_theme';
+import { IconDownload, IconEye, IconInfoCircle } from '@emooa/icon';
+import React, { useRef, useState } from 'react';
+
+const token = Theme.getToken();
+console.log(token);
+const wrapperStyle: React.CSSProperties = {
+  width: '100%',
+  height: 400,
+  backgroundColor: '#eee',
+  position: 'relative',
+  overflow: 'hidden',
+  lineHeight: '400px',
+  textAlign: 'center',
+};
 
 function App() {
   const [visible, setVisible] = useState(false);
+  const ref = useRef();
 
   return (
     <>
@@ -42,6 +56,12 @@ function App() {
               icon={<IconDownload />}
             />,
           ]}
+          preview={{
+            visible,
+            onVisibleChange: e => {
+              setVisible(false);
+            },
+          }}
         />
         <Image
           height={200}
@@ -73,6 +93,41 @@ function App() {
         Click me to preview image
       </Button>
       <Image.Preview onVisibleChange={setVisible} visible={visible} src="https://api.emooa.com/aimg?idx=1" />
+      <Divider>Actions</Divider>
+      <Image
+        width={200}
+        src="https://api.emooa.com/aimg?idx=1"
+        preview={{
+          actions: [
+            {
+              key: 'download',
+              content: <IconDownload />,
+              name: 'Download',
+            },
+            {
+              key: 'info',
+              content: <IconInfoCircle />,
+              name: 'Info',
+              getContainer: action => {
+                return action;
+              },
+            },
+          ],
+          actionsLayout: ['info', 'rotateRight', 'zoomIn', 'zoomOut', 'extra'],
+        }}
+        alt="lamp"
+      />
+      <Divider>Popup Container</Divider>
+      <div style={wrapperStyle} ref={ref}>
+        <Image
+          width={200}
+          preview={{
+            getPopupContainer: () => ref.current,
+          }}
+          src="https://api.emooa.com/aimg?idx=1"
+          alt="lamp"
+        />
+      </div>
     </>
   );
 }

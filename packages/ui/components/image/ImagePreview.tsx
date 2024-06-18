@@ -81,7 +81,6 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     defaultVisible,
     visible: _visible,
     onVisibleChange,
-    imgAttributes = {},
     scales = defaultScales,
     maskClosable = true,
     closable = true,
@@ -91,19 +90,9 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     escToExit = true,
     imageRender,
     zIndex = 1000,
+    extra = {},
     ...rest
   }: ImagePreviewProps = Object.assign({}, components?.Image?.preview, props);
-
-  const classnames = classNames(
-    hashId,
-    previewPrefixCls,
-    {
-      [`${previewPrefixCls}-hide`]: !_visible,
-      [`${previewPrefixCls}-rtl`]: rtl,
-    },
-    className,
-    cssVarCls,
-  );
 
   const [visible, setVisible] = useValue(false, {
     defaultValue: defaultVisible,
@@ -114,14 +103,7 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
     return new PreviewScales(scales);
   }, []);
 
-  const {
-    onLoad,
-    onError,
-    onMouseDown,
-    style: imgStyle,
-    className: imgClassName,
-    ...restImgAttributes
-  } = imgAttributes;
+  const { onLoad, onError, onMouseDown, style: imgStyle, className: imgClassName, ...restImg } = extra;
 
   useEffect(() => {
     if (visible && moving) {
@@ -142,6 +124,21 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
   const [container, setContainer] = useState<HTMLElement>();
 
   const getContainer = useCallback(() => container, [container]);
+
+  const isCustomPopup = useMemo(() => container === document.body, [container]);
+
+  const classnames = classNames(
+    hashId,
+    previewPrefixCls,
+    {
+      [`${previewPrefixCls}-hide`]: !_visible,
+      [`${previewPrefixCls}-custom-popup`]: !isCustomPopup,
+      [`${previewPrefixCls}-rtl`]: rtl,
+    },
+    className,
+    cssVarCls,
+  );
+
   useEffect(() => {
     const container = getPopupContainer?.();
     const containerDom = container || document.body;
@@ -431,7 +428,7 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
         }}
         // key={previewImgSrc}
         src={src}
-        // {...restImgAttributes}
+        {...restImg}
         onLoad={onImgLoaded}
         onError={onImgLoadError}
         onMouseDown={event => {
@@ -469,7 +466,6 @@ const ImagePreview = forwardRef<HTMLDivElement & ImagePreviewHandle, ImagePrevie
               actions={actions}
               actionsLayout={actionsLayout}
               defaultActions={defaultActions}
-              simple={false}
             />
           )}
           {closable && (

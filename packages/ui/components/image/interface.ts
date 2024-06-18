@@ -5,7 +5,7 @@ import { CSSProperties, HTMLAttributes, ImgHTMLAttributes, ReactElement, ReactNo
  * @zh `<Image.Preview>` 中类型 `ImagePreviewActionProps` 详细参数。
  * @en Detailed parameters of type `ImagePreviewActionProps` in `<Image.Preview>`.
  */
-export interface ImagePreviewActionProps extends HTMLAttributes<HTMLDivElement> {
+export interface ImagePreviewActionProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
   /**
    * @zh 唯一标识
    * @en Unique identifier
@@ -15,15 +15,7 @@ export interface ImagePreviewActionProps extends HTMLAttributes<HTMLDivElement> 
    * @zh 内容
    * @en content
    */
-  content: string;
-  /**
-   * @zh
-   * 因为 content 只能定义内容，所以提供这个函数用于支持自定义外围元素，需要注意的是设置了 `getContainer`, 显示 `name` 的 `Tooltip` 将失效。
-   * @en
-   * Because content can only specify content, this function is provided to support custom peripheral elements.
-   * Note that if `getContainer` is set, the `Tooltip` displaying `name` will be invalid
-   */
-  getContainer?: (actionElement: ReactNode) => ReactNode;
+  content: ReactNode;
   /**
    * @zh 名称
    * @en name
@@ -51,7 +43,7 @@ export interface ImagePreviewProps {
    * @zh 图片属性，透传至预览弹窗中的 `img` 标签上
    * @en Image props, passthrough to the `img` tag in the preview modal
    */
-  imgAttributes?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>;
+  extra?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>;
   /**
    * @zh 是否可见，受控属性
    * @en Whether is visible
@@ -94,7 +86,7 @@ export interface ImagePreviewProps {
   /**
    * @zh 在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。
    * @en The zoom percentage in the current array is used when previewing zooms. If `100%` is not included, the `100%` scale will be automatically added in the most adjacent position.
-   * @defaultValue [25, 33, 50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500];
+   * @defaultValue [25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ];
    */
   scales?: number[];
   /**

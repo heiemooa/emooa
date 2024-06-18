@@ -16,6 +16,11 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
         left: 0,
         zIndex: token.zIndexPopupBase,
 
+        [`&-custom-popup`]: {
+          zIndex: 'inherit',
+          position: 'absolute',
+        },
+
         [`${componentCls}-preview-mask, ${componentCls}-preview-wrapper`]: {
           position: 'absolute',
           width: '100%',
@@ -67,7 +72,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
         [`${componentCls}-preview-tools`]: {
           position: 'absolute',
           left: '50%',
-          bottom: '64px',
+          bottom: '48px',
           transform: 'translate(-50%, 0%)',
           color: '#fefefe',
           display: 'flex',

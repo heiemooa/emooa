@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Image } from '@emooa/ui';
+import { Button, Divider, Image, Space } from '@emooa/ui';
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = React.useState(0);
@@ -10,7 +10,10 @@ const App: React.FC = () => {
         Delay Load
       </Button>
       <Divider />
-      <Image src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`} delay={300} height={120} width={200} />
+      <Space>
+        <Image src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`} delay={300} height={200} />
+        <Image src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`} delay={300} height={200} motion />
+      </Space>
     </>
   );
 };

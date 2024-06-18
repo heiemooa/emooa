@@ -12,7 +12,7 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
-import { isObject } from '@/_utils/is';
+import { isObject, isUndefined } from '@/_utils/is';
 import ImageFooter from './ImageFooter';
 import useFooter from './utils/hooks/useFooter';
 
@@ -63,6 +63,8 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
 
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
+  const isControlled = !isUndefined(preview.visible);
+
   const classnames = classNames(
     hashId,
     prefixCls,
@@ -71,7 +73,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
       [`${prefixCls}-motion`]: motion,
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-loading-error`]: isError,
-      [`${prefixCls}-with-preview`]: isLoaded && !!_preview,
+      [`${prefixCls}-with-preview`]: isLoaded && !!_preview && !isControlled,
       [`${prefixCls}-with-footer-inner`]: isLoaded && showFooter,
     },
     cssVarCls,
