@@ -2,7 +2,7 @@
 nav: Components
 group: 
     title: Other
-    order: 2
+    order: 3
 order: 0
 toc: content
 ---
@@ -32,8 +32,8 @@ export default App;
 
 ## Examples
 
-<code src="../../packages/ui/examples/config-provider/language.tsx" description="Set the internationalized languages.">Languages</code>
 <code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>
+<code src="../../packages/ui/examples/config-provider/language.tsx" description="Set the internationalized languages.">Languages</code>
 <code src="../../packages/ui/examples/config-provider/rtl.tsx" description="Set the component to a view that reads from right to left.">RTL View</code>
 
 ### Get Eui Token

@@ -8,10 +8,14 @@ const newIcons = JSON.parse('[]');
 
 const locale = {
   'zh-CN': {
-    title: '图标配置',
+    title: '图标配置：',
     line: '线性图标',
     fill: '面性图标',
     color: '多色图标',
+    iconColor: '图标颜色：',
+    iconColorInitial: '默认',
+    iconColorRed: '红色',
+    iconColorGreen: '绿色',
     search: '搜索图标，点击可复制图标用法',
     'stroke-width': '线宽：',
     size: '图标大小：',
@@ -31,6 +35,10 @@ const locale = {
     line: 'Stroke',
     fill: 'Fill',
     color: 'Color',
+    iconColor: 'Icon Color',
+    iconColorInitial: 'Initial',
+    iconColorRed: 'Red',
+    iconColorGreen: 'Green',
     search: 'Search icon, click to copy usage',
     'stroke-width': 'Stroke Width:',
     size: 'Size:',
@@ -49,6 +57,7 @@ const locale = {
 };
 
 export default function ({ lang = 'zh-CN' }) {
+  const [color, setColor] = useState('initial');
   const [type, setType] = useState('outline');
   const [filter, setFilter] = useState('');
   const [strokeWidth, setStrokeWidth] = useState(3);
@@ -69,7 +78,7 @@ export default function ({ lang = 'zh-CN' }) {
   const iconListStyle = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gridGap: 10, color: '#333' };
   const borderStyle = { border: '1px solid #eee', padding: 10, margin: '20px 0' };
   const borderBottomStyle = { borderBottom: '1px solid #eee', padding: 10, marginBottom: 10 };
-  const iconItemStyle = (name) => ({ border: '1px solid #eee', padding: 10, textAlign: 'center', aspectRatio: 3/2, cursor: 'pointer', background: hover === name ? '#efefef': 'initial', transition: 'all .3s', borderRadius: 4 });
+  const iconItemStyle = (name) => ({ border: '1px solid #eee', padding: 10, textAlign: 'center', aspectRatio: 3/2, cursor: 'pointer', background: hover === name ? '#efefef': 'initial', transition: 'all .3s', borderRadius: 4, color: color });
   const iconItemNameStyle = { marginTop: 10,  overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 12, color: '#777' }
 
   const copy = name => {
@@ -84,7 +93,7 @@ export default function ({ lang = 'zh-CN' }) {
   return (
     <div>
       <Space style={spaceStyle}>
-        <h4>类型：</h4>
+        <h4>{t.title}</h4>
         <Button.Group>
           <Button onClick={() => setType('outline')} type={type === 'outline' ? 'primary' : 'secondary'}>
             {t.line}
@@ -98,7 +107,21 @@ export default function ({ lang = 'zh-CN' }) {
         </Button.Group>
       </Space>
       <Space style={spaceStyle}>
-        <h4>线宽：</h4>
+        <h4>{t.iconColor}</h4>
+        <Button.Group>
+          <Button onClick={() => setColor('initial')} type={color === 'initial' ? 'primary' : 'secondary'}>
+            {t.iconColorInitial}
+          </Button>
+          <Button onClick={() => setColor('red')} type={color === 'red' ? 'primary' : 'secondary'}>
+            {t.iconColorRed}
+          </Button>
+          <Button onClick={() => setColor('green')} type={color === 'green' ? 'primary' : 'secondary'}>
+            {t.iconColor}
+          </Button>
+        </Button.Group>
+      </Space>
+      <Space style={spaceStyle}>
+        <h4>{t['stroke-width']}</h4>
         <Button.Group>
           <Button onClick={() => setStrokeWidth(1)} type={strokeWidth === 1 ? 'primary' : 'secondary'}>
             1
@@ -112,7 +135,7 @@ export default function ({ lang = 'zh-CN' }) {
         </Button.Group>
       </Space>
        <Space style={spaceStyle}>
-        <h4>图标大小：</h4>
+        <h4>{t.size}</h4>
         <Button.Group>
           <Button onClick={() => setFontSize(24)} type={strokeWidth === 24 ? 'primary' : 'secondary'}>
             24
@@ -126,7 +149,7 @@ export default function ({ lang = 'zh-CN' }) {
         </Button.Group>
       </Space>
       <Space style={spaceStyle}>
-        <h4>拐角：</h4>
+        <h4>{t.lineJoin}</h4>
         <Button.Group>
           <Button onClick={() => setLineJoin('arcs')} type={lineJoin === 'arcs' ? 'primary' : 'secondary'}>
             arcs
@@ -149,7 +172,7 @@ export default function ({ lang = 'zh-CN' }) {
         </Button.Group>
       </Space>
        <Space style={spaceStyle}>
-        <h4>端点：</h4>
+        <h4>{t.lineCap}</h4>
         <Button.Group>
           <Button onClick={() => setLineCap('butt')} type={lineCap === 'butt' ? 'primary' : 'secondary'}>
             butt

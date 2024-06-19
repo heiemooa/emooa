@@ -2,7 +2,7 @@
 nav: 组件
 group: 
     title: 其他
-    order: 2
+    order: 3
 order: 0
 toc: content
 ---
@@ -33,8 +33,8 @@ export default App;
 
 ## 代码演示
 
-<code src="../../packages/ui/examples/config-provider/language.tsx" description="设置国际化语言。">国际化</code>
 <code src="../../packages/ui/examples/config-provider/basic.tsx" description="全局设置各组件默认配置，如 `size` 大小。">基本用法</code>
+<code src="../../packages/ui/examples/config-provider/language.tsx" description="设置国际化语言。">国际化</code>
 <code src="../../packages/ui/examples/config-provider/rtl.tsx" description="设置组件为从右向左阅读的视图。">RTL视图</code>
 
 ### 获取 Eui Token
@@ -98,6 +98,8 @@ export interface Locale {
 ### Components
 ```ts
 export type Components = {
+  Button?: ButtonProps;
+  Divider?: DividerProps;
   Icon?: IconProps;
   Image?: ImageProps;
   Space?: SpaceProps;

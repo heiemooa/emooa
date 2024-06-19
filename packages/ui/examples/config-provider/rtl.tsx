@@ -21,7 +21,22 @@ const App: React.FC = () => {
         </Button>
       </Space>
       <Divider />
-      <ConfigProvider rtl={rtl}>
+      <ConfigProvider
+        rtl={rtl}
+        theme={{
+          token: {
+            colorPrimary: 'green',
+          },
+          components: {
+            Button: {},
+          },
+        }}
+        components={{
+          Space: {
+            size: 'medium',
+          },
+        }}
+      >
         <Space style={{ width: '100%' }}>
           <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=2" height={100} />

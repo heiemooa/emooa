@@ -4,8 +4,9 @@
     "outDir": "./lib",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["components/*"],
+      "@emooa/icon": ["../icon/esm/index"]
     }
   },
-  "include": ["./src"]
+  "include": ["components", "src"]
 }

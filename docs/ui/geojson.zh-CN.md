@@ -1,7 +1,9 @@
 ---
 nav: Component
-group: 通用
-order: 1
+group: 
+    title: 数据展示
+    order: 2
+order: 0
 toc: content
 demo:
   cols: 2

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { Space, SpaceAlign, Image, Icon } from '@emooa/ui';
+import { Space, SpaceAlign, Image, Button } from '@emooa/ui';
 
 const App: React.FC = () => {
-  const [align, setAlign] = useState<SpaceAlign>();
+  const [align, setAlign] = useState<SpaceAlign>('start');
   return (
     <Space direction="vertical" size={24}>
-      <Space>
-        <button onClick={() => setAlign('start')} style={{ color: align === 'start' ? 'red' : undefined }}>
+      <Button.Group>
+        <Button onClick={() => setAlign('start')} type={align === 'start' ? 'primary' : 'secondary'}>
           start
-        </button>
-        <button onClick={() => setAlign('end')} style={{ color: align === 'end' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setAlign('end')} type={align === 'end' ? 'primary' : 'secondary'}>
           end
-        </button>
-        <button onClick={() => setAlign('center')} style={{ color: align === 'center' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setAlign('center')} type={align === 'center' ? 'primary' : 'secondary'}>
           center
-        </button>
-        <button onClick={() => setAlign('baseline')} style={{ color: align === 'baseline' ? 'red' : undefined }}>
+        </Button>
+        <Button onClick={() => setAlign('baseline')} type={align === 'baseline' ? 'primary' : 'secondary'}>
           baseline
-        </button>
-      </Space>
+        </Button>
+      </Button.Group>
       <Space align={align}>
         <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
         <Image src="https://api.emooa.com/aimg?idx=2" height={80} />
