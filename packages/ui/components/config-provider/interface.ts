@@ -7,6 +7,7 @@ import { SpaceProps } from '@/space/interface';
 import { EuiTokenProviderProps } from '@/_theme/interface';
 import { ButtonProps } from '@/button/interface';
 import { DividerProps } from '../divider/interface';
+import { WatermarkProps } from '@/watermark/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -17,6 +18,7 @@ export type Components = {
   Icon?: IconProps;
   GeoJSON?: GeoJSONProps;
   Space?: SpaceProps;
+  Watermark?: WatermarkProps;
 };
 
 /**
