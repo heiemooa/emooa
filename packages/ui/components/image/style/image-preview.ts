@@ -102,6 +102,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
 
           [`${componentCls}-preview-tools-progress`]: {
             fontSize: token.fontSizeSM,
+            userSelect: 'none',
           },
         },
 

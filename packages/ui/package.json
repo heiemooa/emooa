@@ -28,6 +28,7 @@
   ],
   "scripts": {
     "start": "vite",
+    "vite:build": "vite build",
     "test": "jest",
     "rimraf": "rimraf esm && rimraf cjs",
     "build": "yarn run rimraf && rollup -c"

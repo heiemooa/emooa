@@ -97,6 +97,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   );
 
   const id = useMemo(() => {
+    if (!previewGroup) return;
     if (isNumber(_index)) {
       uuid = _index;
       return uuid;
@@ -316,8 +317,10 @@ const Image = ImageComponent as typeof ImageComponent & {
 Image.Preview = ImagePreview;
 Image.PreviewGroup = ImagePreviewGroup;
 
-if (process.env.NODE_ENV !== 'production') {
-  Image.displayName = 'Image';
-}
+// 在 ImagePreviewGroup 组件内 loopImageIndex 函数中需要 displayName 进行逻辑处理
+// if (process.env.NODE_ENV !== 'production') {
+//   Image.displayName = 'Image';
+// }
+Image.displayName = 'Image';
 
 export default Image;
