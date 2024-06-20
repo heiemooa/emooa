@@ -59,7 +59,6 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     title,
     actions,
     description,
-    index,
     _index,
     ...rest
   }: ImagePropsType = Object.assign({}, components?.Image, props);
@@ -98,8 +97,8 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   );
 
   const id = useMemo(() => {
-    if (isNumber(index) || isNumber(_index)) {
-      uuid = isNumber(index) ? index : _index;
+    if (isNumber(_index)) {
+      uuid = _index;
       return uuid;
     }
     return uuid++;

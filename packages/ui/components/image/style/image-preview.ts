@@ -76,7 +76,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           transform: 'translate(-50%, 0%)',
           color: '#fefefe',
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           backgroundColor: token.colorBgMask,
           borderRadius: token.borderRadius,
           padding: token.paddingXXS,
@@ -94,6 +94,14 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             '&:active': {
               transform: 'scale(0.95)',
             },
+            '&-disabled, &-disabled:hover': {
+              color: 'rgba(255, 255,255, 0.3)',
+              cursor: 'not-allowed',
+            },
+          },
+
+          [`${componentCls}-preview-tools-progress`]: {
+            fontSize: token.fontSizeSM,
           },
         },
 

@@ -23,6 +23,7 @@ toc: content
 <code src="../../packages/ui/examples/image/actions.tsx" description="通过设置 `actionsLayout` 可以调整预览控制条中功能按钮的顺序，同时可以过滤功能按钮，只有在 `actionsLayout` 中的按钮才会出现。其中 `extra` 代表 `actions` 中的按钮，而且 `actions` 中的 `key` 也支持单独拿出来排序。">自定义预览控制条</code>
 <code src="../../packages/ui/examples/image/preview.tsx" description="`Image.Preview` 可单独使用，需要配置 `src`，并控制 `visible`。">单独使用预览组件</code>
 <code src="../../packages/ui/examples/image/preview-group.tsx" description="用 `<Image.PreviewGroup>` 包裹 `<Image>` 组件即可进行多图预览。">多图预览</code>
+<code src="../../packages/ui/examples/image/preview-group-btn.tsx" description="`Image.PreviewGroup` 可单独使用，需通过 `visible` 和 `onVisibleChange` 控制显隐。在图片的展示上分为两种场景，一是通过 `defaultCurrent` 指定第一张展示的图片；二是通过 `current` 和 `onChange` 以受控的方式控制当前显示的是第几张图片。">单独使用多图预览组件</code>
 <code src="../../packages/ui/examples/image/popup-container.tsx" description="可以通过 `getPopupContainer` 指定预览挂载的父级节点。">挂载节点</code>
 <code src="../../packages/ui/examples/image/process.tsx" description="设置 `lazy` 可以开启懒加载，当图片出现在视口才会进行加载。`lazy` 属性基于 `IntersectionObserver API` 实现。支持异步观察目标元素与祖先元素或顶级文档视口的交集变化，判断加载时机。">懒加载</code>
 <code src="../../packages/ui/examples/image/error.tsx" description="加载失败显示图像失败占位符，支持设置 `error` 来自定义错误占位符。">容错处理</code>

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, { HTMLAttributes, forwardRef } from 'react';
+import React, { HTMLAttributes, forwardRef, useContext } from 'react';
 import { ImagePreviewActionProps } from './interface';
+import { PreviewGroupContext } from './previewGroupContext';
 
 interface ImagePreviewToolsProps extends HTMLAttributes<HTMLDivElement> {
   prefixCls: string;
@@ -19,7 +20,7 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
     style,
     className,
   } = props;
-
+  const { previewUrlMap, currentIndex } = useContext(PreviewGroupContext);
   // Filter based on layout
   const actionsLayoutSet = new Set(actionsLayout);
   const filterWithLayout = (item: ImagePreviewActionProps) => actionsLayoutSet.has(item.key);
@@ -39,7 +40,7 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
   }
 
   const renderAction = (itemData: ImagePreviewActionProps) => {
-    const { content, disabled, key, name, getContainer, onClick, ...rest } = itemData;
+    const { content, disabled, key, name, onClick, ...rest } = itemData;
     const action = (
       <div
         className={classNames(`${previewPrefixCls}-tools-action`, {
@@ -60,9 +61,6 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
         {content && <span className={`${previewPrefixCls}-tools-action-content`}>{content}</span>}
       </div>
     );
-    if (getContainer) {
-      return getContainer(action);
-    }
     return action;
   };
 
@@ -70,7 +68,7 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
 
   const currentActions = actions.map(item => {
     const action = renderAction(item);
-    if (item.name && !item.getContainer) {
+    if (item.name) {
       return (
         <div content={item.name} key={item.key}>
           {action}
@@ -82,6 +80,9 @@ const ImagePreviewTools = forwardRef<HTMLDivElement, ImagePreviewToolsProps>((pr
 
   return (
     <div ref={ref} className={classNames(`${previewPrefixCls}-tools`, className)} style={style}>
+      {previewUrlMap.size ? (
+        <div className={`${previewPrefixCls}-tools-progress`}>{`${currentIndex + 1} / ${previewUrlMap.size}`}</div>
+      ) : null}
       {currentActions}
     </div>
   );
