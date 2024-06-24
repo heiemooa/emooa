@@ -23,7 +23,7 @@ function App() {
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
   const ref = useRef();
-  const srcList = [
+  const items = [
     'https://api.emooa.com/aimg?idx=1',
     'https://api.emooa.com/aimg?idx=2',
     'https://api.emooa.com/aimg?idx=3',
@@ -125,12 +125,12 @@ function App() {
       <Space direction="vertical">
         <Image.PreviewGroup>
           <Space>
-            {srcList.map((src, index) => (
+            {items.map((src, index) => (
               <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
             ))}
           </Space>
         </Image.PreviewGroup>
-        <Image.PreviewGroup srcList={srcList} visible={visible3} onVisibleChange={setVisible3}>
+        <Image.PreviewGroup items={items} visible={visible3} onVisibleChange={setVisible3}>
           <Button
             onClick={() => {
               setVisible3(true);

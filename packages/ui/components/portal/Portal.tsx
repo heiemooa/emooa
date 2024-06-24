@@ -1,3 +1,4 @@
+import React, { useImperativeHandle } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -5,8 +6,10 @@ interface PortalProps extends React.HTMLAttributes<HTMLDivElement> {
   getContainer?: () => Element;
 }
 
-export default forwardRef<HTMLDivElement, PortalProps>(({ getContainer = () => document.body, children }, ref) => {
+export default forwardRef<boolean, PortalProps>(({ getContainer = () => document.body, children }, ref) => {
   const [container, setContainer] = useState<Element | null | undefined>(null);
+
+  useImperativeHandle<boolean, boolean>(ref, () => !!children);
 
   useEffect(() => {
     const createContainer = () => {

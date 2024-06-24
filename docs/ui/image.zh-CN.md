@@ -106,7 +106,7 @@ toc: content
 |loop|`boolean`|-|是否无限循环|
 |current|`number` |-|当前展示的图片的下标 (受控属性)|
 |defaultCurrent|`number`|-|第一张展示的图片的下标|
-|srcList|`string[]` |`|图片列表 （设置了本属性之后，将不再收集 Image 子组件的图片信息）|
+|items|`string[]` |`|图片列表 （设置了本属性之后，将不再收集 Image 子组件的图片信息）|
 |onChange|(index: number) => void |-|切换图片触发的事件|
 |onVisibleChange|(visible: boolean, preVisible: boolean) => void |-|换可见状态触发的事件|
 

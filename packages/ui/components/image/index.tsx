@@ -2,7 +2,7 @@
  * lazy 懒加载参考 https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 
-import React, { useRef, useEffect, useContext, forwardRef, useMemo } from 'react';
+import React, { useRef, useEffect, useContext, forwardRef, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { ImagePreviewProps, ImageProps } from './interface';
 import { ConfigContext } from '@/config-provider';
@@ -27,6 +27,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const refImg = useRef<HTMLImageElement>(null);
   const timeout = useRef<NodeJS.Timeout>(null);
   const observer = useRef<IntersectionObserver>(null);
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>();
   const { status, setStatus, isBeforeLoad, isLoading, isLoaded, isError } = useImageStatus('beforeLoad');
   const loading = useRef(false);
 
@@ -36,6 +37,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     registerPreviewUrl,
     registerPreviewProps,
     setCurrentIndex,
+    setMousePosition: setGroupMousePosition,
   } = useContext(PreviewGroupContext);
 
   const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
@@ -252,8 +254,10 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     if (preview && previewGroup) {
       setCurrentIndex(id);
       handleGroupVisibleChange(true);
+      setGroupMousePosition({ x: e.clientX, y: e.clientY });
     } else if (preview) {
       togglePreviewVisible(true);
+      isLoaded && _preview && !isControlled && setMousePosition({ x: e.clientX, y: e.clientY });
     }
     onClick?.(e);
   }
@@ -302,6 +306,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
           visible={previewVisible}
           src={preview.src}
           onVisibleChange={togglePreviewVisible}
+          mousePosition={mousePosition}
           {...availablePreviewProps}
         />
       )}

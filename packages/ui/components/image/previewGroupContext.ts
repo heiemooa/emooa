@@ -21,6 +21,7 @@ export interface PreviewGroupContextProps {
   previewPropsMap: Map<number, Partial<ImagePreviewProps>>;
   loop?: boolean;
   currentIndex: number;
+  setMousePosition: (mousePosition: { x: number; y: number }) => void;
   setCurrentIndex: (current: number) => void;
   setPreviewUrlMap: (map: PreviewUrlMap) => void;
   registerPreviewUrl: RegisterPreviewUrl;
@@ -35,6 +36,7 @@ export const PreviewGroupContext = createContext<PreviewGroupContextProps>({
   previewPropsMap: new Map(),
   loop: true,
   currentIndex: 0,
+  setMousePosition: () => null,
   setCurrentIndex: () => null,
   setPreviewUrlMap: () => null,
   registerPreviewUrl: () => null,

@@ -1,6 +1,6 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
-import { zoom } from '@/_theme/style/motion';
+import { fade, zoom } from '@/_theme/style/motion';
 import genImagePreviewStyle from './image-preview';
 
 /** Component only token. Which will handle additional calculation of alias token */
@@ -8,7 +8,9 @@ export interface ComponentToken {
   // Component token here
 }
 
-interface ImageToken extends FullToken<'Image'> {}
+interface ImageToken extends FullToken<'Image'> {
+  previewCls: string;
+}
 
 const genImageStyle: GenerateStyle<ImageToken> = token => {
   const { componentCls } = token;
@@ -42,7 +44,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
       [`&-motion > ${componentCls}-img`]: {
         '&[image-lazy="loaded"]': {
-          animationName: zoom.zoomIn,
+          animationName: zoom.zoomBigIn,
           animationDuration: token.motions.durationMid,
           animationTimingFunction: token.motions.decelerate,
         },
@@ -143,14 +145,27 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
   };
 };
 
+const genPreviewMotion: GenerateStyle<ImageToken> = token => {
+  const { previewCls } = token;
+
+  return {
+    [`${previewCls}`]: {
+      [`${previewCls}-mask`]: fade.initFadeMotion(token, true),
+      [`&`]: zoom.initZoomMotion(token, 'zoom'),
+    },
+  };
+};
+
 // ============================== Export ==============================
 const prepareComponentToken: GetDefaultToken<'Image'> = () => ({});
 
 export default genStyleHooks(
   'Image',
   token => {
-    const imageToken = mergeToken<ImageToken>(token, {});
-    return [genImageStyle(imageToken), genImagePreviewStyle(imageToken)];
+    const previewCls = `${token.componentCls}-preview`;
+    const imageToken = mergeToken<ImageToken>(token, { previewCls });
+
+    return [genImageStyle(imageToken), genImagePreviewStyle(imageToken), genPreviewMotion(imageToken)];
   },
   prepareComponentToken,
 );

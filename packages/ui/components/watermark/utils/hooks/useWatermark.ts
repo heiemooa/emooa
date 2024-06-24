@@ -18,7 +18,7 @@ export type WatermarkReturnType = {
    * @zh 显示/更新水印
    * @en show/set Watermark
    */
-  setWatermark: (options: WatermarkProps) => void;
+  setWatermark: (options: WatermarkProps & { getContainer?: () => HTMLElement }) => void;
 };
 
 const toNumber = (value: string | number, defaultValue: number) => {

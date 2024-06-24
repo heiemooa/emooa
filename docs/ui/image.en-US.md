@@ -104,7 +104,7 @@ Optional `Lazy Options` property reference [IntersectionObserver.](https://devel
 |loop|`boolean`|-|Whether to loop infinitely|
 |current|`number` |-|The index of the currently displayed image (controlled attribute)|
 |defaultCurrent|`number`|-|The subscript of the first displayed image|
-|srcList|`string[]` |`|Picture list (after setting this attribute, the picture information of the Image subcomponent will no longer be collected)|
+|items|`string[]` |`|Picture list (after setting this attribute, the picture information of the Image subcomponent will no longer be collected)|
 |onChange|(index: number) => void |-|Event triggered by switching pictures|
 
 

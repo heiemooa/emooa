@@ -4,7 +4,7 @@ import { Image, Button } from '@emooa/ui';
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
-  const srcList = [
+  const items = [
     'https://api.emooa.com/aimg?idx=1',
     'https://api.emooa.com/aimg?idx=2',
     'https://api.emooa.com/aimg?idx=3',
@@ -21,7 +21,7 @@ const App: React.FC = () => {
       >
         Click me to preview group image
       </Button>
-      <Image.PreviewGroup srcList={srcList} visible={visible} onVisibleChange={setVisible} />
+      <Image.PreviewGroup items={items} visible={visible} onVisibleChange={setVisible} />
     </>
   );
 };

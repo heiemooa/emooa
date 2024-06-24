@@ -1,4 +1,6 @@
 import { Dayjs } from 'dayjs';
+import React from 'react';
+import { ReactNode, isValidElement } from 'react';
 
 const opt = Object.prototype.toString;
 
@@ -68,10 +70,7 @@ export function isEmptyReactNode(content: any, trim?: boolean): boolean {
   if (content === null || content === undefined || content === false) {
     return true;
   }
-  if (
-    typeof content === 'string' &&
-    (trim ? content.trim() === '' : content === '')
-  ) {
+  if (typeof content === 'string' && (trim ? content.trim() === '' : content === '')) {
     return true;
   }
   return false;
@@ -89,13 +88,7 @@ export function isDayjs(time): time is Dayjs {
   // dayjs.isDayjs 在实际应用场景，比如多个版本的 dayjs 会失效
   return (
     isObject(time) &&
-    (('$y' in time &&
-      '$M' in time &&
-      '$D' in time &&
-      '$d' in time &&
-      '$H' in time &&
-      '$m' in time &&
-      '$s' in time) ||
+    (('$y' in time && '$M' in time && '$D' in time && '$d' in time && '$H' in time && '$m' in time && '$s' in time) ||
       time._isAMomentObject) // 兼容 moment 的验证
   );
 }
@@ -103,3 +96,35 @@ export function isDayjs(time): time is Dayjs {
 export function isBoolean(value: any): value is Boolean {
   return typeof value === 'boolean';
 }
+
+// 判断是否是最基础的dom元素，如 div，span
+export const isDOMElement = (element: ReactNode): boolean => {
+  return isValidElement(element) && typeof element.type === 'string';
+};
+
+// 函数组件
+export const isReactComponent = (element: ReactNode): boolean => {
+  return element && isValidElement(element) && typeof element.type === 'function';
+};
+
+// 类组件
+export const isClassComponent = (element: any): boolean => {
+  return isReactComponent(element) && !!element.type.prototype?.isReactComponent;
+};
+
+// 传入的元素是否可以设置 ref 引用
+export const supportRef = (element: any): boolean => {
+  if (isDOMElement(element)) {
+    return true;
+  }
+
+  if (isValidElement(element) && (element.type as any)?.$$typeof === React.forwardRef((props, ref) => null).$$typeof) {
+    return true;
+  }
+
+  if (isReactComponent(element)) {
+    return isClassComponent(element); // 函数组件且没有被 forwardRef，无法设置 ref
+  }
+
+  return false;
+};

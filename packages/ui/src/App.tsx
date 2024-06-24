@@ -6,7 +6,7 @@ import Watermark from './containers/Watermark';
 function App() {
   return (
     <>
-      <Watermark />
+      <Image />
     </>
   );
 }

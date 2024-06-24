@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Space } from '@emooa/ui';
 
 const App: React.FC = () => {
-  const srcList = [
+  const items = [
     'https://api.emooa.com/aimg?idx=1',
     'https://api.emooa.com/aimg?idx=2',
     'https://api.emooa.com/aimg?idx=3',
@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <Image.PreviewGroup>
       <Space>
-        {srcList.map((src, index) => (
+        {items.map((src, index) => (
           <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
         ))}
       </Space>
