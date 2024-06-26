@@ -1,13 +1,15 @@
 import { FullToken, GenerateStyle } from '@/_theme/internal';
 import { fade } from '@/_theme/style/motion';
 
-interface ImagePreview extends FullToken<'Image'> {}
+interface ImagePreview extends FullToken<'Image'> {
+  previewCls: string;
+}
 
 const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
-  const { componentCls } = token;
+  const { previewCls } = token;
 
   return {
-    [`${componentCls}-preview`]: [
+    [previewCls]: [
       {
         position: 'fixed',
         width: '100%',
@@ -16,23 +18,27 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
         left: 0,
         zIndex: token.zIndexPopupBase,
 
-        [`&-custom-popup`]: {
+        '&-hide': {
+          display: 'none',
+        },
+
+        '&-custom-popup': {
           zIndex: 'inherit',
           position: 'absolute',
         },
 
-        [`${componentCls}-preview-mask, ${componentCls}-preview-wrapper`]: {
+        [`${previewCls}-mask, ${previewCls}-wrapper`]: {
           position: 'absolute',
           width: '100%',
           height: '100%',
           top: 0,
           left: 0,
         },
-        [`${componentCls}-preview-mask`]: {
+        [`${previewCls}-mask`]: {
           background: token.colorBgMask,
         },
 
-        [`${componentCls}-preview-img-container`]: {
+        [`${previewCls}-img-container`]: {
           width: '100%',
           height: '100%',
           textAlign: 'center',
@@ -45,31 +51,25 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             display: 'inline-block',
           },
 
-          [`${componentCls}-preview-img`]: {
+          [`${previewCls}-img`]: {
             maxWidth: '100%',
             maxHeight: '100%',
             verticalAlign: 'middle',
             userSelect: 'none',
             cursor: 'grab',
-            transition: `transform ${token.motions.durationMid} ${token.motions.decelerate} 0s`,
+            transition: `transform ${token.motions.durationSlow} ${token.motions.decelerate} 0s`,
           },
         },
 
-        [`${componentCls}-preview-scale-value`]: {
+        [`${previewCls}-scale-value`]: {
           position: 'absolute',
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
           color: token.colorWhite,
-
-          // [`&`]: {
-          //   animationName: fade.fadeIn,
-          //   animationDuration: token.motions.durationSlow,
-          //   animationTimingFunction: token.motions.decelerate,
-          // },
         },
 
-        [`${componentCls}-preview-tools`]: {
+        [`${previewCls}-tools`]: {
           position: 'absolute',
           left: '50%',
           bottom: '48px',
@@ -81,7 +81,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           borderRadius: token.borderRadius,
           padding: token.paddingXXS,
 
-          [`${componentCls}-preview-tools-action`]: {
+          [`${previewCls}-tools-action`]: {
             borderRadius: token.borderRadius,
             cursor: 'pointer',
             padding: token.paddingSM,
@@ -100,13 +100,13 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             },
           },
 
-          [`${componentCls}-preview-tools-progress`]: {
+          [`${previewCls}-tools-progress`]: {
             fontSize: token.fontSizeSM,
             userSelect: 'none',
           },
         },
 
-        [`${componentCls}-preview-close`]: {
+        [`${previewCls}-close`]: {
           position: 'absolute',
           right: token.marginXL,
           top: token.marginXL,
@@ -127,7 +127,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           },
         },
 
-        [`${componentCls}-preview-loading`]: {
+        [`${previewCls}-loading`]: {
           animationName: fade.fadeIn,
           animationDuration: token.motions.durationSlow,
           animationTimingFunction: token.motions.decelerate,
@@ -146,8 +146,8 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           top: '50%',
           transform: 'translate(-50%, -50%)',
         },
-        [`${componentCls}-preview-arrow`]: {
-          [`${componentCls}-preview-arrow-left, ${componentCls}-preview-arrow-right`]: {
+        [`${previewCls}-arrow`]: {
+          [`${previewCls}-arrow-left, ${previewCls}-arrow-right`]: {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -162,19 +162,19 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
               backgroundColor: 'rgba(255, 255,255, 0.4)',
             },
 
-            [`&${componentCls}-preview-arrow-disabled, &${componentCls}-preview-arrow-disabled:hover`]: {
+            [`&${previewCls}-arrow-disabled, &${previewCls}-arrow-disabled:hover`]: {
               color: 'rgba(255, 255,255, 0.3)',
               backgroundColor: 'rgba(255, 255,255, 0.2)',
               cursor: 'not-allowed',
             },
           },
-          [`${componentCls}-preview-arrow-left`]: {
+          [`${previewCls}-arrow-left`]: {
             left: token.marginXL,
             top: '50%',
             transform: 'translateY(-50%)',
           },
 
-          [`${componentCls}-preview-arrow-right`]: {
+          [`${previewCls}-arrow-right`]: {
             right: token.marginXL,
             top: '50%',
             transform: 'translateY(-50%)',

@@ -13,7 +13,7 @@ export interface ImagePreviewGroupHandle {
 function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
   const {
     children,
-    srcList,
+    items,
     loop,
     current: propCurrentIndex,
     defaultCurrent,
@@ -31,8 +31,8 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
   });
 
   const propPreviewUrlMap: PreviewUrlMap | null = useMemo(
-    () => (srcList ? new Map(srcList.map((url, index) => [index, { url, preview: true }])) : null),
-    [srcList],
+    () => (items ? new Map(items.map((url, index) => [index, { url, preview: true }])) : null),
+    [items],
   );
 
   const isFirstRender = useIsFirstRender();
@@ -47,6 +47,8 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
   ) => {
     previewPropsMapRef.current = cb(previewPropsMapRef.current);
   };
+
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>();
 
   useEffect(() => {
     if (isFirstRender) return;
@@ -174,10 +176,18 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
         registerPreviewProps,
         visible,
         handleVisibleChange,
+        setMousePosition,
       }}
     >
       {loopImageIndex(children)}
-      <ImagePreview ref={refPreview} src="" visible={visible} onVisibleChange={handleVisibleChange} {...restProps} />
+      <ImagePreview
+        ref={refPreview}
+        src=""
+        mousePosition={mousePosition}
+        visible={visible}
+        onVisibleChange={handleVisibleChange}
+        {...restProps}
+      />
       {/* {forceRender && renderList()} */}
     </PreviewGroupContext.Provider>
   );

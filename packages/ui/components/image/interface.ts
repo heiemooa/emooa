@@ -124,7 +124,7 @@ export interface ImagePreviewGroupProps extends Omit<PartialImagePreviewProps, '
    * @zh 图片列表 （设置了本属性之后，将不再收集 Image 子组件的图片信息）
    * @en Image path list（After setting this property, the information of the `Image` sub-component will no longer be collected)
    */
-  srcList?: string[];
+  items?: string[];
   /**
    * @zh 当前展示的图片的下标 (受控属性)
    * @en The index of current image (controlled prop)

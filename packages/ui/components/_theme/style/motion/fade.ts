@@ -37,7 +37,7 @@ export const initFadeMotion = (token: TokenWithCommonCls<AliasToken>, sameLevel 
         animationTimingFunction: 'linear',
       },
 
-      [`${sameLevelPrefix}${motionCls}-leave`]: {
+      [`${sameLevelPrefix}${motionCls}-exit`]: {
         animationTimingFunction: 'linear',
       },
     },

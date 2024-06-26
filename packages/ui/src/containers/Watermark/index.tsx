@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Space direction="vertical">
       <Watermark content={['Arco Design', 'aaa']}>
-        <Image src="//api.emooa.com/aimg?idx=1" width={600} />
+        <div style={{ height: 300 }}></div>
       </Watermark>
     </Space>
   );
