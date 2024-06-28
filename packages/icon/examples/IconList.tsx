@@ -137,13 +137,13 @@ export default function ({ lang = 'zh-CN' }) {
        <Space style={spaceStyle}>
         <h4>{t.size}</h4>
         <Button.Group>
-          <Button onClick={() => setFontSize(24)} type={strokeWidth === 24 ? 'primary' : 'secondary'}>
+          <Button onClick={() => setFontSize(24)} type={fontSize === 24 ? 'primary' : 'secondary'}>
             24
           </Button>
-          <Button onClick={() => setStrokeWidth(32)} type={strokeWidth === 32 ? 'primary' : 'secondary'}>
+          <Button onClick={() => setFontSize(32)} type={fontSize === 32 ? 'primary' : 'secondary'}>
             32
           </Button>
-          <Button onClick={() => setStrokeWidth(48)} type={strokeWidth === 48 ? 'primary' : 'secondary'}>
+          <Button onClick={() => setFontSize(48)} type={fontSize === 48 ? 'primary' : 'secondary'}>
             48
           </Button>
         </Button.Group>
