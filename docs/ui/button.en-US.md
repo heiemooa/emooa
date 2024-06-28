@@ -3,7 +3,6 @@ nav: Component
 group: 
     title: General
     order: 0
-order: 0
 toc: content
 ---
 

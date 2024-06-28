@@ -3,7 +3,6 @@ nav: Components
 group: 
     title: Data Entry
     order: 2
-order: 1
 toc: content
 demo:
   cols: 2

@@ -3,7 +3,6 @@ nav: 组件
 group:
     title: 反馈
     order: 3
-order: 0
 toc: content
 ---
 

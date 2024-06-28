@@ -3,7 +3,6 @@ nav: 组件
 group: 
     title: 其他
     order: 3
-order: 0
 toc: content
 ---
 

@@ -1,9 +1,8 @@
 ---
 nav: Components
 group: 
-    title: General
-    order: 2
-order: 0
+    title: Data Entry
+    order: 0
 toc: content
 ---
 

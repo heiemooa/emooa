@@ -2,8 +2,7 @@
 nav: 组件
 group:
     title: 数据展示
-    order: 2
-order: 0
+    order: 0
 toc: content
 ---
 

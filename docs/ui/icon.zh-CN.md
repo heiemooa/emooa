@@ -3,7 +3,6 @@ nav: 组件
 group: 
     title: 通用
     order: 0
-order: 0
 toc: content
 demo:
   cols: 2

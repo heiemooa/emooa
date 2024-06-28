@@ -116,7 +116,7 @@ export default function ({ lang = 'zh-CN' }) {
             {t.iconColorRed}
           </Button>
           <Button onClick={() => setColor('green')} type={color === 'green' ? 'primary' : 'secondary'}>
-            {t.iconColor}
+            {t.iconColorGreen}
           </Button>
         </Button.Group>
       </Space>
