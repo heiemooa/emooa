@@ -6,80 +6,73 @@ export interface ComponentToken {
   // Component token here
 }
 
-interface SpinToken extends FullToken<'Spin'> {
-  spaceGapMiniSize: number;
-  spaceGapSmallSize: number;
-  spaceGapMediumSize: number;
-  spaceGapLargeSize: number;
-}
+interface SpinToken extends FullToken<'Spin'> {}
 
 const genSpinStyle: GenerateStyle<SpinToken> = token => {
   const { componentCls } = token;
 
   return {
     [componentCls]: {
-      display: 'inline-flex',
-      '&-rtl': {
-        direction: 'rtl',
+      '&-block': {
+        display: 'block',
       },
-      '&-vertical': {
-        flexDirection: 'column',
+      '&-width-tip': {
+        textAlign: 'center',
       },
-      '&-horizontal': {
-        flexDirection: 'row',
-      },
-      '&-wrap': {
-        flexWrap: 'wrap',
-      },
-      '&-align': {
-        flexDirection: 'column',
-        '&-center': {
-          alignItems: 'center',
-        },
-        '&-start': {
-          alignItems: 'flex-start',
-        },
-        '&-end': {
-          alignItems: 'flex-end',
-        },
-        '&-baseline': {
-          alignItems: 'baseline',
-        },
-      },
-      [`${componentCls}-item:empty`]: {
-        display: 'none',
-      },
-    },
-  };
-};
 
-const genSpinGapStyle: GenerateStyle<SpinToken> = token => {
-  const { componentCls } = token;
-  return {
-    [componentCls]: {
-      '&-gap-row-mini': {
-        rowGap: token.spaceGapMiniSize,
+      [`${componentCls}-icon`]: {
+        color: token.colorPrimary,
+        fontSize: token.fontSizeXL,
       },
-      '&-gap-row-small': {
-        rowGap: token.spaceGapSmallSize,
+
+      [`${componentCls}-tip`]: {
+        fontSize: token.fontSize,
+        marginTop: token.marginXXS,
+        fontWeight: token.fontWeight,
+        color: token.colorPrimary,
       },
-      '&-gap-row-medium': {
-        rowGap: token.spaceGapMediumSize,
+
+      [`${componentCls}-loading`]: {
+        textAlign: 'center',
+        userSelect: 'none',
+
+        [`${componentCls}-loading-inner`]: {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 2,
+        },
       },
-      '&-gap-row-large': {
-        rowGap: token.spaceGapLargeSize,
+
+      [`${componentCls}-container`]: {
+        position: 'relative',
+
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(255, 255, 255, 0.6)',
+          opacity: 0,
+          transition: 'opacity .1s linear',
+          pointerEvents: 'none',
+          zIndex: 1,
+        },
       },
-      '&-gap-col-mini': {
-        columnGap: token.spaceGapMiniSize,
-      },
-      '&-gap-col-small': {
-        columnGap: token.spaceGapSmallSize,
-      },
-      '&-gap-col-medium': {
-        columnGap: token.spaceGapMediumSize,
-      },
-      '&-gap-col-large': {
-        columnGap: token.spaceGapLargeSize,
+
+      '&-with-loading': {
+        position: 'relative',
+        userSelect: 'none',
+
+        [`${componentCls}-container::after`]: {
+          opacity: 1,
+          pointerEvents: 'auto',
+        },
       },
     },
   };
@@ -91,13 +84,8 @@ const prepareComponentToken: GetDefaultToken<'Spin'> = () => ({});
 export default genStyleHooks(
   'Spin',
   token => {
-    const spaceToken = mergeToken<SpinToken>(token, {
-      spaceGapMiniSize: token.paddingXXS,
-      spaceGapSmallSize: token.paddingXS,
-      spaceGapMediumSize: token.padding,
-      spaceGapLargeSize: token.paddingLG,
-    });
-    return [genSpinStyle(spaceToken), genSpinGapStyle(spaceToken)];
+    const spinToken = mergeToken<SpinToken>(token, {});
+    return [genSpinStyle(spinToken)];
   },
   prepareComponentToken,
 );

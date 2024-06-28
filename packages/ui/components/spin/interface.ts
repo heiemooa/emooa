@@ -1,8 +1,5 @@
 import { ReactNode } from 'react';
 
-export type SpinSize = 'mini' | 'small' | 'medium' | 'large' | number;
-export type SpinAlign = 'start' | 'end' | 'center' | 'baseline';
-
 export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * @zh 是否为加载状态（仅在 `Spin` 有子节点时生效）
@@ -34,16 +31,4 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @en Specifies a delay(ms) for loading state
    */
   delay?: number;
-  /**
-   * @zh 是否使用点类型的动画
-   * @en Whether to use dot type animation
-   */
-  dot?: boolean;
-
-  /**
-   * @zh 是否为块级元素
-   * @en Whether it is a block-level element
-   * @version 2.29.0
-   */
-  block?: boolean;
 }

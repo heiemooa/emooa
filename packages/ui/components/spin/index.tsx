@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, forwardRef, ReactElement, useState, useCallback, useEffect } from 'react';
+import React, { useContext, forwardRef, ReactElement, useState, useCallback, useEffect } from 'react';
 import { SpinProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import classNames from 'classnames';
@@ -14,38 +14,35 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     style,
     className,
     children,
-    loading: propLoading,
+    loading: _loading = true,
     size,
     icon,
     element,
     tip,
-    dot,
     delay,
-    block = false,
     ...rest
   }: SpinProps = Object.assign({}, components?.Spin, props);
 
-  const [loading, setLoading] = useState<boolean>(delay ? false : propLoading);
+  const [loading, setLoading] = useState<boolean>(delay ? false : _loading);
   const debouncedSetLoading = useCallback(debounce(setLoading, delay), [delay]);
 
-  const _usedLoading = delay ? loading : propLoading;
+  const _usedLoading = delay ? loading : _loading;
 
   const prefixCls = getPrefixCls('spin');
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
   useEffect(() => {
-    delay && debouncedSetLoading(propLoading);
+    delay && debouncedSetLoading(_loading);
     return () => {
       debouncedSetLoading && debouncedSetLoading.cancel();
     };
-  }, [propLoading]);
+  }, [_loading]);
 
   const classnames = classNames(
     hashId,
     prefixCls,
     {
-      [`${prefixCls}-block`]: block,
-      [`${prefixCls}-loading`]: _usedLoading,
+      [`${prefixCls}-with-loading`]: _usedLoading,
       [`${prefixCls}-with-tip`]: tip && !children,
     },
     className,
@@ -76,8 +73,8 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
         <>
           <div className={`${prefixCls}-container`}>{children}</div>
           {_usedLoading && (
-            <div className={`${prefixCls}-loading-layer`} style={{ fontSize: size }}>
-              <span className={`${prefixCls}-loading-layer-inner`}>
+            <div className={`${prefixCls}-loading`} style={{ fontSize: size }}>
+              <span className={`${prefixCls}-loading-inner`}>
                 {loadingIcon}
                 {tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null}
               </span>
