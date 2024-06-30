@@ -11,12 +11,16 @@ const token = Theme.getToken();
 console.log(token);
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <>
-      <Button onClick={() => setLoading(!loading)} style={{ marginBottom: 10 }}>
-        Loading: {`${loading}`}
-      </Button>
+      <div>
+        <Button onClick={() => setLoading(!loading)} style={{ marginBottom: 10 }}>
+          Loading: {`${loading}`}
+        </Button>
+      </div>
+      <Spin loading={loading} full />
+
       <Spin tip="loading" loading={loading}>
         <Space direction="horizontal">
           <Image
@@ -72,6 +76,63 @@ function App() {
           />
         </Space>
       </Spin>
+      <Space direction="horizontal">
+        <Spin tip="loading" loading={loading}>
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            title="A user’s avatar"
+            description="Click me to preview image"
+            actions={[
+              <Button
+                key="1"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('visible');
+                }}
+                type="text"
+                style={{ color: '#fff' }}
+                icon={<IconEye />}
+              />,
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+        </Spin>
+        <Spin tip="loading" loading={loading}>
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            preview={false}
+            title="A user’s avatar"
+            actions={[
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+        </Spin>
+      </Space>
     </>
   );
 }

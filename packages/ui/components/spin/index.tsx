@@ -9,7 +9,7 @@ import { isEmptyReactNode } from '@/_utils/is';
 import { IconLoading } from '@emooa/icon';
 
 const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
-  const { getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, components }: ConfigProviderProps = useContext(ConfigContext);
   const {
     style,
     className,
@@ -20,6 +20,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     element,
     tip,
     delay,
+    full,
     ...rest
   }: SpinProps = Object.assign({}, components?.Spin, props);
 
@@ -42,8 +43,9 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     hashId,
     prefixCls,
     {
+      [`${prefixCls}-full`]: full,
       [`${prefixCls}-with-loading`]: _usedLoading,
-      [`${prefixCls}-with-tip`]: tip && !children,
+      [`${prefixCls}-icon-only`]: isEmptyReactNode(children),
     },
     className,
     cssVarCls,
@@ -64,23 +66,14 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
 
   return wrapCSSVar(
     <div ref={ref} className={classnames} {...rest}>
-      {isEmptyReactNode(children) ? (
-        <>
-          {loadingIcon}
-          {tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null}
-        </>
-      ) : (
-        <>
-          <div className={`${prefixCls}-container`}>{children}</div>
-          {_usedLoading && (
-            <div className={`${prefixCls}-loading`} style={{ fontSize: size }}>
-              <span className={`${prefixCls}-loading-inner`}>
-                {loadingIcon}
-                {tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null}
-              </span>
-            </div>
-          )}
-        </>
+      {!isEmptyReactNode(children) && <div className={`${prefixCls}-container`}>{children}</div>}
+      {_usedLoading && (
+        <div className={classNames(`${prefixCls}-loading`)} style={{ fontSize: size }}>
+          <div className={`${prefixCls}-loading-inner`}>
+            {loadingIcon}
+            {tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null}
+          </div>
+        </div>
       )}
     </div>,
   );

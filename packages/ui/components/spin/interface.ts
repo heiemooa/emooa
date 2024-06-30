@@ -31,4 +31,8 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @en Specifies a delay(ms) for loading state
    */
   delay?: number;
+  /**
+   * @zh 是否全屏
+   */
+  full?: boolean;
 }
