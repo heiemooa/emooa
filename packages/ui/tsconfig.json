@@ -8,5 +8,5 @@
       "@emooa/icon": ["../icon/esm/index"]
     }
   },
-  "include": ["./components", "src"]
+  "include": ["./components"]
 }
