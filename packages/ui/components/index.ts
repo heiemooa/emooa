@@ -30,6 +30,9 @@ export type { ConfigProviderProps } from './config-provider/interface';
 export { default as Space } from './space';
 export type { SpaceProps, SpaceSize, SpaceAlign } from './space/interface';
 
+export { default as Spin } from './spin';
+export type { SpinProps } from './spin/interface';
+
 export { default as Watermark } from './watermark';
 export type { WatermarkProps } from './watermark/interface';
 

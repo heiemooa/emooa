@@ -1,5 +1,5 @@
 import { Size } from '@/config-provider/interface';
-import { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, HTMLProps, ReactNode } from 'react';
+import { CSSProperties, HTMLProps, ReactNode } from 'react';
 
 export type { Size as ButtonSize } from '@/config-provider/interface';
 

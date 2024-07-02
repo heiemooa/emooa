@@ -1,7 +1,5 @@
+import { Size } from '@/config-provider/interface';
 import { ReactNode } from 'react';
-
-export type SpinSize = 'mini' | 'small' | 'medium' | 'large' | number;
-export type SpinAlign = 'start' | 'end' | 'center' | 'baseline';
 
 export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -13,7 +11,12 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @zh 加载动画的尺寸
    * @en The size of loading icon
    */
-  size?: number;
+  /**
+   * @zh 尺寸
+   * @en The Button size
+   * @defaultValue medium
+   */
+  size?: Size;
   /**
    * @zh 自定义图标，会自动旋转。
    * @en Customize icon which will be rotated automatically.
@@ -35,15 +38,11 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   delay?: number;
   /**
-   * @zh 是否使用点类型的动画
-   * @en Whether to use dot type animation
+   * @zh 是否全屏
+   */
+  full?: boolean;
+  /**
+   * @zh 点动画
    */
   dot?: boolean;
-
-  /**
-   * @zh 是否为块级元素
-   * @en Whether it is a block-level element
-   * @version 2.29.0
-   */
-  block?: boolean;
 }

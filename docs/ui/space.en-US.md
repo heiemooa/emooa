@@ -37,7 +37,7 @@ Avoid components that are too close together to create a unified space.
 | direction | `vertical` `horizontal`           | `horizontal` | The space direction    |
 | size      | `mini` `small` `medium` `large` `number`   | `small`      | `small`      | The space size		    |
 | split     | `ReactNode`                       | -            | Set split		        |
-| wrap      | `boolean`                         | true         | Auto wrap line         |
+| wrap      | `boolean`                         | -         | Auto wrap line         |
 
 ### Size
 
