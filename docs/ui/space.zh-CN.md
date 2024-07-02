@@ -37,7 +37,7 @@ toc: content
 | direction | `vertical` `horizontal`           | `horizontal` | 间距方向	        |
 | size      | `mini` `small` `medium` `large` `number`   | `small`      | 间距大小	        |
 | split     | `ReactNode`                       | -            | 设置拆分	        |
-| wrap      | `boolean`                         | true         | 是否自动换行        |
+| wrap      | `boolean`                         | -         | 是否自动换行        |
 
 
 ## 主题变量 Theme

@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
-import { Spin, Button } from '@emooa/ui';
+import { Spin, Button, Space } from '@emooa/ui';
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading1, setLoading1] = useState<boolean>(false);
+  const [loading2, setLoading2] = useState<boolean>(false);
 
-  const showFullScreen = () => {
-    setLoading(true);
+  const showFullScreen1 = () => {
+    setLoading1(true);
 
     setTimeout(() => {
-      setLoading(false);
+      setLoading1(false);
     }, 1000);
+  };
+
+  const showFullScreen2 = () => {
+    setLoading2(true);
+
+    setTimeout(() => {
+      setLoading2(false);
+    }, 2000);
   };
 
   return (
     <>
-      <Button onClick={showFullScreen}> Full Screen</Button>
-
-      <Spin full loading={loading}></Spin>
+      <Space>
+        <div>
+          <Button onClick={showFullScreen1}> Full Screen</Button>
+          <Spin full loading={loading1}></Spin>
+        </div>
+        <Button onClick={showFullScreen2}> Full Dot Screen</Button>
+        <Spin full loading={loading2} dot></Spin>
+      </Space>
     </>
   );
 };

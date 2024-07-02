@@ -1,12 +1,15 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
+import genSpinDotStyle from './dot';
 
 /** Component only token. Which will handle additional calculation of alias token */
 export interface ComponentToken {
   // Component token here
 }
 
-interface SpinToken extends FullToken<'Spin'> {}
+interface SpinToken extends FullToken<'Spin'> {
+  dotCls: string;
+}
 
 const genSpinStyle: GenerateStyle<SpinToken> = token => {
   const { componentCls } = token;
@@ -32,7 +35,7 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
 
         [`${componentCls}-tip`]: {
           fontSize: token.fontSize,
-          marginTop: token.marginXXS,
+          marginTop: token.marginXS,
           fontWeight: token.fontWeight,
           color: token.colorPrimary,
         },
@@ -102,22 +105,53 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
           opacity: 1,
           pointerEvents: 'auto',
         },
+      },
+    },
+  };
+};
 
-        // '&::after': {
-        //   content: '""',
-        //   position: 'fixed',
-        //   opacity: 1,
-        //   height: '100vh',
-        //   width: '100vw',
-        //   left: 0,
-        //   top: 0,
-        //   right: 0,
-        //   bottom: 0,
-        //   backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        //   transition: `opacity ${token.motions.durationFast} linear`,
-        //   pointerEvents: 'none',
-        //   zIndex: token.zIndexPopupBase,
-        // },
+const genSpinSizeStyle: GenerateStyle<SpinToken> = token => {
+  const { componentCls } = token;
+
+  return {
+    [`${componentCls}-mini`]: {
+      [`${componentCls}-loading`]: {
+        [`${componentCls}-icon`]: {
+          fontSize: token.sizeSM,
+        },
+        [`${componentCls}-tip`]: {
+          fontSize: token.fontSizeSM,
+        },
+      },
+    },
+    [`${componentCls}-small`]: {
+      [`${componentCls}-loading`]: {
+        [`${componentCls}-icon`]: {
+          fontSize: token.size,
+        },
+        [`${componentCls}-tip`]: {
+          fontSize: token.fontSizeSM,
+        },
+      },
+    },
+    [`${componentCls}-medium`]: {
+      [`${componentCls}-loading`]: {
+        [`${componentCls}-icon`]: {
+          fontSize: token.sizeLG,
+        },
+        [`${componentCls}-tip`]: {
+          fontSize: token.fontSize,
+        },
+      },
+    },
+    [`${componentCls}-large`]: {
+      [`${componentCls}-loading`]: {
+        [`${componentCls}-icon`]: {
+          fontSize: token.sizeXXL,
+        },
+        [`${componentCls}-tip`]: {
+          fontSize: token.fontSizeLG,
+        },
       },
     },
   };
@@ -129,8 +163,10 @@ const prepareComponentToken: GetDefaultToken<'Spin'> = () => ({});
 export default genStyleHooks(
   'Spin',
   token => {
-    const spinToken = mergeToken<SpinToken>(token, {});
-    return [genSpinStyle(spinToken)];
+    const dotCls = `${token.componentCls}-dot`;
+    const spinToken = mergeToken<SpinToken>(token, { dotCls });
+
+    return [genSpinStyle(spinToken), genSpinSizeStyle(spinToken), genSpinDotStyle(spinToken)];
   },
   prepareComponentToken,
 );

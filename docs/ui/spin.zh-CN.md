@@ -4,7 +4,8 @@ group:
     title: 反馈
     order: 3
 toc: content
-
+demo:
+  cols: 2
 ---
 
 # Spin 加载中
@@ -21,6 +22,7 @@ toc: content
 <code src="../../packages/ui/examples/spin/size.tsx" description="设置 `size` 可以得到不同尺寸的加载图标。">不同尺寸</code>
 <code src="../../packages/ui/examples/spin/tip.tsx" description="通过 `tip` 字段自定义加载时的文案。">提示</code>
 <code src="../../packages/ui/examples/spin/delay.tsx" description="通过 `delay` 延迟显示 `loading`，对状态切换进行防抖处理，有效避免状态快速切换时的屏幕闪烁。">延迟</code>
+<code src="../../packages/ui/examples/spin/dot.tsx" description="通过 `delay` 延迟显示 `loading`，对状态切换进行防抖处理，有效避免状态快速切换时的屏幕闪烁。">Dot 动画</code>
 <code src="../../packages/ui/examples/spin/full.tsx" description="`full` 属性非常适合创建流畅的页面加载器。它添加了半透明覆盖层，并在其中心放置了一个旋转加载符号。">全屏</code>
 ## API
 

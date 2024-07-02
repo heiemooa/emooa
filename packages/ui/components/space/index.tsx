@@ -27,7 +27,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
     size = components?.Space?.size ?? 'small',
     direction = 'horizontal',
     align,
-    wrap = true,
+    wrap,
     split,
     style,
     ...rest

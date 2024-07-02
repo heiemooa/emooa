@@ -7,20 +7,23 @@ import useStyle from './style';
 import { debounce } from 'lodash';
 import { isEmptyReactNode } from '@/_utils/is';
 import { IconLoading } from '@emooa/icon';
+import DotLoading from './dot';
+import EuiCSSTransition from '@/_utils/css-trasition';
 
 const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
-  const { getPrefixCls, components }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, components, size: componentSize }: ConfigProviderProps = useContext(ConfigContext);
   const {
     style,
     className,
     children,
     loading: _loading = true,
-    size,
+    size = componentSize ?? 'medium',
     icon,
     element,
     tip,
     delay,
     full,
+    dot,
     ...rest
   }: SpinProps = Object.assign({}, components?.Spin, props);
 
@@ -42,10 +45,12 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
   const classnames = classNames(
     hashId,
     prefixCls,
+    `${prefixCls}-${size}`,
     {
       [`${prefixCls}-full`]: full,
       [`${prefixCls}-with-loading`]: _usedLoading,
       [`${prefixCls}-icon-only`]: isEmptyReactNode(children),
+      [`${prefixCls}-with-dot`]: dot,
     },
     className,
     cssVarCls,
@@ -56,11 +61,31 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
       {icon
         ? React.cloneElement(icon as ReactElement, {
             className: classNames(`${prefixCls.replace('-spin', '-icon')}-loading`),
-            style: {
-              fontSize: size,
-            },
           })
-        : element || <IconLoading style={{ fontSize: size }} />}
+        : element ||
+          (dot ? (
+            <EuiCSSTransition
+              in={dot}
+              timeout={200}
+              classNames={`${prefixCls}-fade`}
+              appear
+              mountOnEnter
+              unmountOnExit={false}
+              onEnter={e => {
+                if (!e) return;
+                e.style.opacity = '1';
+                e.style.transition = `opacity 1s linear`;
+              }}
+              onExited={e => {
+                if (!e) return;
+                e.style.opacity = '0';
+              }}
+            >
+              <DotLoading size={size} />
+            </EuiCSSTransition>
+          ) : (
+            <IconLoading />
+          ))}
     </span>
   );
 
@@ -68,7 +93,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     <div ref={ref} className={classnames} {...rest}>
       {!isEmptyReactNode(children) && <div className={`${prefixCls}-container`}>{children}</div>}
       {_usedLoading && (
-        <div className={classNames(`${prefixCls}-loading`)} style={{ fontSize: size }}>
+        <div className={classNames(`${prefixCls}-loading`)}>
           <div className={`${prefixCls}-loading-inner`}>
             {loadingIcon}
             {tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null}

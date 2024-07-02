@@ -1,3 +1,4 @@
+import { Size } from '@/config-provider/interface';
 import { ReactNode } from 'react';
 
 export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,7 +11,12 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @zh 加载动画的尺寸
    * @en The size of loading icon
    */
-  size?: number;
+  /**
+   * @zh 尺寸
+   * @en The Button size
+   * @defaultValue medium
+   */
+  size?: Size;
   /**
    * @zh 自定义图标，会自动旋转。
    * @en Customize icon which will be rotated automatically.
@@ -35,4 +41,8 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @zh 是否全屏
    */
   full?: boolean;
+  /**
+   * @zh 点动画
+   */
+  dot?: boolean;
 }

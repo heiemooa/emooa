@@ -9,70 +9,16 @@ const App: React.FC = () => {
     <>
       <Space direction="horizontal">
         <Spin loading={loading}>
-          <Image
-            height={200}
-            width={300}
-            src="https://api.emooa.com/aimg?idx=1"
-            title="A user’s avatar"
-            description="Click me to preview image"
-            actions={[
-              <Button
-                key="1"
-                size="small"
-                className="image-demo-action-item"
-                onClick={e => {
-                  console.log('visible');
-                }}
-                type="text"
-                style={{ color: '#fff' }}
-                icon={<IconEye />}
-              />,
-              <Button
-                key="2"
-                size="small"
-                className="image-demo-action-item"
-                onClick={e => {
-                  console.log('download');
-                }}
-                style={{ color: '#fff' }}
-                type="text"
-                icon={<IconDownload />}
-              />,
-            ]}
-          />
+          <div style={{ border: '1px solid #eee', padding: 10, borderRadius: 4, background: '#fefefe' }}>
+            <h4>Tip Loading Title</h4>
+            <span>Customize the loading copy through the tip field.</span>
+          </div>
         </Spin>
-        <Spin loading={loading} tip="loading">
-          <Image
-            height={200}
-            width={300}
-            src="https://api.emooa.com/aimg?idx=1"
-            title="A user’s avatar"
-            description="Click me to preview image"
-            actions={[
-              <Button
-                key="1"
-                size="small"
-                className="image-demo-action-item"
-                onClick={e => {
-                  console.log('visible');
-                }}
-                type="text"
-                style={{ color: '#fff' }}
-                icon={<IconEye />}
-              />,
-              <Button
-                key="2"
-                size="small"
-                className="image-demo-action-item"
-                onClick={e => {
-                  console.log('download');
-                }}
-                style={{ color: '#fff' }}
-                type="text"
-                icon={<IconDownload />}
-              />,
-            ]}
-          />
+        <Spin loading={loading} tip="Loading">
+          <div style={{ border: '1px solid #eee', padding: 10, borderRadius: 4, background: '#fefefe' }}>
+            <h4>Tip Loading Title</h4>
+            <span>Customize the loading copy through the tip field.</span>
+          </div>
         </Spin>
       </Space>
     </>

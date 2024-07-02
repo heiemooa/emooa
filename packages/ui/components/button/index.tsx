@@ -56,7 +56,6 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
     `${prefixCls}-${status}`,
     `${prefixCls}-${type}`,
     {
-      [`${prefixCls}-${size}`]: !!size,
       [`${prefixCls}-${shape}`]: shape !== 'square',
       [`${prefixCls}-disabled`]: disabled,
       [`${prefixCls}-full`]: full,

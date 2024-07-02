@@ -19,9 +19,9 @@ function App() {
           Loading: {`${loading}`}
         </Button>
       </div>
-      <Spin loading={loading} full />
+      <Spin loading={loading} dot />
 
-      <Spin tip="loading" loading={loading}>
+      <Spin tip="Loading" loading={loading} size="mini" dot>
         <Space direction="horizontal">
           <Image
             height={200}
@@ -76,7 +76,172 @@ function App() {
           />
         </Space>
       </Spin>
-      <Space direction="horizontal">
+      <Spin tip="Loading" loading={loading} size="small" dot>
+        <Space direction="horizontal">
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            title="A user’s avatar"
+            description="Click me to preview image"
+            actions={[
+              <Button
+                key="1"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('visible');
+                }}
+                type="text"
+                style={{ color: '#fff' }}
+                icon={<IconEye />}
+              />,
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            preview={false}
+            title="A user’s avatar"
+            actions={[
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+        </Space>
+      </Spin>
+      <Spin tip="Loading" loading={loading} size="medium" dot>
+        <Space direction="horizontal">
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            title="A user’s avatar"
+            description="Click me to preview image"
+            actions={[
+              <Button
+                key="1"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('visible');
+                }}
+                type="text"
+                style={{ color: '#fff' }}
+                icon={<IconEye />}
+              />,
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            preview={false}
+            title="A user’s avatar"
+            actions={[
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+        </Space>
+      </Spin>
+      <Spin tip="Loading" loading={loading} size="large" dot>
+        <Space direction="horizontal">
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            title="A user’s avatar"
+            description="Click me to preview image"
+            actions={[
+              <Button
+                key="1"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('visible');
+                }}
+                type="text"
+                style={{ color: '#fff' }}
+                icon={<IconEye />}
+              />,
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+          <Image
+            height={200}
+            width={300}
+            src="https://api.emooa.com/aimg?idx=1"
+            preview={false}
+            title="A user’s avatar"
+            actions={[
+              <Button
+                key="2"
+                size="small"
+                className="image-demo-action-item"
+                onClick={e => {
+                  console.log('download');
+                }}
+                style={{ color: '#fff' }}
+                type="text"
+                icon={<IconDownload />}
+              />,
+            ]}
+          />
+        </Space>
+      </Spin>
+      {/* <Space direction="horizontal">
         <Spin tip="loading" loading={loading}>
           <Image
             height={200}
@@ -132,7 +297,7 @@ function App() {
             ]}
           />
         </Spin>
-      </Space>
+      </Space> */}
     </>
   );
 }
