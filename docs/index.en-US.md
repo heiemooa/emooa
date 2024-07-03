@@ -1,8 +1,8 @@
 ---
-title: Emooa - Personal open source UI component library and various dependent libraries
+title: Emooa - Flexible and rich UI component library and various dependent libraries
 hero:
   title: Emooa
-  description: Personal open source UI component library and various dependent libraries
+  description: Flexible and rich UI component library and various dependent libraries
   actions:
     - text: Getting Started
       link: /guide

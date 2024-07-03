@@ -1,8 +1,8 @@
 ---
-title: Emooa - 个人开源的UI组件库和各类依赖库
+title: Emooa - 灵活丰富的UI组件库和各类依赖库
 hero:
   title: Emooa
-  description: 个人开源的UI组件库和各类依赖库
+  description: 灵活丰富的UI组件库和各类依赖库
   actions:
     - text: 开始使用
       link: /ui

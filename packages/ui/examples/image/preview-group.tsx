@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
   return (
     <Image.PreviewGroup>
-      <Space>
+      <Space wrap>
         {items.map((src, index) => (
           <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
         ))}

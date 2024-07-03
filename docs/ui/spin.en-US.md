@@ -33,7 +33,7 @@ toc: content
 | style     | `CSSProperties`       | -        | The style properties of Spin	        |
 |loading|`boolean`|true|Whether is loading status|
 |delay|`number`|-|Specifies a delay(ms) for loading state|
-|size|`number`|-|The size of loading icon	|
+|size|`mini` \| `small` \| `medium` \| `large` |medium|The size of loading icon	|
 |icon|`ReactNode`|-|Customize icon which will be rotated automatically.	|
 |element|`ReactNode`|-|Customize element which won't be rotated automatically, such as image/gif.		|
 |tip|`string` \| `ReactNode` |-|Customize description content when Spin has children	|

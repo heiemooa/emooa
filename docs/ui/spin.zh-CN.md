@@ -34,7 +34,7 @@ demo:
 | style     | `CSSProperties`       | -        | 组件样式	    |
 |loading|`boolean`|true|是否为加载状态|
 |delay|`number`|-|延迟显示加载的时间 (ms)|
-|size|`number`|-|加载动画的尺寸|
+|size|`mini` \| `small` \| `medium` \| `large` |medium|加载动画的尺寸|
 |icon|`ReactNode`|-|自定义图标，会自动旋转。|
 |element|`ReactNode`|-|自定义元素，非图标，不附带旋转效果。可用于设置为 gif 图片等。|
 |tip|`string` \| `ReactNode` |-|加载的文案|
