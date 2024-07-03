@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { WatermarkProps } from '@/watermark/interface';
-import { isNumber } from '@/_utils/is';
+import { isNumber } from 'lodash';
 import { getPixelRatio } from '@/_utils/pixel';
 import { isServerRendering } from '@/_utils/dom';
 
@@ -25,7 +25,7 @@ const toNumber = (value: string | number, defaultValue: number) => {
   if (isNumber(value)) {
     return value;
   }
-  const numberVal = parseFloat(value);
+  const numberVal = parseFloat(value as string);
   return isNumber(numberVal) ? numberVal : defaultValue;
 };
 

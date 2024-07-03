@@ -1,6 +1,7 @@
 import React, { ReactElement, cloneElement, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { isFunction, supportRef } from './is';
+import { supportRef } from './is';
+import { isFunction } from 'lodash';
 
 const callbackOriginRef = (children: CSSTransition, node) => {
   if (children && children.ref) {

@@ -1,4 +1,4 @@
-import { isArray } from '@/_utils/is';
+import { isArray } from 'lodash';
 
 export const defaultScales = [
   25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400,

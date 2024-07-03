@@ -21,7 +21,7 @@ import { WheelEvent } from 'react';
 import PreviewScales, { defaultScales } from './utils/getScale';
 import getFixTranslate from './utils/getFixTranslate';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Esc } from '@/_utils/keycode';
-import { isEmptyObject, isUndefined } from '@/_utils/is';
+import { isEmptyObject } from '@/_utils/is';
 import {
   IconFullscreen,
   IconRotateRight,
@@ -38,6 +38,7 @@ import ImagePreviewArrow from './ImagePreviewArrow';
 import { PreviewGroupContext } from './previewGroupContext';
 import useOverflowHidden from '@/_utils/hooks/useOverflowHidden';
 import EuiCSSTransition from '@/_utils/css-trasition';
+import { isUndefined } from 'lodash';
 
 /** 选择角度90度 */
 const ROTATE_STEP = 90;

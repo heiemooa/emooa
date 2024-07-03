@@ -1,28 +1,9 @@
 import { Dayjs } from 'dayjs';
 import React from 'react';
 import { ReactNode, isValidElement } from 'react';
+import { isPlainObject, isElement } from 'lodash';
 
 const opt = Object.prototype.toString;
-
-export function isArray(obj: any): obj is any[] {
-  return opt.call(obj) === '[object Array]';
-}
-
-export function isObject(obj: any): obj is { [key: string]: any } {
-  return opt.call(obj) === '[object Object]';
-}
-
-export function isString(obj: any): obj is string {
-  return opt.call(obj) === '[object String]';
-}
-
-export function isNumber(obj: any): obj is number {
-  return opt.call(obj) === '[object Number]' && obj === obj; // eslint-disable-line
-}
-
-export function isRegExp(obj: any) {
-  return opt.call(obj) === '[object RegExp]';
-}
 
 export function isFile(obj: any): obj is File {
   return opt.call(obj) === '[object File]';
@@ -46,24 +27,9 @@ function isRgba(color) {
 export function isColor(color: any): boolean {
   return isHex(color) || isRgb(color) || isRgba(color);
 }
-export function isUndefined(obj: any): obj is undefined {
-  return obj === undefined;
-}
-
-export function isNull(obj: any): obj is null {
-  return obj === null;
-}
-
-export function isNullOrUndefined(obj: any): boolean {
-  return obj === null || obj === undefined;
-}
-
-export function isFunction(obj: any): obj is (...args: any[]) => any {
-  return typeof obj === 'function';
-}
 
 export function isEmptyObject(obj: any): boolean {
-  return isObject(obj) && Object.keys(obj).length === 0;
+  return isPlainObject(obj) && Object.keys(obj).length === 0;
 }
 
 export function isEmptyReactNode(content: any, trim?: boolean): boolean {
@@ -87,20 +53,11 @@ export function isWindow(el: any): el is Window {
 export function isDayjs(time): time is Dayjs {
   // dayjs.isDayjs 在实际应用场景，比如多个版本的 dayjs 会失效
   return (
-    isObject(time) &&
+    isPlainObject(time) &&
     (('$y' in time && '$M' in time && '$D' in time && '$d' in time && '$H' in time && '$m' in time && '$s' in time) ||
       time._isAMomentObject) // 兼容 moment 的验证
   );
 }
-
-export function isBoolean(value: any): value is Boolean {
-  return typeof value === 'boolean';
-}
-
-// 判断是否是最基础的dom元素，如 div，span
-export const isDOMElement = (element: ReactNode): boolean => {
-  return isValidElement(element) && typeof element.type === 'string';
-};
 
 // 函数组件
 export const isReactComponent = (element: ReactNode): boolean => {
@@ -114,7 +71,7 @@ export const isClassComponent = (element: any): boolean => {
 
 // 传入的元素是否可以设置 ref 引用
 export const supportRef = (element: any): boolean => {
-  if (isDOMElement(element)) {
+  if (isElement(element)) {
     return true;
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { isUndefined } from '../is';
+import { isUndefined } from 'lodash';
 import usePrevious from './usePrevious';
 
 export default function useValue<T>(
