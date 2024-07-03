@@ -74,7 +74,7 @@ Optional `Lazy Options` property reference [IntersectionObserver.](https://devel
 |src|`string`|-|Image acquisition address, in `Image`, the default is `Image's src`|
 |extra|`Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>`|-|Image attributes, transparently transmitted to the `img` tag in the preview pop-up window|
 |actionsLayout|`string[]` |`['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']`|Control bar layout|
-|scales|`number[]` |`[25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|The zoom percentage in the current array is used when previewing zoom. If it does not contain `100%`, it will be automatically added at the nearest position.|
+|scales|`number[]` |`[50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|The zoom percentage in the current array is used when previewing zoom. If it does not contain `100%`, it will be automatically added at the nearest position.|
 |actions|[ImagePreviewActionProps](#ImagePreviewActionProps)[] |-|Extra operations, [ImagePreviewActionProps](#ImagePreviewActionProps)|
 |getPopupContainer|() => HTMLElement |() => document.body|Pop-up layer mounted node|
 |imageRender|(originalNode: ReactElement) => ReactNode |-|Rendering of custom `image` elements|
@@ -95,7 +95,7 @@ Optional `Lazy Options` property reference [IntersectionObserver.](https://devel
 |src|`string`|-|Image acquisition address, in `Image`, the default is `Image's src`|
 |extra|`Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>`|-|Image attributes, transparently transmitted to the `img` tag in the preview pop-up window|
 |actionsLayout|`string[]` |`['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']`|Control bar layout|
-|scales|`number[]` |`[25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|The zoom percentage in the current array is used when previewing zoom. If it does not contain `100%`, it will be automatically added at the nearest position.|
+|scales|`number[]` |`[50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|The zoom percentage in the current array is used when previewing zoom. If it does not contain `100%`, it will be automatically added at the nearest position.|
 |actions|[ImagePreviewActionProps](#ImagePreviewActionProps)[] |-|Extra operations, [ImagePreviewActionProps](#ImagePreviewActionProps)|
 |getPopupContainer|() => HTMLElement |() => document.body|Pop-up layer mounted node|
 |imageRender|(originalNode: ReactElement) => ReactNode |-|Rendering of custom `image` elements|

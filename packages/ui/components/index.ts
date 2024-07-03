@@ -7,6 +7,9 @@ export type { DividerProps } from './divider/interface';
 export { default as Image } from './image';
 export type { ImageProps } from './image/interface';
 
+export { default as Modal } from './modal';
+export type { ModalProps } from './modal/interface';
+
 export { default as GeoJSON } from './geojson';
 export type {
   GeoJSONProps,

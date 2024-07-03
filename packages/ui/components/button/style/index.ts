@@ -159,6 +159,10 @@ const genBtnStatusStyle = (token: ButtonToken, type, status): CSSObject => {
       color: token[`${type}${status}Color`],
       border: token[`${type}${status}Border`],
 
+      '&:focus-visible': {
+        boxShadow: `0 0 0 2px ${token[`${type}${status}ColorBgHover`]}`,
+      },
+
       [`&:not(${componentCls}-disabled):not(:active):not(${componentCls}-loading):hover`]: {
         backgroundColor: token[`${type}${status}ColorBgHover`],
         color: token[`${type}${status}ColorHover`],

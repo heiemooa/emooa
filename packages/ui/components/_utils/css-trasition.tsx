@@ -1,4 +1,4 @@
-import React, { ReactElement, cloneElement, useMemo, useRef } from 'react';
+import React, { ReactElement, cloneElement, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { supportRef } from './is';
 import { isFunction } from 'lodash';
@@ -22,7 +22,7 @@ const EuiCSSTransition = (props: CSSTransition) => {
 
   const dom = useMemo(() => {
     // 只处理 div， span 之类的 children 即可
-    if (props.nodeRef === undefined && supportRef(children)) {
+    if (nodeRef === undefined && supportRef(children)) {
       flagRef.current = true;
       return cloneElement(children as ReactElement, {
         ref: node => {
@@ -31,7 +31,6 @@ const EuiCSSTransition = (props: CSSTransition) => {
         },
       });
     }
-
     flagRef.current = false;
 
     return children;
@@ -47,6 +46,13 @@ const EuiCSSTransition = (props: CSSTransition) => {
     });
   }
 
+  // return flagRef.current ? (
+  //   <CSSTransition nodeRef={newNodeRef} {...rest}>
+  //     {dom}
+  //   </CSSTransition>
+  // ) : (
+  //   children
+  // );
   return (
     <CSSTransition nodeRef={flagRef.current ? newNodeRef : undefined} {...rest}>
       {dom}

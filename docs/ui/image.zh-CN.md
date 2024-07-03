@@ -77,7 +77,7 @@ toc: content
 |src|`string`|-|图片获取地址, 在 Image 中默认是 Image 的 src|
 |extra|`Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>`|-|图片属性，透传至预览弹窗中的 `img` 标签上|
 |actionsLayout|`string[]` |`['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']`|控制条的布局|
-|scales|`number[]` |`[25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。|
+|scales|`number[]` |`[50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。|
 |actions|[ImagePreviewActionProps](#ImagePreviewActionProps)[] |-|额外操作，[ImagePreviewActionProps](#ImagePreviewActionProps)|
 |getPopupContainer|() => HTMLElement |() => document.body|弹出层挂载的节点|
 |imageRender|(originalNode: ReactElement) => ReactNode |-|自定义 IMG 元素的渲染|
@@ -97,7 +97,7 @@ toc: content
 |src|`string`|-|图片获取地址, 在 Image 中默认是 Image 的 src|
 |extra|`Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'>`|-|图片属性，透传至预览弹窗中的 `img` 标签上|
 |actionsLayout|`string[]` |`['fullScreen', 'rotateRight', 'rotateLeft', 'zoomIn', 'zoomOut', 'originalSize', 'extra']`|控制条的布局|
-|scales|`number[]` |`[25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。|
+|scales|`number[]` |`[50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 750, 1000 ]`|在预览缩放时会使用当前数组中的缩放百分比。若不包含 `100%`，则会自动添加在最相邻的位置。|
 |actions|[ImagePreviewActionProps](#ImagePreviewActionProps)[] |-|额外操作，[ImagePreviewActionProps](#ImagePreviewActionProps)|
 |getPopupContainer|() => HTMLElement |() => document.body|弹出层挂载的节点|
 |imageRender|(originalNode: ReactElement) => ReactNode |-|自定义 IMG 元素的渲染|

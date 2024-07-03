@@ -12,5 +12,9 @@ const locale: Locale = {
     zoomOut: '縮小',
     originalSize: '原始尺寸',
   },
+  Modal: {
+    okText: '确定',
+    cancelText: '取消',
+  },
 };
 export default locale;

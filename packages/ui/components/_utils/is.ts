@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 import React from 'react';
 import { ReactNode, isValidElement } from 'react';
-import { isPlainObject, isElement } from 'lodash';
+import { isPlainObject } from 'lodash';
 
 const opt = Object.prototype.toString;
 
@@ -69,9 +69,14 @@ export const isClassComponent = (element: any): boolean => {
   return isReactComponent(element) && !!element.type.prototype?.isReactComponent;
 };
 
+// 判断是否是最基础的dom元素，如 div，span
+export const isDOMElement = (element: ReactNode): boolean => {
+  return isValidElement(element) && typeof element.type === 'string';
+};
+
 // 传入的元素是否可以设置 ref 引用
 export const supportRef = (element: any): boolean => {
-  if (isElement(element)) {
+  if (isDOMElement(element)) {
     return true;
   }
 
@@ -83,5 +88,22 @@ export const supportRef = (element: any): boolean => {
     return isClassComponent(element); // 函数组件且没有被 forwardRef，无法设置 ref
   }
 
+  return false;
+};
+
+export const isContains = function (root: HTMLElement, ele) {
+  if (!root) {
+    return false;
+  }
+  if (root.contains) {
+    return root.contains(ele);
+  }
+  let node = ele;
+  while (node) {
+    if (node === root) {
+      return true;
+    }
+    node = node.parentNode;
+  }
   return false;
 };
