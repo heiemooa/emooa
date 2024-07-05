@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { WatermarkProps } from '@/watermark/interface';
-import { isNumber } from 'lodash';
+import { isNumber, isNaN } from 'lodash';
 import { getPixelRatio } from '@/_utils/pixel';
 import { isServerRendering } from '@/_utils/dom';
 
@@ -26,7 +26,7 @@ const toNumber = (value: string | number, defaultValue: number) => {
     return value;
   }
   const numberVal = parseFloat(value as string);
-  return isNumber(numberVal) ? numberVal : defaultValue;
+  return isNumber(numberVal) && !isNaN(numberVal) ? numberVal : defaultValue;
 };
 
 const defaultOptions = {

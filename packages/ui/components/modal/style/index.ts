@@ -30,6 +30,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
         '&-hide': {
           display: 'none',
         },
+
         [`${componentCls}-mask, ${componentCls}-wrapper`]: {
           position: 'absolute',
           width: '100%',
@@ -42,6 +43,53 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
         },
         [`${componentCls}-wrapper`]: {
           overflow: 'auto',
+          [`&${componentCls}-wrapper-center`]: {
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+
+            '&::after': {
+              content: '""',
+              verticalAlign: 'middle',
+              display: 'inline-block',
+              height: '100%',
+              width: 0,
+            },
+
+            [`${componentCls}`]: {
+              top: 0,
+              verticalAlign: 'middle',
+              display: 'inline-block',
+            },
+          },
+          [`&${componentCls}-rtl`]: {
+            direction: 'rtl',
+
+            [componentCls]: {
+              '&-header': {
+                [`${componentCls}-title`]: {
+                  textAlign: 'right',
+                },
+              },
+
+              [`&-footer`]: {
+                textAlign: 'unset',
+
+                [`> ${euiCls}-btn`]: {
+                  marginLeft: 0,
+                  marginRight: token.marginXS,
+
+                  '&:only-child': {
+                    marginRight: 0,
+                  },
+                },
+              },
+
+              '&-close-icon': {
+                right: 'initial',
+                left: token.padding / 2,
+              },
+            },
+          },
         },
       },
     },
@@ -64,6 +112,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           margin: '0 auto',
           backgroundColor: token.colorBgElevated,
           borderRadius: token.borderRadius,
+          textAlign: 'left',
 
           '&-header': {
             padding: `${unit(token.paddingSM)} ${unit(token.padding)}`,
@@ -94,6 +143,11 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
                 marginLeft: 0,
               },
             },
+          },
+          '&-close-icon': {
+            position: 'absolute',
+            right: token.padding / 2,
+            top: token.padding / 2,
           },
         },
       },

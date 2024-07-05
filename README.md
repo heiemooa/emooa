@@ -71,16 +71,16 @@ yarn run publish
 ## 文档
 
 #### 1. 本地启动
+
 ```bash
 yarn start
 ```
 
-
 #### 2. 打包
+
 ```bash
 yarn run docs:build
 ```
-
 
 ## Q&A
 

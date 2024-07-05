@@ -42,6 +42,7 @@ const defaultProps: ModalProps = {
   maskClosable: true,
   mountOnEnter: true,
   escToExit: true,
+  closable: true,
   getPopupContainer: () => document.body,
 };
 
@@ -53,7 +54,7 @@ const Component = (props: ModalProps, ref) => {
     classNames: modalClassNames,
     style,
     styles,
-    visible,
+    open,
     title,
     children,
     okText,
@@ -62,6 +63,7 @@ const Component = (props: ModalProps, ref) => {
     cancelButtonProps,
     footer,
     confirmLoading,
+    disabledOnPromise,
     mountOnEnter,
     unmountOnExit,
     autoFocus,
@@ -70,6 +72,7 @@ const Component = (props: ModalProps, ref) => {
     escToExit,
     closeIcon,
     closable,
+    center,
     onCancel,
     onOk,
     afterClose,
@@ -77,7 +80,7 @@ const Component = (props: ModalProps, ref) => {
     getPopupContainer,
     modalRender,
     ...rest
-  }: ModalProps = Object.assign(defaultProps, components?.Modal, props);
+  }: ModalProps = Object.assign({}, defaultProps, components?.Modal, props);
 
   const prefixCls = getPrefixCls('modal');
   const rootPrefixCls = getPrefixCls();
@@ -88,9 +91,8 @@ const Component = (props: ModalProps, ref) => {
     hashId,
     `${prefixCls}-root`,
     {
-      [`${prefixCls}-root-hide`]: !visible,
+      [`${prefixCls}-root-hide`]: !open,
       [`${prefixCls}-no-mask`]: !mask,
-      [`${prefixCls}-rtl`]: rtl,
     },
     className,
     cssVarCls,
@@ -99,17 +101,17 @@ const Component = (props: ModalProps, ref) => {
   const modalWrapperRef = useRef<HTMLDivElement>(null);
   const contentWrapper = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const [wrapperVisible, setWrapperVisible] = useState<boolean>();
+  const [wrapperOpen, setWrapperOpen] = useState<boolean>();
   const [popupZIndex, setPopupZIndex] = useState<number>();
   const cursorPositionRef = useRef<CursorPositionType>(null);
   const haveOriginTransformOrigin = useRef<boolean>(false);
   const maskClickRef = useRef(false);
 
-  // 标识是否是处于第一次 visible 之前
-  const beforeFirstVisible = useRef<boolean>(true);
+  // 标识是否是处于第一次 open 之前
+  const beforeFirstOpen = useRef<boolean>(true);
 
-  if (visible && beforeFirstVisible.current) {
-    beforeFirstVisible.current = false;
+  if (open && beforeFirstOpen.current) {
+    beforeFirstOpen.current = false;
   }
 
   const dialogIndex = useRef<number>();
@@ -127,16 +129,17 @@ const Component = (props: ModalProps, ref) => {
     return getPopupContainer?.() || document.body;
   }, [getPopupContainer]);
 
-  useOverflowHidden(getContainer, { hidden: visible && mask });
+  useOverflowHidden(getContainer, { hidden: open && mask });
 
-  const handlerCancel = () => {
-    onCancel?.();
+  const handlerCancel = event => {
+    if (disabledOnPromise && loading) return; // 希望在loading期间禁用
+    onCancel?.(event);
   };
 
   const onEscExit = (event: React.KeyboardEvent) => {
-    if (escToExit && visible && event.key === Esc.key) {
+    if (escToExit && open && event.key === Esc.key) {
       event.stopPropagation();
-      handlerCancel();
+      handlerCancel(event);
     }
   };
 
@@ -146,7 +149,7 @@ const Component = (props: ModalProps, ref) => {
     maskClickRef.current = false;
     if (!inExit.current && maskClosable && mask && e.target === e.currentTarget) {
       setTimeout(() => {
-        handlerCancel();
+        handlerCancel(event);
       }, 100);
     }
   };
@@ -169,7 +172,7 @@ const Component = (props: ModalProps, ref) => {
 
   useEffect(() => {
     let timer = null;
-    if (escToExit && visible) {
+    if (escToExit && open) {
       timer = setTimeout(() => {
         if (isContains(document.body, modalWrapperRef.current)) {
           modalWrapperRef.current?.focus();
@@ -179,10 +182,10 @@ const Component = (props: ModalProps, ref) => {
     return () => {
       timer && clearTimeout(timer);
     };
-  }, [visible, escToExit]);
+  }, [open, escToExit]);
 
   const initPopupZIndex = () => {
-    if (visible && popupZIndex === undefined) {
+    if (open && popupZIndex === undefined) {
       if (modalWrapperRef.current) {
         // 根据wrapper的zindex，设置内部所有弹出型组件的zindex。
         const zIndex = +window.getComputedStyle(modalWrapperRef.current, null)?.zIndex;
@@ -197,7 +200,10 @@ const Component = (props: ModalProps, ref) => {
     if (footer === null) return;
 
     const cancelButtonNode = (
-      <Button onClick={handlerCancel} {...cancelButtonProps}>
+      <Button
+        onClick={handlerCancel}
+        {...Object.assign({}, disabledOnPromise ? { disabled: loading } : {}, cancelButtonProps)}
+      >
         {cancelText || locale.Modal.cancelText}
       </Button>
     );
@@ -245,12 +251,14 @@ const Component = (props: ModalProps, ref) => {
             {closeIcon}
           </span>
         ) : (
-          <IconClose
-            tabIndex={-1}
-            onClick={handlerCancel}
+          <Button
             className={`${prefixCls}-close-icon`}
-            role="button"
-            aria-label="Close"
+            tabIndex={-1}
+            type="text"
+            style={{ color: 'initial' }}
+            onClick={handlerCancel}
+            disabled={disabledOnPromise ? loading : false}
+            icon={<IconClose className={`${prefixCls}-close-icon`} role="button" aria-label="Close" />}
           />
         ))}
     </>
@@ -269,7 +277,7 @@ const Component = (props: ModalProps, ref) => {
     >
       <FocusLock
         crossFrame={false}
-        disabled={!visible}
+        disabled={!open}
         autoFocus={autoFocus}
         lockProps={{
           tabIndex: -1,
@@ -293,17 +301,17 @@ const Component = (props: ModalProps, ref) => {
     e.style.transformOrigin = transformOrigin;
   };
 
-  // mountOnEnter 只在第一次visible=true之前生效。
+  // mountOnEnter 只在第一次open=true之前生效。
   // 使用 modalRef.current 而不是 mountOnExit 是因为动画结束后，modalRef.current 会变成 null，此时再去销毁dom结点，避免动画问题
-  const forceRender = beforeFirstVisible.current ? !mountOnEnter : !!modalRef.current;
+  const forceRender = beforeFirstOpen.current ? !mountOnEnter : !!modalRef.current;
 
-  return visible || forceRender
+  return open || forceRender
     ? wrapCSSVar(
-        <Portal visible={visible} getContainer={getPopupContainer}>
+        <Portal visible={open} getContainer={getPopupContainer}>
           <div ref={ref} className={classnames}>
             {mask ? (
               <EuiCSSTransition
-                in={visible}
+                in={open}
                 timeout={400}
                 appear
                 mountOnEnter={mountOnEnter}
@@ -332,12 +340,19 @@ const Component = (props: ModalProps, ref) => {
                 modalWrapperRef.current = node;
                 initPopupZIndex();
               }}
-              className={classNames(`${prefixCls}-wrapper`, modalClassNames?.wrapper)}
+              className={classNames(
+                `${prefixCls}-wrapper`,
+                {
+                  [`${prefixCls}-wrapper-center`]: !!center,
+                  [`${prefixCls}-rtl`]: rtl,
+                },
+                modalClassNames?.wrapper,
+              )}
               style={{
                 ...(styles?.wrapper || {}),
-                // 必须 visible=false，立即设置display:none，否则modal加载react-monaco-editor的时候，编辑器显示异常
-                display: visible || wrapperVisible ? 'block' : 'none',
-                overflow: !visible && wrapperVisible ? 'hidden' : '',
+                // 必须 open=false，立即设置display:none，否则modal加载react-monaco-editor的时候，编辑器显示异常
+                display: open || wrapperOpen ? 'block' : 'none',
+                overflow: !open && wrapperOpen ? 'hidden' : '',
               }}
               onKeyDown={!autoFocus ? onEscExit : null}
               onMouseDown={e => {
@@ -346,7 +361,7 @@ const Component = (props: ModalProps, ref) => {
               onClick={onClickMask}
             >
               <EuiCSSTransition
-                in={visible}
+                in={open}
                 timeout={400}
                 appear
                 classNames={`${rootPrefixCls}-zoom`}
@@ -354,7 +369,7 @@ const Component = (props: ModalProps, ref) => {
                 mountOnEnter={mountOnEnter}
                 onEnter={(e: HTMLDivElement) => {
                   if (!e) return;
-                  setWrapperVisible(true);
+                  setWrapperOpen(true);
                   cursorPositionRef.current = cursorPosition;
                   haveOriginTransformOrigin.current = !!e.style.transformOrigin;
                   setTransformOrigin(e);
@@ -372,7 +387,7 @@ const Component = (props: ModalProps, ref) => {
                 }}
                 onExited={e => {
                   if (!e) return;
-                  setWrapperVisible(false);
+                  setWrapperOpen(false);
                   setTransformOrigin(e);
                   afterClose?.();
                   inExit.current = false;

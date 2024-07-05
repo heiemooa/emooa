@@ -1,19 +1,19 @@
 import React from 'react';
-import { Modal, Button, Space, ConfigProvider } from '../../../components';
+import { Modal, Button, Space } from '@emooa/ui';
 
-function App() {
+const App: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  const [loading1, setLoading1] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   return (
-    <Space size="large" wrap>
+    <Space wrap>
       <Button onClick={() => setOpen(true)} type="primary">
         Customized button props
       </Button>
       <Modal
-        center
         title="Customized button props"
         open={open}
         okButtonProps={{
@@ -55,11 +55,11 @@ function App() {
               Return
             </Button>
             <Button
-              loading={loading1}
+              loading={loading}
               onClick={() => {
-                setLoading1(true);
+                setLoading(true);
                 setTimeout(() => {
-                  setLoading1(false);
+                  setLoading(false);
                   setOpen1(false);
                 }, 1500);
               }}
@@ -71,6 +71,42 @@ function App() {
         }
         onCancel={() => {
           setOpen1(false);
+        }}
+      >
+        <p>Some content...</p>
+        <p>Some content...</p>
+        <p>Some content...</p>
+      </Modal>
+      <Button
+        onClick={() => {
+          setOpen3(true);
+        }}
+        type="primary"
+      >
+        Customized footer function
+      </Button>
+      <Modal
+        title="Customized footer function"
+        open={open3}
+        footer={(cancelButtonNode, okButtonNode) => (
+          <>
+            {cancelButtonNode}
+            <Button status="danger">自定义按钮</Button>
+            {okButtonNode}
+          </>
+        )}
+        onCancel={() => {
+          setOpen3(false);
+        }}
+        okButtonProps={{
+          loading: loading,
+        }}
+        onOk={() => {
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+            setOpen3(false);
+          }, 1500);
         }}
       >
         <p>Some content...</p>
@@ -100,6 +136,6 @@ function App() {
       </Modal>
     </Space>
   );
-}
+};
 
 export default App;

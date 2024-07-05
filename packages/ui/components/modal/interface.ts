@@ -10,7 +10,7 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
    * @zh 关闭弹出框的回调
    * @en Callback when click cancel button
    */
-  onCancel?: () => void;
+  onCancel?: (e?: MouseEvent) => void;
   /**
    * @zh 点击确认按钮的回调
    * @en Callback when click ok button
@@ -29,9 +29,9 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   title?: string | ReactNode;
   /**
    * @zh 弹出框是否可见
-   * @en Whether the Modal is visible
+   * @en Whether the Modal is open
    */
-  visible?: boolean;
+  open?: boolean;
   /**
    * @zh 是否显示遮罩
    * @en Whether show mask
@@ -144,6 +144,14 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
    * @en Custom the render of Modal
    */
   modalRender?: (modalNode: ReactNode) => ReactNode;
+  /**
+   * 是否居中
+   */
+  center?: boolean;
+  /**
+   * 在onOk 为 Promise 事件时，并且加载中的时候，取消、close icon、mask 等不可点击
+   */
+  disabledOnPromise?: boolean;
 }
 
 export type ModalReturnProps = { update: Function; close: Function };
