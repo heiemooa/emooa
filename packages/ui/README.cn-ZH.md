@@ -1,7 +1,6 @@
-
 # [Emooa UI](https://docs.emooa.com/ui)
 
-企业级 UI 设计语言和 React UI 库。
+灵活丰富的 UI 组件设计语言和 React 组件库。
 
 ## ✨ 特点
 
@@ -24,7 +23,6 @@ npm install @emooa/ui
 // or
 yarn add @emooa/ui
 ```
-
 
 ## 用法
 

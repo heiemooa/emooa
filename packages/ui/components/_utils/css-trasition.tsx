@@ -1,7 +1,8 @@
-import React, { ReactElement, cloneElement, useMemo, useRef, useState } from 'react';
+import React, { Component, ReactElement, cloneElement, createRef, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { supportRef } from './is';
 import { isFunction } from 'lodash';
+import ReactDOM from 'react-dom';
 
 const callbackOriginRef = (children: CSSTransition, node) => {
   if (children && children.ref) {
@@ -12,6 +13,28 @@ const callbackOriginRef = (children: CSSTransition, node) => {
       children.ref.current = node;
     }
   }
+};
+
+const findDOMNode = element => {
+  if (!element) return null;
+  // 类组件，非 forwardRef(function component) 都拿不到真实dom
+  if (element instanceof Element) {
+    return element;
+  }
+
+  if (element.current && element.current instanceof Element) {
+    return element.current;
+  }
+
+  if (element instanceof Component) {
+    return ReactDOM.findDOMNode(element);
+  }
+
+  if (isFunction(element.getRootDOMNode)) {
+    return element.getRootDOMNode();
+  }
+
+  return null;
 };
 
 const EuiCSSTransition = (props: CSSTransition) => {
@@ -26,7 +49,7 @@ const EuiCSSTransition = (props: CSSTransition) => {
       flagRef.current = true;
       return cloneElement(children as ReactElement, {
         ref: node => {
-          newNodeRef.current = node;
+          newNodeRef.current = findDOMNode(node);
           callbackOriginRef(children, node);
         },
       });
@@ -46,15 +69,8 @@ const EuiCSSTransition = (props: CSSTransition) => {
     });
   }
 
-  // return flagRef.current ? (
-  //   <CSSTransition nodeRef={newNodeRef} {...rest}>
-  //     {dom}
-  //   </CSSTransition>
-  // ) : (
-  //   children
-  // );
   return (
-    <CSSTransition nodeRef={flagRef.current ? newNodeRef : undefined} {...rest}>
+    <CSSTransition {...rest} nodeRef={flagRef.current ? newNodeRef : undefined}>
       {dom}
     </CSSTransition>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from '@emooa/ui';
+import { Button, Modal, Space } from '@emooa/ui';
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,9 +17,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
+    <Space>
       <Button type="primary" onClick={showModal}>
-        Footer Text
+        Class Text
       </Button>
       <Modal
         title="Modal Title"
@@ -33,7 +33,20 @@ const App: React.FC = () => {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-    </>
+      <Button
+        type="primary"
+        onClick={() => {
+          Modal.confirm({
+            title: 'Modal Title',
+            content: 'You can customize button text.',
+            okText: '保存',
+            cancelText: '关闭',
+          });
+        }}
+      >
+        Function Text
+      </Button>
+    </Space>
   );
 };
 

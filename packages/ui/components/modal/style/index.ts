@@ -110,30 +110,55 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           width: 520,
           maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
           margin: '0 auto',
-          backgroundColor: token.colorBgElevated,
           borderRadius: token.borderRadius,
           textAlign: 'left',
+          pointerEvents: 'none',
+
+          '&-body': {
+            backgroundColor: token.colorBgElevated,
+            borderRadius: token.borderRadius,
+            pointerEvents: 'auto',
+          },
 
           '&-header': {
-            padding: `${unit(token.paddingSM)} ${unit(token.padding)}`,
-            borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            // borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
             display: 'flex',
             alignItems: 'center',
 
             [`${componentCls}-title`]: {
               flex: 1,
+              padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
               fontWeight: token.fontWeight,
               fontSize: token.fontSizeHeading5,
               lineHeight: token.lineHeightHeading5,
               wordWrap: 'break-word',
+
+              [`${euiCls}-icon`]: {
+                marginRight: token.margin / 2,
+                fontSize: token.fontSizeLG + 2,
+                verticalAlign: '-3px',
+
+                [`&-info-circle-fill`]: {
+                  color: token.colorPrimary,
+                },
+                [`&-check-circle-fill`]: {
+                  color: token.colorSuccess,
+                },
+                [`&-exclamation-circle-fill`]: {
+                  color: token.colorWarning,
+                },
+                [`&-close-circle-fill`]: {
+                  color: token.colorError,
+                },
+              },
             },
           },
           '&-content': {
-            padding: token.padding,
+            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
           },
           '&-footer': {
-            borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
-            padding: token.padding,
+            // borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
             textAlign: 'right',
 
             [`> ${euiCls}-btn`]: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from '../../../components';
+import { Modal, Button } from '@emooa/ui';
 import Draggable from 'react-draggable';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <Button onClick={() => setVisible(true)} type="primary">
-        Open Draggable Modal
+        Draggable Modal
       </Button>
       <Modal
         title={

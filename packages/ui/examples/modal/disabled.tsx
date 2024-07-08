@@ -7,7 +7,7 @@ const App: React.FC = () => {
   return (
     <Space>
       <Button type="primary" onClick={() => setOpen(true)}>
-        Diabled during OK promise
+        Diabled during promise
       </Button>
       <Modal
         title="Title"
@@ -27,6 +27,25 @@ const App: React.FC = () => {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
+
+      <Button
+        type="primary"
+        onClick={() => {
+          Modal.confirm({
+            title: 'Title',
+            disabledOnPromise: true,
+            onOk: async () => {
+              await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve({ ok: true });
+                }, 3000);
+              });
+            },
+          });
+        }}
+      >
+        Diabled during promise
+      </Button>
     </Space>
   );
 };

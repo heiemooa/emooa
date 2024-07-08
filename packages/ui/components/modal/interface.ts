@@ -1,11 +1,10 @@
 import { ReactNode, CSSProperties, HTMLAttributes } from 'react';
 import { ButtonProps } from '@/button/interface';
-// import { ConfirmProps } from './confirm';
 
 /**
  * @title Modal
  */
-export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
   /**
    * @zh 关闭弹出框的回调
    * @en Callback when click cancel button
@@ -156,15 +155,22 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
 
 export type ModalReturnProps = { update: Function; close: Function };
 
-// type modalHookFunction = (config: ConfirmProps) => {
-//   close: () => void;
-//   update: (config: ConfirmProps) => void;
-// };
+export interface ConfirmProps extends ModalProps {
+  content?: ReactNode;
+  icon?: ReactNode | null;
+  isNotice?: boolean;
+  noticeType?: string;
+}
 
-// export type ModalHookReturnType = {
-//   confirm?: modalHookFunction;
-//   info?: modalHookFunction;
-//   success?: modalHookFunction;
-//   warning?: modalHookFunction;
-//   error?: modalHookFunction;
-// };
+type modalHookFunction = (config: ConfirmProps) => {
+  close: () => void;
+  update: (config: ConfirmProps) => void;
+};
+
+export type ModalHookReturnType = {
+  confirm?: modalHookFunction;
+  info?: modalHookFunction;
+  success?: modalHookFunction;
+  warning?: modalHookFunction;
+  error?: modalHookFunction;
+};

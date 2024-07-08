@@ -10,6 +10,7 @@ export interface Locale {
     originalSize: string;
   };
   Modal: {
+    noticeText: string;
     okText: string;
     cancelText: string;
   };

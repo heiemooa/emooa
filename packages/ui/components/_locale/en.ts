@@ -13,6 +13,7 @@ const locale: Locale = {
     originalSize: 'Original Size',
   },
   Modal: {
+    noticeText: 'OK',
     okText: ' OK',
     cancelText: 'Cancel',
   },

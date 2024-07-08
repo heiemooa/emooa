@@ -1,6 +1,6 @@
 import React, { useContext, forwardRef, useRef, useState, useCallback, useEffect, ReactElement } from 'react';
 import { ConfigContext } from '../config-provider';
-import { ModalProps } from './interface';
+import { ConfirmProps, ModalProps, ModalReturnProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
@@ -15,6 +15,9 @@ import Portal from '@/portal';
 import EuiCSSTransition from '@/_utils/css-trasition';
 import { IconClose } from '@emooa/icon';
 import FocusLock from 'react-focus-lock';
+import confirm from './confirm';
+import useModal from './useModal';
+import { ModalConfigType, destroyList, setModalConfig } from './config';
 
 type CursorPositionType = { left: number; top: number } | null;
 let cursorPosition: CursorPositionType | null = null;
@@ -79,8 +82,9 @@ const Component = (props: ModalProps, ref) => {
     afterOpen,
     getPopupContainer,
     modalRender,
+    isNotice,
     ...rest
-  }: ModalProps = Object.assign({}, defaultProps, components?.Modal, props);
+  }: ModalProps & { isNotice?: boolean } = Object.assign({}, defaultProps, components?.Modal, props);
 
   const prefixCls = getPrefixCls('modal');
   const rootPrefixCls = getPrefixCls();
@@ -149,7 +153,7 @@ const Component = (props: ModalProps, ref) => {
     maskClickRef.current = false;
     if (!inExit.current && maskClosable && mask && e.target === e.currentTarget) {
       setTimeout(() => {
-        handlerCancel(event);
+        handlerCancel(e);
       }, 100);
     }
   };
@@ -209,7 +213,7 @@ const Component = (props: ModalProps, ref) => {
     );
     const okButtonNode = (
       <Button loading={loading} onClick={onConfirmModal} type="primary" {...okButtonProps}>
-        {okText || locale.Modal.okText}
+        {okText || (isNotice ? locale.Modal.noticeText : locale.Modal.okText)}
       </Button>
     );
     const footerContent = isFunction(footer)
@@ -229,7 +233,7 @@ const Component = (props: ModalProps, ref) => {
   };
 
   const element = (
-    <>
+    <div className={`${prefixCls}-body`}>
       {title && (
         <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
           <div className={`${prefixCls}-title`} id={`${prefixCls}-${dialogIndex.current}`}>
@@ -237,15 +241,19 @@ const Component = (props: ModalProps, ref) => {
           </div>
         </div>
       )}
-      <div
-        ref={contentWrapper}
-        className={classNames(`${prefixCls}-content`, modalClassNames?.content)}
-        style={styles?.content}
-      >
-        {children}
-      </div>
+      {((isNotice && children) || !isNotice) && (
+        <div
+          ref={contentWrapper}
+          className={classNames(`${prefixCls}-content`, modalClassNames?.content)}
+          style={styles?.content}
+        >
+          {children}
+        </div>
+      )}
+
       {renderFooter()}
       {closable &&
+        !isNotice &&
         (closeIcon !== undefined ? (
           <span onClick={handlerCancel} className={`${prefixCls}-close-icon`}>
             {closeIcon}
@@ -261,11 +269,12 @@ const Component = (props: ModalProps, ref) => {
             icon={<IconClose className={`${prefixCls}-close-icon`} role="button" aria-label="Close" />}
           />
         ))}
-    </>
+    </div>
   );
 
   const ariaProps = title ? { 'aria-labelledby': `${prefixCls}-${dialogIndex.current}` } : {};
 
+  // 本地环境 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of DraggableCore which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node
   const modalDom = (
     <div
       role="dialog"
@@ -284,7 +293,7 @@ const Component = (props: ModalProps, ref) => {
           onKeyDown: onEscExit,
         }}
       >
-        {element}
+        {isFunction(modalRender) ? modalRender(element) : element}
       </FocusLock>
     </div>
   );
@@ -396,7 +405,7 @@ const Component = (props: ModalProps, ref) => {
                   }
                 }}
               >
-                {React.cloneElement((isFunction(modalRender) ? modalRender(modalDom) : modalDom) as ReactElement, {
+                {React.cloneElement(modalDom, {
                   onMouseDown: () => {
                     maskClickRef.current = false;
                   },
@@ -412,7 +421,40 @@ const Component = (props: ModalProps, ref) => {
     : null;
 };
 
-const Modal = forwardRef<HTMLDivElement, ModalProps>(Component);
+const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(Component);
+
+const Modal = ModalComponent as typeof ModalComponent & {
+  confirm: (props: ConfirmProps) => ModalReturnProps;
+  info: (props: ConfirmProps) => ModalReturnProps;
+  success: (props: ConfirmProps) => ModalReturnProps;
+  warning: (props: ConfirmProps) => ModalReturnProps;
+  error: (props: ConfirmProps) => ModalReturnProps;
+  config: (config: ModalConfigType) => void;
+  destroyAll: () => void;
+  useModal: typeof useModal;
+};
+
+['info', 'success', 'warning', 'error'].forEach(type => {
+  Modal[type] = (props: ConfirmProps) => {
+    return confirm({
+      isNotice: true,
+      noticeType: type,
+      ...props,
+    });
+  };
+});
+
+Modal.useModal = useModal;
+Modal.confirm = (props: ConfirmProps): ModalReturnProps => confirm(props);
+Modal.config = setModalConfig;
+Modal.destroyAll = () => {
+  while (destroyList.length) {
+    const close = destroyList.pop();
+    if (close) {
+      close();
+    }
+  }
+};
 
 if (process.env.NODE_ENV !== 'production') {
   Modal.displayName = 'Modal';

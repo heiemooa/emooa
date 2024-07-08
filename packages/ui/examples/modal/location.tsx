@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <Space>
       <Button type="primary" onClick={() => setOpen(true)}>
-        Style Top
+        Top 50
       </Button>
       <Modal title="Title" open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} style={{ top: 50 }}>
         <p>Some contents...</p>
@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <p>Some contents...</p>
       </Modal>
       <Button type="primary" onClick={() => setOpen1(true)}>
-        Style Width
+        Width 800
       </Button>
       <Modal
         title="Title"

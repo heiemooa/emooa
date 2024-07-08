@@ -14,7 +14,7 @@ yarn add @emooa/logger
 
 #### [@emooa/ui](/packages/ui/README.md)
 
-`@emooa/ui` 一套企业级 UI 设计语言和 React 组件库。 [更多信息](/packages/ui/README.md)
+`@emooa/ui` 灵活丰富的 UI 组件设计语言和 React 组件库。 [更多信息](/packages/ui/README.md)
 
 ```
 yarn add @emooa/ui

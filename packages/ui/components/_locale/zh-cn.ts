@@ -13,6 +13,7 @@ const locale: Locale = {
     originalSize: '原始尺寸',
   },
   Modal: {
+    noticeText: '好的',
     okText: '确定',
     cancelText: '取消',
   },
