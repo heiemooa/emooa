@@ -1,13 +1,12 @@
 ---
 nav: Components
-group: 
-    title: Layout
-    order: 1
+group:
+  title: Layout
+  order: 1
 toc: content
 ---
 
 # Space
-
 
 ## Usage
 
@@ -18,26 +17,25 @@ Avoid components that are too close together to create a unified space.
 
 ## Examples
 
-<code src="../../packages/ui/examples/space/basic.tsx" description="Crowded components horizontal spacing.">Basic</code>
-<code src="../../packages/ui/examples/space/direction-vertical.tsx" description="Crowded components vertical spacing.">Vertical Space</code>
-<code src="../../packages/ui/examples/space/size.tsx" description="Use `size` to set the spacing, Three sizes are preset: `small`, `middle`, `medium`, `large`. You can also customize the spacing. If size is not set, the spacing is `small`.">Space Size</code>
-<code src="../../packages/ui/examples/space/align.tsx" description="Config item align.">Align</code>
+<code src="../../packages/ui/examples/space/basic.tsx" description="Crowded components horizontal spacing.">Basic</code>  
+<code src="../../packages/ui/examples/space/direction-vertical.tsx" description="Crowded components vertical spacing.">Vertical Space</code>  
+<code src="../../packages/ui/examples/space/size.tsx" description="Use `size` to set the spacing, Three sizes are preset: `small`, `middle`, `medium`, `large`. You can also customize the spacing. If size is not set, the spacing is `small`.">Space Size</code>  
+<code src="../../packages/ui/examples/space/align.tsx" description="Config item align.">Align</code>  
 <code src="../../packages/ui/examples/space/split.tsx" description="Auto wrap line.">Wrap</code>
-
 
 ## API
 
 ### Space
 
-| **Parameters** | **Type** | **Default value** | **Definition** |
-| --- | --- | --- | --- |
-| className | `string`              | -        | The className of Space       |
-| style     | `CSSProperties`       | -        | The style properties of Space	        |
-| align     | `start` `end` `center` `baseline` | -            | Align items	        |
-| direction | `vertical` `horizontal`           | `horizontal` | The space direction    |
-| size      | `mini` `small` `medium` `large` `number`   | `small`      | `small`      | The space size		    |
-| split     | `ReactNode`                       | -            | Set split		        |
-| wrap      | `boolean`                         | -         | Auto wrap line         |
+| **Parameters** | **Definition**                | **Type**                                     | **Default value** |
+| -------------- | ----------------------------- | -------------------------------------------- | ----------------- | ------- |
+| className      | The className of Space        | `string`                                     | -                 |
+| style          | The style properties of Space | `CSSProperties`                              | -                 |
+| align          | Align items                   | `start \| end \| center \| baseline`         | -                 |
+| direction      | The space direction           | `vertical \| horizontal`                     | `horizontal`      |
+| size           | The space size                | `mini \| small \| medium \| large \| number` | `small`           | `small` |
+| split          | Set split                     | `ReactNode`                                  | -                 |
+| wrap           | Auto wrap line                | `boolean`                                    | -                 |
 
 ### Size
 
@@ -46,9 +44,10 @@ Avoid components that are too close together to create a unified space.
 ## Theme
 
 ### Space Token
-| **Parameters** | **Type** | **Default value** | **Definition** |
+
+| **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| paddingXXS    | `number` | 4        | Controls the minimum inner spacing of elements, corresponding size is `mini`.   |
-| paddingXS     | `number` | 8        | Controls the small inner spacing of elements, corresponding size is `small`.    |
-| padding       | `number` | 16       | Controls the inner spacing of elements, corresponding size is `medium`.    |
-| paddingLG     | `number` | 24       | Controls the large inner spacing of elements, corresponding size is `large`.  |
+| paddingXXS | Controls the minimum inner spacing of elements, corresponding size is `mini`. | `number` | 4 |
+| paddingXS | Controls the small inner spacing of elements, corresponding size is `small`. | `number` | 8 |
+| padding | Controls the inner spacing of elements, corresponding size is `medium`. | `number` | 16 |
+| paddingLG | Controls the large inner spacing of elements, corresponding size is `large`. | `number` | 24 |

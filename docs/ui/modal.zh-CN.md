@@ -21,7 +21,8 @@ demo:
 <code src="../../packages/ui/examples/modal/footer.tsx" description="传入 `okButtonProps` 和 `cancelButtonProps` 可分别自定义确定按钮和取消按钮的 `props`。如果 `okButtonProps` 、 `cancelButtonProps` 仍然不能满足需要的话，可以直接传入 `footer` 来自定义页脚内容。">自定义页脚</code>  
 <code src="../../packages/ui/examples/modal/disabled.tsx" description="通过 `disabledOnPromise` 可设置 `onOk` 在 `Promise` 期间不可关闭对话框。">异步期间禁用</code>  
 <code src="../../packages/ui/examples/modal/text.tsx" description="设置 `okText` 与 `cancelText` 以自定义按钮文字。">自定义文案</code>  
-<code src="../../packages/ui/examples/modal/location.tsx" description="使用 `center` 或类似 `style.top、style.width` 的样式来设置对话框位置。">自定义位置</code> <code src="../../packages/ui/examples/modal/confirm.tsx" description="使用 `Modal.confirm()`，可以快速弹出对话框。">确认框</code>  
+<code src="../../packages/ui/examples/modal/location.tsx" description="使用 `center` 或类似 `style.top、style.width` 的样式来设置对话框位置。">自定义位置</code>  
+<code src="../../packages/ui/examples/modal/confirm.tsx" description="使用 `Modal.confirm()`，可以快速弹出对话框。">确认框</code>  
 <code src="../../packages/ui/examples/modal/notice.tsx" description="有 `info`, `success`, `warning`, `error` 四种类型的消息提示，仅提供一个确认按钮用于关闭消息提示对话框。">消息提示</code>  
 <code src="../../packages/ui/examples/modal/sleep.tsx" description="根据 `Modal` 实例控制对话框的手动更新和关闭。">手动更新和移除</code>  
 <code src="../../packages/ui/examples/modal/hooks.tsx" description="通过 `Modal.useModal` 创建支持读取 `context` 的 `contextHolder`。其中仅有 hooks 方法支持 Promise await 操作。">使用 hooks 获得上下文</code>  

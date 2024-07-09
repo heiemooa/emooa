@@ -1,17 +1,17 @@
 ---
 nav: Components
-group: 
-    title: Other
-    order: 3
+group:
+  title: Other
+  order: 3
 toc: content
 ---
 
 # ConfigProvider
 
-
 ## Usage
 
 Use React's [context](https://legacy.reactjs.org/docs/context.html) feature to configure it at the outermost layer of the application. Once set, it will take effect globally.
+
 - Set international language.
 - Globally set the default configuration of each component.
 
@@ -28,11 +28,10 @@ const App: React.FC = () => (
 export default App;
 ```
 
-
 ## Examples
 
-<code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>
-<code src="../../packages/ui/examples/config-provider/language.tsx" description="Set the internationalized languages.">Languages</code>
+<code src="../../packages/ui/examples/config-provider/basic.tsx" description="Set the default configuration of each component globally.">Basic</code>  
+<code src="../../packages/ui/examples/config-provider/language.tsx" description="Set the internationalized languages.">Languages</code>  
 <code src="../../packages/ui/examples/config-provider/rtl.tsx" description="Set the component to a view that reads from right to left.">RTL View</code>
 
 ### Get Eui Token
@@ -70,23 +69,22 @@ const Demo: React.FC = () => {
 };
 
 export default Demo;
-
 ```
 
 ## API
 
 ### ConfigProvider
 
-| **Parameters** | **Type** | **Default value** | **Definition** |
+| **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| prefixCls       | `string`                                     | `eui`    | Global ClassName prefix.			              |
-| size            | `mini`｜`small`｜`medium`｜`large`            | `medium` | Configure the default size of the component, which will only take effect for components that support the `size` property.	|
-| locale          | [Locale](#locale)                            | -        | Language package setting.			              |
-| components | [Components](#components)                         | -        | Default parameters for global configuration of all components.|
-| theme           | [Theme](#theme)                              | -        | Theme Configuration.	                      |
-
+| prefixCls Global ClassName prefix. |  | `string` | `eui` |
+| size | Configure the default size of the component, which will only take effect for components that support the `size` property. | `mini \| small \| medium \| large` | `medium` |
+| locale | Language package setting. | [Locale](#locale) | - |
+| components | Default parameters for global configuration of all components. | [Components](#components) | - |
+| theme | Theme Configuration. | [Theme](#theme) | - |
 
 ### Locale
+
 ```ts
 export interface Locale {
   locale: string;
@@ -94,6 +92,7 @@ export interface Locale {
 ```
 
 ### Components
+
 ```ts
 export type Components = {
   Icon?: IconProps;
