@@ -2,9 +2,9 @@ import React, { forwardRef, PropsWithChildren, useEffect, useImperativeHandle, u
 import ImagePreview, { ImagePreviewHandle } from './ImagePreview';
 import { ImagePreviewGroupProps, ImagePreviewProps } from './interface';
 import { PreviewGroupContext, PreviewUrlMap } from './previewGroupContext';
-import { isArray, isObject, isUndefined } from '@/_utils/is';
 import useValue from '@/_utils/hooks/useValue';
 import useIsFirstRender from '@/_utils/hooks/useFirstRender';
+import { isArray, isPlainObject, isUndefined } from 'lodash';
 
 export interface ImagePreviewGroupHandle {
   reset: () => void;
@@ -88,7 +88,7 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
   }
 
   function registerPreviewProps(id: number, previewProps?: Partial<ImagePreviewProps>) {
-    setPreviewPropsMap(pre => new Map(pre).set(id, isObject(previewProps) ? previewProps : {}));
+    setPreviewPropsMap(pre => new Map(pre).set(id, isPlainObject(previewProps) ? previewProps : {}));
 
     return function unRegisterPreviewProps() {
       setPreviewPropsMap(pre => {

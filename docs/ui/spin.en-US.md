@@ -1,13 +1,12 @@
 ---
 nav: Components
 group:
-    title: Feedback
-    order: 3
+  title: Feedback
+  order: 3
 toc: content
 ---
 
 # Spin
-
 
 ## Usage
 
@@ -16,25 +15,25 @@ toc: content
 
 ## Examples
 
-<code src="../../packages/ui/examples/spin/basic.tsx" description="A simple loading state.">Basic usage</code>
-<code src="../../packages/ui/examples/spin/size.tsx" description="Set `size` to get loading icons of different sizes.">Different sizes</code>
-<code src="../../packages/ui/examples/spin/tip.tsx" description="Customize the loading copy through the `tip` field.">Tip</code>
-<code src="../../packages/ui/examples/spin/delay.tsx" description="Delayed display of `loading` through `delay`, anti-shake processing of state switching, effectively avoiding rapid state switching The screen flashes.">Delay</code>
-<code src="../../packages/ui/examples/spin/dot.tsx" description="Set point animation via `dot`.">Dot Animation</code>
+<code src="../../packages/ui/examples/spin/basic.tsx" description="A simple loading state.">Basic usage</code>  
+<code src="../../packages/ui/examples/spin/size.tsx" description="Set `size` to get loading icons of different sizes.">Different sizes</code>  
+<code src="../../packages/ui/examples/spin/tip.tsx" description="Customize the loading copy through the `tip` field.">Tip</code>  
+<code src="../../packages/ui/examples/spin/delay.tsx" description="Delayed display of `loading` through `delay`, anti-shake processing of state switching, effectively avoiding rapid state switching The screen flashes.">Delay</code>  
+<code src="../../packages/ui/examples/spin/dot.tsx" description="Set point animation via `dot`.">Dot Animation</code>  
 <code src="../../packages/ui/examples/spin/full.tsx" description="`full` properties are great for creating smooth page loaders. It adds a translucent overlay and places a spinning loading symbol in its center.">Full Screen</code>
 
 ## API
 
 ### Spin
 
-| **Parameters** | **Type** | **Default value** | **Definition** |
-|--|--|--|--|
-| className | `string`              | -        | The className of Spin       |
-| style     | `CSSProperties`       | -        | The style properties of Spin	        |
-|loading|`boolean`|true|Whether is loading status|
-|delay|`number`|-|Specifies a delay(ms) for loading state|
-|size|`number`|-|The size of loading icon	|
-|icon|`ReactNode`|-|Customize icon which will be rotated automatically.	|
-|element|`ReactNode`|-|Customize element which won't be rotated automatically, such as image/gif.		|
-|tip|`string` \| `ReactNode` |-|Customize description content when Spin has children	|
-|full|`boolen`|-|Whether is full screen|
+| **Parameters** | **Definition** | **Type** | **Default value** |
+| --- | --- | --- | --- |
+| className | The className of Spin | `string` | - |
+| style | The style properties of Spin | `CSSProperties` | - |
+| loading | Whether is loading status | `boolean` | true |
+| delay | Specifies a delay(ms) for loading state | `number` | - |
+| size | The size of loading icon | `mini \| small \| medium \| large` | medium |
+| icon | Customize icon which will be rotated automatically. | `ReactNode` | - |
+| element | Customize element which won't be rotated automatically, such as image/gif. | `ReactNode` | - |
+| tip | Customize description content when Spin has children | `string \| ReactNode` | - |
+| full | Whether is full screen | `boolen` | - |

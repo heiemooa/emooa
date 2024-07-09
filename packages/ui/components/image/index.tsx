@@ -12,12 +12,12 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';
 import ImagePreview from './ImagePreview';
-import { isNumber, isObject, isUndefined } from '@/_utils/is';
 import ImageFooter from './ImageFooter';
 import useFooter from './utils/hooks/useFooter';
 import ImagePreviewGroup from './ImagePreviewGroup';
 import { PreviewGroupContext } from './previewGroupContext';
 import omit from '@/_utils/omit';
+import { isPlainObject, isNumber, isUndefined } from 'lodash';
 
 type ImagePropsType = ImageProps & { _index?: number };
 
@@ -67,7 +67,9 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
 
   const preview = useMemo<ImagePreviewProps>(() => {
     if (_preview === false) return {};
-    return isObject(_preview) ? { ..._preview, src: _preview.src || src } : { src };
+    return isPlainObject(_preview) && typeof _preview !== 'boolean'
+      ? { ..._preview, src: _preview.src || src }
+      : { src };
   }, [_preview]);
 
   const [previewVisible, setPreviewVisible] = useValue(false, {

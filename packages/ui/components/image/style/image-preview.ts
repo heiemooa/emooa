@@ -38,6 +38,11 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           background: token.colorBgMask,
         },
 
+        [`${previewCls}-img-focus-lock`]: {
+          width: '100%',
+          height: '100%',
+        },
+
         [`${previewCls}-img-container`]: {
           width: '100%',
           height: '100%',

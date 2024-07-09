@@ -1,5 +1,6 @@
 import type { ComponentToken as ButtonComponentToken } from '../../button/style';
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
+import type { ComponentToken as ModalComponentToken } from '../../modal/style';
 import type { ComponentToken as IconComponentToken } from '../../icon/style';
 import type { ComponentToken as SpaceComponentToken } from '../../space/style';
 import type { ComponentToken as SpinComponentToken } from '../../spin/style';
@@ -10,6 +11,7 @@ import type { ComponentToken as WatermarkComponentToken } from '../../watermark/
 export interface ComponentTokenMap {
   Button?: ButtonComponentToken;
   Divider?: DividerComponentToken;
+  Modal?: ModalComponentToken;
   Icon?: IconComponentToken;
   Spin?: SpinComponentToken;
   Space?: SpaceComponentToken;

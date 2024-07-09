@@ -11,7 +11,7 @@ const App: React.FC = () => {
         Reload
       </Button>
       <Divider />
-      <Space>
+      <Space wrap>
         <Image
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           height={120}

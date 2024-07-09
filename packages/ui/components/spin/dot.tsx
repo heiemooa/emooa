@@ -1,5 +1,4 @@
 import useToken from '@/_theme/useToken';
-import { isNumber } from '@/_utils/is';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import React, { CSSProperties, useContext } from 'react';

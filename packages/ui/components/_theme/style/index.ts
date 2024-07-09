@@ -2,6 +2,9 @@ import { CSSObject } from '@/_cssinjs';
 import { AliasToken } from '../interface';
 
 export const genLinkStyle = (token: AliasToken): CSSObject => ({
+  '*:focus': {
+    outline: 'none',
+  },
   a: {
     color: token.colorLink,
     textDecoration: token.linkDecoration,

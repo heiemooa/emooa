@@ -12,5 +12,10 @@ const locale: Locale = {
     zoomOut: 'Zoom Out',
     originalSize: 'Original Size',
   },
+  Modal: {
+    noticeText: 'OK',
+    okText: ' OK',
+    cancelText: 'Cancel',
+  },
 };
 export default locale;

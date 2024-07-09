@@ -21,7 +21,7 @@ import { WheelEvent } from 'react';
 import PreviewScales, { defaultScales } from './utils/getScale';
 import getFixTranslate from './utils/getFixTranslate';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Esc } from '@/_utils/keycode';
-import { isEmptyObject, isUndefined } from '@/_utils/is';
+import { isContains, isEmptyObject } from '@/_utils/is';
 import {
   IconFullscreen,
   IconRotateRight,
@@ -38,6 +38,8 @@ import ImagePreviewArrow from './ImagePreviewArrow';
 import { PreviewGroupContext } from './previewGroupContext';
 import useOverflowHidden from '@/_utils/hooks/useOverflowHidden';
 import EuiCSSTransition from '@/_utils/css-trasition';
+import { isUndefined } from 'lodash';
+import FocusLock from 'react-focus-lock';
 
 /** 选择角度90度 */
 const ROTATE_STEP = 90;
@@ -79,7 +81,6 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     const refRootWrapper = useRef<HTMLDivElement>();
     const refWrapper = useRef<HTMLDivElement>();
     const refImage = useRef<HTMLImageElement>();
-    const keyboardEventOn = useRef<boolean>(false);
     const scaleValueTimer = useRef(null);
 
     const {
@@ -190,44 +191,6 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       setScale(1);
       setRotate(0);
     }
-
-    // Close when pressing esc
-    useEffect(() => {
-      const onKeyDown = e => {
-        if (e) {
-          switch (e.key) {
-            case Esc.key:
-              if (escToExit) {
-                close();
-              }
-              break;
-            case ArrowRight.key:
-              onNext();
-              break;
-            case ArrowLeft.key:
-              onPrev();
-              break;
-            case ArrowUp.key:
-              onZoomIn();
-              break;
-            case ArrowDown.key:
-              onZoomOut();
-              break;
-            default:
-          }
-        }
-      };
-
-      if (visible && !moving && !keyboardEventOn.current) {
-        keyboardEventOn.current = true;
-        on(document, 'keydown', onKeyDown);
-      }
-
-      return () => {
-        keyboardEventOn.current = false;
-        off(document, 'keydown', onKeyDown);
-      };
-    }, [visible, escToExit, moving, currentIndex, scale]);
 
     useOverflowHidden(getContainer, { hidden: visible });
 
@@ -460,6 +423,50 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       return imageRender?.(image) ?? image;
     };
 
+    useEffect(() => {
+      let timer = null;
+      if (escToExit && visible) {
+        timer = setTimeout(() => {
+          if (isContains(document.body, refWrapper.current)) {
+            refWrapper.current?.focus();
+          }
+        });
+      }
+      return () => {
+        timer && clearTimeout(timer);
+      };
+    }, [visible, escToExit]);
+
+    const onKeyDown = (e: React.KeyboardEvent) => {
+      if (escToExit && visible) {
+        switch (e.key) {
+          case Esc.key:
+            if (escToExit) {
+              close();
+              e.stopPropagation();
+            }
+            break;
+          case ArrowRight.key:
+            onNext();
+            e.stopPropagation();
+            break;
+          case ArrowLeft.key:
+            onPrev();
+            e.stopPropagation();
+            break;
+          case ArrowUp.key:
+            onZoomIn();
+            e.stopPropagation();
+            break;
+          case ArrowDown.key:
+            onZoomOut();
+            e.stopPropagation();
+            break;
+          default:
+        }
+      }
+    };
+
     const transformStyle = useMemo(() => {
       if (mousePosition)
         return isEmptyObject(mousePosition) ? {} : { transformOrigin: `${mousePosition.x}px ${mousePosition.y}px` };
@@ -494,51 +501,64 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
               ref={refWrapper}
               onClick={onOutsideImgClick}
               style={transformStyle}
+              onKeyDown={onKeyDown}
+              tabIndex={-1}
             >
-              <div
-                className={`${previewPrefixCls}-img-container`}
-                onClick={onOutsideImgClick}
-                style={{ transform: `scale(${scale}, ${scale})` }}
+              <FocusLock
+                crossFrame={false}
+                disabled={!visible}
+                autoFocus={true}
+                lockProps={{
+                  tabIndex: -1,
+                  onKeyDown,
+                }}
+                className={`${previewPrefixCls}-img-focus-lock`}
               >
-                {renderImage()}
-                {isLoading && (
-                  <div className={`${previewPrefixCls}-loading`}>
-                    <IconLoading />
+                <div
+                  className={`${previewPrefixCls}-img-container`}
+                  onClick={onOutsideImgClick}
+                  style={{ transform: `scale(${scale}, ${scale})` }}
+                >
+                  {renderImage()}
+                  {isLoading && (
+                    <div className={`${previewPrefixCls}-loading`}>
+                      <IconLoading />
+                    </div>
+                  )}
+                </div>
+                <EuiCSSTransition
+                  in={scaleValueVisible}
+                  timeout={300}
+                  classNames={`${rootPrefixCls}-fade`}
+                  appear
+                  unmountOnExit
+                >
+                  <div className={`${previewPrefixCls}-scale-value`}>{(scale * 100).toFixed(0)}%</div>
+                </EuiCSSTransition>
+                {isLoaded && (
+                  <ImagePreviewTools
+                    prefixCls={prefixCls}
+                    previewPrefixCls={previewPrefixCls}
+                    actions={actions}
+                    actionsLayout={actionsLayout}
+                    defaultActions={defaultActions}
+                  />
+                )}
+                {closable && (
+                  <div className={`${previewPrefixCls}-close`} onClick={onCloseClick}>
+                    <IconClose />
                   </div>
                 )}
-              </div>
-              <EuiCSSTransition
-                in={scaleValueVisible}
-                timeout={300}
-                classNames={`${rootPrefixCls}-fade`}
-                appear
-                unmountOnExit
-              >
-                <div className={`${previewPrefixCls}-scale-value`}>{(scale * 100).toFixed(0)}%</div>
-              </EuiCSSTransition>
-              {isLoaded && (
-                <ImagePreviewTools
-                  prefixCls={prefixCls}
-                  previewPrefixCls={previewPrefixCls}
-                  actions={actions}
-                  actionsLayout={actionsLayout}
-                  defaultActions={defaultActions}
-                />
-              )}
-              {closable && (
-                <div className={`${previewPrefixCls}-close`} onClick={onCloseClick}>
-                  <IconClose />
-                </div>
-              )}
-              {previewGroup && (
-                <ImagePreviewArrow
-                  previewCount={previewUrlMap.size}
-                  current={currentIndex}
-                  loop={loop}
-                  onPrev={onPrev}
-                  onNext={onNext}
-                />
-              )}
+                {previewGroup && (
+                  <ImagePreviewArrow
+                    previewCount={previewUrlMap.size}
+                    current={currentIndex}
+                    loop={loop}
+                    onPrev={onPrev}
+                    onNext={onNext}
+                  />
+                )}
+              </FocusLock>
             </div>
           </EuiCSSTransition>
         </div>

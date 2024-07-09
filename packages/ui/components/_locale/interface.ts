@@ -9,4 +9,9 @@ export interface Locale {
     zoomOut: string;
     originalSize: string;
   };
+  Modal: {
+    noticeText: string;
+    okText: string;
+    cancelText: string;
+  };
 }

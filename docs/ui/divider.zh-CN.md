@@ -1,8 +1,8 @@
 ---
 nav: 组件
-group: 
-    title: 布局
-    order: 1
+group:
+  title: 布局
+  order: 1
 toc: content
 ---
 
@@ -15,31 +15,27 @@ toc: content
 
 ## 代码演示
 
-<code src="../../packages/ui/examples/divider/basic.tsx" description="对不同章节的文本段落进行分割，默认为水平分割线，支持虚线。">基本用法</code>
-<code src="../../packages/ui/examples/divider/orientation.tsx" description="通过 orientation 指定分割线文字的位置。">带有文字的分割线</code>
+<code src="../../packages/ui/examples/divider/basic.tsx" description="对不同章节的文本段落进行分割，默认为水平分割线，支持虚线。">基本用法</code>  
+<code src="../../packages/ui/examples/divider/orientation.tsx" description="通过 orientation 指定分割线文字的位置。">带有文字的分割线</code>  
 <code src="../../packages/ui/examples/divider/vertical.tsx" description='使用 type="vertical" 设置为行内的垂直分割线。'>垂直分割线</code>
-
-
-
 
 ## API
 
 ### Button
 
-| **参数** | **类型** | **默认值** | **定义** |
+| **参数** | **定义** | **类型** | **默认值** |
 | --- | --- | --- | --- |
-| className | `string`              | -        | 组件名称       |
-| style     | `CSSProperties`       | -        | 组件样式	    |
-| orientation     | `left` `right` `center`	       | `center`       | 分割线文字的位置		    |
-| type     | `horizontal` `vertical`  | `horizontal`        | 分割线的类型，是水平还是竖直，分别对应 `horizontal` 和 `vertical`	    |
-| dashed     | `boolean`       | -        | 是否虚线	    |
+| className | 组件名称 | `string` | - |
+| style | 组件样式 | `CSSProperties` | - |
+| orientation | 分割线文字的位置 | `left \| right \| center` | `center` |
+| type | 分割线的类型，是水平还是竖直，分别对应 `horizontal` 和 `vertical` | `horizontal \| vertical` | `horizontal` |
+| dashed | 是否虚线 | `boolean` | - |
 
 ## 主题变量 Theme
 
 ### Divider Token
 
-| **参数** | **类型** | **默认值** | **定义** |
-| --- | --- | --- | --- |
-| textPaddingInline | `CSSProperties['paddingInline']`              | -        | 文本横向内间距       |
-| orientationMargin | `number`              | -        | 文本与边缘距离       |
-
+| **参数**          | **定义**       | **类型**                         | **默认值** |
+| ----------------- | -------------- | -------------------------------- | ---------- |
+| textPaddingInline | 文本横向内间距 | `CSSProperties['paddingInline']` | -          |
+| orientationMargin | 文本与边缘距离 | `number`                         | -          |
