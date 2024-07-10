@@ -144,6 +144,7 @@ function confirm(config: ConfirmProps) {
   function update(newConfig: ConfirmProps) {
     modalConfig = {
       ...modalConfig,
+      title: config.title,
       ...newConfig,
     };
 

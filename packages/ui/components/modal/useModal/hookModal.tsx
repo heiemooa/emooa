@@ -54,11 +54,11 @@ function HookModal(props: ConfirmProps, ref) {
 
   return (
     <Modal
-      {...omit(config, ['noticeType', 'content', 'style'])}
+      {...omit(config, ['noticeType', 'content'])}
       open={visible}
       unmountOnExit
       onOk={onOk}
-      onCancel={onCancel}
+      onCancel={config?.isNotice ? void 0 : onCancel} // 如果是 notice 类型，不支持点击 mask 进行关闭
       style={Object.assign({}, { width: 400 }, config.style)}
       styles={merge({}, { content: { paddingBlock: 0, marginLeft: '1.625rem' } }, config.styles)}
     >
