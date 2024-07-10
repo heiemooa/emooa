@@ -1,3 +1,4 @@
+import type { ComponentToken as AppComponentToken } from '../../app/style';
 import type { ComponentToken as ButtonComponentToken } from '../../button/style';
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
 import type { ComponentToken as ModalComponentToken } from '../../modal/style';
@@ -9,6 +10,7 @@ import type { ComponentToken as GeoJSONComponentToken } from '../../geojson/styl
 import type { ComponentToken as WatermarkComponentToken } from '../../watermark/style';
 
 export interface ComponentTokenMap {
+  App?: AppComponentToken;
   Button?: ButtonComponentToken;
   Divider?: DividerComponentToken;
   Modal?: ModalComponentToken;
