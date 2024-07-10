@@ -63,6 +63,6 @@ export interface ConfigProviderProps {
    * @en Global ClassName prefix
    */
   prefixCls?: string;
-  getPrefixCls?: (componentName?: string, customPrefix?: string) => string;
+  getPrefixCls?: (componentName?: string) => string;
   children?: ReactNode;
 }
