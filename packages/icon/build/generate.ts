@@ -91,7 +91,10 @@ const syntaxCjs = name => {
   return `export { default as ${name} } from './${name}/index';`;
 };
 
-const entryCode = svgDataFlat.map(com => syntaxEs(com.componentName)).join('\n');
+const entryCode =
+  `"use client";
+  
+` + svgDataFlat.map(com => syntaxEs(com.componentName)).join('\n');
 const entryCodeCjs = svgDataFlat.map(com => syntaxCjs(com.componentName)).join('\n');
 
 fs.outputFile('../esm/index.js', entryCode, err => {
@@ -131,7 +134,10 @@ fs.outputFile('../cjs/index.css', css, err => {
 /** 生成 css 文件结束 */
 
 /** 生成 context 文件 */
-const contextJsx = `import { createContext } from 'react';
+const contextJsx = `
+"use client";
+
+import { createContext } from 'react';
 
 export var IconContext = createContext({
   prefixCls: 'eui',
