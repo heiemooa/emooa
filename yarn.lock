@@ -4165,6 +4165,11 @@ axios@^1.5.1:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+b-tween@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.npmjs.org/b-tween/-/b-tween-0.3.3.tgz#7a93ed199c98cd41a33ba4c711a0fa7e86db3fa2"
+  integrity sha512-oEHegcRpA7fAuc9KC4nktucuZn2aS8htymCPcP3qkEGPqiBH+GfqtqoG2l7LxHngg6O0HFM7hOeOYExl1Oz4ZA==
+
 babel-jest@^29.7.0:
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-29.7.0.tgz#f4369919225b684c56085998ac63dbd05be020d5"

@@ -8,9 +8,11 @@ import type { ComponentToken as SpinComponentToken } from '../../spin/style';
 import type { ComponentToken as ImageComponentToken } from '../../image/style';
 import type { ComponentToken as GeoJSONComponentToken } from '../../geojson/style';
 import type { ComponentToken as WatermarkComponentToken } from '../../watermark/style';
+import { BacktopProps } from '@/backtop/interface';
 
 export interface ComponentTokenMap {
   App?: AppComponentToken;
+  Backtop?: BacktopProps;
   Button?: ButtonComponentToken;
   Divider?: DividerComponentToken;
   Modal?: ModalComponentToken;
