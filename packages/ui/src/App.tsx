@@ -5,11 +5,12 @@ import './App.css';
 // import Spin from './containers/Spin';
 import Modal from './containers/Modal';
 import APP from './containers/App';
+import Backtop from './containers/Backtop';
 
 function App() {
   return (
     <>
-      <APP />
+      <Backtop />
     </>
   );
 }

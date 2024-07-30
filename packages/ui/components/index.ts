@@ -1,6 +1,9 @@
 export { default as App } from './app';
 export type { AppProps } from './app/interface';
 
+export { default as Backtop } from './backtop';
+export type { BacktopProps } from './backtop/interface';
+
 export { default as Button } from './button';
 export type { ButtonProps, ButtonGroupProps } from './button/interface';
 

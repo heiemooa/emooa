@@ -51,6 +51,7 @@
   "dependencies": {
     "@emotion/hash": "^0.9.1",
     "@emotion/unitless": "^0.8.1",
+    "b-tween": "^0.3.3",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
