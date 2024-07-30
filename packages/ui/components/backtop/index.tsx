@@ -34,7 +34,7 @@ const defaultProps: BacktopProps = {
   visibleHeight: 400,
   easing: 'quartOut',
   duration: 1000,
-  target: () => document.documentElement,
+  target: () => window,
 };
 
 const Component = (props: BacktopProps, ref) => {
@@ -48,21 +48,25 @@ const Component = (props: BacktopProps, ref) => {
 
   const [visible, setVisible] = useState(false);
 
+  const getTarget = (target: HTMLElement | Window): HTMLElement => {
+    return target === window ? document.documentElement : (target as HTMLElement);
+  };
+
   useEffect(() => {
-    const dom = target?.();
-    if (!dom) return;
+    const currentTarget = target?.();
+
     const scrollHandler = throttleByRaf(() => {
-      const scrollTop = dom.scrollTop;
+      const scrollTop = getTarget(currentTarget).scrollTop;
       setVisible(scrollTop >= visibleHeight);
     });
 
-    on(dom, 'scroll', scrollHandler);
+    on(currentTarget, 'scroll', scrollHandler);
 
     scrollHandler();
 
     return () => {
       scrollHandler.cancel?.();
-      off(dom, 'scroll', scrollHandler);
+      off(currentTarget, 'scroll', scrollHandler);
     };
   }, [target, visibleHeight]);
 
@@ -77,20 +81,20 @@ const Component = (props: BacktopProps, ref) => {
   );
 
   const scrollToTop = e => {
-    const dom = target?.();
-    if (dom) {
-      const scrollTop = dom.scrollTop;
-      const tween = new BTween({
-        from: { scrollTop },
-        to: { scrollTop: 0 },
-        easing,
-        duration,
-        onUpdate: keys => {
-          dom.scrollTop = keys.scrollTop;
-        },
-      });
-      tween.start();
-    }
+    const currentTarget = target?.();
+    const dom = getTarget(currentTarget);
+
+    const scrollTop = dom.scrollTop;
+    const tween = new BTween({
+      from: { scrollTop },
+      to: { scrollTop: 0 },
+      easing,
+      duration,
+      onUpdate: keys => {
+        dom.scrollTop = keys.scrollTop;
+      },
+    });
+    tween.start();
 
     onClick?.(e);
   };

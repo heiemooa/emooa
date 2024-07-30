@@ -15,7 +15,7 @@ export interface BacktopProps extends Omit<HTMLAttributes<HTMLDivElement>, 'cont
    * @en Set the element whose scroll event needs to be listened to. The value is a function that returns the corresponding `DOM` element
    * @defaultValue () => window
    */
-  target?: () => HTMLElement | null;
+  target?: () => HTMLElement | Window | null;
   /**
    * @zh 滚动到顶部的缓动方式类型, 所有类型：[easing](https://www.npmjs.com/package/b-tween)。
    * @en Scroll to the top of the easing method type, all types: [easing](https://www.npmjs.com/package/b-tween).
