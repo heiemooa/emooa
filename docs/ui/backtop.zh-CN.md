@@ -28,4 +28,4 @@ toc: content
 | duration | (ms) 滚动到顶部的时间。 | `number` | 1000 |
 | visibleHeight | 当滚动到这个高度时，显示返回顶部按钮。 | `number` | 400 |
 | easing | 滚动到顶部的缓动方式类型, 所有类型：[easing](https://www.npmjs.com/package/b-tween)。 | `string` | quartOut |
-| target | 设置需要监听其滚动事件的元素，值为一个返回对应 `DOM` 元素的函数。 | `() => HTMLElement` | () => document.documentElement |
+| target | 设置需要监听其滚动事件的元素，值为一个返回对应 `DOM` 元素的函数。 | `() => HTMLElement \| Window \| null` | () => document.documentElement |

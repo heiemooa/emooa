@@ -28,4 +28,4 @@ Provides a one-click return to the top button and supports custom button compone
 | duration | (ms) Time to scroll to top. | `number` | 1000 |
 | visibleHeight | When scrolling to this height, show the back to top button. | `number` | 400 |
 | easing | Type of easing when scrolling to the top, all types: [easing](https://www.npmjs.com/package/b-tween). | `string` | quartOut |
-| target | Set the element whose scroll event needs to be monitored. The value is a function that returns the corresponding `DOM` element. | `() => HTMLElement` | () => document.documentElement |
+| target | Set the element whose scroll event needs to be monitored. The value is a function that returns the corresponding `DOM` element. | `() => HTMLElement \| Window \| null` | () => document.documentElement |
