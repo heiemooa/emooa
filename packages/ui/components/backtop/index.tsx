@@ -100,13 +100,13 @@ const Component = (props: BacktopProps, ref) => {
   };
 
   return wrapCSSVar(
-    <div className={classnames} ref={ref} onClick={scrollToTop} {...rest}>
-      <EuiCSSTransition in={visible} timeout={100} classNames={`${rootPrefixCls}-fade`} appear unmountOnExit>
+    <EuiCSSTransition in={visible} timeout={1000} classNames={`${rootPrefixCls}-fade-up`} appear unmountOnExit>
+      <div className={classnames} ref={ref} onClick={scrollToTop} {...rest}>
         {children || (
           <Button className={`${prefixCls}-btn`} type="primary" icon={<IconToTop />} shape="circle" size="large" />
         )}
-      </EuiCSSTransition>
-    </div>,
+      </div>
+    </EuiCSSTransition>,
   );
 };
 

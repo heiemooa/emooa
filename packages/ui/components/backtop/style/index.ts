@@ -1,5 +1,6 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
+import { fade } from '@/_theme/style/motion';
 
 /** Component only token. Which will handle additional calculation of alias token */
 export interface ComponentToken {
@@ -15,9 +16,19 @@ const genBacktopStyle: GenerateStyle<BacktopToken> = token => {
     [componentCls]: {
       position: 'fixed',
       bottom: token.marginXXL,
-      right: token.marginXXL,
+      right: token.marginXL,
       zIndex: 100,
       cursor: 'pointer',
+    },
+  };
+};
+
+const genModalMotion: GenerateStyle<BacktopToken> = token => {
+  const { componentCls } = token;
+
+  return {
+    [componentCls]: {
+      [`&`]: fade.initFadeUpMotion(token, true),
     },
   };
 };
@@ -29,7 +40,7 @@ export default genStyleHooks(
   'Backtop',
   token => {
     const backtopToken = mergeToken<BacktopToken>(token);
-    return [genBacktopStyle(backtopToken)];
+    return [genBacktopStyle(backtopToken), genModalMotion(backtopToken)];
   },
   prepareComponentToken,
 );
