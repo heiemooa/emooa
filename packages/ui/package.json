@@ -49,6 +49,7 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "@emooa/icon": "^0.0.8",
     "@emotion/hash": "^0.9.1",
     "@emotion/unitless": "^0.8.1",
     "b-tween": "^0.3.3",

@@ -19,6 +19,10 @@ const genBacktopStyle: GenerateStyle<BacktopToken> = token => {
       right: token.marginXL,
       zIndex: 100,
       cursor: 'pointer',
+
+      [`& > &-btn`]: {
+        boxShadow: token.boxShadow,
+      },
     },
   };
 };
