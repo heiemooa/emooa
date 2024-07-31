@@ -188,13 +188,14 @@ const zoomMotion: Record<ZoomMotionTypes, { inKeyframes: Keyframes; outKeyframes
 export const initZoomMotion = (
   token: TokenWithCommonCls<AliasToken>,
   motionName: ZoomMotionTypes,
+  sameLevel?: boolean,
 ): CSSInterpolation => {
   const { euiCls } = token;
   const motionCls = `${euiCls}-${motionName}`;
   const { inKeyframes, outKeyframes } = zoomMotion[motionName];
 
   return [
-    initMotion(motionCls, inKeyframes, outKeyframes, token.motions.durationMid),
+    initMotion(motionCls, inKeyframes, outKeyframes, token.motions.durationMid, sameLevel),
     {
       [`
         ${motionCls}-enter,

@@ -150,7 +150,7 @@ const genPreviewMotion: GenerateStyle<ImageToken> = token => {
 
   return {
     [`${previewCls}`]: {
-      [`${previewCls}-mask`]: fade.initFadeMotion(token, true),
+      [`${previewCls}-mask`]: fade.initFadeMotion(token, 'fade'),
       [`&`]: zoom.initZoomMotion(token, 'zoom'),
     },
   };

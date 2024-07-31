@@ -1,6 +1,6 @@
 import type { FullToken, GenerateStyle, GetDefaultToken } from '@/_theme/internal';
 import { genStyleHooks, mergeToken } from '@/_theme/internal';
-import { fade } from '@/_theme/style/motion';
+import { fade, zoom } from '@/_theme/style/motion';
 
 /** Component only token. Which will handle additional calculation of alias token */
 export interface ComponentToken {
@@ -27,9 +27,14 @@ const genModalMotion: GenerateStyle<BacktopToken> = token => {
   const { componentCls } = token;
 
   return {
-    [componentCls]: {
-      [`&`]: fade.initFadeUpMotion(token, true),
-    },
+    [componentCls]: [
+      zoom.initZoomMotion(token, 'zoom', true),
+      fade.initFadeMotion(token, 'fade', true),
+      fade.initFadeMotion(token, 'fade-up', true),
+      fade.initFadeMotion(token, 'fade-left', true),
+      fade.initFadeMotion(token, 'fade-right', true),
+      fade.initFadeMotion(token, 'fade-down', true),
+    ],
   };
 };
 

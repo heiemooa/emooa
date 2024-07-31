@@ -1,5 +1,13 @@
 import { HTMLAttributes } from 'react';
 
+enum Animation {
+  'fade',
+  'fade-up',
+  'fade-down',
+  'fade-left',
+  'fade-right',
+  'zoom',
+}
 /**
  * @title Backtop
  */
@@ -28,4 +36,9 @@ export interface BacktopProps extends Omit<HTMLAttributes<HTMLDivElement>, 'cont
    * @defaultValue 1000
    */
   duration?: number;
+  /**
+   * 显示动画
+   * @defaultValue fade
+   */
+  animation?: keyof typeof Animation;
 }
