@@ -34,12 +34,13 @@ const defaultProps: BacktopProps = {
   visibleHeight: 400,
   easing: 'quartOut',
   duration: 1000,
+  animation: 'fade',
   target: () => window,
 };
 
 const Component = (props: BacktopProps, ref) => {
   const { getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
-  const { className, easing, duration, children, visibleHeight, onClick, target, ...rest }: BacktopProps =
+  const { className, easing, animation, duration, children, visibleHeight, onClick, target, ...rest }: BacktopProps =
     Object.assign({}, defaultProps, components?.Backtop, props);
 
   const rootPrefixCls = getPrefixCls();
@@ -100,13 +101,13 @@ const Component = (props: BacktopProps, ref) => {
   };
 
   return wrapCSSVar(
-    <div className={classnames} ref={ref} onClick={scrollToTop} {...rest}>
-      <EuiCSSTransition in={visible} timeout={100} classNames={`${rootPrefixCls}-fade`} appear unmountOnExit>
+    <EuiCSSTransition in={visible} timeout={1000} classNames={`${rootPrefixCls}-${animation}`} appear unmountOnExit>
+      <div className={classnames} ref={ref} onClick={scrollToTop} {...rest}>
         {children || (
           <Button className={`${prefixCls}-btn`} type="primary" icon={<IconToTop />} shape="circle" size="large" />
         )}
-      </EuiCSSTransition>
-    </div>,
+      </div>
+    </EuiCSSTransition>,
   );
 };
 

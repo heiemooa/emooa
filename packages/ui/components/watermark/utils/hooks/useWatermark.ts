@@ -23,7 +23,7 @@ export type WatermarkReturnType = {
 
 const toNumber = (value: string | number, defaultValue: number) => {
   if (isNumber(value)) {
-    return value;
+    return value as number;
   }
   const numberVal = parseFloat(value as string);
   return isNumber(numberVal) && !isNaN(numberVal) ? numberVal : defaultValue;

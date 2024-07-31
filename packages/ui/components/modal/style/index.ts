@@ -185,7 +185,7 @@ const genModalMotion: GenerateStyle<ModalToken> = token => {
 
   return {
     [`${componentCls}-root`]: {
-      [`${componentCls}-mask`]: fade.initFadeMotion(token, true),
+      [`${componentCls}-mask`]: fade.initFadeMotion(token, 'fade'),
       [`&`]: zoom.initZoomMotion(token, 'zoom'),
     },
   };

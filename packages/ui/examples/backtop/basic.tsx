@@ -13,10 +13,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'relative', padding: '8px 12px', background: '#eee', color: '#555' }}>
+    <div style={{ position: 'relative' }}>
       <Backtop style={{ position: 'absolute' }} target={() => ref.current} />
 
-      <div ref={ref} style={{ height: 300, overflow: 'auto' }}>
+      <div
+        ref={ref}
+        style={{ height: 300, overflow: 'auto', padding: '8px 12px', background: '#efefef', color: '#555' }}
+      >
         {getRender()}
       </div>
     </div>
