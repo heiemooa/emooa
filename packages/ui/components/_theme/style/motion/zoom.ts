@@ -187,7 +187,7 @@ const zoomMotion: Record<ZoomMotionTypes, { inKeyframes: Keyframes; outKeyframes
 
 export const initZoomMotion = (
   token: TokenWithCommonCls<AliasToken>,
-  motionName: ZoomMotionTypes,
+  motionName: ZoomMotionTypes = 'zoom',
   sameLevel?: boolean,
 ): CSSInterpolation => {
   const { euiCls } = token;

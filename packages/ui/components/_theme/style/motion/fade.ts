@@ -153,7 +153,7 @@ const fadeMotion: Record<FadeMotionTypes, { inKeyframes: Keyframes; outKeyframes
 export const initFadeMotion = (
   token: TokenWithCommonCls<AliasToken>,
   motionName: FadeMotionTypes = 'fade',
-  sameLevel: boolean,
+  sameLevel?: boolean,
 ): CSSInterpolation => {
   const { euiCls } = token;
   const motionCls = `${euiCls}-${motionName}`;

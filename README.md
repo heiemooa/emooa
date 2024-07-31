@@ -62,10 +62,10 @@ yarn run test
 #### 5. 发布 NPM 包
 
 ```bash
-yarn npm login
+npm login
 
 // 根目录
-yarn run publish
+npm run publish
 ```
 
 ## 文档
@@ -93,19 +93,3 @@ yarn run docs:build
   通过运行 ` lerna exec -- yarn`，`Lerna` 会遍历存储库中的每个包，并在每个包的目录中执行 `yarn`，以确保它们的依赖项被正确安装。
 
   方便起见，我将它写入 `package.json scripts` 配置。
-
-- 为什么 `yarn npm login`, 而不是 `yarn login` 或 `npm login`?
-
-  `yarn npm login` 和 `npm login` 是相同的命令，用于登录到 `npm` 仓库。而 `yarn login` 是 `Yarn` 特有的命令，用于登录到 Yarn 仓库。
-
-  `Yarn` 是一个由 `Facebook` 创建的包管理器，它兼容 `npm` 的仓库，并且在性能和安全性方面进行了改进。因此，如果你使用 Yarn 作为包管理器，你可以选择使用 `yarn login` 命令来登录到 `Yarn` 仓库。如果你仍然想使用 `npm` 仓库，可以使用` yarn npm login` 或 `npm login`。这两个命令是等效的。
-
-  由于我习惯了用 `yarn` 安装依赖等操作，而非 `npm`，所以选择 `yarn npm login`。
-
-- 为什么 `yarn run publish` 而不是 `yarn publish`?
-
-  我们当前使用的是 lerna 管理多包存储库中的包的发布，发版本需要执行 `lerna run tsc && lerna publish`, 并非简单的 `yarn publish`。
-
-  方便起见，我将它写入 `package.json scripts` 配置。
-
-- 当然 `npm login` && `npm publish` 也是可以的。
