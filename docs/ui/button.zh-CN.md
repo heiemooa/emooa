@@ -56,9 +56,115 @@ toc: content
 
 ## 主题变量 Theme
 
-### Button Token
+### 组件 Token
 
-// TODO
+| **参数** | **定义** | **类型** | **默认值** |
+| --- | --- | --- | --- |
+| secondaryColorBg | 二级按钮 Default 背景颜色 | `string` | token.colorBorderSecondary |
+| secondaryColorBgHover | 二级按钮 Default 类型背景 Hover 颜色 | `string` | token.colorBorder |
+| secondaryColor | 二级按钮 Default 类型字体颜色 | `string` | token.colorText |
+| secondaryBorder | 二级按钮 Default 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| secondarySuccessColorBg | 二级按钮 Success 类型背景色 | `string` | token.colorSuccessBg |
+| secondarySuccessColorBgHover | 二级按钮 Success 类型背景 Hover 色 | `string` | token.colorSuccessBgHover |
+| secondarySuccessColor | 二级按钮 Success 类型字体颜色 | `string` | token.colorSuccess |
+| secondarySuccessBorder | 二级按钮 Success 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| secondaryDangerColorBg | 二级按钮 Danger 类型背景色 | `string` | token.colorErrorBg |
+| secondaryDangerColorBgHover | 二级按钮 Danger 类型背景 Hover 色 | `string` | token.colorErrorBgHover |
+| secondaryDangerColor | 二级按钮 Danger 类型字体颜色 | `string` | token.colorError |
+| secondaryDangerBorder | 二级按钮 Danger 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| secondaryWarningColorBg | 二级按钮 Warning 类型背景色 | `string` | token.colorWarningBg |
+| secondaryWarningColorBgHover | 二级按钮 Warning 类型背景 Hover 色 | `string` | token.colorWarningBgHover |
+| secondaryWarningColor | 二级按钮 Warning 类型字体颜色 | `string` | token.colorWarning |
+| secondaryWarningBorder | 二级按钮 Warning 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| primaryColorBg | 主按钮 Default 背景颜色 | `string` | token.colorPrimary |
+| primaryColorBgHover | 主按钮 Default 类型背景 Hover 颜色 | `string` | token.colorPrimaryHover |
+| primaryColor | 主按钮 Default 类型字体颜色 | `string` | token.colorTextLightSolid |
+| primaryBorder | 主按钮 Default 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| primarySuccessColorBg | 主按钮 Success 类型背景色 | `string` | token.colorSuccess |
+| primarySuccessColorBgHover | 主按钮 Success 类型背景 Hover 色 | `string` | token.colorSuccessHover |
+| primarySuccessColor | 主按钮 Success 类型字体颜色 | `string` | token.colorTextLightSolid |
+| primarySuccessBorder | 主按钮 Success 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| primaryDangerColorBg | 主按钮 Danger 类型背景色 | `string` | token.colorError |
+| primaryDangerColorBgHover | 主按钮 Danger 类型背景 Hover 色 | `string` | token.colorErrorHover |
+| primaryDangerColor | 主按钮 Danger 类型字体颜色 | `string` | token.colorTextLightSolid |
+| primaryDangerBorder | 主按钮 Danger 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| primaryWarningColorBg | 主按钮 Warning 类型背景色 | `string` | token.colorWarning |
+| primaryWarningColorBgHover | 主按钮 Warning 类型背景 Hover 色 | `string` | token.colorWarningHover |
+| primaryWarningColor | 主按钮 Warning 类型字体颜色 | `string` | token.colorTextLightSolid |
+| primaryWarningBorder | 主按钮 Warning 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} transparent` |
+| dashedColorBg | 虚线按钮 Default 背景颜色 | `string` | token.colorBorderSecondary |
+| dashedColorBgHover | 虚线按钮 Default 类型背景 Hover 颜色 | `string` | token.colorBorder |
+| dashedColor | 虚线按钮 Default 类型字体颜色 | `string` | token.colorText |
+| dashedBorder | 虚线按钮 Default 类型边框 | `string` | `${token.lineWidth}px dashed ${token.colorBorder}` |
+| dashedSuccessColorBg | 虚线按钮 Success 类型背景色 | `string` | token.colorSuccessBg |
+| dashedSuccessColorBgHover | 虚线按钮 Success 类型背景 Hover 色 | `string` | token.colorSuccessBgHover |
+| dashedSuccessColor | 虚线按钮 Success 类型字体颜色 | `string` | token.colorSuccess |
+| dashedSuccessBorder | 虚线按钮 Success 类型边框 | `string` | `${token.lineWidth}px dashed ${token.colorSuccessBorder}` |
+| dashedDangerColorBg | 虚线按钮 Danger 类型背景色 | `string` | token.colorErrorBg |
+| dashedDangerColorBgHover | 虚线按钮 Danger 类型背景 Hover 色 | `string` | token.colorErrorBgHover |
+| dashedDangerColor | 虚线按钮 Danger 类型字体颜色 | `string` | token.colorError |
+| dashedDangerBorder | 虚线按钮 Danger 类型边框 | `string` | `${token.lineWidth}px dashed ${token.colorErrorBorder}` |
+| dashedWarningColorBg | 虚线按钮 Warning 类型背景色 | `string` | token.colorWarningBg |
+| dashedWarningColorBgHover | 虚线按钮 Warning 类型背景 Hover 色 | `string` | token.colorWarningBgHover |
+| dashedWarningColor | 虚线按钮 Warning 类型字体颜色 | `string` | token.colorWarning |
+| dashedWarningBorder | 虚线按钮 Warning 类型边框 | `string` | `${token.lineWidth}px dashed ${token.colorWarningBorder}` |
+| textColorBg | 文本按钮 Default 背景颜色 | `string` | transparent |
+| textColorBgHover | 文本按钮 Default 类型背景 Hover 颜色 | `string` | token.colorBgTextHover |
+| textColor | 文本按钮 Default 类型字体颜色 | `string` | token.colorPrimary |
+| textColorHover | 文本按钮 Default 类型字体 Hover 颜色 | `string` | token.colorPrimaryHover |
+| textBorder | 文本按钮 Default 类型边框 | `string` | `${token.lineWidth}px dashed transparent` |
+| textSuccessColorBg | 文本按钮 Success 类型背景色 | `string` | transparent |
+| textSuccessColorBgHover | 文本按钮 Success 类型背景 Hover 色 | `string` | token.colorBgTextHover |
+| textSuccessColor | 文本按钮 Success 类型字体颜色 | `string` | token.colorSuccess |
+| textSuccessColorHover | 文本按钮 Success 类型字体 Hover 颜色 | `string` | token.colorSuccessHover |
+| textSuccessBorder | 文本按钮 Success 类型边框 | `string` | `${token.lineWidth}px dashed transparent` |
+| textDangerColorBg | 文本按钮 Danger 类型背景色 | `string` | transparent |
+| textDangerColorBgHover | 文本按钮 Danger 类型背景 Hover 色 | `string` | token.colorBgTextHover |
+| textDangerColor | 文本按钮 Danger 类型字体颜色 | `string` | token.colorError |
+| textDangerColorHover | 文本按钮 Danger 类型字体 Hover 颜色 | `string` | token.colorErrorHover |
+| textDangerBorder | 文本按钮 Danger 类型边框 | `string` | `${token.lineWidth}px dashed transparent` |
+| textWarningColorBg | 文本按钮 Warning 类型背景色 | `string` | transparent |
+| textWarningColorBgHover | 文本按钮 Warning 类型背景 Hover 色 | `string` | token.colorBgTextHover |
+| textWarningColor | 文本按钮 Warning 类型字体颜色 | `string` | token.colorWarning |
+| textWarningColorHover | 文本按钮 Warning 类型字体 Hover 颜色 | `string` | token.colorWarningHover |
+| textWarningBorder | 文本按钮 Warning 类型边框 | `string` | `${token.lineWidth}px dashed transparent` |
+| outlineColorBg | 线形按钮 Default 背景颜色 | `string` | transparent |
+| outlineColorBgHover | 线形按钮 Default 类型背景 Hover 颜色 | `string` | transparent |
+| outlineColor | 线形按钮 Default 类型字体颜色 | `string` | token.colorPrimary |
+| outlineColorHover | 线形按钮 Default 类型字体 Hover 颜色 | `string` | token.colorPrimaryHover |
+| outlineBorder | 线形按钮 Default 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorPrimary}` |
+| outlineBorderHover | 线形按钮 Default 类型 Hover 边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorPrimaryHover}` |
+| outlineSuccessColorBg | 线形按钮 Success 类型背景色 | `string` | transparent |
+| outlineSuccessColorBgHover | 线形按钮 Success 类型背景 Hover 色 | `string` | transparent |
+| outlineSuccessColor | 线形按钮 Success 类型字体颜色 | `string` | token.colorSuccess |
+| outlineSuccessColorHover | 线形按钮 Success 类型字体 Hover 颜色 | `string` | token.colorSuccessHover |
+| outlineSuccessBorder | 线形按钮 Success 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorSuccess}` |
+| outlineSuccessBorderHover | 线形按钮 Default 类型 Hover 边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorSuccessHover}` |
+| outlineDangerColorBg | 线形按钮 Danger 类型背景色 | `string` | transparent |
+| outlineDangerColorBgHover | 线形按钮 Danger 类型背景 Hover 色 | `string` | transparent |
+| outlineDangerColor | 线形按钮 Danger 类型字体颜色 | `string` | token.colorError |
+| outlineDangerColorHover | 线形按钮 Danger 类型字体 Hover 颜色 | `string` | token.colorErrorHover |
+| outlineDangerBorder | 线形按钮 Danger 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorError}` |
+| outlineDangerBorderHover | 线形按钮 Danger 类型 Hover 边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorErrorHover}` |
+| outlineWarningColorBg | 线形按钮 Warning 类型背景色 | `string` | transparent |
+| outlineWarningColorBgHover | 线形按钮 Warning 类型背景 Hover 色 | `string` | transparent |
+| outlineWarningColor | 线形按钮 Warning 类型字体颜色 | `string` | token.colorWarning |
+| outlineWarningColorHover | 线形按钮 Warning 类型字体 Hover 颜色 | `string` | token.colorWarningHover |
+| outlineWarningBorder | 线形按钮 Warning 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorWarning}` |
+| outlineWarningBorderHover | 线形按钮 Warning 类型边框 | `string` | `${token.lineWidth}px ${token.lineType} ${token.colorWarningHover}` |
 
-<!-- | **参数** | **类型** | **默认值** | **定义** |
-| --- | --- | --- | --- | -->
+### 如何使用
+
+```js
+<ConfigProvider
+  theme={{
+    components: {
+      Button: {
+        /* 这里是你的组件 token */
+      },
+    },
+  }}
+>
+  ...
+</ConfigProvider>
+```

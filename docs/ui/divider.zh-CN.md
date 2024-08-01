@@ -21,7 +21,7 @@ toc: content
 
 ## API
 
-### Button
+### Divider
 
 | **参数** | **定义** | **类型** | **默认值** |
 | --- | --- | --- | --- |
@@ -39,3 +39,19 @@ toc: content
 | ----------------- | -------------- | -------------------------------- | ---------- |
 | textPaddingInline | 文本横向内间距 | `CSSProperties['paddingInline']` | -          |
 | orientationMargin | 文本与边缘距离 | `number`                         | -          |
+
+### 如何使用
+
+```js
+<ConfigProvider
+  theme={{
+    components: {
+      Divider: {
+        /* 这里是你的组件 token */
+      },
+    },
+  }}
+>
+  ...
+</ConfigProvider>
+```

@@ -39,3 +39,19 @@ toc: content
 | ----------------- | ----------------------- | -------------------------------- | -------------- |
 | textPaddingInline | text horizontal spacing | `CSSProperties['paddingInline']` | -              |
 | orientationMargin | text-edge distance      | `number`                         | -              |
+
+### Usage
+
+```js
+<ConfigProvider
+  theme={{
+    components: {
+      Divider: {
+        /* This is your Divider token */
+      },
+    },
+  }}
+>
+  ...
+</ConfigProvider>
+```

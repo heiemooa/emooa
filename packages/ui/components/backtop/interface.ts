@@ -8,6 +8,29 @@ enum Animation {
   'fade-right',
   'zoom',
 }
+
+enum Easing {
+  'linear',
+  'quadIn',
+  'quadOut',
+  'quadInOut',
+  'cubicIn',
+  'cubicOut',
+  'cubicInOut',
+  'quartIn',
+  'quartOut',
+  'quartInOut',
+  'quintIn',
+  'quintOut',
+  'quintInOut',
+  'sineIn',
+  'sineOut',
+  'sineInOut',
+  'bounceIn',
+  'bounceOut',
+  'bounceInOut',
+}
+
 /**
  * @title Backtop
  */
@@ -29,7 +52,7 @@ export interface BacktopProps extends Omit<HTMLAttributes<HTMLDivElement>, 'cont
    * @en Scroll to the top of the easing method type, all types: [easing](https://www.npmjs.com/package/b-tween).
    * @defaultValue quartOut
    */
-  easing?: string;
+  easing?: keyof typeof Easing;
   /**
    * @zh 滚动到顶部的时间。
    * @en Duration to scroll to the top

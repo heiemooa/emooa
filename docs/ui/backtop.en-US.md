@@ -1,7 +1,7 @@
 ---
 nav: Components
 group:
-  title: Other
+  title: Feedback
   order: 3
 toc: content
 ---
@@ -15,7 +15,8 @@ Provides a one-click return to the top button and supports custom button compone
 ## 代码演示
 
 <code src="../../packages/ui/examples/backtop/basic.tsx" description="When scrolling to a certain height, a return to top button will appear in the lower right corner.">Basic</code>  
-<code src="../../packages/ui/examples/backtop/custom.tsx" description="The back to top button can be customized.">Custom button</code>
+<code src="../../packages/ui/examples/backtop/custom.tsx" description="The back to top button can be customized.">Custom button</code>  
+<code src="../../packages/ui/examples/backtop/animation.tsx" description="Supports location and button animations">Animationis</code>
 
 ## API
 
