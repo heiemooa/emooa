@@ -12,11 +12,18 @@ demo:
 
 ## 何时使用
 
-在当前页面打开一个浮层，承载相关操作。
+基础抽屉，点击触发按钮抽屉从右侧滑出，点击遮罩区关闭。
+
+用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到原任务。
 
 ## 代码演示
 
-<code src="../../packages/ui/examples/drawer/basic.tsx" description="文本信息对话框。">基本用法</code>
+<code src="../../packages/ui/examples/drawer/basic.tsx" description="基础抽屉，点击触发按钮抽屉从右侧滑出，点击遮罩区关闭。">基本用法</code>  
+<code src="../../packages/ui/examples/drawer/placement.tsx" description="自定义位置，点击触发按钮抽屉从相应的位置滑出。">自定义位置</code>  
+<code src="../../packages/ui/examples/drawer/async.tsx" description="在对话框中使用表单时，如提交表单，点击确定后异步关闭对话框。可通过设置 `loadingConfirming` 或 `onOK` 为 `Promise` 时进行异步关闭">异步关闭</code>  
+<code src="../../packages/ui/examples/drawer/footer.tsx" description="传入 `okButtonProps` 和 `cancelButtonProps` 可分别自定义确定按钮和取消按钮的 `props`。如果 `okButtonProps` 、 `cancelButtonProps` 仍然不能满足需要的话，可以直接传入 `footer` 来自定义页脚内容。">自定义页脚</code>  
+<code src="../../packages/ui/examples/drawer/disabled.tsx" description="通过 `disabledOnPromise` 可设置 `onOk` 在 `Promise` 期间不可关闭对话框。">异步期间禁用</code>  
+<code src="../../packages/ui/examples/drawer/two.tsx" description="在抽屉内打开新的抽屉。">多层抽屉</code> <code src="../../packages/ui/examples/drawer/container.tsx" description="可以通过 `getPopupContainer` 指定抽屉挂载的父级节点。">挂载节点</code>
 
 ## API
 

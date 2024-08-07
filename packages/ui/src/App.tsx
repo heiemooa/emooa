@@ -12,9 +12,6 @@ function App() {
   return (
     <>
       <Drawer />
-      <Drawer />
-      <Modal />
-      <Modal />
     </>
   );
 }

@@ -14,4 +14,8 @@ export interface Locale {
     okText: string;
     cancelText: string;
   };
+  Drawer: {
+    okText: string;
+    cancelText: string;
+  };
 }

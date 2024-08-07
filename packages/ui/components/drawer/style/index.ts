@@ -213,8 +213,6 @@ export default genStyleHooks(
   'Drawer',
   token => {
     const modalToken = mergeToken<DrawerToken>(token);
-
-    console.log(genModalMotion(modalToken));
     return [genModalStyle(modalToken), genModalMotion(modalToken)];
   },
   prepareComponentToken,

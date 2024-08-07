@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Drawer, Button } from '../../../components';
+import { Drawer, Button } from '@emooa/ui';
 import React from 'react';
 
 const wrapperStyle: React.CSSProperties = {
@@ -21,22 +21,20 @@ function App() {
       <Button type="primary" onClick={() => setVisible(true)}>
         Open
       </Button>
-      {refWrapper?.current && (
-        <Drawer
-          title="Basic"
-          open={visible}
-          getPopupContainer={() => refWrapper?.current}
-          footer={null}
-          onOk={() => {
-            setVisible(false);
-          }}
-          onCancel={() => {
-            setVisible(false);
-          }}
-        >
-          <div style={{ textAlign: 'left' }}>Here is an example text.</div>
-        </Drawer>
-      )}
+      <Drawer
+        title="Basic"
+        open={visible}
+        getPopupContainer={() => refWrapper?.current}
+        footer={null}
+        onOk={() => {
+          setVisible(false);
+        }}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      >
+        <div style={{ textAlign: 'left' }}>Here is an example text.</div>
+      </Drawer>
     </div>
   );
 }

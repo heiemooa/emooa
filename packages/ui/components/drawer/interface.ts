@@ -146,24 +146,6 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
    */
   getPopupContainer?: () => HTMLElement;
 
-  // TODO
-
-  /**
-   * @zh 设置抽屉的 zIndex
-   * @en Set the zIndex of the drawer
-   */
-  zIndex?: number;
-  /**
-   * @zh  抽屉里的弹出框 `Select` `Tooltip` 等挂载的容器，默认挂载在对话框内。
-   * @en Set the mount node for popup such as `Select`, `Tooltip`, etc. Default to the drawer dialog.
-   */
-  getChildrenPopupContainer?: (node: HTMLElement) => Element;
-  /**
-   * @zh 是否将焦点锁定在弹出框内。
-   * @en Whether to lock the focus in the drawer box.
-   * @defaultValue true
-   */
-  focusLock?: boolean;
   /**
    * 在onOk 为 Promise 事件时，并且加载中的时候，取消、close icon、mask 等不可点击
    */

@@ -150,12 +150,12 @@ const Component = (props: DrawerProps, ref) => {
         onClick={handlerCancel}
         {...Object.assign({}, disabledOnPromise ? { disabled: loading } : {}, cancelButtonProps)}
       >
-        {cancelText || locale.Modal.cancelText}
+        {cancelText || locale.Drawer.cancelText}
       </Button>
     );
     const okButtonNode = (
       <Button loading={loading} onClick={onConfirmModal} type="primary" {...okButtonProps}>
-        {okText || locale.Modal.okText}
+        {okText || locale.Drawer.okText}
       </Button>
     );
     const footerContent = isFunction(footer)

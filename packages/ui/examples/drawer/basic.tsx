@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import { Button, Drawer } from '@emooa/ui';
 
 const App: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const showDrawer = () => {
+    setIsDrawerOpen(true);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setIsDrawerOpen(false);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsDrawerOpen(false);
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Modal
+      <Button type="primary" onClick={showDrawer}>
+        Drawer
       </Button>
-      <Drawer title="Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Drawer title="Title" open={isDrawerOpen} onOk={handleOk} onCancel={handleCancel}>
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>

@@ -17,5 +17,9 @@ const locale: Locale = {
     okText: '确定',
     cancelText: '取消',
   },
+  Drawer: {
+    okText: '确定',
+    cancelText: '取消',
+  },
 };
 export default locale;
