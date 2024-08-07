@@ -157,7 +157,7 @@ export const initFadeMotion = (
 ): CSSInterpolation => {
   const { euiCls } = token;
   const motionCls = `${euiCls}-${motionName}`;
-  const sameLevelPrefix = '&';
+  const sameLevelPrefix = sameLevel ? '&' : '';
 
   const { inKeyframes, outKeyframes } = fadeMotion[motionName];
 

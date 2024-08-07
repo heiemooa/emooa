@@ -8,11 +8,11 @@ export interface ComponentToken {
   // Component token here
 }
 
-interface ModalToken extends FullToken<'Modal'> {
+interface DrawerToken extends FullToken<'Drawer'> {
   previewCls: string;
 }
 
-const genModalStyle: GenerateStyle<ModalToken> = token => {
+const genModalStyle: GenerateStyle<DrawerToken> = token => {
   const { componentCls, euiCls } = token;
 
   return [
@@ -27,6 +27,40 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
         top: 0,
         left: 0,
         zIndex: token.zIndexPopupBase,
+
+        [`&${componentCls}-left > ${componentCls}`]: {
+          top: 0,
+          bottom: 0,
+          left: {
+            _skip_check_: true,
+            value: 0,
+          },
+          width: 380,
+          maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
+        },
+        [`&${componentCls}-right > ${componentCls}`]: {
+          top: 0,
+          right: {
+            _skip_check_: true,
+            value: 0,
+          },
+          bottom: 0,
+          width: 380,
+          maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
+        },
+        [`&${componentCls}-top > ${componentCls}`]: {
+          top: 0,
+          insetInline: 0,
+          height: 380,
+          maxHeight: `calc(100vh - ${unit(token.calc(token.margin).mul(2).equal())})`,
+        },
+        [`&${componentCls}-bottom > ${componentCls}`]: {
+          bottom: 0,
+          insetInline: 0,
+          height: 380,
+          maxHeight: `calc(100vh - ${unit(token.calc(token.margin).mul(2).equal())})`,
+        },
+
         '&-hide': {
           display: 'none',
         },
@@ -39,6 +73,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           left: 0,
           background: token.colorBgMask,
         },
+
         [`&${componentCls}-rtl`]: {
           direction: 'rtl',
 
@@ -68,29 +103,9 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
             },
           },
         },
-
-        [`&${componentCls}-center`]: {
-          textAlign: 'center',
-
-          '&::after': {
-            content: '""',
-            verticalAlign: 'middle',
-            display: 'inline-block',
-            height: '100%',
-            width: 0,
-          },
-
-          [`${componentCls}`]: {
-            top: 0,
-            verticalAlign: 'middle',
-            display: 'inline-block',
-          },
-        },
       },
     },
-    /**
-     * modal
-     */
+
     {
       [`${componentCls}-root`]: {
         [componentCls]: {
@@ -100,23 +115,20 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           fontSize: token.fontSize,
           lineHeight: token.lineHeight,
           listStyle: 'none',
-          position: 'relative',
-          top: 100,
-          width: 520,
-          maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
+          position: 'absolute',
           margin: '0 auto',
-          borderRadius: token.borderRadius,
           textAlign: 'left',
-          pointerEvents: 'none',
+          pointerEvents: 'auto',
+          backgroundColor: token.colorBgElevated,
 
           '&-wrapper': {
-            backgroundColor: token.colorBgElevated,
-            borderRadius: token.borderRadius,
-            pointerEvents: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
           },
 
           '&-header': {
-            // borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
             display: 'flex',
             alignItems: 'center',
 
@@ -150,9 +162,11 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           },
           '&-content': {
             padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+            flex: 1,
+            overflow: 'auto',
           },
           '&-footer': {
-            // borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
             padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
             textAlign: 'right',
 
@@ -176,26 +190,31 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
   ];
 };
 
-const genModalMotion: GenerateStyle<ModalToken> = token => {
+const genModalMotion: GenerateStyle<DrawerToken> = token => {
   const { componentCls } = token;
 
   return {
     [`${componentCls}-root`]: {
       [`${componentCls}-mask`]: fade.initFadeMotion(token, 'fade', true),
-      [componentCls]: zoom.initZoomMotion(token, 'zoom', true),
+      [componentCls]: [
+        fade.initFadeMotion(token, 'fade-up', true),
+        fade.initFadeMotion(token, 'fade-down', true),
+        fade.initFadeMotion(token, 'fade-left', true),
+        fade.initFadeMotion(token, 'fade-right', true),
+      ],
     },
   };
 };
 
 // ============================== Export ==============================
-const prepareComponentToken: GetDefaultToken<'Modal'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'Drawer'> = () => ({});
 
 export default genStyleHooks(
-  'Modal',
+  'Drawer',
   token => {
-    const modalToken = mergeToken<ModalToken>(token);
+    const modalToken = mergeToken<DrawerToken>(token);
 
-    console.log('genModalMotion(modalToken)', genModalMotion(modalToken));
+    console.log(genModalMotion(modalToken));
     return [genModalStyle(modalToken), genModalMotion(modalToken)];
   },
   prepareComponentToken,

@@ -11,6 +11,7 @@ import { WatermarkProps } from '@/watermark/interface';
 import { SpinProps } from '@/spin/interface';
 import { ModalProps } from '@/modal/interface';
 import { BacktopProps } from '@/backtop/interface';
+import { DrawerProps } from '@/drawer/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -18,6 +19,7 @@ export type Components = {
   Backtop?: BacktopProps;
   Button?: ButtonProps;
   Divider?: DividerProps;
+  Drawer?: DrawerProps;
   Modal?: ModalProps;
   Image?: ImageProps;
   Icon?: IconProps;

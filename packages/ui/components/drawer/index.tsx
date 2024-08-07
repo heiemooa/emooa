@@ -1,10 +1,9 @@
-import React, { useContext, forwardRef, useRef, useState, useCallback, useEffect, ReactElement, useMemo } from 'react';
+import React, { useContext, forwardRef, useRef, useState, useCallback } from 'react';
 import { ConfigContext } from '../config-provider';
-import { ConfirmProps, ModalProps, ModalReturnProps } from './interface';
+import { DrawerProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
-import { isServerRendering } from '@/_utils/dom';
 import useValue from '@/_utils/hooks/useValue';
 import useOverflowHidden from '@/_utils/hooks/useOverflowHidden';
 import { Esc } from '@/_utils/keycode';
@@ -14,44 +13,20 @@ import Portal from '@/portal';
 import EuiCSSTransition from '@/_utils/css-trasition';
 import { IconClose } from '@emooa/icon';
 import FocusLock from 'react-focus-lock';
-import confirm from './confirm';
-import useModal from './useModal';
-import { ModalConfigType, destroyList, setModalConfig } from './config';
 
-type CursorPositionType = { left: number; top: number } | null;
-let cursorPosition: CursorPositionType | null = null;
 let globalDialogIndex = 0;
 
-/**
- * 获取点击的时候，用户的鼠标位置，作为动画起始点
- */
-if (!isServerRendering) {
-  document.documentElement.addEventListener(
-    'click',
-    (e: MouseEvent) => {
-      cursorPosition = {
-        left: e.clientX,
-        top: e.clientY,
-      };
-      // 受控模式下，用户不一定马上打开弹窗，这期间可能出现其他 UI 操作，那这个位置就不可用了。
-      setTimeout(() => {
-        cursorPosition = null;
-      }, 100);
-    },
-    true,
-  );
-}
-
-const defaultProps: ModalProps = {
+const defaultProps: DrawerProps = {
   mask: true,
   maskClosable: true,
   mountOnEnter: true,
   escToExit: true,
   closable: true,
+  placement: 'right',
   getPopupContainer: () => document.body,
 };
 
-const Component = (props: ModalProps, ref) => {
+const Component = (props: DrawerProps, ref) => {
   const { getPrefixCls, components, locale, rtl }: ConfigProviderProps = useContext(ConfigContext);
 
   const {
@@ -68,7 +43,6 @@ const Component = (props: ModalProps, ref) => {
     cancelButtonProps,
     footer,
     confirmLoading,
-    disabledOnPromise,
     mountOnEnter,
     unmountOnExit,
     autoFocus,
@@ -77,18 +51,17 @@ const Component = (props: ModalProps, ref) => {
     escToExit,
     closeIcon,
     closable,
-    center,
+    placement,
+    disabledOnPromise,
     onCancel,
     onOk,
     afterClose,
     afterOpen,
     getPopupContainer,
-    modalRender,
-    isNotice,
     ...rest
-  }: ModalProps & { isNotice?: boolean } = Object.assign({}, defaultProps, components?.Modal, props);
+  }: DrawerProps = Object.assign({}, defaultProps, components?.Drawer, props);
 
-  const prefixCls = getPrefixCls('modal');
+  const prefixCls = getPrefixCls('drawer');
   const rootPrefixCls = getPrefixCls();
 
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
@@ -99,16 +72,14 @@ const Component = (props: ModalProps, ref) => {
     {
       [`${prefixCls}-root-hide`]: !open,
       [`${prefixCls}-no-mask`]: !mask,
+      [`${prefixCls}-${placement}`]: !!placement,
       [`${prefixCls}-rtl`]: rtl,
-      [`${prefixCls}-center`]: center,
     },
     className,
     cssVarCls,
   );
 
   const modalRef = useRef<HTMLDivElement>(null);
-  const cursorPositionRef = useRef<CursorPositionType>(null);
-  const haveOriginTransformOrigin = useRef<boolean>(false);
 
   // 标识是否是处于第一次 open 之前
   const beforeFirstOpen = useRef<boolean>(true);
@@ -184,7 +155,7 @@ const Component = (props: ModalProps, ref) => {
     );
     const okButtonNode = (
       <Button loading={loading} onClick={onConfirmModal} type="primary" {...okButtonProps}>
-        {okText || (isNotice ? locale.Modal.noticeText : locale.Modal.okText)}
+        {okText || locale.Modal.okText}
       </Button>
     );
     const footerContent = isFunction(footer)
@@ -204,7 +175,7 @@ const Component = (props: ModalProps, ref) => {
   };
 
   const element = (
-    <div className={`${prefixCls}-wrapper`} style={styles?.wrapper}>
+    <div className={`${prefixCls}-wrapper`}>
       {title && (
         <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
           <div className={`${prefixCls}-title`} id={`${prefixCls}-${dialogIndex.current}`}>
@@ -212,15 +183,12 @@ const Component = (props: ModalProps, ref) => {
           </div>
         </div>
       )}
-      {((isNotice && children) || !isNotice) && (
-        <div className={classNames(`${prefixCls}-content`, modalClassNames?.content)} style={styles?.content}>
-          {children}
-        </div>
-      )}
+      <div className={classNames(`${prefixCls}-content`, modalClassNames?.content)} style={styles?.content}>
+        {children}
+      </div>
 
       {renderFooter()}
       {closable &&
-        !isNotice &&
         (closeIcon !== undefined ? (
           <span onClick={handlerCancel} className={`${prefixCls}-close-icon`}>
             {closeIcon}
@@ -240,7 +208,6 @@ const Component = (props: ModalProps, ref) => {
 
   const ariaProps = title ? { 'aria-labelledby': `${prefixCls}-${dialogIndex.current}` } : {};
 
-  // 本地环境 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of DraggableCore which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node
   const modalDom = (
     <div
       role="dialog"
@@ -252,6 +219,7 @@ const Component = (props: ModalProps, ref) => {
       {...rest}
     >
       <FocusLock
+        as="span"
         crossFrame={false}
         disabled={!open}
         autoFocus={autoFocus}
@@ -260,22 +228,10 @@ const Component = (props: ModalProps, ref) => {
           onKeyDown: onEscExit,
         }}
       >
-        {isFunction(modalRender) ? modalRender(element) : element}
+        {element}
       </FocusLock>
     </div>
   );
-
-  const setTransformOrigin = (e: HTMLDivElement) => {
-    if (haveOriginTransformOrigin.current) return;
-
-    let transformOrigin = '';
-    if (cursorPositionRef.current) {
-      const eRect = e.getBoundingClientRect();
-      const { left, top } = cursorPositionRef.current;
-      transformOrigin = `${left - eRect.left}px ${top - eRect.top}px`;
-    }
-    e.style.transformOrigin = transformOrigin;
-  };
 
   // mountOnEnter 只在第一次open=true之前生效。
   // 使用 modalRef.current 而不是 mountOnExit 是因为动画结束后，modalRef.current 会变成 null，此时再去销毁dom结点，避免动画问题
@@ -314,21 +270,22 @@ const Component = (props: ModalProps, ref) => {
               in={open}
               timeout={400}
               appear
-              classNames={`${rootPrefixCls}-zoom`}
+              classNames={`${rootPrefixCls}-fade-${
+                {
+                  top: 'down',
+                  bottom: 'up',
+                  left: 'right',
+                  right: 'left',
+                }[placement]
+              }`}
               unmountOnExit={unmountOnExit}
               mountOnEnter={mountOnEnter}
               onEnter={(e: HTMLDivElement) => {
                 if (!e) return;
-                cursorPositionRef.current = cursorPosition;
-                haveOriginTransformOrigin.current = !!e.style.transformOrigin;
-                setTransformOrigin(e);
-
                 modalRef.current = e;
               }}
               onEntered={(e: HTMLDivElement) => {
                 if (!e) return;
-                setTransformOrigin(e);
-                cursorPositionRef.current = null;
                 afterOpen?.();
               }}
               onExit={() => {
@@ -336,7 +293,6 @@ const Component = (props: ModalProps, ref) => {
               }}
               onExited={e => {
                 if (!e) return;
-                setTransformOrigin(e);
                 afterClose?.();
                 inExit.current = false;
                 if (unmountOnExit) {
@@ -352,43 +308,10 @@ const Component = (props: ModalProps, ref) => {
     : null;
 };
 
-const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(Component);
-
-const Modal = ModalComponent as typeof ModalComponent & {
-  confirm: (props: ConfirmProps) => ModalReturnProps;
-  info: (props: ConfirmProps) => ModalReturnProps;
-  success: (props: ConfirmProps) => ModalReturnProps;
-  warning: (props: ConfirmProps) => ModalReturnProps;
-  error: (props: ConfirmProps) => ModalReturnProps;
-  config: (config: ModalConfigType) => void;
-  destroyAll: () => void;
-  useModal: typeof useModal;
-};
-
-['info', 'success', 'warning', 'error'].forEach(type => {
-  Modal[type] = (props: ConfirmProps) => {
-    return confirm({
-      isNotice: true,
-      noticeType: type,
-      ...props,
-    });
-  };
-});
-
-Modal.useModal = useModal;
-Modal.confirm = (props: ConfirmProps): ModalReturnProps => confirm(props);
-Modal.config = setModalConfig;
-Modal.destroyAll = () => {
-  while (destroyList.length) {
-    const close = destroyList.pop();
-    if (close) {
-      close();
-    }
-  }
-};
+const Drawer = forwardRef<HTMLDivElement, DrawerProps>(Component);
 
 if (process.env.NODE_ENV !== 'production') {
-  Modal.displayName = 'Modal';
+  Drawer.displayName = 'Drawer';
 }
 
-export default Modal;
+export default Drawer;
