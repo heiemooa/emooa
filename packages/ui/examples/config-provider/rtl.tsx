@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Space, Image, Button, Divider } from '@emooa/ui';
+import { ConfigProvider, Space, Image, Button, Divider, Modal, Drawer } from '@emooa/ui';
 import { IconDelete, IconLeft, IconMessage, IconRight, IconSettings, IconStar } from '@emooa/icon';
 
 const ButtonGroup = Button.Group;
 
 const App: React.FC = () => {
   const [rtl, setRtl] = useState(true);
+  const [visible, setVisible] = React.useState(false);
+  const [visible1, setVisible1] = React.useState(false);
 
   return (
     <>
@@ -66,7 +68,40 @@ const App: React.FC = () => {
               Delete
             </Button>
           </ButtonGroup>
+
+          <Button onClick={() => setVisible(true)} type="primary">
+            Open Drawer
+          </Button>
         </Space>
+
+        <Drawer
+          title={<div>Drawer Title</div>}
+          open={visible}
+          onOk={() => setVisible(false)}
+          onCancel={() => setVisible(false)}
+        >
+          <p>
+            You can customize modal body text by the current situation. This modal will be closed immediately once you
+            press the OK button.
+          </p>
+          <Button onClick={() => setVisible1(true)} type="primary">
+            Open Modal
+          </Button>
+          <Modal
+            center
+            title="Modal Title"
+            open={visible1}
+            onOk={() => setVisible1(false)}
+            onCancel={() => setVisible1(false)}
+          >
+            <p>
+              You can customize modal body text by the current situation. This modal will be closed immediately once you
+              press the OK button.
+            </p>
+
+            <Image height={200} src="https://api.emooa.com/aimg" />
+          </Modal>
+        </Drawer>
       </ConfigProvider>
     </>
   );

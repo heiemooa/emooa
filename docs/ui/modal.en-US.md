@@ -32,8 +32,6 @@ Open a floating layer on the current page to carry related operations.
 
 ### Modal
 
-### Modal
-
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --: | --- | --- |
 | className | The className of Modal | `string` | - |

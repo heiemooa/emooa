@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from '../../../components';
+import { Modal, Button, Image } from '../../../components';
 import Draggable from 'react-draggable';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
         Open Draggable Modal
       </Button>
       <Modal
+        center
         title={
           <div
             style={{ cursor: 'move' }}
@@ -33,6 +34,7 @@ function App() {
           You can customize modal body text by the current situation. This modal will be closed immediately once you
           press the OK button.
         </p>
+        <Image height={200} src="https://api.emooa.com/aimg" />
       </Modal>
     </div>
   );

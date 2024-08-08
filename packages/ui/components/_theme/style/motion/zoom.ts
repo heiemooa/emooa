@@ -194,12 +194,14 @@ export const initZoomMotion = (
   const motionCls = `${euiCls}-${motionName}`;
   const { inKeyframes, outKeyframes } = zoomMotion[motionName];
 
+  const sameLevelPrefix = sameLevel ? '&' : '';
+
   return [
     initMotion(motionCls, inKeyframes, outKeyframes, token.motions.durationMid, sameLevel),
     {
       [`
-        ${motionCls}-enter,
-        ${motionCls}-appear
+        ${sameLevelPrefix}${motionCls}-enter,
+        ${sameLevelPrefix}${motionCls}-appear
       `]: {
         transform: 'scale(0)',
         opacity: 0,
@@ -210,7 +212,7 @@ export const initZoomMotion = (
         },
       },
 
-      [`${motionCls}-exit`]: {
+      [`${sameLevelPrefix}${motionCls}-exit`]: {
         animationTimingFunction: 'cubic-bezier(0.78, 0.14, 0.15, 0.86)',
       },
     },

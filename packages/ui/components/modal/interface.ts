@@ -6,21 +6,27 @@ import { ButtonProps } from '@/button/interface';
  */
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
   /**
-   * @zh 关闭弹出框的回调
-   * @en Callback when click cancel button
+   * @zh 配置弹窗内置模块的类名
+   * @en The class of the wrapped dom
    */
-  onCancel?: (e?: MouseEvent) => void;
+  classNames?: {
+    header?: string;
+    content?: string;
+    footer?: string;
+    mask?: string;
+    wrapper?: string;
+  };
   /**
-   * @zh 点击确认按钮的回调
-   * @en Callback when click ok button
+   * @zh 配置弹窗内置模块的 style
+   * @en The style of the wrapped dom
    */
-  onOk?: (e?: MouseEvent) => Promise<any> | void;
-  /**
-   * @zh 指定弹出框挂载的父节点
-   * @en Specify the parent node of the Modal
-   * @defaultValue () => document.body
-   */
-  getPopupContainer?: () => HTMLElement;
+  styles?: {
+    header?: CSSProperties;
+    content?: CSSProperties;
+    footer?: CSSProperties;
+    mask?: CSSProperties;
+    wrapper?: CSSProperties;
+  };
   /**
    * @zh 弹出框的标题
    * @en The title of Modal
@@ -37,6 +43,27 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
    * @defaultValue true
    */
   mask?: boolean;
+  /**
+   * @zh 点击蒙层是否可以关闭
+   * @en Whether enable click mask to close Modal.
+   * @defaultValue true
+   */
+  maskClosable?: boolean;
+  /**
+   * @zh 自定义页脚，传入 null 则不显示
+   * @en Custom `footer`. if it is null, the footer will not be displayed.
+   */
+  footer?: ReactNode | ((cancelButtonNode: ReactNode, okButtonNode: ReactNode) => ReactNode);
+  /**
+   * @zh 是否显示右上角的关闭按钮
+   * @en Whether to show the close button in TitleBar
+   */
+  closable?: boolean;
+  /**
+   * @zh 自定义右上角的关闭按钮节点
+   * @en Customize the close icon
+   */
+  closeIcon?: ReactNode;
   /**
    * @zh 确认按钮文案
    * @en The text of `ok` button
@@ -57,37 +84,6 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
    * @en The props of `cancel` button
    */
   cancelButtonProps?: ButtonProps;
-  /**
-   * @zh 自定义页脚，传入 null 则不显示
-   * @en Custom `footer`. if it is null, the footer will not be displayed.
-   */
-  footer?: ReactNode | ((cancelButtonNode: ReactNode, okButtonNode: ReactNode) => ReactNode);
-  /**
-   * @zh 是否显示右上角的关闭按钮
-   * @en Whether to show the close button in TitleBar
-   */
-  closable?: boolean;
-  /**
-   * @zh 自定义右上角的关闭按钮节点
-   * @en Customize the close icon
-   */
-  closeIcon?: ReactNode;
-  /**
-   * @zh 点击蒙层是否可以关闭
-   * @en Whether enable click mask to close Modal.
-   * @defaultValue true
-   */
-  maskClosable?: boolean;
-  /**
-   * @zh 弹框打开之后的回调
-   * @en Callback when Modal opened
-   */
-  afterOpen?: () => void;
-  /**
-   * @zh 弹框关闭之后的回调
-   * @en Callback when Modal closed
-   */
-  afterClose?: () => void;
   /**
    * @zh 确认按钮加载中
    * @en Whether the `ok` button is loading
@@ -111,42 +107,46 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
    */
   escToExit?: boolean;
   /**
-   * @zh 配置弹窗内置模块的类名
-   * @en The class of the wrapped dom
-   */
-  classNames?: {
-    header?: string;
-    content?: string;
-    footer?: string;
-    mask?: string;
-    wrapper?: string;
-  };
-  /**
-   * @zh 配置弹窗内置模块的 style
-   * @en The style of the wrapped dom
-   */
-  styles?: {
-    header?: CSSProperties;
-    content?: CSSProperties;
-    footer?: CSSProperties;
-    mask?: CSSProperties;
-    wrapper?: CSSProperties;
-  };
-  /**
    * @zh 是否默认聚焦第一个可聚焦元素。
    * @en Whether to focus the first focusable element
    * @defaultValue true
    */
   autoFocus?: boolean;
   /**
+   * 是否居中
+   */
+  center?: boolean;
+  /**
+   * @zh 关闭弹出框的回调
+   * @en Callback when click cancel button
+   */
+  onCancel?: (e?: MouseEvent) => void;
+  /**
+   * @zh 点击确认按钮的回调
+   * @en Callback when click ok button
+   */
+  onOk?: (e?: MouseEvent | Event) => Promise<any> | void;
+  /**
+   * @zh 弹框打开之后的回调
+   * @en Callback when Modal opened
+   */
+  afterOpen?: () => void;
+  /**
+   * @zh 弹框关闭之后的回调
+   * @en Callback when Modal closed
+   */
+  afterClose?: () => void;
+  /**
+   * @zh 指定弹出框挂载的父节点
+   * @en Specify the parent node of the Modal
+   * @defaultValue () => document.body
+   */
+  getPopupContainer?: () => HTMLElement;
+  /**
    * @zh 自定义渲染对话框
    * @en Custom the render of Modal
    */
   modalRender?: (modalNode: ReactNode) => ReactNode;
-  /**
-   * 是否居中
-   */
-  center?: boolean;
   /**
    * 在onOk 为 Promise 事件时，并且加载中的时候，取消、close icon、mask 等不可点击
    */

@@ -10,6 +10,9 @@ export type { ButtonProps, ButtonGroupProps } from './button/interface';
 export { default as Divider } from './divider';
 export type { DividerProps } from './divider/interface';
 
+export { default as Drawer } from './drawer';
+export type { DrawerProps } from './drawer/interface';
+
 export { default as Image } from './image';
 export type { ImageProps } from './image/interface';
 

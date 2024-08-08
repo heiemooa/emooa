@@ -17,5 +17,9 @@ const locale: Locale = {
     okText: ' OK',
     cancelText: 'Cancel',
   },
+  Drawer: {
+    okText: ' OK',
+    cancelText: 'Cancel',
+  },
 };
 export default locale;
