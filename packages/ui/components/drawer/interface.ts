@@ -130,7 +130,7 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
    * @zh 关闭弹出框的回调
    * @en Callback when the Cancel button is clicked
    */
-  onCancel?: (e: MouseEvent) => void;
+  onCancel?: (e?: MouseEvent) => void;
   /**
    * @zh 抽屉打开之后的回调
    * @en Callback when drawer is opened

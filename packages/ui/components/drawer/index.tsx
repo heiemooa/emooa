@@ -164,8 +164,8 @@ const Component = (props: DrawerProps, ref) => {
       ? (footer as Function)(cancelButtonNode, okButtonNode)
       : footer || (
           <>
-            {cancelButtonNode}
             {okButtonNode}
+            {cancelButtonNode}
           </>
         );
 
