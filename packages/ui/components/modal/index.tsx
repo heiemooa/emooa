@@ -204,7 +204,7 @@ const Component = (props: ModalProps, ref) => {
   };
 
   const element = (
-    <div className={`${prefixCls}-wrapper`} style={styles?.wrapper}>
+    <div className={classNames(`${prefixCls}-wrapper`, modalClassNames?.wrapper)} style={styles?.wrapper}>
       {title && (
         <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
           <div className={`${prefixCls}-title`} id={`${prefixCls}-${dialogIndex.current}`}>

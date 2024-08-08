@@ -4,49 +4,48 @@ import { Button, Drawer } from '@emooa/ui';
 const App: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDrawerOpen1, setIsDrawerOpen1] = useState(false);
-
-  const showDrawer = () => {
-    setIsDrawerOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsDrawerOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsDrawerOpen(false);
-  };
-
-  const showDrawer1 = () => {
-    setIsDrawerOpen1(true);
-  };
-
-  const handleOk1 = () => {
-    setIsDrawerOpen1(false);
-  };
-
-  const handleCancel1 = () => {
-    setIsDrawerOpen1(false);
-  };
+  const [isDrawerOpen2, setIsDrawerOpen2] = useState(false);
 
   return (
     <>
-      <Button type="primary" onClick={showDrawer}>
+      <Button type="primary" onClick={() => setIsDrawerOpen(true)}>
         Drawer
       </Button>
-      <Drawer title="Title 1" open={isDrawerOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Drawer
+        title="Title 1"
+        open={isDrawerOpen}
+        onOk={() => setIsDrawerOpen(false)}
+        onCancel={() => setIsDrawerOpen(false)}
+      >
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-        <Button type="primary" onClick={showDrawer1}>
+        <Button type="primary" onClick={() => setIsDrawerOpen1(true)}>
           Drawer
         </Button>
-      </Drawer>
-
-      <Drawer title="Title 2" open={isDrawerOpen1} onOk={handleOk1} onCancel={handleCancel1}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Drawer
+          title="Title 2"
+          open={isDrawerOpen1}
+          onOk={() => setIsDrawerOpen1(false)}
+          onCancel={() => setIsDrawerOpen1(false)}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <Button type="primary" onClick={() => setIsDrawerOpen2(true)}>
+            Drawer
+          </Button>
+          <Drawer
+            title="Title 3"
+            open={isDrawerOpen2}
+            onOk={() => setIsDrawerOpen2(false)}
+            onCancel={() => setIsDrawerOpen2(false)}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Drawer>
+        </Drawer>
       </Drawer>
     </>
   );

@@ -14,6 +14,7 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
     content?: string;
     footer?: string;
     mask?: string;
+    wrapper?: string;
   };
   /**
    * @zh 配置弹窗内置模块的 style
@@ -24,6 +25,7 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
     content?: CSSProperties;
     footer?: CSSProperties;
     mask?: CSSProperties;
+    wrapper?: CSSProperties;
   };
   /**
    * @zh 弹出框的标题（设置为 null 时，不显示标题栏）
@@ -144,7 +146,7 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
    * @en Parent node which the drawer should be rendered to.
    * @defaultValue () => document.body
    */
-  getPopupContainer?: () => HTMLElement;
+  getPopupContainer?: () => HTMLElement | null;
 
   /**
    * 在onOk 为 Promise 事件时，并且加载中的时候，取消、close icon、mask 等不可点击

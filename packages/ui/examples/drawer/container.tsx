@@ -15,7 +15,8 @@ const wrapperStyle: React.CSSProperties = {
 
 function App() {
   const [visible, setVisible] = useState(false);
-  const refWrapper = useRef(null);
+  const refWrapper = useRef<HTMLDivElement>(null);
+
   return (
     <div ref={refWrapper} style={wrapperStyle}>
       <Button type="primary" onClick={() => setVisible(true)}>

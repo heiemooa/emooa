@@ -35,7 +35,7 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
             _skip_check_: true,
             value: 0,
           },
-          width: 380,
+          width: 640,
           maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
         },
         [`&${componentCls}-right > ${componentCls}`]: {
@@ -45,7 +45,7 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
             value: 0,
           },
           bottom: 0,
-          width: 380,
+          width: 640,
           maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
         },
         [`&${componentCls}-top > ${componentCls}`]: {
@@ -119,12 +119,13 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
           margin: '0 auto',
           textAlign: 'left',
           pointerEvents: 'auto',
-          backgroundColor: token.colorBgElevated,
 
           '&-wrapper': {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
+            transition: `all ${token.motions.durationMid} ${token.motions.linear}`,
+            backgroundColor: token.colorBgElevated,
           },
 
           '&-header': {
@@ -168,7 +169,6 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
           '&-footer': {
             borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
             padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
-            textAlign: 'right',
 
             [`> ${euiCls}-btn`]: {
               marginLeft: token.marginXS,
