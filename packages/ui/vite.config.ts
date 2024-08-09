@@ -11,4 +11,12 @@ export default defineConfig({
       '@emooa/icon': path.resolve(__dirname, '../icon/esm/index'),
     },
   },
+  server: {
+    proxy: {
+      '^/api': {
+        target: 'https://test-oms.bjpygh.com',
+        changeOrigin: true,
+      },
+    },
+  },
 });

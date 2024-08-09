@@ -7,8 +7,20 @@ import Modal from './containers/Modal';
 import Drawer from './containers/Drawer';
 import APP from './containers/App';
 import Backtop from './containers/Backtop';
+import * as http from './utils';
+
+const instance = http.create();
 
 function App() {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await instance.get('/api/login');
+    console.log(data);
+  };
+
   return (
     <>
       <Drawer />
