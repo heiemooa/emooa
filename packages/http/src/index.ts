@@ -1,19 +1,18 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
-import ErrorModal from './error-modal';
-import validateData from './interceptor/validate-data';
-import validateError from './interceptor/validate-error';
+import ErrorModal from '@/error-modal';
+import validateData from '@/interceptor/validate-data';
+import validateError from '@/interceptor/validate-error';
+import { IMappingOptions } from '@/interface';
+import { DefaultErrorModalProps } from '@/error-modal/context';
+import * as locales from '@/_locale';
 
-const error = new ErrorModal('zh-cn');
+const locale = 'zhCN';
+const values = Object.assign({}, DefaultErrorModalProps, { locale: locales[locale] });
 
 const abortControler = new AbortController();
 
-interface Options {
-  code?: string;
-  ok?: number;
-  message?: string;
-}
-const create = (config?: CreateAxiosDefaults<any>, options?: Options): AxiosInstance => {
-  const _options = Object.assign(
+const create = (config?: CreateAxiosDefaults<any>, options?: IMappingOptions): AxiosInstance => {
+  const _options: IMappingOptions = Object.assign(
     {
       code: 'code',
       ok: 0,
@@ -21,6 +20,10 @@ const create = (config?: CreateAxiosDefaults<any>, options?: Options): AxiosInst
     },
     options,
   );
+
+  console.log('values', values);
+
+  const error = new ErrorModal(values);
 
   const instance: AxiosInstance = axios.create(
     Object.assign(
@@ -33,15 +36,15 @@ const create = (config?: CreateAxiosDefaults<any>, options?: Options): AxiosInst
   );
 
   instance.interceptors.response.use(
-    res => validateData(res, _options),
-    err => validateError(err),
+    res => validateData(res, _options, values),
+    err => validateError(err, values),
   );
 
   instance.interceptors.response.use(
     res => res,
     err => {
       error.show(err);
-      throw err;
+      return Promise.reject(err);
     },
   );
 

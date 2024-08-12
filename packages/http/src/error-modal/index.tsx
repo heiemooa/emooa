@@ -2,10 +2,9 @@ import { IconCopy, IconDown, IconRight } from '@emooa/icon';
 import { Modal } from '@emooa/ui';
 import React from 'react';
 import { useState } from 'react';
-import { DefaultErrorModalProps, ErrorModalContext } from './context';
+import { ErrorModalContext } from './context';
 import { useContext } from 'react';
-import { Locale } from '@/_locale/interface';
-import * as locales from '@/_locale';
+import { IErrorModal } from '@/interface';
 
 const Comp = ({ errorMsg, code, config }) => {
   const { locale } = useContext(ErrorModalContext);
@@ -71,22 +70,20 @@ const Comp = ({ errorMsg, code, config }) => {
 
 class ErrorDialog {
   instance;
-  locale: string;
-  constructor(locale: 'zh-cn' | 'en') {
-    this.locale = locale;
+  values;
+  constructor(values) {
+    this.values = values;
   }
 
-  show({ message, title, code, config }) {
+  show({ message, title, code, config }: IErrorModal) {
     if (this.instance) return;
-
-    const values = Object.assign({}, DefaultErrorModalProps, { locale: locales[this.locale] });
 
     this.instance = Modal.error({
       title,
       style: { top: 140 },
       content: (
-        <ErrorModalContext.Provider value={values}>
-          <Comp code={code} errorMsg={message} config={config} />,
+        <ErrorModalContext.Provider value={this.values}>
+          <Comp code={code} errorMsg={message} config={config} />
         </ErrorModalContext.Provider>
       ),
       onOk: () => {

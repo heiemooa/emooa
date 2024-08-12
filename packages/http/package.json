@@ -40,7 +40,7 @@
     "@emooa/icon": "^0.0.9",
     "@emooa/ui": "^0.0.17",
     "axios": "^1.7.3",
-    "dayjs": "^1.11.12",
+    "lodash.get": "^4.4.2",
     "react": "^18.2.0"
   },
   "publishConfig": {
