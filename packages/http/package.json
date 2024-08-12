@@ -1,0 +1,58 @@
+{
+  "name": "@emooa/http",
+  "version": "0.0.0",
+  "description": "Emooa react ui component",
+  "author": "heiemooa <243973775@qq.com>",
+  "homepage": "https://docs.emooa.com/http",
+  "keywords": [
+    "Emooa",
+    "axios",
+    "ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heiemooa/emooa.git"
+  },
+  "license": "ISC",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
+  "directories": {
+    "lib": "esm",
+    "test": "__tests__"
+  },
+  "files": [
+    "esm",
+    "cjs"
+  ],
+  "scripts": {
+    "test": "jest",
+    "rimraf": "rimraf esm && rimraf cjs",
+    "build": "yarn run rimraf && rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "postcss": "^8.4.33",
+    "rollup": "^4.9.4",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "dependencies": {
+    "@emooa/ui": "^0.0.16",
+    "axios": "^1.7.3",
+    "react": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.css$": "identity-obj-proxy"
+    }
+  }
+}
