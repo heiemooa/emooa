@@ -26,15 +26,15 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
+      // resolve(),
+      // commonjs(),
       typescript({
         sourceMap: false, // 禁用源映射
         outDir: 'esm',
         declaration: true,
         declarationDir: 'esm',
       }),
-      postcss(),
+      // postcss(),
       json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
@@ -52,15 +52,15 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
+      // resolve(),
+      // commonjs(),
       typescript({
         sourceMap: false, // 禁用源映射
         outDir: 'cjs',
         declaration: true,
         declarationDir: 'cjs',
       }),
-      postcss(),
+      // postcss(),
       json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
