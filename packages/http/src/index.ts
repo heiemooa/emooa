@@ -2,7 +2,6 @@ import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import ErrorModal from './error-modal';
 import validateData from './interceptor/validate-data';
 import validateError from './interceptor/validate-error';
-import dayjs from 'dayjs';
 
 const error = new ErrorModal();
 
@@ -18,7 +17,7 @@ const create = (config?: CreateAxiosDefaults<any>, options?: Options): AxiosInst
     {
       code: 'code',
       ok: 0,
-      message: '',
+      message: 'message',
     },
     options,
   );
@@ -41,7 +40,6 @@ const create = (config?: CreateAxiosDefaults<any>, options?: Options): AxiosInst
   instance.interceptors.response.use(
     res => res,
     err => {
-      console.log(dayjs.locale());
       error.show(err);
       throw err;
     },

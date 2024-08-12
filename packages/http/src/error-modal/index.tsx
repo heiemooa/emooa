@@ -2,6 +2,7 @@ import { IconCopy, IconDown, IconRight } from '@emooa/icon';
 import { Modal } from '@emooa/ui';
 import React from 'react';
 import { useState } from 'react';
+import locale from '@/_locale';
 
 const Comp = ({ errorMsg, code, config }) => {
   const [show, setShow] = useState(false);
@@ -13,11 +14,11 @@ const Comp = ({ errorMsg, code, config }) => {
 
   return (
     <div style={{ paddingTop: 20, paddingBottom: 10 }}>
-      <p style={{ marginBottom: 4 }}>{errorMsg}</p>
+      <p style={{ marginBottom: 4, paddingTop: 0 }}>{errorMsg}</p>
       <p style={{ fontSize: 12, color: '#555', marginBottom: 4 }} onClick={() => setShow(!show)}>
         <span
           dangerouslySetInnerHTML={{
-            __html: `错误详情（错误码：<span class="text-primary">${code}</span>)`,
+            __html: locale.detail(code),
           }}
         />
         <span
@@ -35,7 +36,7 @@ const Comp = ({ errorMsg, code, config }) => {
           }}
           onClick={copy}
         >
-          <span>复制</span>
+          <span>{locale.copy}</span>
           <IconCopy style={{ marginLeft: 4 }} />
         </span>
       </p>
@@ -76,7 +77,6 @@ class ErrorDialog {
       onOk: () => {
         this.instance = null;
       },
-      okText: '确定',
     });
   }
 }

@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import locale from '@/_locale';
 
 const JsonParse = str => {
   try {
@@ -12,7 +13,7 @@ export default (response: AxiosResponse, _options) => {
   if (response.data[_options?.code] !== _options.ok) {
     const obj = {
       message: response.data[_options.message],
-      title: '提示',
+      title: locale.title.hint,
       code: response.data[_options.code],
       config: {
         method: response.config.method,

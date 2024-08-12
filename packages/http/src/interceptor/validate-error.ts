@@ -1,3 +1,5 @@
+import locale from '@/_locale';
+
 const JsonParse = str => {
   try {
     const data = JSON.parse(str);
@@ -31,38 +33,39 @@ export default err => {
 
 const getMessage = status => {
   const obj = {
-    title: '提示',
+    title: locale.title.hint,
     message: `Invalid response status code ${status}`,
   };
 
   if (status >= 400 && status < 500) {
+    obj.message = locale.message['4x'];
     switch (status) {
       case 400:
-        // Bad Request
+        // Bad
         break;
       case 401:
         // Unauthorized
-        obj.message = '登录失效，请重新登录！';
+        obj.message = locale.message[401];
         break;
-      case 402:
+      case 403:
+        Request;
         // Forbidden
-        obj.message = '禁止访问！';
+        obj.message = locale.message[403];
         break;
       case 404:
         // Not Found
-        obj.message = '请求地址出错！';
+        obj.message = locale.message[404];
         break;
       default:
-        obj.title = '提示';
-        obj.message = '客户端错误，请稍后再试！';
+        obj.message = locale.message['4x'];
         break;
     }
     return obj;
   }
   if (status >= 500) {
     const obj = {
-      title: '服务错误',
-      message: '服务异常，请稍后再试！',
+      title: locale.title['5x'],
+      message: locale.message['5x'],
     };
     switch (status) {
       case 500:
@@ -70,19 +73,19 @@ const getMessage = status => {
         break;
       case 502:
         // Bad Gateway
-        obj.title = '网关错误';
-        obj.message = '服务异常，系统可能正在部署，请稍后再试！';
+        obj.title = locale.title[502];
+        obj.message = locale.message[502];
         break;
       case 503:
         // Service Unavailable
         break;
       case 504:
         // Gateway Timeout
-        obj.title = '服务超时';
+        obj.title = locale.title[504];
         break;
       default:
-        obj.title = '服务错误';
-        obj.message = '服务异常，请稍后再试';
+        obj.title = locale.title['5x'];
+        obj.message = locale.message['5x'];
         break;
     }
     return obj;
