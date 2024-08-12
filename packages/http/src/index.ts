@@ -3,7 +3,7 @@ import ErrorModal from './error-modal';
 import validateData from './interceptor/validate-data';
 import validateError from './interceptor/validate-error';
 
-const error = new ErrorModal();
+const error = new ErrorModal('zh-cn');
 
 const abortControler = new AbortController();
 

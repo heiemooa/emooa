@@ -2,9 +2,14 @@ import { IconCopy, IconDown, IconRight } from '@emooa/icon';
 import { Modal } from '@emooa/ui';
 import React from 'react';
 import { useState } from 'react';
-import locale from '@/_locale';
+import { DefaultErrorModalProps, ErrorModalContext } from './context';
+import { useContext } from 'react';
+import { Locale } from '@/_locale/interface';
+import * as locales from '@/_locale';
 
 const Comp = ({ errorMsg, code, config }) => {
+  const { locale } = useContext(ErrorModalContext);
+
   const [show, setShow] = useState(false);
   const copy = e => {
     e.stopPropagation();
@@ -63,17 +68,27 @@ const Comp = ({ errorMsg, code, config }) => {
     </div>
   );
 };
+
 class ErrorDialog {
   instance;
-  constructor() {}
+  locale: string;
+  constructor(locale: 'zh-cn' | 'en') {
+    this.locale = locale;
+  }
 
   show({ message, title, code, config }) {
     if (this.instance) return;
 
+    const values = Object.assign({}, DefaultErrorModalProps, { locale: locales[this.locale] });
+
     this.instance = Modal.error({
       title,
       style: { top: 140 },
-      content: <Comp code={code} errorMsg={message} config={config} />,
+      content: (
+        <ErrorModalContext.Provider value={values}>
+          <Comp code={code} errorMsg={message} config={config} />,
+        </ErrorModalContext.Provider>
+      ),
       onOk: () => {
         this.instance = null;
       },
