@@ -12,18 +12,31 @@ const Comp = ({ errorMsg, code, config }) => {
   };
 
   return (
-    <div className="pt-20 pb-10">
-      <p className="mb-4">{errorMsg}</p>
+    <div style={{ paddingTop: 20, paddingBottom: 10 }}>
+      <p style={{ marginBottom: 4 }}>{errorMsg}</p>
       <p style={{ fontSize: 12, color: '#555', marginBottom: 4 }} onClick={() => setShow(!show)}>
         <span
           dangerouslySetInnerHTML={{
-            __html: `错误详情（错误码：<span class="color-primary">${code}</span>)`,
+            __html: `错误详情（错误码：<span class="text-primary">${code}</span>)`,
           }}
         />
-        <span className="cursor-pointer mr-20">{show ? <IconDown /> : <IconRight />}</span>
-        <span className="color-primary cursor-pointer " onClick={copy}>
+        <span
+          style={{
+            cursor: 'pointer',
+            marginRight: 16,
+          }}
+        >
+          {show ? <IconDown /> : <IconRight />}
+        </span>
+        <span
+          className="text-primary"
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={copy}
+        >
           <span>复制</span>
-          <IconCopy />
+          <IconCopy style={{ marginLeft: 4 }} />
         </span>
       </p>
       {show && (
