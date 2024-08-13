@@ -97,6 +97,7 @@ class ErrorDialog {
       onOk: () => {
         this.instance = null;
       },
+      okText: this.locale.ok,
       footer: (cancelButtonNode, okButtonNode) => {
         return [
           <ConfigProvider

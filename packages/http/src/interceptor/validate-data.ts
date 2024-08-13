@@ -1,35 +1,39 @@
 import { AxiosResponse } from 'axios';
-import { ErrorModalProps, ErrorModalOption, MappingOptions } from '@/interface';
-import get from 'lodash.get';
+import { ErrorModalOption, MappingOptions } from '@/interface';
+import { Locale } from '@/_locale/interface';
+import { JsonParse, isObject } from '@/utils';
 
-const JsonParse = str => {
-  try {
-    const data = JSON.parse(str);
-    return data;
-  } catch (e) {
-    return str;
-  }
-};
-export default (response: AxiosResponse, mappingOptions: MappingOptions, locale: ErrorModalProps) => {
-  if (response.data[mappingOptions?.code] !== mappingOptions.ok) {
-    const obj: ErrorModalOption = {
-      message: response.data[mappingOptions.message],
-      title: get(locale, 'locale.title.hint', ''),
-      code: response.data[mappingOptions.code],
-      config: {
-        headers: response.config.headers,
-        method: response.config.method,
-        url: response.config.url,
-        params: response.config.params,
-        body: JsonParse(response.config.data),
-        response: {
-          data: response.data,
-          status: response.status,
-          statusText: response.statusText,
+export default (response: AxiosResponse, mappingOptions: MappingOptions, locale: Locale) => {
+  /**
+   * 一般接口都会定义返回体，如 data = { code, data, message }
+   * 部分接口可能仅仅是为了获取文件数据，因此一般情况下只需要针对 “有结构体的返回数据” 进行判断处理即可。
+   */
+
+  if (isObject(response.data)) {
+    const ignoreError: boolean = response.config['ignoreError'];
+
+    if (response.data[mappingOptions?.code] !== mappingOptions.ok && !ignoreError) {
+      const obj: ErrorModalOption = {
+        message: response.data[mappingOptions.message],
+        title: locale.title.hint,
+        code: response.data[mappingOptions.code],
+        config: {
+          baseURL: response.config.baseURL,
+          headers: response.config.headers,
+          method: response.config.method,
+          url: response.config.url,
+          params: response.config.params,
+          body: JsonParse(response.config.data),
+          response: {
+            data: response.data,
+            status: response.status,
+            statusText: response.statusText,
+          },
         },
-      },
-    };
-    return Promise.reject(obj);
+      };
+      return Promise.reject(obj);
+    }
   }
+
   return response.data;
 };

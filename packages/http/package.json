@@ -40,7 +40,6 @@
     "@emooa/icon": "^0.0.9",
     "@emooa/ui": "^0.0.18",
     "axios": "^1.7.3",
-    "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2",
     "react": "^18.2.0"
   },

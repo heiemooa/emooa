@@ -22,6 +22,7 @@ const locale: Locale = {
     504: 'Service timed out, please try again later!',
   },
   copy: 'Copy',
+  ok: 'OK',
   detail: (code: number | string, color: string) =>
     `Error details (error code: <span style="color: ${color}">${code}</span>)`,
 };

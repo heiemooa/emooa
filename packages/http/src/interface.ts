@@ -6,6 +6,7 @@ export interface ErrorModalOption {
   title: string;
   code: string | number;
   config: {
+    baseURL: string;
     headers: AxiosRequestHeaders;
     method: Method | string;
     url: string;
@@ -35,8 +36,4 @@ export interface Options {
     colorPrimary?: React.CSSProperties['color']; // 主题色
     top?: React.CSSProperties['top']; // 错误弹窗位置
   };
-}
-
-export interface ErrorModalProps {
-  locale: Locale;
 }

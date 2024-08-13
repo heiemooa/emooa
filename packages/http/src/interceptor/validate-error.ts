@@ -1,22 +1,20 @@
-import { ErrorModalProps, ErrorModalOption } from '@/interface';
-import get from 'lodash.get';
+import { Locale } from '@/_locale/interface';
+import { ErrorModalOption } from '@/interface';
+import { JsonParse } from '@/utils';
 
-const JsonParse = str => {
-  try {
-    const data = JSON.parse(str);
-    return data;
-  } catch (e) {
-    return str;
+export default (err, locale: Locale) => {
+  const ignoreError = err.config.ignoreError;
+
+  if (ignoreError) {
+    return err.response.data;
   }
-};
-
-export default (err, locale: ErrorModalProps) => {
-  const { title, message } = getMessage(err.response.status);
+  const { title, message = err.message } = getMessage(locale, err.response.status);
   const obj: ErrorModalOption = {
-    message: get(locale, message, ''),
-    title: get(locale, title, ''),
+    message,
+    title,
     code: err.code,
     config: {
+      baseURL: err.config.baseURL,
       headers: err.config.headers,
       method: err.config.method,
       url: err.config.url,
@@ -32,61 +30,65 @@ export default (err, locale: ErrorModalProps) => {
   return Promise.reject(obj);
 };
 
-const getMessage = status => {
-  const obj = {
-    title: `locale.title.hint`,
-    message: `Invalid response status code ${status}`,
+const getMessage = (locale: Locale, status) => {
+  const obj: { title: string; message?: string } = {
+    title: locale.title.hint,
   };
 
   if (status >= 400 && status < 500) {
-    obj.message = `locale.message['4x']`;
+    obj.message = locale.message['4x'];
     switch (status) {
       case 400:
         // Bad
         break;
       case 401:
         // Unauthorized
-        obj.message = `locale.message[401]`;
+        obj.message = locale.message[401];
         break;
       case 403:
         Request;
         // Forbidden
-        obj.message = `locale.message[403]`;
+        obj.message = locale.message[403];
         break;
       case 404:
         // Not Found
-        obj.message = `locale.message[404]`;
+        obj.message = locale.message[404];
         break;
       default:
-        obj.message = `locale.message['4x']`;
+        obj.message = locale.message['4x'];
         break;
     }
     return obj;
   }
   if (status >= 500) {
-    const obj = {
-      title: `locale.title['5x']`,
-      message: `locale.message['5x']`,
+    const obj: { title: string; message?: string } = {
+      title: locale.title['5x'],
+      message: locale.message['5x'],
     };
     switch (status) {
       case 500:
         // Internal Server Error
+        obj.title = locale.title[500];
+        obj.message = locale.message[500];
         break;
       case 502:
         // Bad Gateway
-        obj.title = `locale.title[502]`;
-        obj.message = `locale.message[502]`;
+        obj.title = locale.title[502];
+        obj.message = locale.message[502];
         break;
       case 503:
         // Service Unavailable
+        obj.title = locale.title[503];
+        obj.message = locale.message[503];
         break;
       case 504:
         // Gateway Timeout
-        obj.title = `locale.title[504]`;
+        obj.title = locale.title[504];
+        obj.message = locale.message[504];
         break;
       default:
-        obj.title = `locale.title['5x']`;
-        obj.message = `locale.message['5x']`;
+        obj.title = locale.title['5x'];
+        obj.message = locale.message['5x'];
         break;
     }
     return obj;

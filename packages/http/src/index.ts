@@ -2,8 +2,10 @@ import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import ErrorModal from '@/error-modal';
 import validateData from '@/interceptor/validate-data';
 import validateError from '@/interceptor/validate-error';
-import { ErrorModalProps, Options } from '@/interface';
+import { Options } from '@/interface';
+import merge from 'lodash.merge';
 import * as locales from '@/_locale';
+import { Locale } from './_locale/interface';
 
 export const abortControler = new AbortController();
 
@@ -22,13 +24,13 @@ export default class Http {
   };
 
   constructor(options?: Options) {
-    this.options = Object.assign(this.options, options);
+    this.options = merge({}, this.options, options);
   }
 
   create(config?: CreateAxiosDefaults<any>) {
-    const values: ErrorModalProps = { locale: locales[this.options.locale] };
+    const locale: Locale = locales[this.options.locale];
 
-    const error = new ErrorModal(values.locale, this.options.theme);
+    const error = new ErrorModal(locale, this.options.theme);
 
     const instance: AxiosInstance = axios.create(
       Object.assign(
@@ -41,8 +43,8 @@ export default class Http {
     );
 
     instance.interceptors.response.use(
-      res => validateData(res, this.options.mapping, values),
-      err => validateError(err, values),
+      res => validateData(res, this.options.mapping, locale),
+      err => validateError(err, locale),
     );
 
     instance.interceptors.response.use(
