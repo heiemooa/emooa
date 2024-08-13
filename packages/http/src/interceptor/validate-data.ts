@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ErrorModalOption, MappingOptions } from '@/interface';
 import { Locale } from '@/_locale/interface';
-import { JsonParse, isObject } from '@/utils';
+import { JsonParse, isArray, isObject } from '@/utils';
 
 export default (response: AxiosResponse, mappingOptions: MappingOptions, locale: Locale) => {
   /**
@@ -13,8 +13,18 @@ export default (response: AxiosResponse, mappingOptions: MappingOptions, locale:
     const ignoreError: boolean = response.config['ignoreError'];
 
     if (response.data[mappingOptions?.code] !== mappingOptions.ok && !ignoreError) {
+      let message = '';
+      if (typeof mappingOptions.message === 'string') {
+        message = response.data[mappingOptions.message];
+      } else if (isArray(mappingOptions.message)) {
+        while (!message && mappingOptions.message.length) {
+          const head = mappingOptions.message.shift();
+          message = response.data[head];
+        }
+      }
+
       const obj: ErrorModalOption = {
-        message: response.data[mappingOptions.message],
+        message,
         title: locale.title.hint,
         code: response.data[mappingOptions.code],
         config: {

@@ -7,7 +7,9 @@ import merge from 'lodash.merge';
 import * as locales from '@/_locale';
 import { Locale } from './_locale/interface';
 
-export const abortControler = new AbortController();
+const abortControler = new AbortController();
+
+export { Options, abortControler };
 
 export default class Http {
   options: Options = {
@@ -17,9 +19,11 @@ export default class Http {
       ok: 0,
       message: 'message',
     },
-    theme: {
-      colorPrimary: '#1677ff',
-      top: 140,
+    colorPrimary: '#1677ff',
+    modal: {
+      onOk: () => {
+        console.log('ok');
+      },
     },
   };
 
@@ -30,7 +34,7 @@ export default class Http {
   create(config?: CreateAxiosDefaults<any>) {
     const locale: Locale = locales[this.options.locale];
 
-    const error = new ErrorModal(locale, this.options.theme);
+    const error = new ErrorModal(locale, this.options.colorPrimary, this.options.modal);
 
     const instance: AxiosInstance = axios.create(
       Object.assign(

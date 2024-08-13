@@ -1,5 +1,5 @@
 import { IconCopy, IconDown, IconRight } from '@emooa/icon';
-import { ConfigProvider, Modal } from '@emooa/ui';
+import { ConfigProvider, Modal, ModalProps } from '@emooa/ui';
 import React from 'react';
 import { useState } from 'react';
 import { ErrorModalOption, Options } from '@/interface';
@@ -78,24 +78,29 @@ const Comp = ({
 };
 
 class ErrorDialog {
-  instance;
-  locale: Locale;
-  theme: Options['theme'];
-  constructor(locale: Locale, theme: Options['theme']) {
+  private instance;
+  private locale: Locale;
+  private colorPrimary: React.CSSProperties['color'];
+  private modal: ModalProps = {};
+  constructor(locale: Locale, colorPrimary: React.CSSProperties['color'], modal: ModalProps) {
     this.locale = locale;
-    this.theme = theme;
+    this.colorPrimary = colorPrimary;
+    this.modal = modal;
   }
 
   show({ message, title, code, config }: ErrorModalOption) {
     if (this.instance) return;
-    const { colorPrimary, ...style } = this.theme;
+
+    const { onOk, ...rest } = this.modal;
 
     this.instance = Modal.error({
       title,
-      style,
-      content: <Comp code={code} message={message} config={config} colorPrimary={colorPrimary} locale={this.locale} />,
-      onOk: () => {
+      content: (
+        <Comp code={code} message={message} config={config} colorPrimary={this.colorPrimary} locale={this.locale} />
+      ),
+      onOk: e => {
         this.instance = null;
+        onOk?.(e);
       },
       okText: this.locale.ok,
       footer: (cancelButtonNode, okButtonNode) => {
@@ -103,7 +108,7 @@ class ErrorDialog {
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary,
+                colorPrimary: this.colorPrimary,
               },
             }}
           >
@@ -111,6 +116,7 @@ class ErrorDialog {
           </ConfigProvider>,
         ];
       },
+      ...rest,
     });
   }
 }
