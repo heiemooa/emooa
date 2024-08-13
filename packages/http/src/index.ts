@@ -2,56 +2,57 @@ import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import ErrorModal from '@/error-modal';
 import validateData from '@/interceptor/validate-data';
 import validateError from '@/interceptor/validate-error';
-import { IMappingOptions } from '@/interface';
-import { DefaultErrorModalProps } from '@/error-modal/context';
+import { ErrorModalProps, Options } from '@/interface';
 import * as locales from '@/_locale';
 
-const locale = 'zhCN';
-const values = Object.assign({}, DefaultErrorModalProps, { locale: locales[locale] });
+export const abortControler = new AbortController();
 
-const abortControler = new AbortController();
-
-const create = (config?: CreateAxiosDefaults<any>, options?: IMappingOptions): AxiosInstance => {
-  const _options: IMappingOptions = Object.assign(
-    {
+export default class Http {
+  options: Options = {
+    locale: 'zhCN',
+    mapping: {
       code: 'code',
       ok: 0,
       message: 'message',
     },
-    options,
-  );
-
-  console.log('values', values);
-
-  const error = new ErrorModal(values);
-
-  const instance: AxiosInstance = axios.create(
-    Object.assign(
-      {
-        baseURL: '/',
-        signal: abortControler.signal,
-      },
-      config,
-    ),
-  );
-
-  instance.interceptors.response.use(
-    res => validateData(res, _options, values),
-    err => validateError(err, values),
-  );
-
-  instance.interceptors.response.use(
-    res => res,
-    err => {
-      error.show(err);
-      return Promise.reject(err);
+    theme: {
+      colorPrimary: '#1677ff',
+      top: 140,
     },
-  );
+  };
 
-  return instance;
-};
+  constructor(options?: Options) {
+    this.options = Object.assign(this.options, options);
+  }
 
-export default {
-  create,
-  abortControler,
-};
+  create(config?: CreateAxiosDefaults<any>) {
+    const values: ErrorModalProps = { locale: locales[this.options.locale] };
+
+    const error = new ErrorModal(values.locale, this.options.theme);
+
+    const instance: AxiosInstance = axios.create(
+      Object.assign(
+        {
+          baseURL: '/',
+          signal: abortControler.signal,
+        },
+        config,
+      ),
+    );
+
+    instance.interceptors.response.use(
+      res => validateData(res, this.options.mapping, values),
+      err => validateError(err, values),
+    );
+
+    instance.interceptors.response.use(
+      res => res,
+      err => {
+        error.show(err);
+        return Promise.reject(err);
+      },
+    );
+
+    return instance;
+  }
+}

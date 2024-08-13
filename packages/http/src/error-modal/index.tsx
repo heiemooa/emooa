@@ -1,14 +1,23 @@
 import { IconCopy, IconDown, IconRight } from '@emooa/icon';
-import { Modal } from '@emooa/ui';
+import { ConfigProvider, Modal } from '@emooa/ui';
 import React from 'react';
 import { useState } from 'react';
-import { ErrorModalContext } from './context';
-import { useContext } from 'react';
-import { IErrorModal } from '@/interface';
+import { ErrorModalOption, Options } from '@/interface';
+import { Locale } from '@/_locale/interface';
 
-const Comp = ({ errorMsg, code, config }) => {
-  const { locale } = useContext(ErrorModalContext);
-
+const Comp = ({
+  message,
+  code,
+  config,
+  colorPrimary,
+  locale,
+}: {
+  message: string;
+  code: string | number;
+  colorPrimary: string;
+  locale: Locale;
+  config: ErrorModalOption['config'];
+}) => {
   const [show, setShow] = useState(false);
   const copy = e => {
     e.stopPropagation();
@@ -17,12 +26,12 @@ const Comp = ({ errorMsg, code, config }) => {
   };
 
   return (
-    <div style={{ paddingTop: 20, paddingBottom: 10 }}>
-      <p style={{ marginBottom: 4, paddingTop: 0 }}>{errorMsg}</p>
+    <>
+      <p style={{ marginBottom: 4, paddingTop: 0 }}>{message}</p>
       <p style={{ fontSize: 12, color: '#555', marginBottom: 4 }} onClick={() => setShow(!show)}>
         <span
           dangerouslySetInnerHTML={{
-            __html: locale.detail(code),
+            __html: locale.detail(code, colorPrimary),
           }}
         />
         <span
@@ -34,9 +43,9 @@ const Comp = ({ errorMsg, code, config }) => {
           {show ? <IconDown /> : <IconRight />}
         </span>
         <span
-          className="text-primary"
           style={{
             cursor: 'pointer',
+            color: colorPrimary,
           }}
           onClick={copy}
         >
@@ -64,30 +73,42 @@ const Comp = ({ errorMsg, code, config }) => {
           </code>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
 class ErrorDialog {
   instance;
-  values;
-  constructor(values) {
-    this.values = values;
+  locale: Locale;
+  theme: Options['theme'];
+  constructor(locale: Locale, theme: Options['theme']) {
+    this.locale = locale;
+    this.theme = theme;
   }
 
-  show({ message, title, code, config }: IErrorModal) {
+  show({ message, title, code, config }: ErrorModalOption) {
     if (this.instance) return;
+    const { colorPrimary, ...style } = this.theme;
 
     this.instance = Modal.error({
       title,
-      style: { top: 140 },
-      content: (
-        <ErrorModalContext.Provider value={this.values}>
-          <Comp code={code} errorMsg={message} config={config} />
-        </ErrorModalContext.Provider>
-      ),
+      style,
+      content: <Comp code={code} message={message} config={config} colorPrimary={colorPrimary} locale={this.locale} />,
       onOk: () => {
         this.instance = null;
+      },
+      footer: (cancelButtonNode, okButtonNode) => {
+        return [
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary,
+              },
+            }}
+          >
+            {okButtonNode}
+          </ConfigProvider>,
+        ];
       },
     });
   }

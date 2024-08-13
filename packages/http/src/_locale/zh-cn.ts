@@ -22,6 +22,6 @@ const locale: Locale = {
     504: '服务超时，请稍后再试！',
   },
   copy: '复制',
-  detail: (code: number | string) => `错误详情（错误码：<span class="text-primary">${code}</span>)`,
+  detail: (code: number | string, color) => `错误详情（错误码：<span style="color: ${color}">${code}</span>)`,
 };
 export default locale;

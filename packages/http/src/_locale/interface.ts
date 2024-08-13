@@ -20,5 +20,5 @@ export interface Locale {
     504: string;
   };
   copy: string;
-  detail: (code: number | string) => string;
+  detail: (code: number | string, color: string) => string;
 }

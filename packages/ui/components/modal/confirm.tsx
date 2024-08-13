@@ -47,7 +47,7 @@ export const normalizeConfig = (_config: ConfirmProps): ConfirmProps => {
     }
   }
 
-  if (_config.isNotice) {
+  if (_config.isNotice && !_config.footer) {
     _config.footer = (cancelButtonNode, okButtonNode) => <>{okButtonNode}</>;
   }
 

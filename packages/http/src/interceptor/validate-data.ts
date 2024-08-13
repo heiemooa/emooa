@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ErrorModalProps, IErrorModal, IMappingOptions } from '@/interface';
+import { ErrorModalProps, ErrorModalOption, MappingOptions } from '@/interface';
 import get from 'lodash.get';
 
 const JsonParse = str => {
@@ -10,11 +10,11 @@ const JsonParse = str => {
     return str;
   }
 };
-export default (response: AxiosResponse, mappingOptions: IMappingOptions, values: ErrorModalProps) => {
+export default (response: AxiosResponse, mappingOptions: MappingOptions, locale: ErrorModalProps) => {
   if (response.data[mappingOptions?.code] !== mappingOptions.ok) {
-    const obj: IErrorModal = {
+    const obj: ErrorModalOption = {
       message: response.data[mappingOptions.message],
-      title: get(values, 'locale.title.hint', ''),
+      title: get(locale, 'locale.title.hint', ''),
       code: response.data[mappingOptions.code],
       config: {
         headers: response.config.headers,

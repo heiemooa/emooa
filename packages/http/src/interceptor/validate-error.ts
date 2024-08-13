@@ -1,4 +1,4 @@
-import { ErrorModalProps, IErrorModal } from '@/interface';
+import { ErrorModalProps, ErrorModalOption } from '@/interface';
 import get from 'lodash.get';
 
 const JsonParse = str => {
@@ -10,11 +10,11 @@ const JsonParse = str => {
   }
 };
 
-export default (err, values: ErrorModalProps) => {
+export default (err, locale: ErrorModalProps) => {
   const { title, message } = getMessage(err.response.status);
-  const obj: IErrorModal = {
-    message: get(values, message, ''),
-    title: get(values, title, ''),
+  const obj: ErrorModalOption = {
+    message: get(locale, message, ''),
+    title: get(locale, title, ''),
     code: err.code,
     config: {
       headers: err.config.headers,
