@@ -1,15 +1,15 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
-import ErrorModal from '@/error-modal';
-import validateData from '@/interceptor/validate-data';
-import validateError from '@/interceptor/validate-error';
-import { Options } from '@/interface';
+import ErrorModal from './error-modal';
+import validateData from './interceptor/validate-data';
+import validateError from './interceptor/validate-error';
 import merge from 'lodash.merge';
-import * as locales from '@/_locale';
+import * as locales from './_locale';
 import { Locale } from './_locale/interface';
+import { Options } from './interface';
 
-const abortControler = new AbortController();
+export type { Options } from './interface';
 
-export { Options, abortControler };
+export const abortControler = new AbortController();
 
 export default class Http {
   options: Options = {
@@ -20,11 +20,7 @@ export default class Http {
       message: 'message',
     },
     colorPrimary: '#1677ff',
-    modal: {
-      onOk: () => {
-        console.log('ok');
-      },
-    },
+    modal: {},
   };
 
   constructor(options?: Options) {

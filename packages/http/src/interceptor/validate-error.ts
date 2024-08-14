@@ -1,6 +1,6 @@
-import { Locale } from '@/_locale/interface';
-import { ErrorModalOption } from '@/interface';
-import { JsonParse } from '@/utils';
+import { Locale } from '../_locale/interface';
+import { ErrorModalOption } from '../interface';
+import { JsonParse } from '../utils';
 
 export default (err, locale: Locale) => {
   const ignoreError = err.config.ignoreError;
