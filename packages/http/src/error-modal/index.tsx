@@ -28,7 +28,7 @@ const Comp = ({
   return (
     <>
       <p style={{ marginBottom: 4, paddingTop: 0 }}>{message}</p>
-      <p style={{ fontSize: 12, color: '#555', marginBottom: 4 }} onClick={() => setShow(!show)}>
+      <p style={{ fontSize: 12, color: '#555', marginBottom: 8 }} onClick={() => setShow(!show)}>
         <span
           dangerouslySetInnerHTML={{
             __html: locale.detail(code, colorPrimary),
