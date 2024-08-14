@@ -6,4 +6,4 @@ group:
 toc: content
 ---
 
-<embed src="../../packages/ui/README.cn-ZH.md"></embed>
+<embed src="../../packages/ui/README.zh-CN.md"></embed>

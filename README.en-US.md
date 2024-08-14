@@ -20,12 +20,20 @@ yarn add @emooa/logger
 yarn add @emooa/logger
 ```
 
-#### [@emooa/icon](/docs/ui/icon.zh-CN.md)
+#### [@emooa/icon](/docs/ui/icon.en-US.md)
 
 `@emooa/icon` includes a large number of `iconfont` icons and supports dynamically customized icon libraries.
 
 ```
 yarn add @emooa/icon
+```
+
+#### [@emooa/icon](/docs/plugin/http.en-US.md)
+
+`@emooa/http` is a network request library based on secondary encapsulation of [Axios](https://axios-http.com/), which provides unified error pop-up window processing and works in browsers. It combines back-end interface services to provide error alerts for the return body, and supports customized return status codes, internationalization, and prompt content.
+
+```
+yarn add @emooa/http
 ```
 
 ## Development Process

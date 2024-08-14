@@ -4,7 +4,7 @@ const axios = new Http({
   mapping: {
     code: 'status',
     ok: 200,
-    message: 'msg',
+    message: ['notice', 'msg'],
   },
 });
 

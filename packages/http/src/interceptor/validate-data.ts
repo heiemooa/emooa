@@ -18,8 +18,9 @@ export default (response: AxiosResponse, mappingOptions: MappingOptions, locale:
       if (typeof mappingOptions.message === 'string') {
         message = response.data[mappingOptions.message];
       } else if (isArray(mappingOptions.message)) {
-        while (!message && mappingOptions.message.length) {
-          const head = mappingOptions.message.shift();
+        const messages = [...mappingOptions.message];
+        while (!message && messages.length) {
+          const head = messages.shift();
           message = response.data[head];
         }
       }

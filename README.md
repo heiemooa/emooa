@@ -28,6 +28,14 @@ yarn add @emooa/ui
 yarn add @emooa/icon
 ```
 
+#### [@emooa/icon](/docs/plugin/http.zh-CN.md)
+
+`@emooa/http` 是一个基于 [Axios](https://axios-http.com/) 二次封装的网络请求库，提供统一的错误弹窗处理，作用于浏览器中。它结合后端接口服务，针对返回体进行错误告警，支持自定义返回的状态码、国际化，以及提示内容等。
+
+```
+yarn add @emooa/http
+```
+
 ## 开发流程
 
 #### 1. 创建新的模块
