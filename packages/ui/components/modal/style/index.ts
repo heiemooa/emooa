@@ -195,7 +195,6 @@ export default genStyleHooks(
   token => {
     const modalToken = mergeToken<ModalToken>(token);
 
-    console.log('genModalMotion(modalToken)', genModalMotion(modalToken));
     return [genModalStyle(modalToken), genModalMotion(modalToken)];
   },
   prepareComponentToken,

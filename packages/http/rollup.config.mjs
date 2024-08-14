@@ -1,8 +1,5 @@
 import { readFileSync } from 'node:fs';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 import path from 'path';
 
@@ -26,15 +23,12 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
       typescript({
         sourceMap: false, // 禁用源映射
         outDir: 'esm',
         declaration: true,
         declarationDir: 'esm',
       }),
-      postcss(),
       json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
@@ -52,15 +46,12 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
       typescript({
         sourceMap: false, // 禁用源映射
         outDir: 'cjs',
         declaration: true,
         declarationDir: 'cjs',
       }),
-      postcss(),
       json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
