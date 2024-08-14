@@ -1,6 +1,6 @@
 {
   "name": "@emooa/http",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1",
   "description": "Emooa axios http",
   "author": "heiemooa <243973775@qq.com>",
   "homepage": "https://docs.emooa.com/http",
@@ -37,8 +37,8 @@
     "rollup": "^4.9.4"
   },
   "dependencies": {
-    "@emooa/icon": "^0.0.9",
-    "@emooa/ui": "^0.0.18",
+    "@emooa/icon": "^0.0.10",
+    "@emooa/ui": "^0.0.19",
     "axios": "^1.7.3",
     "lodash.merge": "^4.6.2",
     "react": "^18.2.0"
