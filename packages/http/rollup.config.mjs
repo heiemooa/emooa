@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs';
 import typescript from '@rollup/plugin-typescript';
-import json from '@rollup/plugin-json';
 import path from 'path';
 
 const pkg = JSON.parse(readFileSync('./package.json'));
@@ -29,7 +28,6 @@ export default [
         declaration: true,
         declarationDir: 'esm',
       }),
-      json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
   },
@@ -52,7 +50,6 @@ export default [
         declaration: true,
         declarationDir: 'cjs',
       }),
-      json(),
     ],
     external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
   },

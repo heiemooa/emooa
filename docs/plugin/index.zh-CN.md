@@ -8,4 +8,5 @@ toc: content
 
 # 插件总览
 
-- [@emooa/logger](https://www.npmjs.com/package/@emooa/logger)
+- [@emooa/http](https://www.npmjs.com/package/@emooa/http) 网络请求
+- [@emooa/logger](https://www.npmjs.com/package/@emooa/logger) 日志
