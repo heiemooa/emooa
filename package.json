@@ -18,7 +18,10 @@
     "type": "git",
     "url": "https://github.com/heiemooa/emooa.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
     "@types/node": "^20.10.3",
     "dumi": "^2.2.16",
