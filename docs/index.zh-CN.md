@@ -1,11 +1,11 @@
 ---
-title: Emooa - 灵活丰富的UI组件库和各类依赖库
+title: Emooa - 灵活丰富的 UI 组件库和常见插件
 hero:
   title: Emooa
-  description: 灵活丰富的UI组件库和各类依赖库
+  description: 灵活丰富的 UI 组件库和常见插件
   actions:
     - text: 开始使用
       link: /ui
-    - text: 依赖库
+    - text: 插件库
       link: /plugin
 ---

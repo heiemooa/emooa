@@ -16,7 +16,7 @@ export default defineConfig({
     editLink: 'main',
     showLineNum: true,
   },
-  title: `${name} - 灵活丰富的UI组件库和各类依赖库`,
+  title: `${name} - 灵活丰富的 UI 组件库和常见插件`,
   locales: [
     { id: 'zh-CN', name: '中文' },
     { id: 'en-US', name: 'English' },

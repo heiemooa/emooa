@@ -84,7 +84,7 @@ function confirm(config: ConfirmProps) {
 
   let modalConfig: ConfirmProps = {
     ...config,
-    style: Object.assign({}, { width: 400 }, config.style),
+    style: Object.assign({}, { width: 420 }, config.style),
     styles: merge({}, { content: { paddingBlock: 0, marginLeft: '1.625rem' } }, config.styles),
     open: false,
   };

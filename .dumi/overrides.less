@@ -40,7 +40,7 @@
       background-color: rgba(248, 248, 248, 0.4);
 
       .dumi-default-navbar > li:not(:last-child) {
-        margin-inline-end: 24px;
+        margin-inline: 24px;
       }
       .dumi-default-navbar > li > a.active::after {
         position: absolute;
@@ -73,7 +73,7 @@
   }
 
   .dumi-default-doc-layout-mobile-bar {
-    top: 60px;
+    top: 64px;
   }
 
   .dumi-default-sidebar {
@@ -116,5 +116,8 @@
 @media only screen and (max-width: 960px) {
   .dumi-default-doc-layout > main > .dumi-default-doc-layout-toc-wrapper {
     display: none;
+  }
+  .dumi-default-hero-title > span {
+    font-size: 100px !important;
   }
 }

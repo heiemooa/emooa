@@ -26,7 +26,8 @@ demo:
 ```json
 {
   "code": 0,
-  "message": "success"
+  "message": "success",
+  ...
 }
 ```
 
