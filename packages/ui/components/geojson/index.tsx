@@ -323,8 +323,8 @@ const GeoJSON = forwardRef<HTMLCanvasElement, GeoJSONProps>((props, pref) => {
     const displayWidth = canvas.clientWidth;
     const displayHeight = canvas.clientHeight;
     // 将 Canvas 的分辨率设置为实际显示大小
-    canvas.width = displayWidth;
-    canvas.height = displayHeight;
+    canvas.width = displayWidth || Number(props.width);
+    canvas.height = displayHeight || Number(props.height);
     const width = canvas.width;
     const height = canvas.height;
 
