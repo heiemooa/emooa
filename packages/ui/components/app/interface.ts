@@ -1,3 +1,4 @@
+import { MessageHookReturnType } from '@/message/interface';
 import { ModalHookReturnType } from '@/modal/interface';
 import { CSSProperties, ComponentType, ProviderProps, ReactNode } from 'react';
 
@@ -11,6 +12,7 @@ export interface AppConfig {
 
 export interface useAppProps {
   modal: ModalHookReturnType;
+  message: MessageHookReturnType;
 }
 
 export interface AppProps<P = AnyObject> {

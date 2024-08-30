@@ -2,30 +2,12 @@ import React, { useContext } from 'react';
 import { App, Button, Space } from '@emooa/ui';
 
 const MyPage: React.FC = () => {
-  const { modal, message } = App.useApp();
+  const { message } = App.useApp();
 
   const values = useContext(App.Context);
 
-  const showModal = () => {
-    modal.info({
-      title: 'This is a message',
-      content: `Current component: ${values.name}`,
-    });
-  };
-
   return (
     <Space>
-      <Button
-        type="primary"
-        onClick={() => {
-          modal.info({
-            title: 'This is a modal',
-            content: `Current component: ${values.name}`,
-          });
-        }}
-      >
-        Context Modal
-      </Button>
       <Button
         type="primary"
         onClick={() => {
@@ -35,7 +17,7 @@ const MyPage: React.FC = () => {
           });
         }}
       >
-        Context Message
+        useApp Message
       </Button>
     </Space>
   );

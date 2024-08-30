@@ -3,6 +3,7 @@ import type { ComponentToken as ButtonComponentToken } from '../../button/style'
 import type { ComponentToken as BacktopComponentToken } from '../../backtop/style';
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
 import type { ComponentToken as DrawerComponentToken } from '../../drawer/style';
+import type { ComponentToken as MessageComponentToken } from '../../message/style';
 import type { ComponentToken as ModalComponentToken } from '../../modal/style';
 import type { ComponentToken as IconComponentToken } from '../../icon/style';
 import type { ComponentToken as SpaceComponentToken } from '../../space/style';
@@ -17,6 +18,7 @@ export interface ComponentTokenMap {
   Button?: ButtonComponentToken;
   Drawer?: DrawerComponentToken;
   Divider?: DividerComponentToken;
+  Message?: MessageComponentToken;
   Modal?: ModalComponentToken;
   Icon?: IconComponentToken;
   Spin?: SpinComponentToken;

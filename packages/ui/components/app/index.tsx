@@ -1,6 +1,7 @@
 import React, { Context, useContext, useMemo } from 'react';
 import classNames from 'classnames';
-import Modal from '../modal';
+import Modal from '@/modal';
+import Message from '@/message';
 import AppContext, { AppConfigContext } from './context';
 import useStyle from './style';
 import { ConfigProviderProps } from '@/config-provider/interface';
@@ -16,12 +17,14 @@ const Component: React.FC<AppProps> = props => {
   const appConfig = useContext<AppConfig>(AppConfigContext);
 
   const [ModalApi, ModalContextHolder] = Modal.useModal();
+  const [MessageApi, MessageContextHolder] = Message.useMessage();
 
   const memoizedContextValue = useMemo<useAppProps>(
     () => ({
       modal: ModalApi,
+      message: MessageApi,
     }),
-    [ModalApi],
+    [ModalApi, MessageApi],
   );
 
   const appConfigContextValue = useMemo<AppConfig>(() => {
@@ -39,6 +42,7 @@ const Component: React.FC<AppProps> = props => {
       <AppConfigContext.Provider value={appConfigContextValue}>
         <Component {...(component === false ? undefined : rootProps)}>
           {ModalContextHolder}
+          {MessageContextHolder}
           {children}
         </Component>
       </AppConfigContext.Provider>

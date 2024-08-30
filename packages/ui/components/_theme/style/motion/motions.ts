@@ -31,7 +31,8 @@ export const initMotion = (
       animationPlayState: 'paused',
     },
 
-    [`${sameLevelPrefix}${motionCls}-exit`]: {
+    [`
+      ${sameLevelPrefix}${motionCls}-exit`]: {
       ...initMotionCommonLeave(duration),
       animationPlayState: 'paused',
     },
@@ -44,7 +45,8 @@ export const initMotion = (
       animationPlayState: 'running',
     },
 
-    [`${sameLevelPrefix}${motionCls}-exit${motionCls}-exit-active`]: {
+    [`
+      ${sameLevelPrefix}${motionCls}-exit${motionCls}-exit-active`]: {
       animationName: outKeyframes,
       animationPlayState: 'running',
       pointerEvents: 'none',
