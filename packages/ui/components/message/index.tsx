@@ -1,4 +1,12 @@
-import React, { ReactElement, forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
+import React, {
+  ReactElement,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { ConfigContext } from '../config-provider';
 import { ConfigMessageProps, MessageHookReturnType, MessageProps, MessageType } from './interface';
 import classNames from 'classnames';
@@ -6,7 +14,7 @@ import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
 import EuiCSSTransition from '@/_utils/css-trasition';
 import { TransitionGroup } from 'react-transition-group';
-import { map, head, isUndefined, isNumber } from 'lodash';
+import { map, head, isUndefined, isNumber, isEmpty } from 'lodash';
 import Notice from '@/_class/notice';
 import ReactDOM from 'react-dom/client';
 import useNotice from '@/_class/notification';
@@ -43,7 +51,7 @@ const defaultProps: MessageProps = {};
 
 const Component = (props: MessageProps, ref) => {
   const { prefixCls: rootPrefixCls, getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
-  const { notices, position, add, update, remove } = useNotice();
+  const { notices, position, add, update, remove, clear } = useNotice();
 
   const { closable: _closable, ...rest }: MessageProps = Object.assign({}, defaultProps, components?.Message, props);
 
@@ -66,7 +74,7 @@ const Component = (props: MessageProps, ref) => {
     () => {
       return {
         add: _add,
-        clear: _clear,
+        clear,
         remove: _remove,
         update,
         notices: noticesRef,
@@ -93,12 +101,6 @@ const Component = (props: MessageProps, ref) => {
       }
       return add(noticeprops);
     }
-  };
-
-  const _clear = () => {
-    Object.values(messageInstance).forEach(({ instance }) => {
-      instance?.clear();
-    });
   };
 
   const _remove = (id: string) => {
@@ -229,11 +231,12 @@ function addInstance(noticeProps: MessageProps & { type: keyof typeof MessageTyp
 
 const Message = MessageComponent as typeof MessageComponent &
   MessageHookReturnType & {
+    clear: () => void;
     config: (options: ConfigMessageProps) => void;
     useMessage: typeof useMessage;
   };
 
-Object.values(MessageType).forEach((type: keyof typeof MessageType) => {
+Object.keys(MessageType).forEach((type: keyof typeof MessageType) => {
   Message[type] = (noticeProps: MessageProps | string) => {
     const props = typeof noticeProps === 'string' ? { content: noticeProps } : noticeProps;
     return addInstance({
@@ -242,6 +245,12 @@ Object.values(MessageType).forEach((type: keyof typeof MessageType) => {
     });
   };
 });
+
+Message.clear = () => {
+  Object.values(messageInstance).forEach(({ instance }) => {
+    instance?.clear();
+  });
+};
 
 Message.config = (options: ConfigMessageProps) => {
   if (isNumber(options.maxCount)) {

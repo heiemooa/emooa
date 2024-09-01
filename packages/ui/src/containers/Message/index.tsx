@@ -1,13 +1,22 @@
-import React, { createContext } from 'react';
-import { Message, Button, Space, ConfigProvider, MessageProps } from '../../../components';
+import React from 'react';
+import { Message, Button } from '../../../components';
 
 function updateMessage() {
-  const a = Message.loading({
-    id: 'need_update',
+  Message.loading({
     content: 'Will update after 2 seconds...',
+    duration: 0,
   });
+  Message.loading({
+    content: 'Will update after 2 seconds...',
+    duration: 0,
+  });
+  Message.loading({
+    content: 'Will update after 2 seconds...',
+    duration: 0,
+  });
+
   setTimeout(() => {
-    a();
+    Message.clear();
   }, 2000);
 }
 

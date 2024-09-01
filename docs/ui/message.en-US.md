@@ -54,8 +54,9 @@ Usage
 - `Message.warning(config: MessageProps | string)`
 - `Message.error(config: MessageProps | string)`
 - `Message.loading(config: MessageProps | string)`
+- `Message.clear()`
 
-### Global Message Set
+### Message.config Setting
 
 `Message.config(Options)`
 

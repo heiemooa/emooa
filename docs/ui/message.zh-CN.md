@@ -54,8 +54,9 @@ demo:
 - `Message.warning(config: MessageProps | string)`
 - `Message.error(config: MessageProps | string)`
 - `Message.loading(config: MessageProps | string)`
+- `Message.clear()`
 
-### 全局设置
+### Message.config 配置
 
 `Message.config(Options)`
 

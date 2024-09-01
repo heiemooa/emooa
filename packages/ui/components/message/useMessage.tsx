@@ -82,7 +82,7 @@ function useMessage(props: Omit<ConfigMessageProps, 'getContainer'> = {}): [Mess
     },
   };
 
-  Object.values(MessageType).forEach((type: keyof typeof MessageType) => {
+  Object.keys(MessageType).forEach((type: keyof typeof MessageType) => {
     messageFuncs[type] = (config: MessageProps | string) => {
       const _config: MessageProps = typeof config === 'string' ? { content: config } : config;
       return addNotice({

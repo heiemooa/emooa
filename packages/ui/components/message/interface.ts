@@ -69,7 +69,7 @@ export type ConfigMessageProps = {
   closable?: boolean;
 };
 
-type messageHookFunction = (config: MessageProps | string) => Function;
+type messageHookFunction = (config: MessageProps | string) => void;
 
 export type MessageHookReturnType = {
   -readonly [key in keyof typeof MessageType]: messageHookFunction;
