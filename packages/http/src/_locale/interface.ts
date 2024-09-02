@@ -20,6 +20,7 @@ export interface Locale {
     504: string;
   };
   copy: string;
+  copy_success: string;
   ok: string;
   detail: (code: number | string, color: string) => string;
 }

@@ -22,6 +22,7 @@ const locale: Locale = {
     504: '服务超时，请稍后再试！',
   },
   copy: '复制',
+  copy_success: '复制成功！',
   ok: '确定',
   detail: (code: number | string, color) => `错误详情（错误码：<span style="color: ${color}">${code}</span>)`,
 };

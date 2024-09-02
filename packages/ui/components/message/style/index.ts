@@ -17,12 +17,13 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
       [`${componentCls}-wrapper`]: {
         width: '100%',
         position: 'fixed',
-        zIndex: token.zIndexPopupBase,
+        zIndex: token.zIndexPopupBase + 20,
         padding: '0 10px',
         textAlign: 'center',
         pointerEvents: 'none',
         boxSizing: 'border-box',
         left: '0',
+        color: token.colorText,
 
         '&-top': {
           top: token.marginXXL,

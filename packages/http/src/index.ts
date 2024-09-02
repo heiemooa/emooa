@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
-import ErrorModal from './error-modal';
+import errorFunc from './error-modal';
 import validateData from './interceptor/validate-data';
 import validateError from './interceptor/validate-error';
 import merge from 'lodash.merge';
@@ -30,7 +30,7 @@ export default class Http {
   create(config?: CreateAxiosDefaults<any>) {
     const locale: Locale = locales[this.options.locale];
 
-    const error = new ErrorModal(locale, this.options.colorPrimary, this.options.modal);
+    const error = errorFunc(this.options);
 
     const instance: AxiosInstance = axios.create(
       Object.assign(
@@ -50,7 +50,7 @@ export default class Http {
     instance.interceptors.response.use(
       res => res,
       err => {
-        error.show(err);
+        error(err);
         return Promise.reject(err);
       },
     );
