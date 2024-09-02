@@ -12,6 +12,7 @@ import { SpinProps } from '@/spin/interface';
 import { ModalProps } from '@/modal/interface';
 import { BacktopProps } from '@/backtop/interface';
 import { DrawerProps } from '@/drawer/interface';
+import { MessageProps } from '@/message/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -20,6 +21,7 @@ export type Components = {
   Button?: ButtonProps;
   Divider?: DividerProps;
   Drawer?: DrawerProps;
+  Message?: MessageProps;
   Modal?: ModalProps;
   Image?: ImageProps;
   Icon?: IconProps;

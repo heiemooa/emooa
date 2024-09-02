@@ -6,9 +6,9 @@ export default (err, locale: Locale) => {
   const ignoreError = err.config.ignoreError;
 
   if (ignoreError) {
-    return err.response.data;
+    return err.response?.data;
   }
-  const { title, message = err.message } = getMessage(locale, err.response.status);
+  const { title, message = err.message } = getMessage(locale, err.response?.status);
   const obj: ErrorModalOption = {
     message,
     title,
@@ -20,11 +20,13 @@ export default (err, locale: Locale) => {
       url: err.config.url,
       params: err.config.params,
       body: JsonParse(err.config.data),
-      response: {
-        data: err.response.data,
-        status: err.response.status,
-        statusText: err.response.statusText,
-      },
+      response: err.response
+        ? {
+            data: err.response.data,
+            status: err.response.status,
+            statusText: err.response.statusText,
+          }
+        : undefined,
     },
   };
   return Promise.reject(obj);

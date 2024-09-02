@@ -1,6 +1,6 @@
-import React, { useContext, forwardRef, useRef, useState, useCallback, useEffect, ReactElement, useMemo } from 'react';
+import React, { useContext, forwardRef, useRef, useCallback } from 'react';
 import { ConfigContext } from '../config-provider';
-import { ConfirmProps, ModalProps, ModalReturnProps } from './interface';
+import { ConfirmProps, ModalHookReturnType, ModalProps, ModalReturnProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
@@ -354,18 +354,14 @@ const Component = (props: ModalProps, ref) => {
 
 const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(Component);
 
-const Modal = ModalComponent as typeof ModalComponent & {
-  confirm: (props: ConfirmProps) => ModalReturnProps;
-  info: (props: ConfirmProps) => ModalReturnProps;
-  success: (props: ConfirmProps) => ModalReturnProps;
-  warning: (props: ConfirmProps) => ModalReturnProps;
-  error: (props: ConfirmProps) => ModalReturnProps;
-  config: (config: ModalConfigType) => void;
-  destroyAll: () => void;
-  useModal: typeof useModal;
-};
+const Modal = ModalComponent as typeof ModalComponent &
+  ModalHookReturnType & {
+    config: (config: ModalConfigType) => void;
+    destroyAll: () => void;
+    useModal: typeof useModal;
+  };
 
-['info', 'success', 'warning', 'error'].forEach(type => {
+['info', 'success', 'warning', 'error'].forEach((type: keyof Omit<ModalHookReturnType, 'confirm'>) => {
   Modal[type] = (props: ConfirmProps) => {
     return confirm({
       isNotice: true,
@@ -377,7 +373,7 @@ const Modal = ModalComponent as typeof ModalComponent & {
 
 Modal.useModal = useModal;
 Modal.confirm = (props: ConfirmProps): ModalReturnProps => confirm(props);
-Modal.config = setModalConfig;
+Modal.config = setModalConfig; // 目前没有具体的功能使用，本质是为了添加一些 Modal 的全局配置
 Modal.destroyAll = () => {
   while (destroyList.length) {
     const close = destroyList.pop();

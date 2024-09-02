@@ -1,26 +1,17 @@
 import React, { ReactElement } from 'react';
 import Modal from './index';
-import { destroyList, getConfigProviderProps } from './config';
+import { destroyList, getConfigProviderProps, getModalConfig } from './config';
 import { IconCheckCircleFill, IconCloseCircleFill, IconExclamationCircleFill, IconInfoCircleFill } from '@emooa/icon';
 import ConfigProvider from '@/config-provider';
 import { ConfirmProps } from './interface';
-import ReactDOM from 'react-dom/client';
 import omit from '@/_utils/omit';
 import { merge } from 'lodash';
+import { render as ReactDOMRender } from '@/_utils/react-dom';
 
-const ReactDOMRender = (app: ReactElement, container: Element | DocumentFragment) => {
-  const root = ReactDOM.createRoot(container);
-
-  root.render(app);
-
-  root._unmount = function () {
-    setTimeout(() => {
-      root?.unmount?.();
-    });
-  };
-  return root;
-};
-
+function ConfirmModal(props: ConfirmProps) {
+  const config = getModalConfig();
+  return <Modal {...Object.assign(config, props)}>{props.content}</Modal>;
+}
 // 如果是消息提示型弹出框，那么只有确认按钮
 export const normalizeConfig = (_config: ConfirmProps): ConfirmProps => {
   let icon = _config.icon;
@@ -72,7 +63,9 @@ function confirm(config: ConfirmProps) {
   function render(props: ConfirmProps) {
     const dom = (
       <ConfigProvider {...configProviderProps}>
-        <Modal {...omit(props, ['noticeType', 'content'])}>{props.content}</Modal>
+        <ConfirmModal {...omit(props, ['noticeType'])} onCancel={onCancel}>
+          {props.content}
+        </ConfirmModal>
       </ConfigProvider>
     );
     if (root) {

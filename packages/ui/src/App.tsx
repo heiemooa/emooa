@@ -7,11 +7,13 @@ import Modal from './containers/Modal';
 import Drawer from './containers/Drawer';
 import APP from './containers/App';
 import Backtop from './containers/Backtop';
+import Message from './containers/Message';
+import Provider from './containers/Provider';
 
 function App() {
   return (
     <>
-      <Drawer />
+      <Message />
     </>
   );
 }

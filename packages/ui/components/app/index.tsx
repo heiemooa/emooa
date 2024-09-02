@@ -1,6 +1,7 @@
 import React, { Context, useContext, useMemo } from 'react';
 import classNames from 'classnames';
-import Modal from '../modal';
+import Modal from '@/modal';
+import Message from '@/message';
 import AppContext, { AppConfigContext } from './context';
 import useStyle from './style';
 import { ConfigProviderProps } from '@/config-provider/interface';
@@ -8,25 +9,30 @@ import { ConfigContext } from '@/config-provider';
 import { AppConfig, AppProps, useAppProps } from './interface';
 
 const Component: React.FC<AppProps> = props => {
-  const { children, className, style, values, component = 'div' } = props;
+  const { children, className, style, message, component = 'div' } = props;
   const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
   const prefixCls = getPrefixCls('app');
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
   const customClassName = classNames(hashId, prefixCls, className, cssVarCls);
   const appConfig = useContext<AppConfig>(AppConfigContext);
 
+  const appConfigContextValue = useMemo<AppConfig>(
+    () => ({
+      message: { ...appConfig.message, ...message },
+    }),
+    [message, appConfig.message],
+  );
+
   const [ModalApi, ModalContextHolder] = Modal.useModal();
+  const [MessageApi, MessageContextHolder] = Message.useMessage(appConfigContextValue.message);
 
   const memoizedContextValue = useMemo<useAppProps>(
     () => ({
       modal: ModalApi,
+      message: MessageApi,
     }),
-    [ModalApi],
+    [ModalApi, MessageApi],
   );
-
-  const appConfigContextValue = useMemo<AppConfig>(() => {
-    return Object.assign({}, appConfig, values);
-  }, [values, appConfig]);
 
   const Component = component === false ? React.Fragment : component;
   const rootProps: AppProps = {
@@ -39,6 +45,7 @@ const Component: React.FC<AppProps> = props => {
       <AppConfigContext.Provider value={appConfigContextValue}>
         <Component {...(component === false ? undefined : rootProps)}>
           {ModalContextHolder}
+          {MessageContextHolder}
           {children}
         </Component>
       </AppConfigContext.Provider>

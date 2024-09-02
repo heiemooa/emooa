@@ -1,33 +1,38 @@
-import { IconCopy, IconDown, IconRight } from '@emooa/icon';
-import { ConfigProvider, Modal } from '@emooa/ui';
-import React from 'react';
+import { IconCloseCircleFill, IconCopy, IconDown, IconInfoCircleFill, IconRight } from '@emooa/icon';
+import { ConfigProvider, Modal, App, ModalProps } from '@emooa/ui';
+import { render as ReactDOMRender } from '@emooa/ui/esm/_utils/react-dom';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { ErrorModalOption, Options } from '../interface';
 import { Locale } from '../_locale/interface';
+import * as locales from '../_locale';
+import { ConfigContext } from '@emooa/ui/esm/config-provider/context';
 
 const Comp = ({
-  message,
+  msg,
   code,
   config,
-  colorPrimary,
   locale,
 }: {
-  message: string;
+  msg: string;
   code: string | number;
-  colorPrimary: string;
   locale: Locale;
   config: ErrorModalOption['config'];
 }) => {
+  const { message } = App.useApp();
   const [show, setShow] = useState(false);
   const copy = e => {
     e.stopPropagation();
     navigator.clipboard.writeText(JSON.stringify(config, null, 2));
-    // message.success(formatMessage({ id: 'common.copy.successful' }));
+    message.success(locale.copy_success);
   };
+  const { theme } = useContext(ConfigContext);
+
+  const colorPrimary = theme?.token?.colorPrimary || '#1677ff';
 
   return (
     <>
-      <p style={{ marginBottom: 4, paddingTop: 0 }}>{message}</p>
+      <p style={{ marginBottom: 4, paddingTop: 0 }}>{msg}</p>
       <p style={{ fontSize: 12, color: '#555', marginBottom: 8 }} onClick={() => setShow(!show)}>
         <span
           dangerouslySetInnerHTML={{
@@ -77,79 +82,111 @@ const Comp = ({
   );
 };
 
-class ErrorDialog {
-  private instance;
-  private locale: Locale;
-  private colorPrimary: React.CSSProperties['color'];
-  private modal: Options['modal'];
-  constructor(locale: Locale, colorPrimary: React.CSSProperties['color'], modal: Options['modal'] = {}) {
-    this.locale = locale;
-    this.colorPrimary = colorPrimary;
-    this.modal = modal;
-  }
+export default (options: Options) => {
+  const { locale: _locale, colorPrimary, modal } = options;
 
-  show({ message, title, code, config }: ErrorModalOption) {
-    if (this.instance) return;
+  let root;
+  const div = document.createElement('div');
 
-    const { onOk, content, info, ...rest } = this.modal;
-
-    if (info?.[code]) {
-      const { onOk: onOkInfo, ...restInfo } = info[code];
-      this.instance = Modal.info({
-        title: this.locale.title.hint,
-        autoFocus: false,
-        content: info[code].content || message,
-        onOk: e => {
-          this.instance = null;
-          onOkInfo?.(e);
-        },
-        okText: this.locale.ok,
-        footer: (cancelButtonNode, okButtonNode) => {
-          return [
-            <ConfigProvider
-              key={1}
-              theme={{
-                token: {
-                  colorPrimary: this.colorPrimary,
-                },
-              }}
-            >
-              {okButtonNode}
-            </ConfigProvider>,
-          ];
-        },
-        ...restInfo,
-      });
+  function render(props) {
+    const { content, ...rest } = props;
+    const dom = (
+      <ConfigProvider theme={{ token: { colorPrimary } }}>
+        <Modal {...rest}>
+          <App>{content}</App>
+        </Modal>
+      </ConfigProvider>
+    );
+    if (root) {
+      root.render(dom);
     } else {
-      this.instance = Modal.error({
-        title,
-        autoFocus: false,
-        content: content || (
-          <Comp code={code} message={message} config={config} colorPrimary={this.colorPrimary} locale={this.locale} />
-        ),
-        onOk: e => {
-          this.instance = null;
-          onOk?.(e);
-        },
-        okText: this.locale.ok,
-        footer: (cancelButtonNode, okButtonNode) => {
-          return [
-            <ConfigProvider
-              key={1}
-              theme={{
-                token: {
-                  colorPrimary: this.colorPrimary,
-                },
-              }}
-            >
-              {okButtonNode}
-            </ConfigProvider>,
-          ];
-        },
-        ...rest,
-      });
+      root = ReactDOMRender(dom, div);
     }
   }
-}
 
-export default ErrorDialog;
+  function destroy() {
+    root = root?._unmount();
+
+    if (div.parentNode) {
+      div.parentNode.removeChild(div);
+    }
+    root = null;
+  }
+
+  return ({ message, title, code, config }) => {
+    if (root) return;
+
+    const locale: Locale = locales[_locale];
+
+    const { onOk, content, info, style, styles, ...rest } = modal;
+
+    const modalConfig: ModalProps = {
+      open: true,
+      style: Object.assign({}, { width: 420 }, style),
+      styles: Object.assign({}, { content: { paddingBlock: 0, marginLeft: '1.625rem' } }, styles),
+      autoFocus: false,
+      closeIcon: false,
+    };
+
+    function close() {
+      modalConfig.open = false;
+      modalConfig.afterClose = () => {
+        destroy();
+      };
+      render(modalConfig);
+    }
+
+    if (info?.[code]) {
+      const { onOk: onOkInfo, style: styleInfo, styles: stylesInfo, ...restInfo } = info[code];
+      render(
+        Object.assign(
+          modalConfig,
+          {
+            title: (
+              <span>
+                <IconInfoCircleFill />
+                {locale.title.hint}
+              </span>
+            ),
+            style: Object.assign({}, modalConfig.style, styleInfo),
+            styles: Object.assign({}, modalConfig.styles, stylesInfo),
+            content: info[code].content || message,
+            onOk: e => {
+              onOkInfo?.(e);
+              close();
+            },
+            okText: locale.ok,
+            footer: (cancelButtonNode, okButtonNode) => {
+              return [React.cloneElement(okButtonNode, { key: 1 })];
+            },
+          },
+          restInfo,
+        ),
+      );
+    } else {
+      render(
+        Object.assign(
+          modalConfig,
+          {
+            title: (
+              <span>
+                <IconCloseCircleFill />
+                {title}
+              </span>
+            ),
+            content: content || <Comp code={code} msg={message} config={config} locale={locale} />,
+            onOk: e => {
+              onOk?.(e);
+              close();
+            },
+            okText: locale.ok,
+            footer: (cancelButtonNode, okButtonNode) => {
+              return [React.cloneElement(okButtonNode, { key: 1 })];
+            },
+          },
+          rest,
+        ),
+      );
+    }
+  };
+};

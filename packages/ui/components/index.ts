@@ -16,6 +16,9 @@ export type { DrawerProps } from './drawer/interface';
 export { default as Image } from './image';
 export type { ImageProps } from './image/interface';
 
+export { default as Message } from './message';
+export type { MessageProps } from './message/interface';
+
 export { default as Modal } from './modal';
 export type { ModalProps } from './modal/interface';
 
