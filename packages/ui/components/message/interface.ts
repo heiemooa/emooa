@@ -72,5 +72,5 @@ export type ConfigMessageProps = {
 type messageHookFunction = (config: MessageProps | string) => void;
 
 export type MessageHookReturnType = {
-  -readonly [key in keyof typeof MessageType]: messageHookFunction;
+  -readonly [key in Exclude<keyof typeof MessageType, number>]: messageHookFunction;
 };

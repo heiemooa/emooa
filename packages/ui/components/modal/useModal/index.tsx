@@ -1,7 +1,7 @@
 import React, { createRef, useRef, ReactElement } from 'react';
 import HookModal, { HookModalRef } from './hookModal';
 import { normalizeConfig } from '../confirm';
-import { ConfirmProps, ModalHookReturnType } from '../interface';
+import { ConfirmProps, ModalHookReturnType, ModalReturnProps } from '../interface';
 import { destroyList } from '../config';
 import ContextHolderElement, { HolderRef } from '@/_utils/contextHolder';
 
@@ -55,9 +55,21 @@ function useModal(): [ModalHookReturnType, ReactElement] {
         ...config,
       });
     },
+    info: function (config: ConfirmProps): ModalReturnProps {
+      throw new Error('Function not implemented.');
+    },
+    success: function (config: ConfirmProps): ModalReturnProps {
+      throw new Error('Function not implemented.');
+    },
+    warning: function (config: ConfirmProps): ModalReturnProps {
+      throw new Error('Function not implemented.');
+    },
+    error: function (config: ConfirmProps): ModalReturnProps {
+      throw new Error('Function not implemented.');
+    },
   };
 
-  ['info', 'success', 'warning', 'error'].forEach(type => {
+  ['info', 'success', 'warning', 'error'].forEach((type: keyof Omit<ModalHookReturnType, 'confirm'>) => {
     modalFuncs[type] = (config: ConfirmProps) => {
       return addNewModal({
         ...config,

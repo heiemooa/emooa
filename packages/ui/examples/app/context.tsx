@@ -6,13 +6,6 @@ const MyPage: React.FC = () => {
 
   const values = useContext(App.Context);
 
-  const showModal = () => {
-    modal.info({
-      title: 'This is a message',
-      content: `Current component: ${values.name}`,
-    });
-  };
-
   return (
     <Space>
       <Button
@@ -20,7 +13,7 @@ const MyPage: React.FC = () => {
         onClick={() => {
           modal.info({
             title: 'This is a modal',
-            content: `Current component: ${values.name}`,
+            content: `Current duration: ${values.message.duration}`,
           });
         }}
       >
@@ -31,7 +24,7 @@ const MyPage: React.FC = () => {
         onClick={() => {
           message.info({
             title: 'This is a message',
-            content: `Current component: ${values.name}`,
+            content: `Current duration: ${values.message.duration}`,
           });
         }}
       >
@@ -42,7 +35,7 @@ const MyPage: React.FC = () => {
 };
 
 export default () => (
-  <App values={{ name: 'Emooa App' }}>
+  <App message={{ duration: 1000 }}>
     <MyPage />
   </App>
 );

@@ -1,31 +1,30 @@
-import React from 'react';
-import { Message, Button } from '../../../components';
+import React, { useContext } from 'react';
+import { App, Button, Space } from '../../../components';
 
-function updateMessage() {
-  Message.loading({
-    content: 'Will update after 2 seconds...',
-    duration: 0,
-  });
-  Message.loading({
-    content: 'Will update after 2 seconds...',
-    duration: 0,
-  });
-  Message.loading({
-    content: 'Will update after 2 seconds...',
-    duration: 0,
-  });
+const MyPage: React.FC = () => {
+  const { message } = App.useApp();
 
-  setTimeout(() => {
-    Message.clear();
-  }, 2000);
-}
+  const values = useContext(App.Context);
 
-const App = () => {
   return (
-    <Button onClick={updateMessage} type="primary">
-      Update message
-    </Button>
+    <Space>
+      <Button
+        type="primary"
+        onClick={() => {
+          message.info({
+            title: 'This is a message',
+            content: `Current component: ${values.message.duration}`,
+          });
+        }}
+      >
+        useApp Message
+      </Button>
+    </Space>
   );
 };
 
-export default App;
+export default () => (
+  <App message={{ duration: 1000 }}>
+    <MyPage />
+  </App>
+);

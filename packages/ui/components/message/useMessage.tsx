@@ -82,15 +82,17 @@ function useMessage(props: Omit<ConfigMessageProps, 'getContainer'> = {}): [Mess
     },
   };
 
-  Object.keys(MessageType).forEach((type: keyof typeof MessageType) => {
-    messageFuncs[type] = (config: MessageProps | string) => {
-      const _config: MessageProps = typeof config === 'string' ? { content: config } : config;
-      return addNotice({
-        ..._config,
-        type,
-      });
-    };
-  });
+  Object.keys(MessageType)
+    .filter(type => isNaN(Number(type)))
+    .forEach((type: keyof typeof MessageType) => {
+      messageFuncs[type] = (config: MessageProps | string) => {
+        const _config: MessageProps = typeof config === 'string' ? { content: config } : config;
+        return addNotice({
+          ..._config,
+          type,
+        });
+      };
+    });
 
   return [messageFuncs, holderEle];
 }

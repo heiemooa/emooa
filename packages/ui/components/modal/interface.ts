@@ -153,7 +153,10 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   disabledOnPromise?: boolean;
 }
 
-export type ModalReturnProps = { update: Function; close: Function };
+export type ModalReturnProps = {
+  close: () => void;
+  update: (config: ConfirmProps) => void;
+};
 
 export interface ConfirmProps extends ModalProps {
   content?: ReactNode;
@@ -162,15 +165,14 @@ export interface ConfirmProps extends ModalProps {
   noticeType?: string;
 }
 
-type modalHookFunction = (config: ConfirmProps) => {
-  close: () => void;
-  update: (config: ConfirmProps) => void;
-};
+export enum ModalType {
+  'confirm',
+  'info',
+  'success',
+  'warning',
+  'error',
+}
 
 export type ModalHookReturnType = {
-  confirm?: modalHookFunction;
-  info?: modalHookFunction;
-  success?: modalHookFunction;
-  warning?: modalHookFunction;
-  error?: modalHookFunction;
+  -readonly [key in Exclude<keyof typeof ModalType, number>]: (config: ConfirmProps) => ModalReturnProps;
 };

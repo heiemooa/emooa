@@ -1,12 +1,4 @@
-import React, {
-  ReactElement,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import { ConfigContext } from '../config-provider';
 import { ConfigMessageProps, MessageHookReturnType, MessageProps, MessageType } from './interface';
 import classNames from 'classnames';
@@ -16,9 +8,9 @@ import EuiCSSTransition from '@/_utils/css-trasition';
 import { TransitionGroup } from 'react-transition-group';
 import { map, head, isUndefined, isNumber, isEmpty } from 'lodash';
 import Notice from '@/_class/notice';
-import ReactDOM from 'react-dom/client';
 import useNotice from '@/_class/notification';
 import useMessage from './useMessage';
+import { render } from '@/_utils/react-dom';
 
 type NoticeType = ReturnType<typeof useNotice>;
 
@@ -28,19 +20,6 @@ let messageInstance: {
     pending?: Promise<null>;
   };
 } = {};
-
-let render = (app: ReactElement, container: Element | DocumentFragment) => {
-  const root = ReactDOM.createRoot(container);
-
-  root.render(app);
-
-  root._unmount = function () {
-    setTimeout(() => {
-      root?.unmount?.();
-    });
-  };
-  return root;
-};
 
 let maxCount;
 let duration;
@@ -236,15 +215,17 @@ const Message = MessageComponent as typeof MessageComponent &
     useMessage: typeof useMessage;
   };
 
-Object.keys(MessageType).forEach((type: keyof typeof MessageType) => {
-  Message[type] = (noticeProps: MessageProps | string) => {
-    const props = typeof noticeProps === 'string' ? { content: noticeProps } : noticeProps;
-    return addInstance({
-      type,
-      ...props,
-    });
-  };
-});
+Object.keys(MessageType)
+  .filter(type => isNaN(Number(type)))
+  .forEach((type: keyof typeof MessageType) => {
+    Message[type] = (noticeProps: MessageProps | string) => {
+      const props = typeof noticeProps === 'string' ? { content: noticeProps } : noticeProps;
+      return addInstance({
+        type,
+        ...props,
+      });
+    };
+  });
 
 Message.clear = () => {
   Object.values(messageInstance).forEach(({ instance }) => {

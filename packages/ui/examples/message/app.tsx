@@ -13,7 +13,7 @@ const MyPage: React.FC = () => {
         onClick={() => {
           message.info({
             title: 'This is a message',
-            content: `Current component: ${values.name}`,
+            content: `Current duration: ${values.message.duration}`,
           });
         }}
       >
@@ -24,7 +24,7 @@ const MyPage: React.FC = () => {
 };
 
 export default () => (
-  <App values={{ name: 'Emooa App' }}>
+  <App message={{ duration: 1000 }}>
     <MyPage />
   </App>
 );

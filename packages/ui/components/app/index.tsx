@@ -9,15 +9,22 @@ import { ConfigContext } from '@/config-provider';
 import { AppConfig, AppProps, useAppProps } from './interface';
 
 const Component: React.FC<AppProps> = props => {
-  const { children, className, style, values, component = 'div' } = props;
+  const { children, className, style, message, component = 'div' } = props;
   const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
   const prefixCls = getPrefixCls('app');
   const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
   const customClassName = classNames(hashId, prefixCls, className, cssVarCls);
   const appConfig = useContext<AppConfig>(AppConfigContext);
 
+  const appConfigContextValue = useMemo<AppConfig>(
+    () => ({
+      message: { ...appConfig.message, ...message },
+    }),
+    [message, appConfig.message],
+  );
+
   const [ModalApi, ModalContextHolder] = Modal.useModal();
-  const [MessageApi, MessageContextHolder] = Message.useMessage();
+  const [MessageApi, MessageContextHolder] = Message.useMessage(appConfigContextValue.message);
 
   const memoizedContextValue = useMemo<useAppProps>(
     () => ({
@@ -26,10 +33,6 @@ const Component: React.FC<AppProps> = props => {
     }),
     [ModalApi, MessageApi],
   );
-
-  const appConfigContextValue = useMemo<AppConfig>(() => {
-    return Object.assign({}, appConfig, values);
-  }, [values, appConfig]);
 
   const Component = component === false ? React.Fragment : component;
   const rootProps: AppProps = {
