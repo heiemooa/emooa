@@ -118,7 +118,7 @@ export default (options: Options) => {
 
     const locale: Locale = locales[_locale];
 
-    const { onOk, content, info, style, styles, ...rest } = modal;
+    const { onOk, info, style, styles, ...rest } = modal;
 
     const modalConfig: ModalProps = {
       open: true,
@@ -150,7 +150,7 @@ export default (options: Options) => {
             ),
             style: Object.assign({}, modalConfig.style, styleInfo),
             styles: Object.assign({}, modalConfig.styles, stylesInfo),
-            content: info[code].content || message,
+            content: message,
             onOk: e => {
               onOkInfo?.(e);
               close();
@@ -174,7 +174,7 @@ export default (options: Options) => {
                 {title}
               </span>
             ),
-            content: content || <Comp code={code} msg={message} config={config} locale={locale} />,
+            content: <Comp code={code} msg={message} config={config} locale={locale} />,
             onOk: e => {
               onOk?.(e);
               close();
