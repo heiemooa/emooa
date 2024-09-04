@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import http from './http';
+import { getLocalstorage, setLocalstorage } from './local-storage';
 import React from 'react';
-import { get, orderBy, chunk, map, size } from 'lodash';
+import { get, orderBy, chunk, map, size, isEmpty } from 'lodash';
 import { Button, ConfigProvider, Image } from '@emooa/ui';
 
 const Component: React.FC = () => {
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(0);
   const [bing, setBing] = useState([]);
   const [list, setList] = useState([]);
 
@@ -14,10 +15,17 @@ const Component: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await http.get('https://cdn.emooa.com/output.json', { ignoreError: true });
-    const _data = chunk(orderBy(get(data, 'image.bing', []), ['key'], ['desc']), 12);
-    setBing(_data);
-    setList(_data[current]);
+    const storage = getLocalstorage('emooa-bing');
+    if (!isEmpty(storage)) {
+      setBing(storage);
+      setList(storage[current]);
+    } else {
+      const data = await http.get('https://cdn.emooa.com/output.json', { ignoreError: true });
+      const _data = chunk(orderBy(get(data, 'image.bing', []), ['key'], ['desc']), 12);
+      setLocalstorage('emooa-bing', _data);
+      setBing(_data);
+      setList(_data[current]);
+    }
   };
 
   return (
@@ -30,7 +38,7 @@ const Component: React.FC = () => {
             lazy
             motion
             width={'100%'}
-            src={`https://cdn.emooa.com/${item?.url?.uhd}`}
+            src={`https://cdn.emooa.com/${item?.url?.hd}`}
             placeholder={item.base64}
             title={
               <span style={{ background: item.color.Vibrant }} className="p-1 rounded">

@@ -151,9 +151,10 @@ export interface ImagePreviewGroupProps extends Omit<PartialImagePreviewProps, '
    */
   onChange?: (index: number) => void;
 }
-interface ImageBaseProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
-  title?: string;
-  description?: string;
+interface ImageBaseProps
+  extends Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, 'title'> {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
   actions?: ReactNode[]; // 额外操作
   preview?: boolean | ImagePreviewProps; // 是否开启预览
   src?: string;

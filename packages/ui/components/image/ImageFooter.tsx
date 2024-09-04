@@ -43,16 +43,8 @@ const ImageFooter = forwardRef<HTMLDivElement, ImageFooterProps>((props, ref) =>
     <div className={classnames} style={style}>
       {showCaption && (
         <div className={classNames(`${footerPrefixCls}-block`, `${prefixCls}-caption`)}>
-          {title && (
-            <div className={`${prefixCls}-caption-title`} title={title}>
-              {title}
-            </div>
-          )}
-          {description && (
-            <div className={`${prefixCls}-caption-description`} title={description}>
-              {description}
-            </div>
-          )}
+          {title && <div className={`${prefixCls}-caption-title`}>{title}</div>}
+          {description && <div className={`${prefixCls}-caption-description`}>{description}</div>}
         </div>
       )}
       {showActions && (
