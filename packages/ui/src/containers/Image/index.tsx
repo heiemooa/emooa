@@ -5,7 +5,7 @@ import Space from '@/space';
 import Theme from '@/_theme';
 import Spin from '@/spin';
 
-import { IconDownload, IconEye, IconInfoCircle } from '@emooa/icon';
+import { IconDownload, IconEye, IconFileImage, IconInfoCircle } from '@emooa/icon';
 import React, { useRef, useState } from 'react';
 
 const token = Theme.getToken();
@@ -33,6 +33,22 @@ function App() {
   ];
   return (
     <>
+      <Space>
+        <Image src="" width={300} height={200} alt="loading failed displays the image failure placeholder." />
+        <Image
+          src=""
+          width={300}
+          height={200}
+          error={
+            <>
+              <div className="eui-image-error-icon">
+                <IconFileImage />
+              </div>
+              <span>图片加载出错了</span>
+            </>
+          }
+        />
+      </Space>
       <Spin tip="loading">
         <Divider>Image</Divider>
         <Space direction="horizontal">
@@ -108,6 +124,7 @@ function App() {
       <Image
         width={200}
         src="https://api.emooa.com/aimg?idx=1"
+        motion
         preview={{
           actions: [
             {

@@ -10,10 +10,12 @@ const App: React.FC = () => (
       width={300}
       height={200}
       error={
-        <div className="eui-image-error-icon">
-          <IconFileImage />
-          <p>图片加载出错了</p>
-        </div>
+        <>
+          <div className="eui-image-error-icon">
+            <IconFileImage />
+          </div>
+          <span>图片加载出错了</span>
+        </>
       }
     />
   </Space>

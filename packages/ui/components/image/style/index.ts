@@ -45,7 +45,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
       [`&-motion > ${componentCls}-img`]: {
         '&[image-lazy="loaded"]': {
           animationName: zoom.zoomBigIn,
-          animationDuration: token.motions.durationMid,
+          animationDuration: '.7s',
           animationTimingFunction: token.motions.decelerate,
         },
       },
@@ -66,6 +66,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           justifyContent: 'center',
           textAlign: 'center',
           color: token.colorTextPlaceholder,
+          flexDirection: 'column',
 
           [`${componentCls}-error-icon`]: {
             fontSize: '4em',

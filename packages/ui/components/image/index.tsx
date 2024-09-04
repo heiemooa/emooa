@@ -209,10 +209,12 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   const renderError = () => (
     <div className={`${prefixCls}-error`}>
       {error || (
-        <div className={`${prefixCls}-error-icon`}>
-          <IconImageClose />
+        <>
+          <div className={`${prefixCls}-error-icon`}>
+            <IconImageClose />
+          </div>
           <div className={`${prefixCls}-error-icon-text`}>{alt}</div>
-        </div>
+        </>
       )}
     </div>
   );

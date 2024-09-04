@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import http from './http';
 import { getLocalstorage, setLocalstorage } from './local-storage';
 import React from 'react';
-import { get, orderBy, chunk, map, size, isEmpty } from 'lodash';
+import { get, orderBy, chunk, map, size, isEmpty, split } from 'lodash';
 import { Button, ConfigProvider, Image } from '@emooa/ui';
 
 const Component: React.FC = () => {
@@ -47,7 +47,7 @@ const Component: React.FC = () => {
             }
             description={
               <div style={{ background: item.color.Muted }} className="rounded mt-1">
-                {item.title}
+                {split(item.copyright, '(©')[0] || item.title}
               </div>
             }
           />
