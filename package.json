@@ -19,13 +19,19 @@
     "url": "https://github.com/heiemooa/emooa.git"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.44",
     "react": "^18.2.0",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
     "dumi": "^2.2.16",
     "lerna": "^8.0.0",
     "typescript": "^5.3.2"
+  },
+  "resolutions": {
+    "strip-ansi": "6.0.1"
   }
 }
