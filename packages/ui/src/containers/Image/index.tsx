@@ -5,7 +5,7 @@ import Space from '@/space';
 import Theme from '@/_theme';
 import Spin from '@/spin';
 
-import { IconDownload, IconEye, IconFileImage, IconInfoCircle } from '@emooa/icon';
+import { IconDownload, IconEye, IconFileImage, IconInfoCircle, IconLoading } from '@emooa/icon';
 import React, { useRef, useState } from 'react';
 
 const token = Theme.getToken();
@@ -13,10 +13,10 @@ console.log(token);
 const wrapperStyle: React.CSSProperties = {
   width: '100%',
   height: 400,
+  paddingTop: 200,
   backgroundColor: '#eee',
   position: 'relative',
   overflow: 'hidden',
-  lineHeight: '400px',
   textAlign: 'center',
 };
 
@@ -31,14 +31,67 @@ function App() {
     'https://api.emooa.com/aimg?idx=3',
     'https://api.emooa.com/aimg?idx=4',
   ];
+  const [timestamp, setTimestamp] = React.useState(0);
+
   return (
     <>
-      <Space>
-        <Image src="" width={300} height={200} alt="loading failed displays the image failure placeholder." />
+      <Button type="primary" onClick={() => setTimestamp(Date.now())}>
+        Reload
+      </Button>
+      <Space wrap>
         <Image
-          src=""
+          motion
+          src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
+          height={120}
+          width={200}
+          placeholder={true}
+          description="默认占位符"
+        />
+        <Image
+          motion
+          content="a"
+          src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
+          placeholder="https://api.emooa.com/aimg?idx=3"
+          height={120}
+          width={200}
+          description="图片占位符"
+        />
+        <Image
+          motion
+          src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
+          placeholder={
+            <div className="eui-image-loader-spin">
+              <IconLoading />
+              <p>加载中..</p>
+            </div>
+          }
+          height={120}
+          width={200}
+          description="节点占位符"
+        />
+
+        <Image
+          motion
+          src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
+          placeholder={false}
+          height={120}
+          width={200}
+          description="无占位符"
+        />
+      </Space>
+      <Space>
+        <Image
+          // component="点击加载"
+          src="error"
           width={300}
           height={200}
+          alt="loading failed displays the image failure placeholder."
+        />
+        <Image
+          src="error"
+          width={300}
+          height={200}
+          component="点击加载"
           error={
             <>
               <div className="eui-image-error-icon">
@@ -55,6 +108,7 @@ function App() {
           <Image
             height={200}
             width={300}
+            component="点击加载"
             src="https://api.emooa.com/aimg?idx=1"
             title="A user’s avatar"
             description="Click me to preview image"
@@ -92,6 +146,7 @@ function App() {
           <Image
             height={200}
             width={300}
+            component="点击加载"
             src="https://api.emooa.com/aimg?idx=1"
             preview={false}
             title="A user’s avatar"
@@ -123,8 +178,10 @@ function App() {
       <Divider>Actions</Divider>
       <Image
         width={200}
+        height={150}
         src="https://api.emooa.com/aimg?idx=1"
         motion
+        component="点击加载"
         preview={{
           actions: [
             {
@@ -147,7 +204,7 @@ function App() {
         <Image.PreviewGroup>
           <Space>
             {items.map((src, index) => (
-              <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
+              <Image component="点击加载" key={index} src={src} height={150} width={200} alt={`lamp${index + 1}`} />
             ))}
           </Space>
         </Image.PreviewGroup>
@@ -164,7 +221,9 @@ function App() {
       <Divider>Popup Container</Divider>
       <div style={wrapperStyle} ref={ref}>
         <Image
+          component="点击加载"
           width={200}
+          height={150}
           preview={{
             getPopupContainer: () => ref.current,
           }}

@@ -152,7 +152,10 @@ export interface ImagePreviewGroupProps extends Omit<PartialImagePreviewProps, '
   onChange?: (index: number) => void;
 }
 interface ImageBaseProps
-  extends Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, 'title'> {
+  extends Omit<
+    React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
+    'title' | 'content'
+  > {
   title?: React.ReactNode;
   description?: React.ReactNode;
   actions?: ReactNode[]; // 额外操作
@@ -162,6 +165,7 @@ interface ImageBaseProps
   motion?: boolean; // 加载成功动画
   delay?: number; // The placeholder will be rendered if the url is not loaded within the delay time range.
   placeholder?: boolean | string | React.ReactNode; // Default image placeholder
+  content?: React.ReactNode;
   onError?: (e: any) => void;
   onLoad?: (e: any) => void;
 }

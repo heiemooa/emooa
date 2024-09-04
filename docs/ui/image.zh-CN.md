@@ -38,6 +38,7 @@ toc: content
 | title | 标题 | `string` | - |
 | description | 描述 | `string` | - |
 | placeholder | 加载占位符 | `boolean` `string` `React.ReactNode` | -- |
+| content | 手动加载 | `React.ReactNode` | -- |
 | preview | 是否开启预览 | `boolean` | true |
 | motion | 是否开启加载成功的动画 | `boolean` | false |
 | actions | 额外操作 | `React.ReactNode[]` | -- |

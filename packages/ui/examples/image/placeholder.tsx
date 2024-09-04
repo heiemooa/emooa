@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Divider, Image, Space } from '@emooa/ui';
-import { IconFileImage } from '@emooa/icon';
+import { IconLoading } from '@emooa/icon';
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = React.useState(0);
@@ -13,6 +13,7 @@ const App: React.FC = () => {
       <Divider />
       <Space wrap>
         <Image
+          motion
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           height={120}
           width={200}
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           description="默认占位符"
         />
         <Image
+          motion
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           placeholder="https://api.emooa.com/aimg?idx=3"
           height={120}
@@ -27,11 +29,12 @@ const App: React.FC = () => {
           description="图片占位符"
         />
         <Image
+          motion
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           placeholder={
             <div className="eui-image-loader-spin">
-              <IconFileImage />
-              <p>加载</p>
+              <IconLoading />
+              <p>加载中..</p>
             </div>
           }
           height={120}
@@ -40,6 +43,7 @@ const App: React.FC = () => {
         />
 
         <Image
+          motion
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           placeholder={false}
           height={120}

@@ -62,6 +62,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     actions,
     description,
     _index,
+    content,
     ...rest
   }: ImagePropsType = Object.assign({}, components?.Image, props);
 
@@ -135,6 +136,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
   }, [src]);
 
   const onImageLazyLoad = () => {
+    if (content) return;
     loading.current = true;
 
     /**
@@ -221,34 +223,43 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
 
   const DefaultLoader = (
     <div className={`${prefixCls}-loader`}>
-      <div className={`${prefixCls}-loader-spin`}>
-        <IconLoading />
-        <div className={`${prefixCls}-loader-spin-text`}>{locale.Image.loading}</div>
+      <div className={`${prefixCls}-loader-compnent ${typeof placeholder === 'string'}`}>
+        {isBeforeLoad && content}
+        {isLoading && <div className={`${prefixCls}-loader-squre-spin`} />}
       </div>
     </div>
   );
 
   const renderLoader = () => {
     if (placeholder === true) return DefaultLoader;
-    const ele = placeholder ? (
+
+    const ele = (
       <div className={`${prefixCls}-loader`}>
-        {typeof placeholder === 'string' ? (
-          <img
-            className={`${prefixCls}-loader-placeholder`}
-            src={placeholder}
-            width={width}
-            height={height}
-            {...rest}
-          />
-        ) : (
-          placeholder
+        {placeholder && (
+          <>
+            {typeof placeholder === 'string' && (
+              <img
+                className={`${prefixCls}-loader-placeholder`}
+                src={placeholder}
+                width={width}
+                height={height}
+                {...rest}
+              />
+            )}
+            {typeof placeholder !== 'string' && isLoading && placeholder}
+          </>
+        )}
+        {}
+        {(content || placeholder === 'string') && (
+          <div className={`${prefixCls}-loader-compnent ${typeof placeholder === 'string'}`}>
+            {isBeforeLoad && content}
+            {isLoading && typeof placeholder !== 'object' && <div className={`${prefixCls}-loader-squre-spin`} />}
+          </div>
         )}
       </div>
-    ) : (
-      DefaultLoader
     );
     // 懒加载展示占位。
-    if (lazy || placeholder || delay) {
+    if (lazy || placeholder || delay || content) {
       return ele;
     }
     return null;
@@ -282,6 +293,12 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         },
         style,
       )}
+      onClick={() => {
+        if (isBeforeLoad) {
+          loading.current = true;
+          onImageLoad();
+        }
+      }}
     >
       <img
         className={`${prefixCls}-img`}
@@ -291,7 +308,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         height={height}
         onLoad={onImgLoaded}
         onError={onImgLoadError}
-        src={lazy ? undefined : src}
+        src={lazy || isBeforeLoad ? undefined : src}
         image-lazy={status}
         onClick={onImgClick}
         {...rest}
@@ -299,7 +316,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
       {!isLoaded && (
         <div className={`${prefixCls}-overlay`}>
           {isError && renderError()}
-          {isLoading && renderLoader()}
+          {(isLoading || content) && renderLoader()}
         </div>
       )}
       {isLoaded && showFooter && (

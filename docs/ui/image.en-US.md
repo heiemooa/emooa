@@ -38,6 +38,7 @@ When lazy loading of images is required.
 | title | Title | `string` | - |
 | description | Description | `string` | - |
 | placeholder | Load placeholder, use default placeholder or false | `boolean` `string` `React.ReactNode` | -- |
+| content | Loading component | `React.ReactNode` | -- |
 | preview | Whether to enable preview | `boolean` | true |
 | motion | Whether to enable the animation of successful loading | `boolean` | false |
 | actions | Extra operations | `React.ReactNode[]` | -- |
