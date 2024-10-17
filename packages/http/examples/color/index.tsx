@@ -10,8 +10,8 @@ const App: React.FC = () => {
 
   return (
     <Space>
-      <Button type="primary" onClick={fetchData}>
-        Load
+      <Button type="primary" onClick={fetchData} status="success">
+        Green Color
       </Button>
     </Space>
   );

@@ -30,3 +30,4 @@ yarn-error.log*
 .dumi/tmp
 .dumi/tmp-production
 .DS_Store
+.vercel

@@ -23,7 +23,6 @@ const MyPage: React.FC = () => {
         type="primary"
         onClick={() => {
           message.info({
-            title: 'This is a message',
             content: `Current duration: ${values.message.duration}`,
           });
         }}
