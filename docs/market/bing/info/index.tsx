@@ -7,6 +7,7 @@ import { history, useLocale } from 'dumi';
 import { IconArrowLeft } from '@emooa/icon';
 import { isEmpty, chunk, orderBy, get, flatten, find } from 'lodash';
 import { getLocalstorage, setLocalstorage } from '../local-storage';
+import './index.less';
 
 const lang = {
   'en-US': {
@@ -115,41 +116,41 @@ const Component: React.FC = () => {
             </div>
           </div>
           <div>
-            <Space wrap size={24} className="mt-10">
-              <div>
+            <Space wrap size={24} className="mt-10 max-w-full">
+              <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">{locales.greyscale}</h1>
                 <Image
                   src={`https://cdn.emooa.com/${bing?.url?.greyscale}`}
-                  height={200}
                   placeholder={bing?.base64}
-                  style={{ aspectRatio: 16 / 9 }}
+                  height={200}
+                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
                 />
               </div>
-              <div>
+              <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">{locales.gaussian}</h1>
                 <Image
                   src={`https://cdn.emooa.com/${bing?.url?.gaussian}`}
-                  height={200}
                   placeholder={bing?.base64}
-                  style={{ aspectRatio: 16 / 9 }}
+                  height={200}
+                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
                 />
               </div>
-              <div>
+              <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">HD</h1>
                 <Image
                   src={`https://cdn.emooa.com/${bing?.url?.hd}`}
-                  height={200}
                   placeholder={bing?.base64}
-                  style={{ aspectRatio: 16 / 9 }}
+                  height={200}
+                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
                 />
               </div>
-              <div>
+              <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">UHD</h1>
                 <Image
                   src={`https://cdn.emooa.com/${bing?.url?.uhd}`}
-                  height={200}
                   placeholder={true}
-                  style={{ aspectRatio: 16 / 9 }}
+                  height={200}
+                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
                 />
               </div>
             </Space>
@@ -164,6 +165,7 @@ const App: React.FC = () => {
   return (
     <>
       <ConfigProvider
+        prefixCls="bing"
         theme={{
           token: {
             motions: {
