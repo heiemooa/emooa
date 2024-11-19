@@ -4,8 +4,11 @@ import { getLocalstorage, setLocalstorage } from './local-storage';
 import React from 'react';
 import { get, orderBy, chunk, map, size, isEmpty, split } from 'lodash';
 import { Button, ConfigProvider, Image } from '@emooa/ui';
+import { history, useLocale } from 'dumi';
 
 const Component: React.FC = () => {
+  const locale = useLocale();
+
   const [current, setCurrent] = useState(0);
   const [bing, setBing] = useState([]);
   const [list, setList] = useState([]);
@@ -33,6 +36,7 @@ const Component: React.FC = () => {
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {map(list, (item, index) => (
           <Image
+            className="rounded cursor-pointer"
             key={index}
             style={{ aspectRatio: 279 / 157 }}
             lazy
@@ -50,6 +54,14 @@ const Component: React.FC = () => {
                 {split(item.copyright, '(©')[0] || item.title}
               </div>
             }
+            preview={false}
+            onClick={() => {
+              if (locale.id === 'en-US') {
+                history.push(`/en-US/market/bing/info?idx=${item.key}`);
+              } else {
+                history.push(`/market/bing/info?idx=${item.key}`);
+              }
+            }}
           />
         ))}
       </div>

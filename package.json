@@ -19,6 +19,7 @@
     "url": "https://github.com/heiemooa/emooa.git"
   },
   "dependencies": {
+    "@emooa/icon": "^0.0.11",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.44",
     "react": "^18.2.0",

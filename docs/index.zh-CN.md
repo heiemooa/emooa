@@ -6,6 +6,6 @@ hero:
   actions:
     - text: 开始使用
       link: /ui
-    - text: 插件库
+    - text: 插件
       link: /plugin
 ---
