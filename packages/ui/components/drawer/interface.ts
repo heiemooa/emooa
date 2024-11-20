@@ -64,7 +64,6 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
   /**
    * @zh 自定义右上角关闭按钮
    * @en Custom the close button on top-right of the drawer dialog
-   * @version 2.49.0
    */
   closeIcon?: ReactNode;
   /**

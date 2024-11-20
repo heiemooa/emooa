@@ -21,5 +21,9 @@ const locale: Locale = {
     okText: '确定',
     cancelText: '取消',
   },
+  Document: {
+    title: '文档中心',
+    open: '新窗口查看文档',
+  },
 };
 export default locale;

@@ -18,4 +18,8 @@ export interface Locale {
     okText: string;
     cancelText: string;
   };
+  Document: {
+    title: string;
+    open: string;
+  };
 }
