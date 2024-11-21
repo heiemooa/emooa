@@ -26,8 +26,8 @@ export interface DocumentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'con
     wrapper?: CSSProperties;
   };
   /**
-   * @zh 弹出框的标题（设置为 null 时，不显示标题栏）
-   * @en The title element. Document will not render the title element when `title` is `null`
+   * @zh 标题
+   * @en The title element.
    */
   title?: string | ReactNode;
   /**

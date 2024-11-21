@@ -1,13 +1,4 @@
-import React, {
-  useContext,
-  forwardRef,
-  useRef,
-  useCallback,
-  useEffect,
-  useState,
-  useImperativeHandle,
-  useReducer,
-} from 'react';
+import React, { useContext, forwardRef, useRef, useCallback, useEffect, useState, useReducer } from 'react';
 import { ConfigContext } from '../config-provider';
 import { DocumentProps } from './interface';
 import classNames from 'classnames';
@@ -29,20 +20,26 @@ const defaultProps: DocumentProps = {
 let documentSingleton: any = null; // 全局存储组件实例
 let documentSingletonLintner: any = false; // 全局存储监听实例
 
+type PlacementType = 'default' | 'full' | 'left';
+interface State {
+  type: PlacementType;
+  style: {
+    width: number;
+    height: number;
+    transition?: string;
+  };
+  position: {
+    x: number;
+    y: number;
+  };
+}
 function reducer(
-  state: {
-    type: 'default' | 'full' | 'left';
-    style: {
-      width: number;
-      height: number;
-    };
-    position: {
-      x: number;
-      y: number;
-    };
+  state: State,
+  action: {
+    type: 'full' | 'left' | 'position';
+    state?: State;
   },
-  action,
-) {
+): State {
   switch (action.type) {
     case 'full': {
       if (state.type === 'full') {
@@ -51,6 +48,7 @@ function reducer(
           style: {
             width: 400,
             height: 600,
+            transition: '0.2s all',
           },
           position: { x: 0, y: 0 },
         };
@@ -60,6 +58,7 @@ function reducer(
           style: {
             width: window.innerWidth - 400,
             height: window.innerHeight - 200,
+            transition: '0.2s all',
           },
           position: { x: -128, y: -52 },
         };
@@ -72,6 +71,7 @@ function reducer(
           style: {
             width: 400,
             height: 600,
+            transition: '0.2s all',
           },
           position: { x: 0, y: 0 },
         };
@@ -81,19 +81,18 @@ function reducer(
           style: {
             width: 400,
             height: window.innerHeight,
+            transition: '0.2s all',
           },
           position: { x: 48, y: 48 },
         };
       }
     }
     case 'position': {
-      return {
-        ...state,
-        position: action.position,
-      };
+      return action.state;
     }
+    default:
+      return state;
   }
-  throw Error('Unknown action.');
 }
 
 const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProps, ref) => {
@@ -135,7 +134,6 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   const classnames = classNames(
     hashId,
     `${prefixCls}-root`,
-    `${prefixCls}-right`,
     {
       [`${prefixCls}-root-hide`]: !open,
       [`${prefixCls}-rtl`]: rtl,
@@ -159,7 +157,15 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   }, []);
 
   const handleLinkClick = (event: MouseEvent) => {
-    const target = event.target as HTMLElement;
+    let target = event.target as HTMLElement;
+    let depth = 0;
+
+    while (target && target.tagName !== 'A' && depth < 3) {
+      target = target.parentElement as HTMLElement;
+      depth++;
+    }
+
+    if (!target) return;
 
     // 判断是否是符合条件的链接
     if (target.tagName === 'A') {
@@ -273,16 +279,12 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   return open || !!modalRef.current
     ? wrapCSSVar(
         <Portal visible={open} getContainer={getPopupContainer}>
-          <div
-            ref={documentRef}
-            className={classnames}
-            style={getContainer() === document.body ? undefined : { position: 'absolute' }}
-          >
+          <div ref={documentRef} className={classnames}>
             <EuiCSSTransition
               in={open}
               timeout={400}
               appear
-              classNames={`${rootPrefixCls}-fade-left`}
+              classNames={`${rootPrefixCls}-fade-mini-left`}
               unmountOnExit={unmountOnExit}
               mountOnEnter={true}
               onEnter={e => {
@@ -308,6 +310,19 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
                 <Draggable
                   handle={`.${prefixCls}-title`}
                   position={placement.position}
+                  onStart={() => {
+                    dispatch({
+                      type: 'position',
+                      state: {
+                        position: placement.position,
+                        type: placement.type,
+                        style: {
+                          width: placement.style.width,
+                          height: placement.style.height,
+                        },
+                      },
+                    });
+                  }}
                   onStop={(e, data) => {
                     const { x, y } = data;
                     const position = { x, y };
@@ -325,7 +340,14 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
 
                     dispatch({
                       type: 'position',
-                      position,
+                      state: {
+                        position,
+                        type: placement.type,
+                        style: {
+                          width: placement.style.width,
+                          height: placement.style.height,
+                        },
+                      },
                     });
                   }}
                 >

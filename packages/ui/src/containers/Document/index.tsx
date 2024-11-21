@@ -11,11 +11,7 @@ const App: React.FC = () => {
       <a href="https://cloud.tencent.com/document">Go to AAA Page 2</a>
       <Document
         home="https://cloud.tencent.com/document"
-        patterns={[
-          /^https?:\/\/cae365docs\.yuansuan\.com(?:\/.*)?$/,
-          /^https?:\/\/docs\.emooa\.com(?:\/.*)?$/,
-          /^https?:\/\/cloud\.tencent\.com\/document(?:\/.*)?$/,
-        ]}
+        patterns={[/^https?:\/\/docs\.emooa\.com(?:\/.*)?$/, /^https?:\/\/cloud\.tencent\.com\/document(?:\/.*)?$/]}
       ></Document>
     </>
   );

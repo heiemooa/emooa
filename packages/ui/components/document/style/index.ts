@@ -25,7 +25,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
         top: 0,
         zIndex: token.zIndexPopupBase,
 
-        [`&${componentCls}-right > ${componentCls}`]: {
+        [`& > ${componentCls}`]: {
           position: 'fixed',
           right: {
             _skip_check_: true,
@@ -33,6 +33,16 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
           },
           bottom: 48,
           userSelect: 'none',
+          boxSizing: 'border-box',
+          padding: 0,
+          color: token.colorText,
+          fontSize: token.fontSize,
+          lineHeight: token.lineHeight,
+          listStyle: 'none',
+          margin: '0 auto',
+          textAlign: 'left',
+          pointerEvents: 'auto',
+          visibility: 'hidden',
         },
 
         '&-hide': {
@@ -74,18 +84,9 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
     {
       [`${componentCls}-root`]: {
         [componentCls]: {
-          boxSizing: 'border-box',
-          padding: 0,
-          color: token.colorText,
-          fontSize: token.fontSize,
-          lineHeight: token.lineHeight,
-          listStyle: 'none',
-          position: 'absolute',
-          margin: '0 auto',
-          textAlign: 'left',
-          pointerEvents: 'auto',
-
           '&-wrapper': {
+            boxShadow: token.boxShadow,
+            visibility: 'visible',
             display: 'flex',
             flexDirection: 'column',
             resize: 'both',
@@ -95,6 +96,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             maxWidth: `max(400px, 100vw)`,
             minHeight: `min(600px, 100vh)`,
             maxHeight: `max(600px, 100vh)`,
+            borderRadius: token.borderRadius,
           },
 
           '&-header': {
@@ -171,7 +173,7 @@ const genModalMotion: GenerateStyle<DocumentToken> = token => {
 
   return {
     [`${componentCls}-root`]: {
-      [componentCls]: [fade.initFadeMotion(token, 'fade-left', true)],
+      [componentCls]: [fade.initFadeMotion(token, 'fade-mini-left', true)],
     },
   };
 };

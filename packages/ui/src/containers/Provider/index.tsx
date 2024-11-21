@@ -36,7 +36,7 @@ const App: React.FC = () => {
         },
       }}
     >
-      <a href="https://docs.emooa.com">Go to AAA Page 1</a>
+      <Button href="https://docs.emooa.com">Go to AAA Page 1</Button>
       <br />
       <a href="https://cloud.tencent.com/document/product/213/43703">Go to AAA Page 2</a>
       <br />
@@ -48,6 +48,7 @@ const App: React.FC = () => {
         //   /^https?:\/\/cloud\.tencent\.com\/document(?:\/.*)?$/,
         // ]}
       ></Document>
+      <br />
 
       <Button
         type="primary"

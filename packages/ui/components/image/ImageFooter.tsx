@@ -3,7 +3,7 @@ import React, { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import { ImageProps } from './interface';
 import useShowFooter from './utils/hooks/useFooter';
 
-interface ImageFooterProps extends HTMLAttributes<HTMLDivElement> {
+interface ImageFooterProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   style?: CSSProperties;
   className?: string;
   title?: ImageProps['title'];
