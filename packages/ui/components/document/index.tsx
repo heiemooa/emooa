@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, useRef, useCallback, useEffect, useState, useReducer } from 'react';
+import React, { useContext, forwardRef, useRef, useEffect, useState, useReducer, useCallback, Ref } from 'react';
 import { ConfigContext } from '../config-provider';
 import { DocumentProps } from './interface';
 import classNames from 'classnames';
@@ -11,6 +11,7 @@ import { IconFullscreen, IconClose, IconFullscreenExit, IconExpand, IconShrink }
 import Draggable from 'react-draggable';
 import { render } from '@/_utils/react-dom';
 import { find, isEmpty } from 'lodash';
+import { defaultSize, reducer } from './reducer';
 
 const defaultProps: DocumentProps = {
   patterns: [],
@@ -20,90 +21,17 @@ const defaultProps: DocumentProps = {
 let documentSingleton: any = null; // 全局存储组件实例
 let documentSingletonLintner: any = false; // 全局存储监听实例
 
-type PlacementType = 'default' | 'full' | 'left';
-interface State {
-  type: PlacementType;
-  style: {
-    width: number;
-    height: number;
-    transition?: string;
-  };
-  position: {
-    x: number;
-    y: number;
-  };
-}
-function reducer(
-  state: State,
-  action: {
-    type: 'full' | 'left' | 'position';
-    state?: State;
-  },
-): State {
-  switch (action.type) {
-    case 'full': {
-      if (state.type === 'full') {
-        return {
-          type: 'default',
-          style: {
-            width: 400,
-            height: 600,
-            transition: '0.2s all',
-          },
-          position: { x: 0, y: 0 },
-        };
-      } else {
-        return {
-          type: 'full',
-          style: {
-            width: window.innerWidth - 400,
-            height: window.innerHeight - 200,
-            transition: '0.2s all',
-          },
-          position: { x: -128, y: -52 },
-        };
-      }
-    }
-    case 'left': {
-      if (state.type === 'left') {
-        return {
-          type: 'default',
-          style: {
-            width: 400,
-            height: 600,
-            transition: '0.2s all',
-          },
-          position: { x: 0, y: 0 },
-        };
-      } else {
-        return {
-          type: 'left',
-          style: {
-            width: 400,
-            height: window.innerHeight,
-            transition: '0.2s all',
-          },
-          position: { x: 48, y: 48 },
-        };
-      }
-    }
-    case 'position': {
-      return action.state;
-    }
-    default:
-      return state;
-  }
-}
-
 const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProps, ref) => {
   const { getPrefixCls, components, locale, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const [open, setOpen] = useState<boolean>(false);
-  const [iframe, setIframe] = useState<{ src?: string }>({});
+  const [iframe, setIframe] = useState<{ src?: string; ref? }>({
+    ref: useRef(),
+  });
   const [placement, dispatch] = useReducer(reducer, {
     type: 'default',
     style: {
-      width: 400,
-      height: 600,
+      width: defaultSize.width,
+      height: defaultSize.height,
     },
     position: {
       x: 0,
@@ -142,8 +70,8 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
     cssVarCls,
   );
 
-  const modalRef = useRef<HTMLDivElement>(null);
-  const documentRef = useRef<HTMLDivElement>();
+  const documentRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     if (documentSingletonLintner === false) {
@@ -177,27 +105,89 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
       if (found) {
         setIframe({
           src: href,
+          ref: iframe.ref,
         });
         setOpen(true);
       }
     }
   };
 
-  const getContainer = useCallback(() => {
-    return getPopupContainer?.() || document.body;
-  }, [getPopupContainer]);
-
   const handlerCancel = () => {
     setOpen(false);
   };
+
+  const handleMouseDown = useCallback(
+    (
+      e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      direction: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right',
+      defaultPlacement,
+    ) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const onMouseMove = (event: MouseEvent) => {
+        /**
+         * 由于通过iframe嵌套文档的方式，无法保证同源策略，故当鼠标移动到 iframe 中时，自动结束移动监听
+         */
+        if (iframe.ref.current === event.target) {
+          onMouseUp(event);
+          return;
+        }
+
+        const { movementX, movementY } = event;
+
+        dispatch({
+          type: 'moving',
+          data: {
+            direction,
+            movementX,
+            movementY,
+            min: {
+              x: defaultSize.width - defaultPlacement.style.width + defaultPlacement.position.x,
+              y: defaultSize.height - defaultPlacement.style.height + defaultPlacement.position.y,
+            },
+            max: {
+              x: window.innerWidth - defaultPlacement.style.width + defaultPlacement.position.x,
+              y: window.innerHeight - defaultPlacement.style.height + defaultPlacement.position.y,
+            },
+          },
+        });
+      };
+
+      const onMouseUp = e => {
+        const { clientX, clientY } = e;
+
+        const isMouseInsideWindow =
+          clientX >= 0 && clientX <= window.innerWidth && clientY >= 0 && clientY <= window.innerHeight;
+
+        if (!isMouseInsideWindow) {
+          const bound = wrapperRef.current?.getBoundingClientRect?.();
+          if (bound) {
+            dispatch({
+              type: 'moved',
+              data: bound,
+            });
+          }
+        }
+
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      };
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    },
+    [],
+  );
 
   const element = (
     <div
       className={classNames(`${prefixCls}-wrapper`, modalClassNames?.wrapper)}
       style={Object.assign({}, styles?.wrapper, placement.style)}
+      ref={wrapperRef}
     >
       <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
-        <div className={`${prefixCls}-title`} style={{ cursor: 'move' }}>
+        <div className={`${prefixCls}-title`} style={{ cursor: 'moving' }}>
           {title || (
             <>
               <Button
@@ -223,9 +213,10 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
               top: 0,
               left: 0,
               width: '100%',
-              height: 600,
+              height: '100%',
               border: 'none',
             }}
+            ref={iframe.ref}
             src={iframe.src}
           />
         )}
@@ -273,13 +264,31 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
         />
         <Button tabIndex={-1} type="text" onClick={handlerCancel} icon={<IconClose />} />
       </Button.Group>
+      <div>
+        <div
+          style={{ height: 20, width: 20, position: 'absolute', top: -10, left: -10, cursor: 'nw-resize' }}
+          onMouseDown={e => handleMouseDown(e, 'top-left', placement)}
+        ></div>
+        <div
+          style={{ height: 20, width: 20, position: 'absolute', top: -10, right: -10, cursor: 'ne-resize' }}
+          onMouseDown={e => handleMouseDown(e, 'top-right', placement)}
+        ></div>
+        <div
+          style={{ height: 20, width: 20, position: 'absolute', bottom: -10, right: -10, cursor: 'se-resize' }}
+          onMouseDown={e => handleMouseDown(e, 'bottom-right', placement)}
+        ></div>
+        <div
+          style={{ height: 20, width: 20, position: 'absolute', bottom: -10, left: -10, cursor: 'sw-resize' }}
+          onMouseDown={e => handleMouseDown(e, 'bottom-left', placement)}
+        ></div>
+      </div>
     </div>
   );
 
-  return open || !!modalRef.current
+  return open || !!documentRef.current
     ? wrapCSSVar(
         <Portal visible={open} getContainer={getPopupContainer}>
-          <div ref={documentRef} className={classnames}>
+          <div className={classnames}>
             <EuiCSSTransition
               in={open}
               timeout={400}
@@ -289,7 +298,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
               mountOnEnter={true}
               onEnter={e => {
                 if (!e) return;
-                modalRef.current = e;
+                documentRef.current = e;
                 e.parentNode.style.display = 'block';
               }}
               onEntered={(e: HTMLDivElement) => {
@@ -301,33 +310,26 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
                 if (!e) return;
                 afterClose?.();
                 if (unmountOnExit) {
-                  modalRef.current = null;
+                  documentRef.current = null;
                 }
                 e.parentNode.style.display = '';
               }}
             >
-              <div className={classNames(prefixCls, className)} style={style} ref={modalRef} {...rest}>
+              <div className={classNames(prefixCls, className)} style={style} ref={documentRef} {...rest}>
                 <Draggable
                   handle={`.${prefixCls}-title`}
                   position={placement.position}
                   onStart={() => {
                     dispatch({
                       type: 'position',
-                      state: {
-                        position: placement.position,
-                        type: placement.type,
-                        style: {
-                          width: placement.style.width,
-                          height: placement.style.height,
-                        },
-                      },
+                      data: placement.position,
                     });
                   }}
                   onStop={(e, data) => {
-                    const { x, y } = data;
-                    const position = { x, y };
-                    if (x > 48) position.x = 48;
-                    if (y > 48) position.y = 48;
+                    const position = {
+                      x: Math.min(48, data.x),
+                      y: Math.min(48, data.y),
+                    };
 
                     const bound = data.node.getBoundingClientRect();
 
@@ -340,14 +342,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
 
                     dispatch({
                       type: 'position',
-                      state: {
-                        position,
-                        type: placement.type,
-                        style: {
-                          width: placement.style.width,
-                          height: placement.style.height,
-                        },
-                      },
+                      data: position,
                     });
                   }}
                 >

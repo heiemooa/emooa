@@ -85,6 +85,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
       [`${componentCls}-root`]: {
         [componentCls]: {
           '&-wrapper': {
+            position: 'relative',
             boxShadow: token.boxShadow,
             visibility: 'visible',
             display: 'flex',
@@ -92,10 +93,10 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             resize: 'both',
             // transition: `all ${token.motions.durationMid} ${token.motions.linear}`,
             backgroundColor: token.colorBgElevated,
-            minWidth: `min(400px, 100vw)`,
+            minWidth: `min(400px, 100vw, ${window.innerWidth - 96})`,
             maxWidth: `max(400px, 100vw)`,
-            minHeight: `min(600px, 100vh)`,
-            maxHeight: `max(600px, 100vh)`,
+            minHeight: `min(400px, 100vh, ${window.innerHeight - 96})`,
+            maxHeight: `max(400px, 100vh)`,
             borderRadius: token.borderRadius,
           },
 
