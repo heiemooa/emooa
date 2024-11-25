@@ -24,7 +24,7 @@ function App() {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const items = [
     'https://api.emooa.com/aimg?idx=1',
     'https://api.emooa.com/aimg?idx=2',

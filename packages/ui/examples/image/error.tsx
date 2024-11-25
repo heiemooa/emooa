@@ -4,9 +4,9 @@ import { IconFileImage } from '@emooa/icon';
 
 const App: React.FC = () => (
   <Space wrap>
-    <Image src="" width={300} height={200} alt="loading failed displays the image failure placeholder." />
+    <Image src="xx" width={300} height={200} alt="loading failed displays the image failure placeholder." />
     <Image
-      src=""
+      src="xx"
       width={300}
       height={200}
       error={

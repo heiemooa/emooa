@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FeatureCollection, GeoJSON } from '@emooa/ui';
+import { FeatureCollection, GeoJSON, Spin } from '@emooa/ui';
 import axios from 'axios';
 
 function getRandomColor(alpha = 1) {
@@ -35,7 +35,7 @@ const App: React.FC = () => {
       })),
     });
   };
-  return loading ? 'Loading' : <GeoJSON style={{ width: '100%' }} data={data as FeatureCollection} />;
+  return loading ? <Spin dot /> : <GeoJSON style={{ width: '100%' }} data={data as FeatureCollection} />;
 };
 
 export default App;
