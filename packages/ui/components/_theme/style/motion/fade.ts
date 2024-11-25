@@ -125,7 +125,33 @@ export const fadeRightOut = new Keyframes('euiFadeRightOut', {
   },
 });
 
-type FadeMotionTypes = 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right';
+export const fadeMiniLeft = new Keyframes('euiFadeLeft', {
+  '0%': {
+    opacity: 0,
+    transform: 'translate3d(10%, 0, 0)',
+    transformOrigin: '0 0',
+  },
+  '100%': {
+    opacity: 1,
+    transformOrigin: '0 0',
+    transform: 'translate3d(0, 0, 0)',
+  },
+});
+
+export const fadeMiniLeftOut = new Keyframes('euiFadeLeftOut', {
+  '0%': {
+    opacity: 1,
+    transformOrigin: '0 0',
+    transform: 'translate3d(0, 0, 0)',
+  },
+  '100%': {
+    opacity: 0,
+    transformOrigin: '0 0',
+    transform: 'translate3d(10%, 0, 0)',
+  },
+});
+
+type FadeMotionTypes = 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'fade-mini-left';
 
 const fadeMotion: Record<FadeMotionTypes, { inKeyframes: Keyframes; outKeyframes: Keyframes }> = {
   fade: {
@@ -147,6 +173,10 @@ const fadeMotion: Record<FadeMotionTypes, { inKeyframes: Keyframes; outKeyframes
   'fade-right': {
     inKeyframes: fadeRight,
     outKeyframes: fadeRightOut,
+  },
+  'fade-mini-left': {
+    inKeyframes: fadeMiniLeft,
+    outKeyframes: fadeMiniLeftOut,
   },
 };
 

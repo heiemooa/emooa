@@ -21,5 +21,9 @@ const locale: Locale = {
     okText: ' OK',
     cancelText: 'Cancel',
   },
+  Document: {
+    title: 'Document Center',
+    open: 'View document in new window',
+  },
 };
 export default locale;

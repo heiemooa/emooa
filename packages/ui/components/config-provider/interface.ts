@@ -13,6 +13,7 @@ import { ModalProps } from '@/modal/interface';
 import { BacktopProps } from '@/backtop/interface';
 import { DrawerProps } from '@/drawer/interface';
 import { MessageProps } from '@/message/interface';
+import { DocumentProps } from '@/document/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -25,6 +26,7 @@ export type Components = {
   Modal?: ModalProps;
   Image?: ImageProps;
   Icon?: IconProps;
+  Document?: DocumentProps;
   GeoJSON?: GeoJSONProps;
   Space?: SpaceProps;
   Spin?: SpinProps;

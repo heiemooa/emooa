@@ -24,6 +24,7 @@ function App() {
       </Button>
       <Drawer
         title="Basic"
+        style={{ width: 300 }}
         open={visible}
         getPopupContainer={() => refWrapper?.current}
         footer={null}
