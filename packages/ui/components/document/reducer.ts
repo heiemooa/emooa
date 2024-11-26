@@ -57,7 +57,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           type: 'default',
           style: {
             width: defaultSize.width,
-            height: Math.min(600, window.innerHeight - 96),
+            height: defaultSize.height,
           },
           position: { x: 0, y: 0 },
         };

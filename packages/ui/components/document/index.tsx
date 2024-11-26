@@ -143,8 +143,8 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
             movementX,
             movementY,
             min: {
-              x: defaultSize.width - defaultPlacement.style.width + defaultPlacement.position.x,
-              y: defaultSize.height - defaultPlacement.style.height + defaultPlacement.position.y,
+              x: Math.min(260, defaultSize.width) - defaultPlacement.style.width + defaultPlacement.position.x,
+              y: Math.min(400, defaultSize.height) - defaultPlacement.style.height + defaultPlacement.position.y,
             },
             max: {
               x: window.innerWidth - defaultPlacement.style.width + defaultPlacement.position.x,
