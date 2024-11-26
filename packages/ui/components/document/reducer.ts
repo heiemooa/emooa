@@ -58,7 +58,6 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           style: {
             width: defaultSize.width,
             height: Math.min(600, window.innerHeight - 96),
-            transition: '0.2s all',
           },
           position: { x: 0, y: 0 },
         };
@@ -68,7 +67,6 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           style: {
             width: Math.max(Math.ceil(window.innerWidth * 0.8), defaultSize.width),
             height: Math.max(Math.ceil(window.innerHeight * 0.8), defaultSize.height),
-            transition: '0.2s all',
           },
           position: {
             x: 48 - (window.innerWidth - Math.max(Math.ceil(window.innerWidth * 0.8), defaultSize.width)) / 2,
@@ -84,7 +82,6 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           style: {
             width: defaultSize.width,
             height: defaultSize.height,
-            transition: '0.2s all',
           },
           position: { x: 0, y: 0 },
         };
@@ -94,7 +91,6 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           style: {
             width: defaultSize.width,
             height: window.innerHeight,
-            transition: '0.2s all',
           },
           position: { x: 48, y: 48 },
         };
@@ -107,6 +103,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
         style: {
           width: state.style.width,
           height: state.style.height,
+          transition: 'initail',
         },
       };
     }
@@ -114,6 +111,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
       const style = {
         width: state.style.width,
         height: state.style.height,
+        transition: 'initail',
       };
 
       const position = {
@@ -124,7 +122,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
       switch (action.data.direction) {
         case 'top-left':
           style.width = Math.min(
-            Math.max(defaultSize.width, state.style.width - action.data.movementX),
+            Math.max(Math.min(260, defaultSize.width), state.style.width - action.data.movementX),
             window.innerWidth,
           );
           style.height = Math.min(
@@ -134,7 +132,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           break;
         case 'top-right':
           style.width = Math.min(
-            Math.max(defaultSize.width, state.style.width + action.data.movementX),
+            Math.max(Math.min(260, defaultSize.width), state.style.width + action.data.movementX),
             window.innerWidth,
           );
           style.height = Math.min(
@@ -151,7 +149,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           break;
         case 'bottom-left':
           style.width = Math.min(
-            Math.max(defaultSize.width, state.style.width - action.data.movementX),
+            Math.max(Math.min(260, defaultSize.width), state.style.width - action.data.movementX),
             window.innerWidth,
           );
           style.height = Math.min(
@@ -168,7 +166,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
           break;
         case 'bottom-right':
           style.width = Math.min(
-            Math.max(defaultSize.width, state.style.width + action.data.movementX),
+            Math.max(Math.min(260, defaultSize.width), state.style.width + action.data.movementX),
             window.innerWidth,
           );
           style.height = Math.min(
@@ -204,6 +202,7 @@ export function reducer(state: State, action: Action<keyof ReducerMapping, 'movi
       const position = {
         x: Math.min(48, state.position.x),
         y: Math.min(48, state.position.y),
+        transition: 'initail',
       };
 
       if (action.data.top < 0) {

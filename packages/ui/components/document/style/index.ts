@@ -23,7 +23,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
       [`${componentCls}-root`]: {
         position: 'fixed',
         top: 0,
-        zIndex: token.zIndexPopupBase,
+        zIndex: token.zIndexPopupBase * 2,
 
         [`& > ${componentCls}`]: {
           position: 'fixed',
@@ -91,12 +91,12 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             display: 'flex',
             flexDirection: 'column',
             resize: 'both',
-            // transition: `all ${token.motions.durationMid} ${token.motions.linear}`,
+            transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
             backgroundColor: token.colorBgElevated,
-            minWidth: `min(400px, 100vw, ${window.innerWidth - 96})`,
-            maxWidth: `max(400px, 100vw)`,
-            minHeight: `min(400px, 100vh, ${window.innerHeight - 96})`,
-            maxHeight: `max(400px, 100vh)`,
+            minWidth: `min(260px, 100vw, ${window.innerWidth - 96}px)`,
+            maxWidth: '100vw',
+            minHeight: `min(400px, 100vh, ${window.innerHeight - 96}px)`,
+            maxHeight: '100vh',
             borderRadius: token.borderRadius,
           },
 
@@ -107,12 +107,13 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
 
             [`${componentCls}-title`]: {
               flex: 1,
-              padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+              padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
               fontWeight: token.fontWeight,
               fontSize: token.fontSizeHeading5,
               lineHeight: token.lineHeightHeading5,
               wordWrap: 'break-word',
               display: 'flex',
+              cursor: 'move',
 
               [`${componentCls}-title-text`]: {
                 color: token.colorText,
@@ -126,14 +127,14 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             },
           },
           '&-content': {
-            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
             flex: 1,
             overflow: 'auto',
             position: 'relative',
           },
           '&-footer': {
             borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
-            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
 
             [`> ${euiCls}-btn`]: {
               marginLeft: token.marginXS,

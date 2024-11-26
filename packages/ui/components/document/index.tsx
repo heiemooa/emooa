@@ -187,7 +187,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
       ref={wrapperRef}
     >
       <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
-        <div className={`${prefixCls}-title`} style={{ cursor: 'moving' }}>
+        <div className={`${prefixCls}-title`}>
           {title || (
             <>
               <Button
