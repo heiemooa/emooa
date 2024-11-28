@@ -1,6 +1,6 @@
 import type { MotionBaseToken, SeedToken } from '../../interface';
 
-export default function genMotionBaseToken(token: SeedToken): MotionBaseToken {
+export default function genMotionBaseToken(token: SeedToken): Partial<MotionBaseToken> {
   const { motions } = token;
 
   return Object.assign({}, motions, {
@@ -9,3 +9,4 @@ export default function genMotionBaseToken(token: SeedToken): MotionBaseToken {
     durationSlow: `${(motions.base + motions.unit * 3).toFixed(1)}s`,
   });
 }
+``;

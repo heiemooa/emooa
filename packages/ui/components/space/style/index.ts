@@ -92,10 +92,10 @@ export default genStyleHooks(
   'Space',
   token => {
     const spaceToken = mergeToken<SpaceToken>(token, {
-      spaceGapMiniSize: token.paddingXXS,
-      spaceGapSmallSize: token.paddingXS,
-      spaceGapMediumSize: token.padding,
-      spaceGapLargeSize: token.paddingLG,
+      spaceGapMiniSize: token.paddings.XXS,
+      spaceGapSmallSize: token.paddings.XS,
+      spaceGapMediumSize: token.paddings.MD,
+      spaceGapLargeSize: token.paddings.LG,
     });
     return [genSpaceStyle(spaceToken), genSpaceGapStyle(spaceToken)];
   },

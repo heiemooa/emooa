@@ -91,7 +91,7 @@ const Component = (props: ModalProps, ref) => {
   const prefixCls = getPrefixCls('modal');
   const rootPrefixCls = getPrefixCls();
 
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -103,7 +103,6 @@ const Component = (props: ModalProps, ref) => {
       [`${prefixCls}-center`]: center,
     },
     className,
-    cssVarCls,
   );
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -281,75 +280,73 @@ const Component = (props: ModalProps, ref) => {
   // 使用 modalRef.current 而不是 mountOnExit 是因为动画结束后，modalRef.current 会变成 null，此时再去销毁dom结点，避免动画问题
   const forceRender = beforeFirstOpen.current ? !mountOnEnter : !!modalRef.current;
 
-  return open || forceRender
-    ? wrapCSSVar(
-        <Portal visible={open} getContainer={getPopupContainer}>
-          <div ref={ref} className={classnames}>
-            {mask ? (
-              <EuiCSSTransition
-                in={open}
-                timeout={400}
-                appear
-                mountOnEnter={mountOnEnter}
-                classNames={`${rootPrefixCls}-fade`}
-                unmountOnExit={unmountOnExit}
-                onEnter={e => {
-                  if (!e) return;
-                  e.parentNode.style.display = 'block';
-                }}
-                onExited={e => {
-                  if (!e) return;
-                  e.parentNode.style.display = '';
-                }}
-              >
-                <div
-                  aria-hidden
-                  className={classNames(`${prefixCls}-mask`, modalClassNames?.mask)}
-                  style={styles?.mask}
-                  onClick={onClickMask}
-                />
-              </EuiCSSTransition>
-            ) : null}
-            <EuiCSSTransition
-              in={open}
-              timeout={400}
-              appear
-              classNames={`${rootPrefixCls}-zoom`}
-              unmountOnExit={unmountOnExit}
-              mountOnEnter={mountOnEnter}
-              onEnter={(e: HTMLDivElement) => {
-                if (!e) return;
-                cursorPositionRef.current = cursorPosition;
-                haveOriginTransformOrigin.current = !!e.style.transformOrigin;
-                setTransformOrigin(e);
+  return open || forceRender ? (
+    <Portal visible={open} getContainer={getPopupContainer}>
+      <div ref={ref} className={classnames}>
+        {mask ? (
+          <EuiCSSTransition
+            in={open}
+            timeout={400}
+            appear
+            mountOnEnter={mountOnEnter}
+            classNames={`${rootPrefixCls}-fade`}
+            unmountOnExit={unmountOnExit}
+            onEnter={e => {
+              if (!e) return;
+              e.parentNode.style.display = 'block';
+            }}
+            onExited={e => {
+              if (!e) return;
+              e.parentNode.style.display = '';
+            }}
+          >
+            <div
+              aria-hidden
+              className={classNames(`${prefixCls}-mask`, modalClassNames?.mask)}
+              style={styles?.mask}
+              onClick={onClickMask}
+            />
+          </EuiCSSTransition>
+        ) : null}
+        <EuiCSSTransition
+          in={open}
+          timeout={400}
+          appear
+          classNames={`${rootPrefixCls}-zoom`}
+          unmountOnExit={unmountOnExit}
+          mountOnEnter={mountOnEnter}
+          onEnter={(e: HTMLDivElement) => {
+            if (!e) return;
+            cursorPositionRef.current = cursorPosition;
+            haveOriginTransformOrigin.current = !!e.style.transformOrigin;
+            setTransformOrigin(e);
 
-                modalRef.current = e;
-              }}
-              onEntered={(e: HTMLDivElement) => {
-                if (!e) return;
-                setTransformOrigin(e);
-                cursorPositionRef.current = null;
-                afterOpen?.();
-              }}
-              onExit={() => {
-                inExit.current = true;
-              }}
-              onExited={e => {
-                if (!e) return;
-                setTransformOrigin(e);
-                afterClose?.();
-                inExit.current = false;
-                if (unmountOnExit) {
-                  modalRef.current = null;
-                }
-              }}
-            >
-              {React.cloneElement(modalDom)}
-            </EuiCSSTransition>
-          </div>
-        </Portal>,
-      )
-    : null;
+            modalRef.current = e;
+          }}
+          onEntered={(e: HTMLDivElement) => {
+            if (!e) return;
+            setTransformOrigin(e);
+            cursorPositionRef.current = null;
+            afterOpen?.();
+          }}
+          onExit={() => {
+            inExit.current = true;
+          }}
+          onExited={e => {
+            if (!e) return;
+            setTransformOrigin(e);
+            afterClose?.();
+            inExit.current = false;
+            if (unmountOnExit) {
+              modalRef.current = null;
+            }
+          }}
+        >
+          {React.cloneElement(modalDom)}
+        </EuiCSSTransition>
+      </div>
+    </Portal>
+  ) : null;
 };
 
 const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(Component);

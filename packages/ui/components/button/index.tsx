@@ -6,7 +6,6 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 import useStyle from './style';
 import { IconLoading } from '@emooa/icon';
 import Group from './Group';
-import omit from '@/_utils/omit';
 
 function processChildren(children?: ReactNode) {
   const childrenList = [];
@@ -47,7 +46,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
   }: ButtonProps = Object.assign({}, components?.Button, props);
 
   const prefixCls = getPrefixCls('btn');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -64,7 +63,6 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
       [`${prefixCls}-icon-only`]: icon && !children,
     },
     className,
-    cssVarCls,
   );
 
   const iconNode = loading ? <IconLoading /> : icon;
@@ -90,7 +88,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
     } else {
       _anchorProps.href = href;
     }
-    return wrapCSSVar(
+    return (
       <a
         ref={ref as LegacyRef<HTMLAnchorElement>}
         href={disabled ? undefined : href}
@@ -101,11 +99,11 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
         {..._anchorProps}
       >
         {InnerContent}
-      </a>,
+      </a>
     );
   }
 
-  return wrapCSSVar(
+  return (
     <button
       ref={ref as LegacyRef<HTMLButtonElement>}
       disabled={disabled}
@@ -115,7 +113,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
       {...rest}
     >
       {InnerContent}
-    </button>,
+    </button>
   );
 });
 

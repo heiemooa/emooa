@@ -19,13 +19,11 @@ export interface SeedToken {
    * @desc 用于表示操作成功的 Token 序列，如 Result、Progress 等组件会使用该组梯度变量。
    */
   colorSuccess: string;
-
   /**
    * @name 警戒色
    * @desc 用于表示操作警告的 Token 序列，如 Notification、 Alert等警告类组件或 Input 输入类等组件会使用该组梯度变量。
    */
   colorWarning: string;
-
   /**
    * @name 错误色
    * @desc 用于表示操作失败的 Token 序列，如失败按钮、错误状态提示（Result）组件等。
@@ -37,6 +35,26 @@ export interface SeedToken {
    * @desc 用于表示操作信息的 Token 序列，如 Alert 、Tag、 Progress 等组件都有用到该组梯度变量。
    */
   colorInfo: string;
+
+  /**
+   * @name 超链接颜色
+   * @desc 控制超链接的颜色。
+   */
+  colorLink: string;
+
+  /**
+   * @name 纯白色
+   * @desc 不随主题变化的纯白色
+   * @default #FFFFFF
+   */
+  colorWhite: string;
+
+  /**
+   * @name 纯黑色
+   * @desc 不随主题变化的纯黑色
+   * @default #0000
+   */
+  colorBlack: string;
 
   /**
    * @name 基础文本色
@@ -51,10 +69,10 @@ export interface SeedToken {
   colorBgBase: string;
 
   /**
-   * @name 超链接颜色
-   * @desc 控制超链接的颜色。
+   * @name 浮层的背景蒙层颜色
+   * @desc 浮层的背景蒙层颜色，用于遮罩浮层下面的内容，Modal、Drawer 等组件的蒙层使用的是该 token
    */
-  colorLink: string;
+  colorBgMask: string;
 
   //  ----------   Font   ---------- //
 
@@ -116,12 +134,6 @@ export interface SeedToken {
   sizeStep: number;
 
   /**
-   * @name 组件箭头尺寸
-   * @desc 组件箭头的尺寸
-   */
-  sizePopupArrow: number;
-
-  /**
    * @name 基础高度
    * @desc Emooa UI 中按钮和输入框等基础控件的高度
    * @default 32
@@ -145,13 +157,6 @@ export interface SeedToken {
    */
   zIndexPopupBase: number;
 
-  //  ----------   Opacity   ---------- //
-
-  /**
-   * @name 图片不透明度
-   */
-  opacityImage: number;
-
   //  ----------   motion   ---------- //
 
   /**
@@ -161,5 +166,22 @@ export interface SeedToken {
    */
   motion: boolean;
 
-  motions: MotionBaseToken;
+  motions: Partial<MotionBaseToken>;
+
+  /**
+   * @name 阴影
+   * @desc 控制元素阴影样式。
+   */
+  shadows: {
+    /**
+     * @name 默认阴影
+     * @desc 控制元素阴影样式。
+     */
+    MD: string;
+    /**
+     * @name 小阴影
+     * @desc 控制元素二级阴影样式。
+     */
+    XS: string;
+  };
 }

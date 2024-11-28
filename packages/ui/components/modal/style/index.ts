@@ -54,7 +54,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
 
               [`> ${euiCls}-btn`]: {
                 marginLeft: 0,
-                marginRight: token.marginXS,
+                marginRight: token.margins.XS,
 
                 '&:only-child': {
                   marginRight: 0,
@@ -64,7 +64,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
 
             '&-close-icon': {
               right: 'initial',
-              left: token.padding / 2,
+              left: token.paddings.MD / 2,
             },
           },
         },
@@ -97,21 +97,21 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           boxSizing: 'border-box',
           padding: 0,
           color: token.colorText,
-          fontSize: token.fontSize,
-          lineHeight: token.lineHeight,
+          fontSize: token.fonts.fontSize,
+          lineHeight: token.fonts.lineHeight,
           listStyle: 'none',
           position: 'relative',
           top: 100,
           width: 520,
-          maxWidth: `calc(100vw - ${unit(token.calc(token.margin).mul(2).equal())})`,
+          maxWidth: `calc(100vw - ${unit(token.calc(token.margins.MD).mul(2).equal())})`,
           margin: '0 auto',
-          borderRadius: token.borderRadius,
+          borderRadius: token.rounded.MD,
           textAlign: 'left',
           pointerEvents: 'none',
 
           '&-wrapper': {
             backgroundColor: token.colorBgElevated,
-            borderRadius: token.borderRadius,
+            borderRadius: token.rounded.MD,
             pointerEvents: 'auto',
           },
 
@@ -122,42 +122,42 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
 
             [`${componentCls}-title`]: {
               flex: 1,
-              padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
-              fontWeight: token.fontWeight,
-              fontSize: token.fontSizeHeading5,
-              lineHeight: token.lineHeightHeading5,
+              padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
+              fontWeight: token.fonts.fontWeight,
+              fontSize: token.fonts.fontSizeHeading5,
+              lineHeight: token.fonts.lineHeightHeading5,
               wordWrap: 'break-word',
 
               [`${euiCls}-icon`]: {
-                marginRight: token.margin / 2,
-                fontSize: token.fontSizeLG + 2,
+                marginRight: token.margins.MD / 2,
+                fontSize: token.fonts.fontSizeLG + 2,
                 verticalAlign: '-3px',
 
                 [`&-info-circle-fill`]: {
-                  color: token.colorPrimary,
+                  color: token.colorPrimarys[6],
                 },
                 [`&-check-circle-fill`]: {
-                  color: token.colorSuccess,
+                  color: token.colorSuccesses[6],
                 },
                 [`&-exclamation-circle-fill`]: {
-                  color: token.colorWarning,
+                  color: token.colorWarnings[6],
                 },
                 [`&-close-circle-fill`]: {
-                  color: token.colorError,
+                  color: token.colorErrors[6],
                 },
               },
             },
           },
           '&-content': {
-            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
           },
           '&-footer': {
             // borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
-            padding: `${unit(token.padding)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
             textAlign: 'right',
 
             [`> ${euiCls}-btn`]: {
-              marginLeft: token.marginXS,
+              marginLeft: token.margins.XS,
 
               '&:only-child': {
                 marginLeft: 0,
@@ -167,8 +167,8 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           '&-close-icon': {
             color: 'inherit',
             position: 'absolute',
-            right: token.padding / 2,
-            top: token.padding / 2,
+            right: token.paddings.MD / 2,
+            top: token.paddings.MD / 2,
           },
         },
       },

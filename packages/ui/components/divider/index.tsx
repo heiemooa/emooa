@@ -18,7 +18,7 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>((props: DividerProps, r
   }: DividerProps = Object.assign({}, components?.Divider, props);
 
   const prefixCls = getPrefixCls('divider');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -30,15 +30,14 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>((props: DividerProps, r
       [`${prefixCls}-with-text-${orientation}`]: children && orientation,
     },
     className,
-    cssVarCls,
   );
 
-  return wrapCSSVar(
+  return (
     <div ref={ref} className={classnames} role="separator" {...rest}>
       {children && type === 'horizontal' && (
         <span className={`${prefixCls}-text ${prefixCls}-text-${orientation}`}>{children}</span>
       )}
-    </div>,
+    </div>
   );
 });
 

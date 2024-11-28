@@ -1,4 +1,5 @@
 import type { ComponentToken as AppComponentToken } from '../../app/style';
+import type { ComponentToken as LinkComponentToken } from '../../link/style';
 import type { ComponentToken as ButtonComponentToken } from '../../button/style';
 import type { ComponentToken as BacktopComponentToken } from '../../backtop/style';
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
@@ -17,6 +18,7 @@ export interface ComponentTokenMap {
   App?: AppComponentToken;
   Backtop?: BacktopComponentToken;
   Button?: ButtonComponentToken;
+  Link?: LinkComponentToken;
   Drawer?: DrawerComponentToken;
   Divider?: DividerComponentToken;
   Message?: MessageComponentToken;

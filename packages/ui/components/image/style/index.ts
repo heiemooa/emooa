@@ -87,7 +87,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           color: token.colorTextPlaceholder,
           flexDirection: 'column',
           wordBreak: 'break-word',
-          padding: token.paddingXS,
+          padding: token.paddings.XS,
 
           [`${componentCls}-error-icon`]: {
             fontSize: '4em',
@@ -105,7 +105,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           color: token.colorTextSecondary,
 
           [`${componentCls}-loader-spin`]: {
-            fontSize: token.fontSize,
+            fontSize: token.fonts.fontSize,
             textAlign: 'center',
 
             'svg.eui-icon': {
@@ -131,7 +131,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
               width: '4em',
               height: '4em',
               display: 'block',
-              borderRadius: token.borderRadiusSM,
+              borderRadius: token.rounded.SM,
               backdropFilter: 'saturate(180%) blur(20px)',
               backgroundColor: '#ffffffb8',
               animationName: flip,
@@ -157,8 +157,8 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
         [`${componentCls}-footer`]: {
           background: 'linear-gradient(1turn,rgba(0,0,0,.3),transparent)',
           boxSizing: 'border-box',
-          paddingInline: token.paddingXS,
-          paddingBlock: token.paddingXXS,
+          paddingInline: token.paddings.XS,
+          paddingBlock: token.paddings.XXS,
           alignItems: 'center',
           position: 'absolute',
           left: 0,
@@ -179,8 +179,8 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
         [`${componentCls}-caption`]: {
           '&-title': {
-            fontSize: token.fontSizeHeading5,
-            fontWeight: token.fontWeightStrong,
+            fontSize: token.fonts.fontSizeHeading5,
+            fontWeight: token.fonts.fontWeightStrong,
           },
 
           '&-description': {},
@@ -195,7 +195,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
 
           '&-item': {
             lineHeight: 1,
-            borderRadius: token.borderRadius,
+            borderRadius: token.rounded.MD,
             cursor: 'pointer',
           },
         },

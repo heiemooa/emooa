@@ -5,14 +5,6 @@ import useCompatibleInsertionEffect from './useCompatibleInsertionEffect';
 import useEffectCleanupRegister from './useEffectCleanupRegister';
 import useHMR from './useHMR';
 
-export type ExtractStyle<CacheValue> = (
-  cache: CacheValue,
-  effectStyles: Record<string, boolean>,
-  options?: {
-    plain?: boolean;
-  },
-) => [order: number, styleId: string, style: string] | null;
-
 export default function useGlobalCache<CacheType>(
   prefix: string,
   keyPath: KeyType[],

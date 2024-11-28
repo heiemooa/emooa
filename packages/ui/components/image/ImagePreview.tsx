@@ -48,11 +48,6 @@ export type ImagePreviewHandle = {
   reset: () => void;
 };
 
-const useCSSVarCls = (prefixCls: string) => {
-  const [, , , , cssVar] = useToken();
-  return cssVar ? `${prefixCls}-css-var` : '';
-};
-
 const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mousePosition?: { x: number; y: number } }>(
   (props, ref) => {
     const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
@@ -66,8 +61,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     const rootPrefixCls = getPrefixCls();
     const previewPrefixCls = `${prefixCls}-preview`;
 
-    const rootCls = useCSSVarCls(prefixCls);
-    const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls, rootCls);
+    const [hashId] = useStyle(prefixCls);
 
     const [moving, setMoving] = useState(false);
     const { isLoading, isLoaded, setStatus } = useImageStatus('loading');
@@ -158,7 +152,6 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
         [`${previewPrefixCls}-rtl`]: rtl,
       },
       className,
-      cssVarCls,
     );
 
     useEffect(() => {
@@ -474,7 +467,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       return {};
     }, [mousePosition]);
 
-    return wrapCSSVar(
+    return (
       <Portal visible={visible} getContainer={getContainer}>
         <div className={classnames} ref={refRootWrapper} style={style} {...rest}>
           <EuiCSSTransition
@@ -562,7 +555,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
             </div>
           </EuiCSSTransition>
         </div>
-      </Portal>,
+      </Portal>
     );
   },
 );

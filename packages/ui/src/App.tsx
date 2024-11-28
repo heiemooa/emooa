@@ -10,11 +10,13 @@ import APP from './containers/App';
 import Backtop from './containers/Backtop';
 import Message from './containers/Message';
 import Provider from './containers/Provider';
+import Button from './containers/Button';
+import Link from './containers/Link';
 
 function App() {
   return (
     <>
-      <Provider />
+      <Link />
     </>
   );
 }

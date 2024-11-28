@@ -76,11 +76,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制文本描述字体颜色。
    */
   colorTextDescription: string;
-  /**
-   * @name 固定文本高亮颜色
-   * @desc 控制带背景色的文本，例如 Primary Button 组件中的文本高亮颜色。
-   */
-  colorTextLightSolid: string;
 
   /**
   /**
@@ -102,37 +97,6 @@ export interface AliasToken extends BaseToken {
    */
   colorHighlight: string;
 
-  /**
-   * @name 警告状态下的 Outline 颜色
-   * @desc 控制输入组件警告状态下的外轮廓线颜色。
-   */
-  colorWarningOutline: string;
-
-  /**
-   * @name 错误状态下的 Outline 颜色
-   * @desc 控制输入组件错误状态下的外轮廓线颜色。
-   */
-  colorErrorOutline: string;
-
-  // Font
-  /**
-   * @name 选择器、级联选择器等中的操作图标字体大小
-   * @desc 控制选择器、级联选择器等中的操作图标字体大小。正常情况下与 fontSizeSM 相同。
-   */
-  fontSizeIcon: number;
-
-  /**
-   * @name 标题类组件
-   * @desc 控制标题类组件
-   */
-  fontWeight: number;
-
-  /**
-   * @name 标题类组件（如 h1、h2、h3）或选中项的字体粗细
-   * @desc 控制标题类组件（如 h1、h2、h3）或选中项的字体粗细。
-   */
-  fontWeightStrong: number;
-
   // Line
   /**
    * @name 线条宽度(聚焦态)
@@ -141,121 +105,77 @@ export interface AliasToken extends BaseToken {
   lineWidthFocus: number;
 
   // Padding
-  /**
-   * @name 极小内间距
-   * @desc 控制元素的极小内间距。
-   */
-  paddingXXS: number;
-  /**
-   * @name 特小内间距
-   * @desc 控制元素的特小内间距。
-   */
-  paddingXS: number;
-  /**
-   * @name 小内间距
-   * @desc 控制元素的小内间距。
-   */
-  paddingSM: number;
-  /**
-   * @name 内间距
-   * @desc 控制元素的内间距。
-   */
-  padding: number;
-  /**
-   * @name 大内间距
-   * @desc 控制元素的大内间距。
-   */
-  paddingLG: number;
-  /**
-   * @name 特大内间距
-   * @desc 控制元素的特大内间距。
-   */
-  paddingXL: number;
-
-  // Padding Content
-  /**
-   * @name 内容水平内间距（LG）
-   * @desc 控制内容元素水平内间距，适用于大屏幕设备。
-   */
-  paddingContentHorizontalLG: number;
-  /**
-   * @name 内容水平内间距
-   * @desc 控制内容元素水平内间距。
-   */
-  paddingContentHorizontal: number;
-  /**
-   * @name 内容水平内间距（SM）
-   * @desc 控制内容元素水平内间距，适用于小屏幕设备。
-   */
-  paddingContentHorizontalSM: number;
-  /**
-   * @name 内容垂直内间距（LG）
-   * @desc 控制内容元素垂直内间距，适用于大屏幕设备。
-   */
-  paddingContentVerticalLG: number;
-  /**
-   * @name 内容垂直内间距
-   * @desc 控制内容元素垂直内间距。
-   */
-  paddingContentVertical: number;
-  /**
-   * @name 内容垂直内间距（SM）
-   * @desc 控制内容元素垂直内间距，适用于小屏幕设备。
-   */
-  paddingContentVerticalSM: number;
+  paddings: {
+    /**
+     * @name 极小内间距
+     * @desc 控制元素的极小内间距。
+     */
+    XXS: number;
+    /**
+     * @name 特小内间距
+     * @desc 控制元素的特小内间距。
+     */
+    XS: number;
+    /**
+     * @name 小内间距
+     * @desc 控制元素的小内间距。
+     */
+    SM: number;
+    /**
+     * @name 内间距
+     * @desc 控制元素的内间距。
+     */
+    MD: number;
+    /**
+     * @name 大内间距
+     * @desc 控制元素的大内间距。
+     */
+    LG: number;
+    /**
+     * @name 特大内间距
+     * @desc 控制元素的特大内间距。
+     */
+    XL: number;
+  };
 
   // Margin
-  /**
-   * @name 外边距 XXS
-   * @desc 控制元素外边距，最小尺寸。
-   */
-  marginXXS: number;
-  /**
-   * @name 外边距 XS
-   * @desc 控制元素外边距，小尺寸。
-   */
-  marginXS: number;
-  /**
-   * @name 外边距 SM
-   * @desc 控制元素外边距，中小尺寸。
-   */
-  marginSM: number;
-  /**
-   * @name 外边距
-   * @desc 控制元素外边距，中等尺寸。
-   */
-  margin: number;
-  /**
-   * @name 外边距 LG
-   * @desc 控制元素外边距，大尺寸。
-   */
-  marginLG: number;
-  /**
-   * @name 外边距 XL
-   * @desc 控制元素外边距，超大尺寸。
-   */
-  marginXL: number;
-  /**
-   * @name 外边距 XXL
-   * @desc 控制元素外边距，最大尺寸。
-   */
-  marginXXL: number;
-
-  /**
-   * @name 一级阴影
-   * @desc 控制元素阴影样式。
-   */
-  boxShadow: string;
-  /**
-   * @name 二级阴影
-   * @desc 控制元素二级阴影样式。
-   */
-  boxShadowSecondary: string;
-  /**
-   * @name 三级阴影
-   * @desc 控制元素三级盒子阴影样式。
-   */
-  boxShadowTertiary: string;
+  margins: {
+    /**
+     * @name 外边距 XXS
+     * @desc 控制元素外边距，最小尺寸。
+     */
+    XXS: number;
+    /**
+     * @name 外边距 XS
+     * @desc 控制元素外边距，小尺寸。
+     */
+    XS: number;
+    /**
+     * @name 外边距 SM
+     * @desc 控制元素外边距，中小尺寸。
+     */
+    SM: number;
+    /**
+     * @name 外边距
+     * @desc 控制元素外边距，中等尺寸。
+     */
+    MD: number;
+    /**
+     * @name 外边距 LG
+     * @desc 控制元素外边距，大尺寸。
+     */
+    LG: number;
+    /**
+     * @name 外边距 XL
+     * @desc 控制元素外边距，超大尺寸。
+     */
+    XL: number;
+    /**
+     * @name 外边距 XXL
+     * @desc 控制元素外边距，最大尺寸。
+     */
+    XXL: number;
+  };
 
   /**
    * @name 链接文本装饰
@@ -274,89 +194,91 @@ export interface AliasToken extends BaseToken {
   linkFocusDecoration: React.CSSProperties['textDecoration'];
 
   // Media queries breakpoints
-  /**
-   * @name 屏幕宽度（像素） - 超小屏幕
-   * @desc 控制超小屏幕的屏幕宽度。
-   */
-  screenXS: number;
-  /**
-   * @name 屏幕宽度（像素） - 超小屏幕最小值
-   * @desc 控制超小屏幕的最小宽度。
-   */
-  screenXSMin: number;
-  /**
-   * @name 屏幕宽度（像素） - 超小屏幕最大值
-   * @desc 控制超小屏幕的最大宽度。
-   */
-  screenXSMax: number;
-  /**
-   * @name 屏幕宽度（像素） - 小屏幕
-   * @desc 控制小屏幕的屏幕宽度。
-   */
-  screenSM: number;
-  /**
-   * @name 屏幕宽度（像素） - 小屏幕最小值
-   * @desc 控制小屏幕的最小宽度。
-   */
-  screenSMMin: number;
-  /**
-   * @name 屏幕宽度（像素） - 小屏幕最大值
-   * @desc 控制小屏幕的最大宽度。
-   */
-  screenSMMax: number;
-  /**
-   * @name 屏幕宽度（像素） - 中等屏幕
-   * @desc 控制中等屏幕的屏幕宽度。
-   */
-  screenMD: number;
-  /**
-   * @name 屏幕宽度（像素） - 中等屏幕最小值
-   * @desc 控制中等屏幕的最小宽度。
-   */
-  screenMDMin: number;
-  /**
-   * @name 屏幕宽度（像素） - 中等屏幕最大值
-   * @desc 控制中等屏幕的最大宽度。
-   */
-  screenMDMax: number;
-  /**
-   * @name 屏幕宽度（像素） - 大屏幕
-   * @desc 控制大屏幕的屏幕宽度。
-   */
-  screenLG: number;
-  /**
-   * @name 屏幕宽度（像素） - 大屏幕最小值
-   * @desc 控制大屏幕的最小宽度。
-   */
-  screenLGMin: number;
-  /**
-   * @name 屏幕宽度（像素） - 大屏幕最大值
-   * @desc 控制大屏幕的最大宽度。
-   */
-  screenLGMax: number;
-  /**
-   * @name 屏幕宽度（像素） - 超大屏幕
-   * @desc 控制超大屏幕的屏幕宽度。
-   */
-  screenXL: number;
-  /**
-   * @name 屏幕宽度（像素） - 超大屏幕最小值
-   * @desc 控制超大屏幕的最小宽度。
-   */
-  screenXLMin: number;
-  /**
-   * @name 屏幕宽度（像素） - 超大屏幕最大值
-   * @desc 控制超大屏幕的最大宽度。
-   */
-  screenXLMax: number;
-  /**
-   * @name 屏幕宽度（像素） - 超超大屏幕
-   * @desc 控制超超大屏幕的屏幕宽度。
-   */
-  screenXXL: number;
-  /**
-   * @name 屏幕宽度（像素） - 超超大屏幕最小值
-   * @desc 控制超超大屏幕的最小宽度。
-   */
-  screenXXLMin: number;
+  screens: {
+    /**
+     * @name 屏幕宽度（像素） - 超小屏幕
+     * @desc 控制超小屏幕的屏幕宽度。
+     */
+    XS: number;
+    /**
+     * @name 屏幕宽度（像素） - 超小屏幕最小值
+     * @desc 控制超小屏幕的最小宽度。
+     */
+    XSMin: number;
+    /**
+     * @name 屏幕宽度（像素） - 超小屏幕最大值
+     * @desc 控制超小屏幕的最大宽度。
+     */
+    XSMax: number;
+    /**
+     * @name 屏幕宽度（像素） - 小屏幕
+     * @desc 控制小屏幕的屏幕宽度。
+     */
+    SM: number;
+    /**
+     * @name 屏幕宽度（像素） - 小屏幕最小值
+     * @desc 控制小屏幕的最小宽度。
+     */
+    SMMin: number;
+    /**
+     * @name 屏幕宽度（像素） - 小屏幕最大值
+     * @desc 控制小屏幕的最大宽度。
+     */
+    SMMax: number;
+    /**
+     * @name 屏幕宽度（像素） - 中等屏幕
+     * @desc 控制中等屏幕的屏幕宽度。
+     */
+    MD: number;
+    /**
+     * @name 屏幕宽度（像素） - 中等屏幕最小值
+     * @desc 控制中等屏幕的最小宽度。
+     */
+    MDMin: number;
+    /**
+     * @name 屏幕宽度（像素） - 中等屏幕最大值
+     * @desc 控制中等屏幕的最大宽度。
+     */
+    MDMax: number;
+    /**
+     * @name 屏幕宽度（像素） - 大屏幕
+     * @desc 控制大屏幕的屏幕宽度。
+     */
+    LG: number;
+    /**
+     * @name 屏幕宽度（像素） - 大屏幕最小值
+     * @desc 控制大屏幕的最小宽度。
+     */
+    LGMin: number;
+    /**
+     * @name 屏幕宽度（像素） - 大屏幕最大值
+     * @desc 控制大屏幕的最大宽度。
+     */
+    LGMax: number;
+    /**
+     * @name 屏幕宽度（像素） - 超大屏幕
+     * @desc 控制超大屏幕的屏幕宽度。
+     */
+    XL: number;
+    /**
+     * @name 屏幕宽度（像素） - 超大屏幕最小值
+     * @desc 控制超大屏幕的最小宽度。
+     */
+    XLMin: number;
+    /**
+     * @name 屏幕宽度（像素） - 超大屏幕最大值
+     * @desc 控制超大屏幕的最大宽度。
+     */
+    XLMax: number;
+    /**
+     * @name 屏幕宽度（像素） - 超超大屏幕
+     * @desc 控制超超大屏幕的屏幕宽度。
+     */
+    XXL: number;
+    /**
+     * @name 屏幕宽度（像素） - 超超大屏幕最小值
+     * @desc 控制超超大屏幕的最小宽度。
+     */
+    XXLMin: number;
+  };
 }

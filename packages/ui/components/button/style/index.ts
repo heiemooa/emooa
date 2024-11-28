@@ -45,7 +45,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
       cursor: 'pointer',
       whiteSpace: 'nowrap',
       textAlign: 'center',
-      lineHeight: token.lineHeight,
+      lineHeight: token.fonts.lineHeight,
       outline: 'none',
       transition: `all ${token.motions.durationMid} ${token.motions.standard}`,
 
@@ -55,20 +55,20 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
 
       [`&:not(${componentCls}-rtl)`]: {
         '& > svg + span': {
-          marginLeft: token.paddingXS,
+          marginLeft: token.paddings.XS,
         },
         '& > span + svg': {
-          marginLeft: token.paddingXS,
+          marginLeft: token.paddings.XS,
         },
       },
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
 
         '& > svg + span': {
-          marginRight: token.paddingXS,
+          marginRight: token.paddings.XS,
         },
         '& > span + svg': {
-          marginRight: token.paddingXS,
+          marginRight: token.paddings.XS,
         },
       },
 
@@ -94,19 +94,6 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
         '& > *': {
           pointerEvents: 'none',
         },
-
-        '&::after': {
-          position: 'absolute',
-          background: '#ffffff60',
-          content: '""',
-          height: '100%',
-          width: '100%',
-          left: `-${token.lineWidth}px`,
-          top: `-${token.lineWidth}px`,
-          border: `${token.lineWidth}px solid #ffffff60`,
-          boxSizing: 'initial',
-          borderRadius: token.borderRadius,
-        },
       },
 
       [`&${componentCls}-loading::after`]: {
@@ -119,7 +106,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
         top: `-${token.lineWidth}px`,
         border: `${token.lineWidth}px solid #ffffff60`,
         boxSizing: 'initial',
-        borderRadius: token.borderRadius,
+        borderRadius: token.rounded.MD,
       },
     },
   };
@@ -155,9 +142,11 @@ const genBtnStatusStyle = (token: ButtonToken, type, status): CSSObject => {
   const { componentCls } = token;
   return {
     '&': {
-      backgroundColor: token[`${type}${status}ColorBg`],
-      color: token[`${type}${status}Color`],
-      border: token[`${type}${status}Border`],
+      [`&:not(${componentCls}-disabled)`]: {
+        backgroundColor: token[`${type}${status}ColorBg`],
+        color: token[`${type}${status}Color`],
+        border: token[`${type}${status}Border`],
+      },
 
       '&:focus-visible': {
         boxShadow: `0 0 0 2px ${token[`${type}${status}ColorBgHover`]}`,
@@ -168,6 +157,12 @@ const genBtnStatusStyle = (token: ButtonToken, type, status): CSSObject => {
         color: token[`${type}${status}ColorHover`],
         border: token[`${type}${status}BorderHover`],
       },
+
+      [`&${componentCls}-disabled`]: {
+        backgroundColor: token[`${type}${status}DisabledColorBg`],
+        color: token[`${type}${status}DisabledColor`],
+        border: token[`${type}${status}DisabledBorder`],
+      },
     },
   };
 };
@@ -177,9 +172,9 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
 
   return {
     [`${componentCls}-mini`]: {
-      fontSize: token.fontSizeSM,
-      height: `${token.sizeXS + 16}px`,
-      borderRadius: token.borderRadius,
+      fontSize: token.fonts.fontSizeSM,
+      height: `${token.sizes.XS + 16}px`,
+      borderRadius: token.rounded.MD,
 
       [`&${componentCls}-icon-only`]: {
         aspectRatio: 1,
@@ -189,19 +184,19 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
         justifyContent: 'center',
       },
       [`&:not(${componentCls}-icon-only)`]: {
-        padding: `0 ${token.paddingXS - token.lineWidth}px`,
+        padding: `0 ${token.paddings.XS - token.lineWidth}px`,
       },
       [`&${componentCls}-circle`]: {
         borderRadius: '50%',
       },
       [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizeXS + 16) / 2}px`,
+        borderRadius: `${(token.sizes.XS + 16) / 2}px`,
       },
     },
     [`${componentCls}-small`]: {
-      fontSize: token.fontSizeSM,
-      height: `${token.sizeSM + 16}px`,
-      borderRadius: token.borderRadius,
+      fontSize: token.fonts.fontSizeSM,
+      height: `${token.sizes.SM + 16}px`,
+      borderRadius: token.rounded.MD,
       [`&${componentCls}-icon-only`]: {
         aspectRatio: 1,
         padding: 0,
@@ -210,19 +205,19 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
         justifyContent: 'center',
       },
       [`&:not(${componentCls}-icon-only)`]: {
-        padding: `${token.sizeXS / 4}px  ${token.paddingXS - token.lineWidth}px`,
+        padding: `${token.sizes.XS / 4}px  ${token.paddings.XS - token.lineWidth}px`,
       },
       [`&${componentCls}-circle`]: {
         borderRadius: '50%',
       },
       [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizeSM + 16) / 2}px`,
+        borderRadius: `${(token.sizes.SM + 16) / 2}px`,
       },
     },
     [`${componentCls}-medium`]: {
-      fontSize: token.fontSize,
-      height: `${token.size + 16}px`,
-      borderRadius: token.borderRadius,
+      fontSize: token.fonts.fontSize,
+      height: `${token.sizes.MD + 16}px`,
+      borderRadius: token.rounded.MD,
       [`&${componentCls}-icon-only`]: {
         aspectRatio: 1,
         padding: 0,
@@ -231,19 +226,19 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
         justifyContent: 'center',
       },
       [`&:not(${componentCls}-icon-only)`]: {
-        padding: `${token.size / 4}px  ${token.padding - token.lineWidth}px`,
+        padding: `${token.sizes.MD / 4}px  ${token.paddings.MD - token.lineWidth}px`,
       },
       [`&${componentCls}-circle`]: {
         borderRadius: '50%',
       },
       [`&${componentCls}-round`]: {
-        borderRadius: `${(token.size + 16) / 2}px`,
+        borderRadius: `${(token.sizes.MD + 16) / 2}px`,
       },
     },
     [`${componentCls}-large`]: {
-      fontSize: token.fontSize,
-      height: `${token.sizeLG + 16}px`,
-      borderRadius: token.borderRadius,
+      fontSize: token.fonts.fontSize,
+      height: `${token.sizes.LG + 16}px`,
+      borderRadius: token.rounded.MD,
       [`&${componentCls}-icon-only`]: {
         aspectRatio: 1,
         padding: 0,
@@ -252,13 +247,13 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
         justifyContent: 'center',
       },
       [`&:not(${componentCls}-icon-only)`]: {
-        padding: `${token.sizeXL / 4}px ${token.paddingLG - token.lineWidth}px`,
+        padding: `${token.sizes.XL / 4}px ${token.paddings.LG - token.lineWidth}px`,
       },
       [`&${componentCls}-circle`]: {
         borderRadius: '50%',
       },
       [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizeLG + 16) / 2}px`,
+        borderRadius: `${(token.sizes.LG + 16) / 2}px`,
       },
     },
   };
@@ -276,107 +271,215 @@ const genBtnFullStyle: GenerateStyle<ButtonToken> = token => {
 };
 
 // ============================== Export ==============================
-const prepareComponentToken: GetDefaultToken<'Button'> = token => ({
-  /**  Type  */
-  // secondary
-  secondaryColorBg: token.colorBorderSecondary,
-  secondaryColorBgHover: token.colorBorder,
-  secondaryColor: token.colorText,
-  secondaryBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  secondarySuccessColorBg: token.colorSuccessBg,
-  secondarySuccessColorBgHover: token.colorSuccessBgHover,
-  secondarySuccessColor: token.colorSuccess,
-  secondarySuccessBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  secondaryDangerColorBg: token.colorErrorBg,
-  secondaryDangerColorBgHover: token.colorErrorBgHover,
-  secondaryDangerColor: token.colorError,
-  secondaryDangerBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  secondaryWarningColorBg: token.colorWarningBg,
-  secondaryWarningColorBgHover: token.colorWarningBgHover,
-  secondaryWarningColor: token.colorWarning,
-  secondaryWarningBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+const prepareComponentToken: GetDefaultToken<'Button'> = token => {
+  return {
+    /**  Type  */
+    // secondary
+    secondaryColor: token.colorText,
+    secondaryColorHover: token.colorText,
+    secondaryColorBg: token.colorBorderSecondary,
+    secondaryColorBgHover: token.colorBorder,
+    secondaryBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryDisabledColor: token.colorTextQuaternary,
+    secondaryDisabledColorBg: token.colorBorderSecondary,
+    secondaryDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
 
-  // primary
-  primaryColorBg: token.colorPrimary,
-  primaryColorBgHover: token.colorPrimaryHover,
-  primaryColor: token.colorTextLightSolid,
-  primaryBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  primarySuccessColorBg: token.colorSuccess,
-  primarySuccessColorBgHover: token.colorSuccessHover,
-  primarySuccessColor: token.colorTextLightSolid,
-  primarySuccessBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  primaryDangerColorBg: token.colorError,
-  primaryDangerColorBgHover: token.colorErrorHover,
-  primaryDangerColor: token.colorTextLightSolid,
-  primaryDangerBorder: `${token.lineWidth}px ${token.lineType} transparent`,
-  primaryWarningColorBg: token.colorWarning,
-  primaryWarningColorBgHover: token.colorWarningHover,
-  primaryWarningColor: token.colorTextLightSolid,
-  primaryWarningBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondarySuccessColor: token.colorSuccesses[6],
+    secondarySuccessColorHover: token.colorSuccesses[6],
+    secondarySuccessColorBg: token.colorSuccesses[1],
+    secondarySuccessColorBgHover: token.colorSuccesses[2],
+    secondarySuccessBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondarySuccessBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondarySuccessDisabledColor: token.colorSuccesses[3],
+    secondarySuccessDisabledColorBg: token.colorSuccesses[1],
+    secondarySuccessDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
 
-  // dashed
-  dashedColorBg: token.colorBorderSecondary,
-  dashedColorBgHover: token.colorBorder,
-  dashedColor: token.colorText,
-  dashedBorder: `${token.lineWidth}px dashed ${token.colorBorder}`,
-  dashedBorderHover: `${token.lineWidth}px dashed ${token.colorBorder}`,
-  dashedSuccessColorBg: token.colorSuccessBg,
-  dashedSuccessColorBgHover: token.colorSuccessBgHover,
-  dashedSuccessColor: token.colorSuccess,
-  dashedSuccessBorder: `${token.lineWidth}px dashed ${token.colorSuccessBorder}`,
-  dashedDangerColorBg: token.colorErrorBg,
-  dashedDangerColorBgHover: token.colorErrorBgHover,
-  dashedDangerColor: token.colorError,
-  dashedDangerBorder: `${token.lineWidth}px dashed ${token.colorErrorBorder}`,
-  dashedWarningColorBg: token.colorWarningBg,
-  dashedWarningColorBgHover: token.colorWarningBgHover,
-  dashedWarningColor: token.colorWarning,
-  dashedWarningBorder: `${token.lineWidth}px dashed ${token.colorWarningBorder}`,
+    secondaryDangerColor: token.colorErrors[6],
+    secondaryDangerColorHover: token.colorErrors[6],
+    secondaryDangerColorBg: token.colorErrors[1],
+    secondaryDangerColorBgHover: token.colorErrors[2],
+    secondaryDangerBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryDangerBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryDangerDisabledColor: token.colorErrors[3],
+    secondaryDangerDisabledColorBg: token.colorErrors[1],
+    secondaryDangerDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
 
-  // text
-  textColorBg: 'transparent',
-  textColorBgHover: token.colorBgTextHover,
-  textColor: token.colorPrimary,
-  textColorHover: token.colorPrimaryHover,
-  textBorder: `${token.lineWidth}px dashed transparent`,
-  textSuccessColorBg: 'transparent',
-  textSuccessColorBgHover: token.colorBgTextHover,
-  textSuccessColor: token.colorSuccess,
-  textSuccessColorHover: token.colorSuccessHover,
-  textSuccessBorder: `${token.lineWidth}px dashed transparent`,
-  textDangerColorBg: 'transparent',
-  textDangerColorBgHover: token.colorBgTextHover,
-  textDangerColor: token.colorError,
-  textDangerColorHover: token.colorErrorHover,
-  textDangerBorder: `${token.lineWidth}px dashed transparent`,
-  textWarningColorBg: 'transparent',
-  textWarningColorBgHover: token.colorBgTextHover,
-  textWarningColor: token.colorWarning,
-  textWarningColorHover: token.colorWarningHover,
-  textWarningBorder: `${token.lineWidth}px dashed transparent`,
+    secondaryWarningColor: token.colorWarnings[6],
+    secondaryWarningColorHover: token.colorWarnings[6],
+    secondaryWarningColorBg: token.colorWarnings[1],
+    secondaryWarningColorBgHover: token.colorWarnings[2],
+    secondaryWarningBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryWarningBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    secondaryWarningDisabledColor: token.colorWarnings[3],
+    secondaryWarningDisabledColorBg: token.colorWarnings[1],
+    secondaryWarningDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
 
-  // outline
-  outlineColorBg: 'transparent',
-  outlineColor: token.colorPrimary,
-  outlineColorHover: token.colorPrimaryHover,
-  outlineBorder: `${token.lineWidth}px ${token.lineType} ${token.colorPrimary}`,
-  outlineBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorPrimaryHover}`,
-  outlineSuccessColorBg: 'transparent',
-  outlineSuccessColor: token.colorSuccess,
-  outlineSuccessColorHover: token.colorSuccessHover,
-  outlineSuccessBorder: `${token.lineWidth}px ${token.lineType} ${token.colorSuccess}`,
-  outlineSuccessBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorSuccessHover}`,
-  outlineDangerColorBg: 'transparent',
-  outlineDangerColor: token.colorError,
-  outlineDangerColorHover: token.colorErrorHover,
-  outlineDangerBorder: `${token.lineWidth}px ${token.lineType} ${token.colorError}`,
-  outlineDangerBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorErrorHover}`,
-  outlineWarningColorBg: 'transparent',
-  outlineWarningColor: token.colorWarning,
-  outlineWarningColorHover: token.colorWarningHover,
-  outlineWarningBorder: `${token.lineWidth}px ${token.lineType} ${token.colorWarning}`,
-  outlineWarningBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorWarningHover}`,
-});
+    // primary
+    primaryColor: token.colorWhite,
+    primaryColorHover: token.colorWhite,
+    primaryColorBg: token.colorPrimarys[6],
+    primaryColorBgHover: token.colorPrimarys[5],
+    primaryBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryDisabledColor: token.colorWhite,
+    primaryDisabledColorBg: token.colorPrimarys[3],
+    primaryDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    primarySuccessColor: token.colorWhite,
+    primarySuccessColorHover: token.colorWhite,
+    primarySuccessColorBg: token.colorSuccesses[6],
+    primarySuccessColorBgHover: token.colorSuccesses[5],
+    primarySuccessBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    primarySuccessBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    primarySuccessDisabledColor: token.colorWhite,
+    primarySuccessDisabledColorBg: token.colorSuccesses[3],
+    primarySuccessDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    primaryDangerColor: token.colorWhite,
+    primaryDangerColorHover: token.colorWhite,
+    primaryDangerColorBg: token.colorErrors[6],
+    primaryDangerColorBgHover: token.colorErrors[5],
+    primaryDangerBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryDangerBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryDangerDisabledColor: token.colorWhite,
+    primaryDangerDisabledColorBg: token.colorErrors[3],
+    primaryDangerDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    primaryWarningColor: token.colorWhite,
+    primaryWarningColorHover: token.colorWhite,
+    primaryWarningColorBg: token.colorWarnings[6],
+    primaryWarningColorBgHover: token.colorWarnings[5],
+    primaryWarningBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryWarningBorderHover: `${token.lineWidth}px ${token.lineType} transparent`,
+    primaryWarningDisabledColor: token.colorWhite,
+    primaryWarningDisabledColorBg: token.colorWarnings[3],
+    primaryWarningDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    // dashed
+    dashedColor: token.colorText,
+    dashedColorHover: token.colorText,
+    dashedColorBg: token.colorBorderSecondary,
+    dashedColorBgHover: token.colorBorder,
+    dashedBorder: `${token.lineWidth}px dashed ${token.colorBorder}`,
+    dashedBorderHover: `${token.lineWidth}px dashed ${token.colorBorderSecondary}`,
+    dashedDisabledColor: token.colorTextQuaternary,
+    dashedDisabledColorBg: token.colorBorderSecondary,
+    dashedDisabledBorder: `${token.lineWidth}px dashed ${token.colorBorder}`,
+
+    dashedSuccessColor: token.colorSuccesses[6],
+    dashedSuccessColorHover: token.colorSuccesses[6],
+    dashedSuccessColorBg: token.colorSuccesses[1],
+    dashedSuccessColorBgHover: token.colorSuccesses[2],
+    dashedSuccessBorder: `${token.lineWidth}px dashed ${token.colorSuccesses[3]}`,
+    dashedSuccessBorderHover: `${token.lineWidth}px dashed ${token.colorSuccesses[3]}`,
+    dashedSuccessDisabledColor: token.colorSuccesses[3],
+    dashedSuccessDisabledColorBg: token.colorSuccesses[1],
+    dashedSuccessDisabledBorder: `${token.lineWidth}px dashed ${token.colorSuccesses[2]}`,
+
+    dashedDangerColor: token.colorErrors[6],
+    dashedDangerColorHover: token.colorErrors[6],
+    dashedDangerColorBg: token.colorErrors[1],
+    dashedDangerColorBgHover: token.colorErrors[2],
+    dashedDangerBorder: `${token.lineWidth}px dashed ${token.colorErrors[3]}`,
+    dashedDangerBorderHover: `${token.lineWidth}px dashed ${token.colorErrors[3]}`,
+    dashedDangerDisabledColor: token.colorErrors[3],
+    dashedDangerDisabledColorBg: token.colorErrors[1],
+    dashedDangerDisabledBorder: `${token.lineWidth}px dashed ${token.colorErrors[2]}`,
+
+    dashedWarningColor: token.colorWarnings[6],
+    dashedWarningColorHover: token.colorWarnings[6],
+    dashedWarningColorBg: token.colorWarnings[1],
+    dashedWarningColorBgHover: token.colorWarnings[2],
+    dashedWarningBorder: `${token.lineWidth}px dashed ${token.colorWarnings[3]}`,
+    dashedWarningBorderHover: `${token.lineWidth}px dashed ${token.colorWarnings[3]}`,
+    dashedWarningDisabledColor: token.colorWarnings[3],
+    dashedWarningDisabledColorBg: token.colorWarnings[1],
+    dashedWarningDisabledBorder: `${token.lineWidth}px dashed ${token.colorWarnings[2]}`,
+
+    // outline
+    outlineColor: token.colorPrimarys[6],
+    outlineColorHover: token.colorPrimarys[5],
+    outlineColorBg: 'transparent',
+    outlineColorBgHover: 'transparent',
+    outlineBorder: `${token.lineWidth}px ${token.lineType} ${token.colorPrimarys[6]}`,
+    outlineBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorPrimarys[5]}`,
+    outlineDisabledColor: token.colorPrimarys[3],
+    outlineDisabledColorBg: 'transparent',
+    outlineDisabledBorder: `${token.lineWidth}px ${token.lineType} ${token.colorPrimarys[2]}`,
+
+    outlineSuccessColor: token.colorSuccesses[6],
+    outlineSuccessColorHover: token.colorSuccesses[5],
+    outlineSuccessColorBg: 'transparent',
+    outlineSuccessColorBgHover: 'transparent',
+    outlineSuccessBorder: `${token.lineWidth}px ${token.lineType} ${token.colorSuccesses[6]}`,
+    outlineSuccessBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorSuccesses[5]}`,
+    outlineSuccessDisabledColor: token.colorSuccesses[3],
+    outlineSuccessDisabledColorBg: 'transparent',
+    outlineSuccessDisabledBorder: `${token.lineWidth}px ${token.lineType} ${token.colorSuccesses[2]}`,
+
+    outlineDangerColor: token.colorErrors[6],
+    outlineDangerColorHover: token.colorErrors[5],
+    outlineDangerColorBg: 'transparent',
+    outlineDangerColorBgHover: 'transparent',
+    outlineDangerBorder: `${token.lineWidth}px ${token.lineType} ${token.colorErrors[6]}`,
+    outlineDangerBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorErrors[5]}`,
+    outlineDangerDisabledColor: token.colorErrors[3],
+    outlineDangerDisabledColorBg: 'transparent',
+    outlineDangerDisabledBorder: `${token.lineWidth}px ${token.lineType} ${token.colorErrors[2]}`,
+
+    outlineWarningColor: token.colorWarnings[6],
+    outlineWarningColorHover: token.colorWarnings[5],
+    outlineWarningColorBg: 'transparent',
+    outlineWarningColorBgHover: 'transparent',
+    outlineWarningBorder: `${token.lineWidth}px ${token.lineType} ${token.colorWarnings[6]}`,
+    outlineWarningBorderHover: `${token.lineWidth}px ${token.lineType} ${token.colorWarnings[5]}`,
+    outlineWarningDisabledColor: token.colorWarnings[3],
+    outlineWarningDisabledColorBg: 'transparent',
+    outlineWarningDisabledBorder: `${token.lineWidth}px ${token.lineType} ${token.colorWarnings[2]}`,
+
+    // text
+    textColor: token.colorPrimarys[6],
+    textColorHover: token.colorPrimarys[5],
+    textColorBg: 'transparent',
+    textColorBgHover: token.colorBgTextHover,
+    textBorder: `${token.lineWidth}px dashed transparent`,
+    textBorderHover: `${token.lineWidth}px dashed transparent`,
+    textDisabledColor: token.colorPrimarys[3],
+    textDisabledColorBg: 'transparent',
+    textDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    textSuccessColor: token.colorSuccesses[6],
+    textSuccessColorHover: token.colorSuccesses[5],
+    textSuccessColorBg: 'transparent',
+    textSuccessColorBgHover: token.colorBgTextHover,
+    textSuccessBorder: `${token.lineWidth}px dashed transparent`,
+    textSuccessBorderHover: `${token.lineWidth}px dashed transparent`,
+    textSuccessDisabledColorBg: 'transparent',
+    textSuccessDisabledColor: token.colorSuccesses[3],
+    textSuccessDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    textDangerColor: token.colorErrors[6],
+    textDangerColorHover: token.colorErrors[5],
+    textDangerColorBg: 'transparent',
+    textDangerColorBgHover: token.colorBgTextHover,
+    textDangerBorder: `${token.lineWidth}px dashed transparent`,
+    textDangerBorderHover: `${token.lineWidth}px dashed transparent`,
+    textDangerDisabledColor: token.colorErrors[3],
+    textDangerDisabledColorBg: 'transparent',
+    textDangerDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+
+    textWarningColor: token.colorWarnings[6],
+    textWarningColorHover: token.colorWarnings[5],
+    textWarningColorBg: 'transparent',
+    textWarningColorBgHover: token.colorBgTextHover,
+    textWarningBorder: `${token.lineWidth}px dashed transparent`,
+    textWarningBorderHover: `${token.lineWidth}px dashed transparent`,
+    textWarningDisabledColor: token.colorWarnings[3],
+    textWarningDisabledColorBg: 'transparent',
+    textWarningDisabledBorder: `${token.lineWidth}px ${token.lineType} transparent`,
+  };
+};
 
 export default genStyleHooks(
   'Button',

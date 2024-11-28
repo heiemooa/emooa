@@ -15,13 +15,13 @@ const genBacktopStyle: GenerateStyle<BacktopToken> = token => {
   return {
     [componentCls]: {
       position: 'fixed',
-      bottom: token.marginXXL,
-      right: token.marginXL,
+      bottom: token.margins.XXL,
+      right: token.margins.XL,
       zIndex: 100,
       cursor: 'pointer',
 
       [`& > &-btn`]: {
-        boxShadow: token.boxShadow,
+        boxShadow: token.shadows.MD,
       },
     },
   };

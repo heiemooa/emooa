@@ -66,7 +66,7 @@ const Component = (props: DrawerProps, ref) => {
   const prefixCls = getPrefixCls('drawer');
   const rootPrefixCls = getPrefixCls();
 
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -78,7 +78,6 @@ const Component = (props: DrawerProps, ref) => {
       [`${prefixCls}-rtl`]: rtl,
     },
     className,
-    cssVarCls,
   );
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -292,81 +291,79 @@ const Component = (props: DrawerProps, ref) => {
   // 使用 modalRef.current 而不是 mountOnExit 是因为动画结束后，modalRef.current 会变成 null，此时再去销毁dom结点，避免动画问题
   const forceRender = beforeFirstOpen.current ? !mountOnEnter : !!modalRef.current;
 
-  return open || forceRender
-    ? wrapCSSVar(
-        <DrawerContext.Provider value={mergedContext}>
-          <Portal visible={open} getContainer={getPopupContainer}>
-            <div
-              ref={ref}
-              className={classnames}
-              style={getContainer() === document.body ? undefined : { position: 'absolute' }}
+  return open || forceRender ? (
+    <DrawerContext.Provider value={mergedContext}>
+      <Portal visible={open} getContainer={getPopupContainer}>
+        <div
+          ref={ref}
+          className={classnames}
+          style={getContainer() === document.body ? undefined : { position: 'absolute' }}
+        >
+          {mask ? (
+            <EuiCSSTransition
+              in={open}
+              timeout={400}
+              appear
+              mountOnEnter={mountOnEnter}
+              classNames={`${rootPrefixCls}-fade`}
+              unmountOnExit={unmountOnExit}
+              onEnter={e => {
+                if (!e) return;
+                e.parentNode.style.display = 'block';
+              }}
+              onExited={e => {
+                if (!e) return;
+                e.parentNode.style.display = '';
+              }}
             >
-              {mask ? (
-                <EuiCSSTransition
-                  in={open}
-                  timeout={400}
-                  appear
-                  mountOnEnter={mountOnEnter}
-                  classNames={`${rootPrefixCls}-fade`}
-                  unmountOnExit={unmountOnExit}
-                  onEnter={e => {
-                    if (!e) return;
-                    e.parentNode.style.display = 'block';
-                  }}
-                  onExited={e => {
-                    if (!e) return;
-                    e.parentNode.style.display = '';
-                  }}
-                >
-                  <div
-                    aria-hidden
-                    className={classNames(`${prefixCls}-mask`, modalClassNames?.mask)}
-                    style={styles?.mask}
-                    onClick={onClickMask}
-                  />
-                </EuiCSSTransition>
-              ) : null}
-              <EuiCSSTransition
-                in={open}
-                timeout={400}
-                appear
-                classNames={`${rootPrefixCls}-fade-${
-                  {
-                    top: 'down',
-                    bottom: 'up',
-                    left: 'right',
-                    right: 'left',
-                  }[placement]
-                }`}
-                unmountOnExit={unmountOnExit}
-                mountOnEnter={mountOnEnter}
-                onEnter={(e: HTMLDivElement) => {
-                  if (!e) return;
-                  modalRef.current = e;
-                }}
-                onEntered={(e: HTMLDivElement) => {
-                  if (!e) return;
-                  afterOpen?.();
-                }}
-                onExit={() => {
-                  inExit.current = true;
-                }}
-                onExited={e => {
-                  if (!e) return;
-                  afterClose?.();
-                  inExit.current = false;
-                  if (unmountOnExit) {
-                    modalRef.current = null;
-                  }
-                }}
-              >
-                {React.cloneElement(modalDom)}
-              </EuiCSSTransition>
-            </div>
-          </Portal>
-        </DrawerContext.Provider>,
-      )
-    : null;
+              <div
+                aria-hidden
+                className={classNames(`${prefixCls}-mask`, modalClassNames?.mask)}
+                style={styles?.mask}
+                onClick={onClickMask}
+              />
+            </EuiCSSTransition>
+          ) : null}
+          <EuiCSSTransition
+            in={open}
+            timeout={400}
+            appear
+            classNames={`${rootPrefixCls}-fade-${
+              {
+                top: 'down',
+                bottom: 'up',
+                left: 'right',
+                right: 'left',
+              }[placement]
+            }`}
+            unmountOnExit={unmountOnExit}
+            mountOnEnter={mountOnEnter}
+            onEnter={(e: HTMLDivElement) => {
+              if (!e) return;
+              modalRef.current = e;
+            }}
+            onEntered={(e: HTMLDivElement) => {
+              if (!e) return;
+              afterOpen?.();
+            }}
+            onExit={() => {
+              inExit.current = true;
+            }}
+            onExited={e => {
+              if (!e) return;
+              afterClose?.();
+              inExit.current = false;
+              if (unmountOnExit) {
+                modalRef.current = null;
+              }
+            }}
+          >
+            {React.cloneElement(modalDom)}
+          </EuiCSSTransition>
+        </div>
+      </Portal>
+    </DrawerContext.Provider>
+  ) : null;
 };
 
 const Drawer = forwardRef<HTMLDivElement, DrawerProps>(Component);

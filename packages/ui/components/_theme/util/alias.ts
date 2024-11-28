@@ -1,6 +1,7 @@
 import type { AliasToken, BaseToken, OverrideToken, SeedToken } from '../interface';
 import seedToken from '../themes/seed';
 import getAlphaColor from './getAlphaColor';
+import { merge } from 'lodash';
 
 type RawMergedToken = BaseToken & OverrideToken & { override: Partial<AliasToken> };
 
@@ -17,17 +18,16 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     delete overrideTokens[token as keyof SeedToken];
   });
 
-  const mergedToken = {
-    ...restToken,
-    ...overrideTokens,
-  };
+  const mergedToken: AliasToken = merge({}, overrideTokens, restToken);
 
-  const screenXS = 480;
-  const screenSM = 576;
-  const screenMD = 768;
-  const screenLG = 992;
-  const screenXL = 1200;
-  const screenXXL = 1600;
+  const screens = {
+    XS: 480,
+    SM: 576,
+    MD: 768,
+    LG: 992,
+    XL: 1200,
+    XXL: 1600,
+  };
 
   // Motion
   if (mergedToken.motion === false) {
@@ -37,10 +37,7 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     mergedToken.motions.durationSlow = fastDuration;
   }
 
-  // Generate alias token
-  const aliasToken: AliasToken = {
-    ...mergedToken,
-
+  const alias: Partial<AliasToken> = {
     // ============== Background ============== //
     colorFillContent: mergedToken.colorFillSecondary,
     colorFillContentHover: mergedToken.colorFill,
@@ -57,7 +54,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     colorTextHeading: mergedToken.colorText,
     colorTextLabel: mergedToken.colorTextSecondary,
     colorTextDescription: mergedToken.colorTextTertiary,
-    colorTextLightSolid: mergedToken.colorWhite,
     colorHighlight: mergedToken.colorError,
     colorBgTextHover: mergedToken.colorFillSecondary,
     colorBgTextActive: mergedToken.colorFill,
@@ -65,88 +61,59 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
     colorIcon: mergedToken.colorTextTertiary,
     colorIconHover: mergedToken.colorText,
 
-    colorErrorOutline: getAlphaColor(mergedToken.colorErrorBg, mergedToken.colorBgContainer),
-    colorWarningOutline: getAlphaColor(mergedToken.colorWarningBg, mergedToken.colorBgContainer),
-
-    // Font
-    fontSizeIcon: mergedToken.fontSizeSM,
-
     // Line
     lineWidthFocus: mergedToken.lineWidth * 4,
 
     // Control
     lineWidth: mergedToken.lineWidth,
     lineType: mergedToken.lineType,
-    borderRadius: mergedToken.borderRadius,
-    borderRadiusXS: mergedToken.borderRadiusXS,
-    borderRadiusSM: mergedToken.borderRadiusSM,
-    borderRadiusLG: mergedToken.borderRadiusLG,
-
-    fontWeight: 500,
-    fontWeightStrong: 600,
-
     linkDecoration: 'none',
     linkHoverDecoration: 'none',
     linkFocusDecoration: 'none',
 
-    paddingXXS: mergedToken.sizeXXS,
-    paddingXS: mergedToken.sizeXS,
-    paddingSM: mergedToken.sizeSM,
-    padding: mergedToken.size,
-    paddingLG: mergedToken.sizeLG,
-    paddingXL: mergedToken.sizeXL,
+    paddings: {
+      XXS: mergedToken.sizes.XXS,
+      XS: mergedToken.sizes.XS,
+      SM: mergedToken.sizes.SM,
+      MD: mergedToken.sizes.MD,
+      LG: mergedToken.sizes.LG,
+      XL: mergedToken.sizes.XL,
+    },
+    margins: {
+      XXS: mergedToken.sizes.XXS,
+      XS: mergedToken.sizes.XS,
+      SM: mergedToken.sizes.SM,
+      MD: mergedToken.sizes.MD,
+      LG: mergedToken.sizes.LG,
+      XL: mergedToken.sizes.XL,
+      XXL: mergedToken.sizes.XXL,
+    },
 
-    paddingContentHorizontalLG: mergedToken.sizeLG,
-    paddingContentVerticalLG: mergedToken.size,
-    paddingContentHorizontal: mergedToken.size,
-    paddingContentVertical: mergedToken.sizeSM,
-    paddingContentHorizontalSM: mergedToken.size,
-    paddingContentVerticalSM: mergedToken.sizeXS,
+    screens: {
+      XS: screens.XS,
+      XSMin: screens.XS,
+      XSMax: screens.SM - 1,
+      SM: screens.SM,
+      SMMin: screens.SM,
+      SMMax: screens.MD - 1,
+      MD: screens.MD,
+      MDMin: screens.MD,
+      MDMax: screens.LG - 1,
+      LG: screens.LG,
+      LGMin: screens.LG,
+      LGMax: screens.XL - 1,
+      XL: screens.XL,
+      XLMin: screens.XL,
+      XLMax: screens.XXL - 1,
+      XXL: screens.XXL,
+      XXLMin: screens.XXL,
+    },
 
-    marginXXS: mergedToken.sizeXXS,
-    marginXS: mergedToken.sizeXS,
-    marginSM: mergedToken.sizeSM,
-    margin: mergedToken.size,
-    marginLG: mergedToken.sizeLG,
-    marginXL: mergedToken.sizeXL,
-    marginXXL: mergedToken.sizeXXL,
-
-    boxShadow: `
-      0 6px 16px 0 rgba(0, 0, 0, 0.08),
-      0 3px 6px -4px rgba(0, 0, 0, 0.12),
-      0 9px 28px 8px rgba(0, 0, 0, 0.05)
-    `,
-    boxShadowSecondary: `
-      0 6px 16px 0 rgba(0, 0, 0, 0.08),
-      0 3px 6px -4px rgba(0, 0, 0, 0.12),
-      0 9px 28px 8px rgba(0, 0, 0, 0.05)
-    `,
-    boxShadowTertiary: `
-      0 1px 2px 0 rgba(0, 0, 0, 0.03),
-      0 1px 6px -1px rgba(0, 0, 0, 0.02),
-      0 2px 4px 0 rgba(0, 0, 0, 0.02)
-    `,
-
-    screenXS,
-    screenXSMin: screenXS,
-    screenXSMax: screenSM - 1,
-    screenSM,
-    screenSMMin: screenSM,
-    screenSMMax: screenMD - 1,
-    screenMD,
-    screenMDMin: screenMD,
-    screenMDMax: screenLG - 1,
-    screenLG,
-    screenLGMin: screenLG,
-    screenLGMax: screenXL - 1,
-    screenXL,
-    screenXLMin: screenXL,
-    screenXLMax: screenXXL - 1,
-    screenXXL,
-    screenXXLMin: screenXXL,
     // Override AliasToken
-    ...overrideTokens,
   };
+
+  // Generate alias token
+  const aliasToken: AliasToken = merge({}, mergedToken, alias, overrideTokens);
 
   return aliasToken;
 }
