@@ -17,7 +17,7 @@ function ConfigProvider(props: ConfigProviderProps) {
 
   const config: ConfigProviderProps = {
     ...omit(_props, ['children']),
-    getPrefixCls,
+    getPrefixCls: props.getPrefixCls || getPrefixCls,
   };
 
   // ================================ Dynamic theme ================================

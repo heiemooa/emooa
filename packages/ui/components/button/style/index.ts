@@ -95,7 +95,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
           pointerEvents: 'none',
         },
 
-        '&::after': {
+        [`&::after:not(${componentCls}-text)`]: {
           position: 'absolute',
           background: '#ffffff60',
           content: '""',
@@ -107,6 +107,7 @@ const genBtnStyle: GenerateStyle<ButtonToken> = token => {
           boxSizing: 'initial',
           borderRadius: token.borderRadius,
         },
+        [`&${componentCls}-text`]: {},
       },
 
       [`&${componentCls}-loading::after`]: {

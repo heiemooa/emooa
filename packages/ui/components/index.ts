@@ -16,6 +16,9 @@ export type { DrawerProps } from './drawer/interface';
 export { default as Image } from './image';
 export type { ImageProps } from './image/interface';
 
+export { default as Link } from './link';
+export type { LinkProps } from './link/interface';
+
 export { default as Document } from './document';
 export type { DocumentProps } from './document/interface';
 
