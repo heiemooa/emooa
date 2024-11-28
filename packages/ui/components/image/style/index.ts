@@ -86,6 +86,8 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           textAlign: 'center',
           color: token.colorTextPlaceholder,
           flexDirection: 'column',
+          wordBreak: 'break-word',
+          padding: token.paddingXS,
 
           [`${componentCls}-error-icon`]: {
             fontSize: '4em',
@@ -95,7 +97,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
         [`${componentCls}-loader`]: {
           height: '100%',
           width: '100%',
-          background: token.colorBgLayout,
+          background: token.colorWhite,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -103,11 +105,12 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           color: token.colorTextSecondary,
 
           [`${componentCls}-loader-spin`]: {
-            fontSize: '2em',
+            fontSize: token.fontSize,
             textAlign: 'center',
 
             'svg.eui-icon': {
               margin: 'auto',
+              fontSize: '2em',
             },
           },
 

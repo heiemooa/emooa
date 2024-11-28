@@ -15,7 +15,7 @@ When lazy loading of images is required.
 ## Examples
 
 <code src="../../packages/ui/examples/image/basic.tsx">Basic</code>  
-<code src="../../packages/ui/examples/image/delay.tsx" description="By setting `delay`, the delayed placeholder is enabled by default. When loading a large image, the placeholder will be loaded after a certain time.">Lazy loading placeholder</code>  
+<code src="../../packages/ui/examples/image/delay.tsx" description="By setting `delay`, the delayed placeholder is enabled by default. When loading a large image, the placeholder will be loaded after a certain time. Support manual loading by setting `content`.">Lazy loading placeholder</code>  
 <code src="../../packages/ui/examples/image/placeholder.tsx" description="By default, the loading effect is not displayed. You can display the default loading effect by setting `placeholder=true`. Supports custom placeholders.">Placeholder</code>  
 <code src="../../packages/ui/examples/image/footer.tsx" description="By setting `title` and `description`, the title and description of the image can be displayed at the bottom of the image.">Show Caption & Action</code>  
 <code src="../../packages/ui/examples/image/actions.tsx" description="By setting `actionsLayout`, you can adjust the order of the function buttons in the preview control bar, and you can filter the function buttons so that only buttons in `actionsLayout` will appear. Among them, `extra` represents the button in `actions`, and the `key` in `actions` also supports being sorted separately.">Custom preview control bar</code>  

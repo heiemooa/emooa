@@ -311,6 +311,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         src={lazy || isBeforeLoad ? undefined : src}
         image-lazy={status}
         onClick={onImgClick}
+        style={{ height: '100%', width: '100%' }}
         {...rest}
       />
       {!isLoaded && (

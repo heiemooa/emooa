@@ -49,7 +49,7 @@ function App() {
         />
         <Image
           motion
-          content="a"
+          content="点击加载"
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           placeholder="https://api.emooa.com/aimg?idx=3"
           height={120}

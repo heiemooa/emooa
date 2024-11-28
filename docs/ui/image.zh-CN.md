@@ -15,7 +15,7 @@ toc: content
 ## 代码演示
 
 <code src="../../packages/ui/examples/image/basic.tsx">基本用法</code>  
-<code src="../../packages/ui/examples/image/delay.tsx" description="通过设置 `delay` 默认开启延迟占位符，加载大图时超过一定时间将加载占位符。">延迟加载</code>  
+<code src="../../packages/ui/examples/image/delay.tsx" description="通过设置 `delay` 默认开启延迟占位符，加载大图时超过一定时间将加载占位符。通过设置 `content` 支持手动加载。">延迟加载</code>  
 <code src="../../packages/ui/examples/image/placeholder.tsx" description="默认情况下，加载效果是不显示的，可通过设置 `placeholder=true` 显示默认加载效果。支持自定义占位符。">占位符</code>  
 <code src="../../packages/ui/examples/image/footer.tsx" description="通过设置 `title` 和 `description` 可以将图片的标题和描述显示在图片底部。">显示 Caption & Action</code>  
 <code src="../../packages/ui/examples/image/actions.tsx" description="通过设置 `actionsLayout` 可以调整预览控制条中功能按钮的顺序，同时可以过滤功能按钮，只有在 `actionsLayout` 中的按钮才会出现。其中 `extra` 代表 `actions` 中的按钮，而且 `actions` 中的 `key` 也支持单独拿出来排序。">自定义预览控制条</code>  

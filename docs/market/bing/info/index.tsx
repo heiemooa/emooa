@@ -120,6 +120,7 @@ const Component: React.FC = () => {
               <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">{locales.greyscale}</h1>
                 <Image
+                  motion
                   src={`https://cdn.emooa.com/${bing?.url?.greyscale}`}
                   placeholder={bing?.base64}
                   height={200}
@@ -129,6 +130,7 @@ const Component: React.FC = () => {
               <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">{locales.gaussian}</h1>
                 <Image
+                  motion
                   src={`https://cdn.emooa.com/${bing?.url?.gaussian}`}
                   placeholder={bing?.base64}
                   height={200}
@@ -138,6 +140,7 @@ const Component: React.FC = () => {
               <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">HD</h1>
                 <Image
+                  motion
                   src={`https://cdn.emooa.com/${bing?.url?.hd}`}
                   placeholder={bing?.base64}
                   height={200}
@@ -147,8 +150,10 @@ const Component: React.FC = () => {
               <div className="mt-2">
                 <h1 className="text-xl mb-2 border-b-4 table">UHD</h1>
                 <Image
+                  motion
                   src={`https://cdn.emooa.com/${bing?.url?.uhd}`}
-                  placeholder={true}
+                  content="点击加载"
+                  placeholder={bing?.base64}
                   height={200}
                   style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
                 />
