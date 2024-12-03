@@ -4,7 +4,7 @@ import omit from '@/_utils/omit';
 import { ConfigContext, DefaultConfigProviderProps } from './context';
 import { EuiTokenContext, defaultTheme } from '@/_theme/context';
 import seedToken from '@/_theme/themes/seed';
-import { EuiTokenProviderProps } from '@/_theme/interface';
+import { merge } from 'lodash';
 
 function ConfigProvider(props: ConfigProviderProps) {
   const _props: ConfigProviderProps = Object.assign({}, DefaultConfigProviderProps, props);
@@ -22,32 +22,28 @@ function ConfigProvider(props: ConfigProviderProps) {
 
   // ================================ Dynamic theme ================================
   const memoTheme = React.useMemo(() => {
-    const { token, components, cssVar, hashed = true, ...rest } = theme || {};
+    const { token, components, hashed = true, ...rest } = theme || {};
 
     const parsedComponents: any = {};
     Object.entries(components || {}).forEach(([componentName, componentToken]) => {
-      const parsedToken: typeof componentToken & { theme?: typeof defaultTheme } = {
+      const parsedToken: typeof componentToken = {
         ...componentToken,
       };
       parsedComponents[componentName] = parsedToken;
     });
 
-    const mergedToken = {
-      ...seedToken,
-      ...token,
-    };
+    const mergedToken = merge({}, seedToken, token);
 
     return {
       ...rest,
       hashed,
       token: mergedToken,
       theme: defaultTheme,
-      components: parsedComponents,
+      components: components,
       override: {
         override: mergedToken,
-        ...parsedComponents,
+        ...components,
       },
-      cssVar: cssVar as Exclude<EuiTokenProviderProps['cssVar'], boolean>,
     };
   }, [theme]);
 

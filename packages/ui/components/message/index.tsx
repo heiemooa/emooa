@@ -38,9 +38,9 @@ const Component = (props: MessageProps, ref) => {
 
   const prefixCls = getPrefixCls('message');
 
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
-  const classnames = classNames(hashId, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${position}`, cssVarCls);
+  const classnames = classNames(hashId, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${position}`);
 
   const noticesRef = useRef(notices);
 
@@ -98,7 +98,7 @@ const Component = (props: MessageProps, ref) => {
     }, 100);
   };
 
-  return wrapCSSVar(
+  return (
     <div className={classnames}>
       <TransitionGroup component={null}>
         {map(notices, notice => (
@@ -138,7 +138,7 @@ const Component = (props: MessageProps, ref) => {
           </EuiCSSTransition>
         ))}
       </TransitionGroup>
-    </div>,
+    </div>
   );
 };
 

@@ -83,13 +83,13 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           display: 'flex',
           alignItems: 'center',
           backgroundColor: token.colorBgMask,
-          borderRadius: token.borderRadius,
-          padding: token.paddingXXS,
+          borderRadius: token.rounded.MD,
+          padding: token.paddings.XXS,
 
           [`${previewCls}-tools-action`]: {
-            borderRadius: token.borderRadius,
+            borderRadius: token.rounded.MD,
             cursor: 'pointer',
-            padding: token.paddingSM,
+            padding: token.paddings.SM,
             lineHeight: 1,
 
             '&:hover': {
@@ -106,21 +106,21 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           },
 
           [`${previewCls}-tools-progress`]: {
-            fontSize: token.fontSizeSM,
+            fontSize: token.fonts.fontSizeSM,
             userSelect: 'none',
           },
         },
 
         [`${previewCls}-close`]: {
           position: 'absolute',
-          right: token.marginXL,
-          top: token.marginXL,
+          right: token.margins.XL,
+          top: token.margins.XL,
           color: '#fefefe',
           display: 'flex',
           alignItems: 'flex-start',
           backgroundColor: token.colorBgMask,
           borderRadius: '50%',
-          padding: token.paddingSM,
+          padding: token.paddings.SM,
           cursor: 'pointer',
 
           '&:hover': {
@@ -136,9 +136,9 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           animationName: fade.fadeIn,
           animationDuration: token.motions.durationSlow,
           animationTimingFunction: token.motions.decelerate,
-          fontSize: token.fontSizeXL,
-          padding: token.paddingXL,
-          borderRadius: token.borderRadius,
+          fontSize: token.fonts.fontSizeXL,
+          padding: token.paddings.XL,
+          borderRadius: token.rounded.MD,
           backgroundColor: 'rgba(255, 255,255, 0.1)',
           color: token.colorTextSecondary,
           textAlign: 'center',
@@ -161,7 +161,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             color: '#fefefe',
             backgroundColor: 'rgba(255, 255,255, 0.3)',
             cursor: 'pointer',
-            padding: token.paddingSM,
+            padding: token.paddings.SM,
 
             '&:hover': {
               backgroundColor: 'rgba(255, 255,255, 0.4)',
@@ -174,13 +174,13 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             },
           },
           [`${previewCls}-arrow-left`]: {
-            left: token.marginXL,
+            left: token.margins.XL,
             top: '50%',
             transform: 'translateY(-50%)',
           },
 
           [`${previewCls}-arrow-right`]: {
-            right: token.marginXL,
+            right: token.margins.XL,
             top: '50%',
             transform: 'translateY(-50%)',
           },

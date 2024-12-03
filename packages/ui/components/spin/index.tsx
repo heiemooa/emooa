@@ -33,7 +33,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
   const _usedLoading = delay ? loading : _loading;
 
   const prefixCls = getPrefixCls('spin');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   useEffect(() => {
     delay && debouncedSetLoading(_loading);
@@ -53,7 +53,6 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
       [`${prefixCls}-with-dot`]: dot,
     },
     className,
-    cssVarCls,
   );
 
   const loadingIcon = (
@@ -89,7 +88,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     </span>
   );
 
-  return wrapCSSVar(
+  return (
     <div ref={ref} className={classnames} {...rest}>
       {!isEmptyReactNode(children) && <div className={`${prefixCls}-container`}>{children}</div>}
       {_usedLoading && (
@@ -100,7 +99,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
           </div>
         </div>
       )}
-    </div>,
+    </div>
   );
 });
 

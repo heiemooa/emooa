@@ -43,6 +43,11 @@ const genFontBaseToken = (fontSize: number): FontBaseToken => {
     lineHeightHeading3: lineHeights[4],
     lineHeightHeading4: lineHeights[3],
     lineHeightHeading5: lineHeights[2],
+
+    fontSizeIcon: fontSizeSM,
+
+    fontWeight: 500,
+    fontWeightStrong: 600,
   };
 };
 

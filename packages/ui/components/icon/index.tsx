@@ -11,7 +11,7 @@ const IconComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const { type, className, ...rest }: IconProps = Object.assign({}, components?.Icon, props);
 
   const prefixCls = getPrefixCls('icon');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -19,11 +19,10 @@ const IconComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
     {
       [`${prefixCls}-${type}`]: !!type,
     },
-    cssVarCls,
     className,
   );
 
-  return wrapCSSVar(
+  return (
     <svg
       ref={ref}
       className={classnames}
@@ -35,7 +34,7 @@ const IconComponent = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
       {...rest}
     >
       <use xlinkHref={`#${type}`}></use>
-    </svg>,
+    </svg>
   );
 });
 

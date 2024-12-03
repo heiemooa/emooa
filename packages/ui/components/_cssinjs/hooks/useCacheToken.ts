@@ -1,12 +1,9 @@
 import hash from '@emotion/hash';
-import { updateCSS } from 'rc-util/lib/Dom/dynamicCSS';
-import { useContext } from 'react';
-import StyleContext, { ATTR_MARK, ATTR_TOKEN, CSS_IN_JS_INSTANCE } from '../StyleContext';
+import { ATTR_TOKEN, CSS_IN_JS_INSTANCE } from '../StyleContext';
 import type Theme from '../theme/Theme';
-import { flattenToken, memoResult, token2key, toStyleStr } from '../util';
-import { transformToken } from '../util/css-variables';
-import type { ExtractStyle } from './useGlobalCache';
+import { flattenToken, memoResult, token2key } from '../util';
 import useGlobalCache from './useGlobalCache';
+import { merge } from 'lodash';
 
 const EMPTY_OVERRIDE = {};
 
@@ -40,22 +37,6 @@ export interface Option<DerivativeToken, EuiToken> {
    * @param theme Theme instance. Could get derivative token by `theme.getDerivativeToken`
    */
   getComputedToken?: (origin: EuiToken, override: object, theme: Theme<any, any>) => DerivativeToken;
-
-  /**
-   * Transform token to css variables.
-   */
-  cssVar?: {
-    /** Prefix for css variables */
-    prefix?: string;
-    /** Tokens that should not be appended with unit */
-    unitless?: Record<string, boolean>;
-    /** Tokens that should not be transformed to css variables */
-    ignore?: Record<string, boolean>;
-    /** Tokens that preserves origin value */
-    preserve?: Record<string, boolean>;
-    /** Key for current theme. Useful for customizing and should be unique */
-    key?: string;
-  };
 }
 
 const tokenKeys = new Map<string, number>();
@@ -71,28 +52,6 @@ function removeStyleTags(key: string, instanceId: string) {
       if ((style as any)[CSS_IN_JS_INSTANCE] === instanceId) {
         style.parentNode?.removeChild(style);
       }
-    });
-  }
-}
-
-const TOKEN_THRESHOLD = 0;
-
-// Remove will check current keys first
-function cleanTokenStyle(tokenKey: string, instanceId: string) {
-  tokenKeys.set(tokenKey, (tokenKeys.get(tokenKey) || 0) - 1);
-
-  const tokenKeyList = Array.from(tokenKeys.keys());
-  const cleanableKeyList = tokenKeyList.filter(key => {
-    const count = tokenKeys.get(key) || 0;
-
-    return count <= 0;
-  });
-
-  // Should keep tokens under threshold for not to insert style too often
-  if (tokenKeyList.length - cleanableKeyList.length > TOKEN_THRESHOLD) {
-    cleanableKeyList.forEach(key => {
-      removeStyleTags(key, instanceId);
-      tokenKeys.delete(key);
     });
   }
 }
@@ -125,8 +84,6 @@ type TokenCacheValue<DerivativeToken> = [
   token: DerivativeToken & { _tokenKey: string; _themeKey: string },
   hashId: string,
   realToken: DerivativeToken & { _tokenKey: string },
-  cssVarStr: string,
-  cssVarKey: string,
 ];
 
 /**
@@ -141,23 +98,17 @@ export default function useCacheToken<DerivativeToken = object, EuiToken = Deriv
   tokens: Partial<EuiToken>[],
   option: Option<DerivativeToken, EuiToken> = {},
 ): TokenCacheValue<DerivativeToken> {
-  const {
-    cache: { instanceId },
-    container,
-  } = useContext(StyleContext);
-  const { salt = '', override = EMPTY_OVERRIDE, formatToken, getComputedToken: compute, cssVar } = option;
+  const { salt = '', override = EMPTY_OVERRIDE, formatToken, getComputedToken: compute } = option;
 
   // Basic - We do basic cache here
-  const mergedToken = memoResult(() => Object.assign({}, ...tokens), tokens);
+  const mergedToken = memoResult(() => merge({}, ...tokens), tokens);
 
   const tokenStr = flattenToken(mergedToken);
   const overrideTokenStr = flattenToken(override);
 
-  const cssVarStr = cssVar ? flattenToken(cssVar) : '';
-
   const cachedToken = useGlobalCache<TokenCacheValue<DerivativeToken>>(
     TOKEN_PREFIX,
-    [salt, theme.id, tokenStr, overrideTokenStr, cssVarStr],
+    [salt, theme.id, tokenStr, overrideTokenStr],
     () => {
       let mergedDerivativeToken = compute
         ? compute(mergedToken, override, theme)
@@ -165,73 +116,21 @@ export default function useCacheToken<DerivativeToken = object, EuiToken = Deriv
 
       // Replace token value with css variables
       const actualToken = { ...mergedDerivativeToken };
-      let cssVarsStr = '';
-      if (!!cssVar) {
-        [mergedDerivativeToken, cssVarsStr] = transformToken(mergedDerivativeToken, cssVar.key!, {
-          prefix: cssVar.prefix,
-          ignore: cssVar.ignore,
-          unitless: cssVar.unitless,
-          preserve: cssVar.preserve,
-        });
-      }
 
       // Optimize for `useStyleRegister` performance
       const tokenKey = token2key(mergedDerivativeToken, salt);
       mergedDerivativeToken._tokenKey = tokenKey;
       actualToken._tokenKey = token2key(actualToken, salt);
 
-      const themeKey = cssVar?.key ?? tokenKey;
-      mergedDerivativeToken._themeKey = themeKey;
-      recordCleanToken(themeKey);
+      mergedDerivativeToken._themeKey = tokenKey;
+      recordCleanToken(tokenKey);
 
       const hashId = `${hashPrefix}-${hash(tokenKey)}`;
       mergedDerivativeToken._hashId = hashId; // Not used
 
-      return [mergedDerivativeToken, hashId, actualToken, cssVarsStr, cssVar?.key || ''];
-    },
-    cache => {
-      // Remove token will remove all related style
-      cleanTokenStyle(cache[0]._themeKey, instanceId);
-    },
-    ([token, , , cssVarsStr]) => {
-      if (cssVar && cssVarsStr) {
-        const style = updateCSS(cssVarsStr, hash(`css-variables-${token._themeKey}`), {
-          mark: ATTR_MARK,
-          prepend: 'queue',
-          attachTo: container,
-          priority: -999,
-        });
-
-        (style as any)[CSS_IN_JS_INSTANCE] = instanceId;
-
-        // Used for `useCacheToken` to remove on batch when token removed
-        style.setAttribute(ATTR_TOKEN, token._themeKey);
-      }
+      return [mergedDerivativeToken, hashId, actualToken];
     },
   );
 
   return cachedToken;
 }
-
-export const extract: ExtractStyle<TokenCacheValue<any>> = (cache, effectStyles, options) => {
-  const [, , realToken, styleStr, cssVarKey] = cache;
-  const { plain } = options || {};
-
-  if (!styleStr) {
-    return null;
-  }
-
-  const styleId = realToken._tokenKey;
-  const order = -999;
-
-  // ====================== Style ======================
-  // Used for rc-util
-  const sharedAttrs = {
-    'data-rc-order': 'prependQueue',
-    'data-rc-priority': `${order}`,
-  };
-
-  const styleText = toStyleStr(styleStr, cssVarKey, styleId, sharedAttrs, plain);
-
-  return [order, styleId, styleText];
-};

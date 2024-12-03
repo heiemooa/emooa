@@ -57,7 +57,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   const prefixCls = getPrefixCls('document');
   const rootPrefixCls = getPrefixCls();
 
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const classnames = classNames(
     hashId,
@@ -67,7 +67,6 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
       [`${prefixCls}-rtl`]: rtl,
     },
     className,
-    cssVarCls,
   );
 
   const documentRef = useRef<HTMLDivElement>(null);
@@ -285,75 +284,73 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
     </div>
   );
 
-  return open || !!documentRef.current
-    ? wrapCSSVar(
-        <Portal visible={open} getContainer={getPopupContainer}>
-          <div className={classnames}>
-            <EuiCSSTransition
-              in={open}
-              timeout={400}
-              appear
-              classNames={`${rootPrefixCls}-fade-mini-left`}
-              unmountOnExit={unmountOnExit}
-              mountOnEnter={true}
-              onEnter={e => {
-                if (!e) return;
-                documentRef.current = e;
-                e.parentNode.style.display = 'block';
+  return open || !!documentRef.current ? (
+    <Portal visible={open} getContainer={getPopupContainer}>
+      <div className={classnames}>
+        <EuiCSSTransition
+          in={open}
+          timeout={400}
+          appear
+          classNames={`${rootPrefixCls}-fade-mini-left`}
+          unmountOnExit={unmountOnExit}
+          mountOnEnter={true}
+          onEnter={e => {
+            if (!e) return;
+            documentRef.current = e;
+            e.parentNode.style.display = 'block';
+          }}
+          onEntered={(e: HTMLDivElement) => {
+            if (!e) return;
+            afterOpen?.();
+          }}
+          onExit={() => {}}
+          onExited={e => {
+            if (!e) return;
+            afterClose?.();
+            if (unmountOnExit) {
+              documentRef.current = null;
+            }
+            e.parentNode.style.display = '';
+          }}
+        >
+          <div className={classNames(prefixCls, className)} style={style} ref={documentRef} {...rest}>
+            <Draggable
+              handle={`.${prefixCls}-title`}
+              position={placement.position}
+              onStart={() => {
+                dispatch({
+                  type: 'position',
+                  data: placement.position,
+                });
               }}
-              onEntered={(e: HTMLDivElement) => {
-                if (!e) return;
-                afterOpen?.();
-              }}
-              onExit={() => {}}
-              onExited={e => {
-                if (!e) return;
-                afterClose?.();
-                if (unmountOnExit) {
-                  documentRef.current = null;
+              onStop={(e, data) => {
+                const position = {
+                  x: Math.min(48, data.x),
+                  y: Math.min(48, data.y),
+                };
+
+                const bound = data.node.getBoundingClientRect();
+
+                if (bound.top < 0) {
+                  position.y = -(window.innerHeight - bound.height - 48);
                 }
-                e.parentNode.style.display = '';
+                if (bound.left < 0) {
+                  position.x = -(window.innerWidth - bound.width - 48);
+                }
+
+                dispatch({
+                  type: 'position',
+                  data: position,
+                });
               }}
             >
-              <div className={classNames(prefixCls, className)} style={style} ref={documentRef} {...rest}>
-                <Draggable
-                  handle={`.${prefixCls}-title`}
-                  position={placement.position}
-                  onStart={() => {
-                    dispatch({
-                      type: 'position',
-                      data: placement.position,
-                    });
-                  }}
-                  onStop={(e, data) => {
-                    const position = {
-                      x: Math.min(48, data.x),
-                      y: Math.min(48, data.y),
-                    };
-
-                    const bound = data.node.getBoundingClientRect();
-
-                    if (bound.top < 0) {
-                      position.y = -(window.innerHeight - bound.height - 48);
-                    }
-                    if (bound.left < 0) {
-                      position.x = -(window.innerWidth - bound.width - 48);
-                    }
-
-                    dispatch({
-                      type: 'position',
-                      data: position,
-                    });
-                  }}
-                >
-                  {element}
-                </Draggable>
-              </div>
-            </EuiCSSTransition>
+              {element}
+            </Draggable>
           </div>
-        </Portal>,
-      )
-    : null;
+        </EuiCSSTransition>
+      </div>
+    </Portal>
+  ) : null;
 });
 
 const DocumentComponent = (props: DocumentProps) => {

@@ -2,7 +2,6 @@ import hash from '@emotion/hash';
 import type * as CSS from 'csstype';
 import { removeCSS, updateCSS } from 'rc-util/lib/Dom/dynamicCSS';
 import * as React from 'react';
-// @ts-ignore
 import unitless from '@emotion/unitless';
 import { compile, serialize, stringify } from 'stylis';
 import type Keyframes from '../Keyframes';
@@ -10,9 +9,8 @@ import type { Linter } from '../linters';
 import { contentQuotesLinter, hashedAnimationLinter } from '../linters';
 import type { HashPriority } from '../StyleContext';
 import StyleContext, { ATTR_CACHE_PATH, ATTR_MARK, ATTR_TOKEN, CSS_IN_JS_INSTANCE } from '../StyleContext';
-import { isClientSide, supportLayer, toStyleStr } from '../util';
+import { isClientSide, supportLayer } from '../util';
 import { CSS_FILE_STYLE, existPath, getStyleAndHash } from '../util/cacheMapUtil';
-import type { ExtractStyle } from './useGlobalCache';
 import useGlobalCache from './useGlobalCache';
 import { Theme } from '../theme';
 import type { Transformer } from '../transformers/interface';
@@ -100,7 +98,7 @@ export interface ParseInfo {
 }
 
 // Parse CSSObject to style content
-export const parseStyle = (
+const parseStyle = (
   interpolation: CSSInterpolation,
   config: ParseConfig = {},
   { root, injectHash, parentSelectors }: ParseInfo = {
@@ -415,38 +413,3 @@ export default function useStyleRegister(
     );
   };
 }
-
-export const extract: ExtractStyle<StyleCacheValue> = (cache, effectStyles, options) => {
-  const [styleStr, tokenKey, styleId, effectStyle, clientOnly, order]: StyleCacheValue = cache;
-  const { plain } = options || {};
-
-  // Skip client only style
-  if (clientOnly) {
-    return null;
-  }
-
-  let keyStyleText = styleStr;
-
-  // ====================== Style ======================
-  // Used for rc-util
-  const sharedAttrs = {
-    'data-rc-order': 'prependQueue',
-    'data-rc-priority': `${order}`,
-  };
-
-  keyStyleText = toStyleStr(styleStr, tokenKey, styleId, sharedAttrs, plain);
-
-  // =============== Create effect style ===============
-  if (effectStyle) {
-    Object.keys(effectStyle).forEach(effectKey => {
-      // Effect style can be reused
-      if (!effectStyles[effectKey]) {
-        effectStyles[effectKey] = true;
-        const effectStyleStr = normalizeStyle(effectStyle[effectKey]);
-        keyStyleText += toStyleStr(effectStyleStr, tokenKey, `_effect-${effectKey}`, sharedAttrs, plain);
-      }
-    });
-  }
-
-  return [order, styleId, keyStyleText];
-};

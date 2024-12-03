@@ -1,12 +1,9 @@
 import type { SeedToken, OtherBaseToken, BaseToken } from '../../interface';
 
-const genRadius = (
-  radiusBase: number,
-): Pick<BaseToken, 'borderRadiusXS' | 'borderRadiusSM' | 'borderRadiusLG' | 'borderRadius' | 'borderRadiusOuter'> => {
+const genRadius = (radiusBase: number): Pick<BaseToken['rounded'], 'XS' | 'SM' | 'LG' | 'MD'> => {
   let radiusLG = radiusBase;
   let radiusSM = radiusBase;
   let radiusXS = radiusBase;
-  let radiusOuter = radiusBase;
 
   // radiusLG
   if (radiusBase < 6 && radiusBase >= 5) {
@@ -36,20 +33,11 @@ const genRadius = (
   } else if (radiusBase >= 6) {
     radiusXS = 2;
   }
-
-  // radiusOuter
-  if (radiusBase > 4 && radiusBase < 8) {
-    radiusOuter = 4;
-  } else if (radiusBase >= 8) {
-    radiusOuter = 6;
-  }
-
   return {
-    borderRadius: radiusBase,
-    borderRadiusXS: radiusXS,
-    borderRadiusSM: radiusSM,
-    borderRadiusLG: radiusLG,
-    borderRadiusOuter: radiusOuter,
+    XS: radiusXS,
+    SM: radiusSM,
+    MD: radiusBase,
+    LG: radiusLG,
   };
 };
 
@@ -59,8 +47,6 @@ export default function genOtherBaseToken(token: SeedToken): OtherBaseToken {
   return {
     // line
     lineWidthBold: lineWidth + 1,
-
-    // radius
-    ...genRadius(borderRadius),
+    rounded: genRadius(borderRadius),
   };
 }

@@ -21,20 +21,21 @@ export default function derivative(token: SeedToken): BaseToken {
       return prev;
     }, {} as ColorPalettes);
 
+  const aa = genColorBaseToken(token, {
+    generateColorPalettes,
+    generateNeutralColorPalettes,
+  });
   return {
     ...token,
     // Motion
     motions: genMotionBaseToken(token),
     // Colors
     colors: Object.assign({}, token.colors, colorPalettes),
-    ...genColorBaseToken(token, {
-      generateColorPalettes,
-      generateNeutralColorPalettes,
-    }),
+    ...aa,
     // Font
-    ...genFontBaseToken(token.fontSize),
+    fonts: genFontBaseToken(token.fontSize),
     // Size
-    ...genSizeBaseToken(token),
+    sizes: genSizeBaseToken(token),
     // Others
     ...genOtherBaseToken(token),
   };

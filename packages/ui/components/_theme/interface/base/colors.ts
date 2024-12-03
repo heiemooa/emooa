@@ -439,14 +439,7 @@ interface ColorLinkBaseToken {
   colorLinkActive: string;
 }
 
-export interface ColorBaseToken
-  extends ColorNeutralBaseen,
-    ColorPrimaryBaseToken,
-    ColorSuccessBaseToken,
-    ColorWarningBaseToken,
-    ColorErrorBaseToken,
-    ColorInfoBaseToken,
-    ColorLinkBaseToken {
+export interface ColorBaseToken extends ColorNeutralBaseen, ColorLinkBaseToken {
   /**
    * @name 纯白色
    * @desc 不随主题变化的纯白色
@@ -466,4 +459,10 @@ export interface ColorBaseToken
    * @default #0000
    */
   // colorBlack: string;
+
+  colorPrimarys: Partial<ColorPrimaryBaseToken>;
+  colorErrors: Partial<ColorErrorBaseToken>;
+  colorSuccesses: Partial<ColorSuccessBaseToken>;
+  colorWarnings: Partial<ColorWarningBaseToken>;
+  colorInfos: Partial<ColorInfoBaseToken>;
 }

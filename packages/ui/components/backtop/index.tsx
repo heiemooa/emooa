@@ -45,7 +45,7 @@ const Component = (props: BacktopProps, ref) => {
 
   const rootPrefixCls = getPrefixCls();
   const prefixCls = getPrefixCls('backtop');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const [visible, setVisible] = useState(false);
 
@@ -78,7 +78,6 @@ const Component = (props: BacktopProps, ref) => {
       [`${prefixCls}-rtl`]: rtl,
     },
     className,
-    cssVarCls,
   );
 
   const scrollToTop = e => {
@@ -100,14 +99,14 @@ const Component = (props: BacktopProps, ref) => {
     onClick?.(e);
   };
 
-  return wrapCSSVar(
+  return (
     <EuiCSSTransition in={visible} timeout={1000} classNames={`${rootPrefixCls}-${animation}`} appear unmountOnExit>
       <div className={classnames} ref={ref} onClick={scrollToTop} {...rest}>
         {children || (
           <Button className={`${prefixCls}-btn`} type="primary" icon={<IconToTop />} shape="circle" size="large" />
         )}
       </div>
-    </EuiCSSTransition>,
+    </EuiCSSTransition>
   );
 };
 

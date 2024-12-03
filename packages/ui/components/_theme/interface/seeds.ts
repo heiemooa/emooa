@@ -19,13 +19,11 @@ export interface SeedToken {
    * @desc 用于表示操作成功的 Token 序列，如 Result、Progress 等组件会使用该组梯度变量。
    */
   colorSuccess: string;
-
   /**
    * @name 警戒色
    * @desc 用于表示操作警告的 Token 序列，如 Notification、 Alert等警告类组件或 Input 输入类等组件会使用该组梯度变量。
    */
   colorWarning: string;
-
   /**
    * @name 错误色
    * @desc 用于表示操作失败的 Token 序列，如失败按钮、错误状态提示（Result）组件等。
@@ -145,13 +143,6 @@ export interface SeedToken {
    */
   zIndexPopupBase: number;
 
-  //  ----------   Opacity   ---------- //
-
-  /**
-   * @name 图片不透明度
-   */
-  opacityImage: number;
-
   //  ----------   motion   ---------- //
 
   /**
@@ -161,5 +152,22 @@ export interface SeedToken {
    */
   motion: boolean;
 
-  motions: MotionBaseToken;
+  motions: Partial<MotionBaseToken>;
+
+  /**
+   * @name 阴影
+   * @desc 控制元素阴影样式。
+   */
+  shadows: {
+    /**
+     * @name 默认阴影
+     * @desc 控制元素阴影样式。
+     */
+    MD: string;
+    /**
+     * @name 小阴影
+     * @desc 控制元素二级阴影样式。
+     */
+    XS: string;
+  };
 }

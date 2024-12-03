@@ -4,40 +4,40 @@ export interface SizeBaseToken {
    * @desc XXL
    * @default 48
    */
-  sizeXXL: number;
+  XXL: number;
   /**
    * @name 超大尺寸
    * @desc XL
    * @default 32
    */
-  sizeXL: number;
+  XL: number;
   /**
    * @name 大尺寸
    * @desc LG
    * @default 24
    */
-  sizeLG: number;
+  LG: number;
   /**
    * @name 默认尺寸
    * @default 16
    */
-  size: number;
+  MD: number;
   /**
    * @name 小尺寸
    * @desc SM
    * @default 12
    */
-  sizeSM: number;
+  SM: number;
   /**
    * @name 超小尺寸
    * @desc XS
    * @default 8
    */
-  sizeXS: number;
+  XS: number;
   /**
    * @name 最小尺寸
    * @desc XXS
    * @default 4
    */
-  sizeXXS: number;
+  XXS: number;
 }
