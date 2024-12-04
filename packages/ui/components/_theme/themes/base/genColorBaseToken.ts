@@ -1,4 +1,3 @@
-import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorBaseToken, GenerateColorMap, GenerateNeutralColorMap, SeedToken } from '../../interface';
 
 interface PaletteGenerators {
@@ -16,6 +15,7 @@ export default function genColorBaseToken(
     colorError: colorErrorBase,
     colorInfo: colorInfoBase,
     colorPrimary: colorPrimaryBase,
+    colorLink: colorLinkBase,
     colorBgBase,
     colorTextBase,
   } = seed;
@@ -25,11 +25,10 @@ export default function genColorBaseToken(
   const warningColors = generateColorPalettes(colorWarningBase);
   const errorColors = generateColorPalettes(colorErrorBase);
   const infoColors = generateColorPalettes(colorInfoBase);
+  const linkColors = generateColorPalettes(colorLinkBase);
   const neutralColors = generateNeutralColorPalettes(colorBgBase, colorTextBase);
 
   // Color Link
-  const colorLink = seed.colorLink || seed.colorInfo;
-  const linkColors = generateColorPalettes(colorLink);
 
   return {
     ...neutralColors,
@@ -99,11 +98,10 @@ export default function genColorBaseToken(
       colorInfoTextActive: infoColors[10],
     },
 
-    colorLinkHover: linkColors[4],
-    colorLink: linkColors[6],
-    colorLinkActive: linkColors[7],
-
-    colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
-    colorWhite: '#fff',
+    colorLinks: {
+      colorLinkHover: linkColors[4],
+      colorLink: linkColors[6],
+      colorLinkActive: linkColors[7],
+    },
   };
 }

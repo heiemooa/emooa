@@ -1,3 +1,4 @@
+import { TinyColor } from '@ctrl/tinycolor';
 import type { PresetColorType, SeedToken } from '../interface';
 
 export const defaultPresetColors: PresetColorType = {
@@ -26,9 +27,11 @@ const seedToken: SeedToken = {
   colorWarning: '#faad14',
   colorError: '#f5222d',
   colorInfo: '#1677ff',
-  colorLink: '',
+  colorLink: '#1677ff',
+  colorBlack: '#000',
+  colorWhite: '#FFF',
+  colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
   colorTextBase: '',
-
   colorBgBase: '',
 
   // Font
@@ -48,7 +51,6 @@ const seedToken: SeedToken = {
   // Size
   sizeUnit: 4,
   sizeStep: 4,
-  sizePopupArrow: 16,
 
   // Base
   baseHeight: 32,

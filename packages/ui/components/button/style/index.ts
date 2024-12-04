@@ -382,6 +382,7 @@ const prepareComponentToken: GetDefaultToken<'Button'> = token => ({
 export default genStyleHooks(
   'Button',
   token => {
+    console.log('token', token);
     const buttonToken = mergeToken<ButtonToken>(token, {});
     return [
       genBtnStyle(buttonToken),
@@ -395,5 +396,5 @@ export default genStyleHooks(
       genGroupBtnStyle(buttonToken),
     ];
   },
-  prepareComponentToken,
+  // prepareComponentToken,
 );

@@ -439,30 +439,11 @@ interface ColorLinkBaseToken {
   colorLinkActive: string;
 }
 
-export interface ColorBaseToken extends ColorNeutralBaseen, ColorLinkBaseToken {
-  /**
-   * @name 纯白色
-   * @desc 不随主题变化的纯白色
-   * @default #FFFFFF
-   */
-  colorWhite: string;
-
-  /**
-   * @name 浮层的背景蒙层颜色
-   * @desc 浮层的背景蒙层颜色，用于遮罩浮层下面的内容，Modal、Drawer 等组件的蒙层使用的是该 token
-   */
-  colorBgMask: string;
-
-  /**
-   * @name 纯黑色
-   * @desc 不随主题变化的纯黑色
-   * @default #0000
-   */
-  // colorBlack: string;
-
+export interface ColorBaseToken extends ColorNeutralBaseen {
   colorPrimarys: Partial<ColorPrimaryBaseToken>;
   colorErrors: Partial<ColorErrorBaseToken>;
   colorSuccesses: Partial<ColorSuccessBaseToken>;
   colorWarnings: Partial<ColorWarningBaseToken>;
   colorInfos: Partial<ColorInfoBaseToken>;
+  colorLinks: ColorLinkBaseToken;
 }

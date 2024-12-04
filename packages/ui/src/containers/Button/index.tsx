@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconLink } from '@emooa/icon';
-import { Link, Space } from '../../../components';
+import { Button, Link, Space } from '../../../components';
 import { map } from 'lodash';
 
 const App: React.FC = () => {
@@ -151,6 +151,128 @@ const App: React.FC = () => {
   };
   return (
     <Space direction="vertical">
+      <Space direction="vertical">
+        <Space>
+          <Button type="primary">Primary</Button>
+          <Button>Secondary</Button>
+          <Button type="dashed">Dashed</Button>
+          <Button type="outline">Outline</Button>
+          <Button type="text">Text</Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="danger">
+            Primary
+          </Button>
+          <Button status="danger">Secondary</Button>
+          <Button type="dashed" status="danger">
+            Dashed
+          </Button>
+          <Button type="outline" status="danger">
+            Outline
+          </Button>
+          <Button type="text" status="danger">
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="success">
+            Primary
+          </Button>
+          <Button status="success">Secondary</Button>
+          <Button type="dashed" status="success">
+            Dashed
+          </Button>
+          <Button type="outline" status="success">
+            Outline
+          </Button>
+          <Button type="text" status="success">
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="warning">
+            Primary
+          </Button>
+          <Button status="warning">Secondary</Button>
+          <Button type="dashed" status="warning">
+            Dashed
+          </Button>
+          <Button type="outline" status="warning">
+            Outline
+          </Button>
+          <Button type="text" status="warning">
+            Text
+          </Button>
+        </Space>
+      </Space>
+      <Space direction="vertical">
+        <Space>
+          <Button type="primary" disabled>
+            Primary
+          </Button>
+          <Button disabled>Secondary</Button>
+          <Button type="dashed" disabled>
+            Dashed
+          </Button>
+          <Button type="outline" disabled>
+            Outline
+          </Button>
+          <Button type="text" disabled>
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="danger" disabled>
+            Primary
+          </Button>
+          <Button status="danger" disabled>
+            Secondary
+          </Button>
+          <Button type="dashed" status="danger" disabled>
+            Dashed
+          </Button>
+          <Button type="outline" status="danger" disabled>
+            Outline
+          </Button>
+          <Button type="text" status="danger" disabled>
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="success" disabled>
+            Primary
+          </Button>
+          <Button status="success" disabled>
+            Secondary
+          </Button>
+          <Button type="dashed" status="success" disabled>
+            Dashed
+          </Button>
+          <Button type="outline" status="success" disabled>
+            Outline
+          </Button>
+          <Button type="text" status="success" disabled>
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="warning" disabled>
+            Primary
+          </Button>
+          <Button status="warning" disabled>
+            Secondary
+          </Button>
+          <Button type="dashed" status="warning" disabled>
+            Dashed
+          </Button>
+          <Button type="outline" status="warning" disabled>
+            Outline
+          </Button>
+          <Button type="text" status="warning" disabled>
+            Text
+          </Button>
+        </Space>
+      </Space>
       <Space>
         <Link href="https://github.com/heiemooa" target="_blank" icon={<IconLink />} />
         <Link href="https://github.com/heiemooa" target="_blank">

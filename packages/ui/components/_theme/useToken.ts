@@ -14,6 +14,7 @@ export const colorPreserve: {
   colorInfo: true,
   colorWarning: true,
   colorSuccess: true,
+  colorLink: true,
 };
 
 const getComputedToken = (

@@ -37,6 +37,26 @@ export interface SeedToken {
   colorInfo: string;
 
   /**
+   * @name 超链接颜色
+   * @desc 控制超链接的颜色。
+   */
+  colorLink: string;
+
+  /**
+   * @name 纯白色
+   * @desc 不随主题变化的纯白色
+   * @default #FFFFFF
+   */
+  colorWhite: string;
+
+  /**
+   * @name 纯黑色
+   * @desc 不随主题变化的纯黑色
+   * @default #0000
+   */
+  colorBlack: string;
+
+  /**
    * @name 基础文本色
    * @desc 用于派生文本色梯度的基础变量，v5 中我们添加了一层文本色的派生算法可以产出梯度明确的文本色的梯度变量。但请不要在代码中直接使用该 Seed Token ！
    */
@@ -49,10 +69,10 @@ export interface SeedToken {
   colorBgBase: string;
 
   /**
-   * @name 超链接颜色
-   * @desc 控制超链接的颜色。
+   * @name 浮层的背景蒙层颜色
+   * @desc 浮层的背景蒙层颜色，用于遮罩浮层下面的内容，Modal、Drawer 等组件的蒙层使用的是该 token
    */
-  colorLink: string;
+  colorBgMask: string;
 
   //  ----------   Font   ---------- //
 
@@ -112,12 +132,6 @@ export interface SeedToken {
    * @default 4
    */
   sizeStep: number;
-
-  /**
-   * @name 组件箭头尺寸
-   * @desc 组件箭头的尺寸
-   */
-  sizePopupArrow: number;
 
   /**
    * @name 基础高度
