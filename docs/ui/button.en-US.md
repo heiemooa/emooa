@@ -25,7 +25,7 @@ A button is a command component that initiates an immediate action in response t
 ## Examples
 
 <code src="../../packages/ui/examples/button/basic.tsx" description="There are five types of buttons: primary button, secondary button, dashed button, linear button and text button. The primary button is in The same operation area can appear at most once ">Basic usage</code>  
-<code src="../../packages/ui/examples/button/disabled.tsx" description="Add the disabled attribute to make the button unavailable, and the button style will also change.">Disable</code>  
+<code src="../../packages/ui/examples/button/disabled.tsx" description="Add the `disabled` attribute to make the button unavailable, and the button style will also change.">Disable</code>  
 <code src="../../packages/ui/examples/button/size.tsx" description="Buttons are divided into four sizes: mini, small, medium and large. The heights are: 24px/28px/ 32px/36px. The recommended and `default` size is `Medium`. You can choose the appropriate size for different scenarios and different business needs. ">Button size</code>  
 <code src="../../packages/ui/examples/button/shape.tsx" description="`Button` has many shapes, `square` - rectangle (default), `circle` - circle, `round` - Fully rounded corners. ">Button shape</code>  
 <code src="../../packages/ui/examples/button/loading.tsx" description="By setting `loading`, a button can be placed in the loading state. The button in the loading state will not trigger a click. Event.">Loading</code>  
@@ -52,7 +52,7 @@ A button is a command component that initiates an immediate action in response t
 | htmlType | The native `html type` of the button | `button \| submit \| reset` | - |
 | href | Add a jump link and set this attribute, `button` behaves the same as `a` tag | `string` | - |
 | target | `a` link's `target` attribute, effective when `href` exists | `_blank \| _self \| _parent \| _top` | - |
-| anchorProps | `a` The native attribute of the link, effective when `href` exists, see [Document] | `HTMLProps<HTMLAnchorElement>` | - |
+| anchorProps | `a` The native attribute of the link, effective when `href` exists, see [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement) | `HTMLProps<HTMLAnchorElement>` | - |
 
 ## Theme
 

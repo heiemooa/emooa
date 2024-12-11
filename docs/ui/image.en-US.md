@@ -69,6 +69,7 @@ Optional `Lazy Options` property reference [IntersectionObserver.](https://devel
 | style | The style of Image.Preview | `CSSProperties` | - |
 | closable | Whether to display a close button | `boolean` | true |
 | defaultVisible | Visible by default, uncontrolled | `boolean` | - |
+| defaultScale | Default scale，range from 0 to 1 | number | 1 |
 | escToExit | Press the `ESC` key to close the preview | `boolean` | true |
 | maskClosable | Clicking on mask triggers shutdown | `boolean` | true |
 | visible | Visible or not, controlled attribute | `boolean` | - |

@@ -25,7 +25,7 @@ toc: content
 ## 代码演示
 
 <code src="../../packages/ui/examples/button/basic.tsx" description="按钮有五种类型：主按钮、次按钮、虚线按钮、线形按钮和文本按钮。主按钮在同一个操作区域最多出现一次。">基本用法</code>  
-<code src="../../packages/ui/examples/button/disabled.tsx" description="添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。">禁用状态</code>  
+<code src="../../packages/ui/examples/button/disabled.tsx" description="添加 `disabled` 属性即可让按钮处于不可用状态，同时按钮样式也会改变。">禁用状态</code>  
 <code src="../../packages/ui/examples/button/size.tsx" description="按钮分为：迷你、小、中、大，四种尺寸。高度分别为：24px/28px/32px/36px。推荐及默认为尺寸「中」。可在不同场景及不同业务需求选择适合尺寸。">按钮尺寸</code>  
 <code src="../../packages/ui/examples/button/shape.tsx" description="`Button` 有多种形状，`square` - 长方形 (默认), `circle` - 圆形, `round` - 全圆角。">按钮形状</code>  
 <code src="../../packages/ui/examples/button/loading.tsx" description="通过设置 `loading` 可以让一个按钮处于加载中状态，处于加载中状态的按钮不会触发点击事件。">加载中</code>  
@@ -52,7 +52,7 @@ toc: content
 | htmlType | 按钮原生的 `html type` 类型 | `button \| submit \| reset` | - |
 | href | 添加跳转链接，设置此属性，`button` 表现跟 `a` 标签一致 | `string` | - |
 | target | `a` 链接的 `target` 属性，`href` 存在时生效 | `_blank \| _self \| _parent \| _top` | - |
-| anchorProps | `a` 链接的原生属性，`href` 存在时生效，见 [文档](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) | `HTMLProps<HTMLAnchorElement>` | - |
+| anchorProps | `a` 链接的原生属性，`href` 存在时生效，见 [HTMLAnchorElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement) | `HTMLProps<HTMLAnchorElement>` | - |
 
 ## 主题变量 Theme
 

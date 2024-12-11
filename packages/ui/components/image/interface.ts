@@ -90,6 +90,11 @@ export interface ImagePreviewProps {
    */
   scales?: number[];
   /**
+   * @zh 默认尺寸
+   * @defaultValue 1
+   */
+  defaultScale?: number;
+  /**
    * @zh 切换可见状态触发的事件
    * @en Callback when visibility changes
    */

@@ -17,11 +17,6 @@ export interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
    */
   disabled?: boolean;
   /**
-   * @zh 按钮是否是加载状态
-   * @en Whether the link is in the loading state
-   */
-  loading?: boolean;
-  /**
    * @zh 设置按钮的图标
    * @en Icon of the link
    */

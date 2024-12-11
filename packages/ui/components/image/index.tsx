@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { ImagePreviewProps, ImageProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import useStyle from './style';
-import { IconImageClose, IconLoading } from '@emooa/icon';
+import { IconImageClose } from '@emooa/icon';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import useImageStatus from './utils/hooks/useImageStatus';
 import useValue from '@/_utils/hooks/useValue';

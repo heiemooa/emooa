@@ -56,7 +56,8 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             display: 'inline-block',
           },
 
-          [`${previewCls}-img`]: {
+          [`& > :first-child, ${previewCls}-img`]: {
+            display: 'inline-block',
             maxWidth: '100%',
             maxHeight: '100%',
             verticalAlign: 'middle',

@@ -4,7 +4,6 @@ import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import classNames from 'classnames';
 import useStyle from './style';
-import { IconLoading } from '@emooa/icon';
 
 function processChildren(children?: ReactNode) {
   const childrenList = [];
@@ -29,7 +28,6 @@ const LinkComponent = (props: LinkProps, ref) => {
   const {
     className,
     status = 'default',
-    loading,
     icon,
     href,
     disabled,
@@ -50,24 +48,22 @@ const LinkComponent = (props: LinkProps, ref) => {
       [`${prefixCls}-hoverable`]: hoverable,
       [`${prefixCls}-disabled`]: disabled,
       [`${prefixCls}-rtl`]: rtl,
-      [`${prefixCls}-loading`]: loading,
       [`${prefixCls}-icon-only`]: icon && !children,
     },
     className,
   );
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e: any): void => {
-    if (loading || disabled) {
+    if (disabled) {
       typeof e?.preventDefault === 'function' && e.preventDefault();
       return;
     }
     onClick?.(e);
   };
 
-  const iconNode = loading ? <IconLoading /> : icon;
   const InnerContent = (
     <>
-      {iconNode}
+      {icon}
       {processChildren(children)}
     </>
   );

@@ -85,6 +85,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       visible: _visible,
       onVisibleChange,
       scales = defaultScales,
+      defaultScale = 1,
       maskClosable = true,
       closable = true,
       actions,
@@ -104,7 +105,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     );
 
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
-    const [scale, setScale] = useState(1);
+    const [scale, setScale] = useState(defaultScale);
     const [rotate, setRotate] = useState(0);
     const [scaleValueVisible, setScaleValueVisible] = useState(false);
     const mergedSrc = previewGroup ? previewUrlMap.get(currentIndex) : src;
@@ -181,7 +182,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     // Reset image params
     function reset() {
       setTranslate({ x: 0, y: 0 });
-      setScale(1);
+      setScale(defaultScale);
       setRotate(0);
     }
 
