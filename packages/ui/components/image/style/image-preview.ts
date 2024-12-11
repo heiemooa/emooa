@@ -41,6 +41,11 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
         [`${previewCls}-img-focus-lock`]: {
           width: '100%',
           height: '100%',
+          pointerEvents: 'none',
+
+          '& > *': {
+            pointerEvents: 'auto',
+          },
         },
 
         [`${previewCls}-img-container`]: {
@@ -56,7 +61,14 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
             display: 'inline-block',
           },
 
-          [`& > :first-child, ${previewCls}-img`]: {
+          [`& > :first-child`]: {
+            display: 'inline-block',
+            maxWidth: '100%',
+            maxHeight: '100%',
+            verticalAlign: 'middle',
+          },
+
+          [`${previewCls}-img`]: {
             display: 'inline-block',
             maxWidth: '100%',
             maxHeight: '100%',

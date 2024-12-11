@@ -414,7 +414,11 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
         />
       );
 
-      return imageRender?.(image) ?? image;
+      return React.cloneElement(imageRender?.(image) ?? image, {
+        onClick: e => {
+          e.stopPropagation();
+        },
+      });
     };
 
     useEffect(() => {

@@ -115,7 +115,7 @@ export interface ImagePreviewProps {
    * @zh 自定义 IMG 元素的渲染
    * @en Rendering of custom IMG elements
    */
-  imageRender?: (originalNode: ReactElement) => ReactNode;
+  imageRender?: (originalNode: ReactElement) => ReactElement;
   zIndex?: number;
 }
 
