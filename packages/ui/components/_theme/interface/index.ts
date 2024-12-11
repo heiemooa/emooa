@@ -11,9 +11,7 @@ export type OverrideToken = {
 };
 
 export type ComponentsToken = {
-  [key in keyof OverrideToken]?: OverrideToken[key] & {
-    theme?: Theme<SeedToken, BaseToken>;
-  };
+  [key in keyof OverrideToken]?: OverrideToken[key];
 };
 
 /** Final token which contains the components level override */
@@ -52,10 +50,6 @@ export interface EuiTokenProviderProps {
   theme?: Theme<SeedToken, BaseToken>;
   components?: ComponentsToken;
   /** Just merge `token` & `override` at top to save perf */
-  override: { override: Partial<AliasToken> } & ComponentsToken;
+  override?: { override: Partial<AliasToken> } & ComponentsToken;
   hashed?: string | boolean;
-  cssVar?: {
-    prefix?: string;
-    key?: string;
-  };
 }

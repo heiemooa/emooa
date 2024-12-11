@@ -118,4 +118,20 @@ export interface FontBaseToken {
    * @default 1.2
    */
   lineHeightHeading5: number;
+  /**
+   * @name 选择器、级联选择器等中的操作图标字体大小
+   * @desc 控制选择器、级联选择器等中的操作图标字体大小。正常情况下与 fontSizeSM 相同。
+   */
+  fontSizeIcon: number;
+  /**
+   * @name 标题类组件
+   * @desc 控制标题类组件
+   */
+  fontWeight: number;
+
+  /**
+   * @name 标题类组件（如 h1、h2、h3）或选中项的字体粗细
+   * @desc 控制标题类组件（如 h1、h2、h3）或选中项的字体粗细。
+   */
+  fontWeightStrong: number;
 }

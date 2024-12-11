@@ -12,8 +12,8 @@ const Component: React.FC<AppProps> = props => {
   const { children, className, style, message, component = 'div' } = props;
   const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
   const prefixCls = getPrefixCls('app');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
-  const customClassName = classNames(hashId, prefixCls, className, cssVarCls);
+  const [hashId] = useStyle(prefixCls);
+  const customClassName = classNames(hashId, prefixCls, className);
   const appConfig = useContext<AppConfig>(AppConfigContext);
 
   const appConfigContextValue = useMemo<AppConfig>(
@@ -40,7 +40,7 @@ const Component: React.FC<AppProps> = props => {
     style,
   };
 
-  return wrapCSSVar(
+  return (
     <AppContext.Provider value={memoizedContextValue}>
       <AppConfigContext.Provider value={appConfigContextValue}>
         <Component {...(component === false ? undefined : rootProps)}>
@@ -49,7 +49,7 @@ const Component: React.FC<AppProps> = props => {
           {children}
         </Component>
       </AppConfigContext.Provider>
-    </AppContext.Provider>,
+    </AppContext.Provider>
   );
 };
 

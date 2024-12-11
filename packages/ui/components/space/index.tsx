@@ -36,7 +36,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
   const innerAlign = align || (direction === 'horizontal' ? 'center' : '');
 
   const prefixCls = getPrefixCls('space');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
   const [horizontalSize, verticalSize] = Array.isArray(size) ? size : ([size, size] as const);
 
   const isPresetVerticalSize = isPresetSize(verticalSize);
@@ -56,7 +56,6 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
       [`${prefixCls}-gap-col-${horizontalSize}`]: isPresetHorizontalSize,
     },
     className,
-    cssVarCls,
   );
 
   const getStyle = (): React.CSSProperties => {
@@ -73,7 +72,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
     return styles;
   };
 
-  return wrapCSSVar(
+  return (
     <div ref={ref} className={classnames} style={Object.assign({}, getStyle(), style)} {...rest}>
       {toArray(children)?.map((child, index) => {
         const key = (child as ReactElement)?.key || index;
@@ -84,7 +83,7 @@ const Space = forwardRef<HTMLDivElement, SpaceProps>((props: SpaceProps, ref) =>
           </Fragment>
         );
       })}
-    </div>,
+    </div>
   );
 });
 

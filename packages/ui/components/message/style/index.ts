@@ -26,11 +26,11 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
         color: token.colorText,
 
         '&-top': {
-          top: token.marginXXL,
+          top: token.margins.XXL,
         },
 
         '&-bottom': {
-          bottom: token.marginXXL,
+          bottom: token.margins.XXL,
         },
 
         [`${componentCls}-rtl`]: {
@@ -40,13 +40,13 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
           },
 
           [`& > span:not(:last-child)`]: {
-            marginLeft: token.marginXS,
+            marginLeft: token.margins.XS,
           },
         },
 
         [`${componentCls}:not(${componentCls}-rtl)`]: {
           [`& > span:not(:last-child)`]: {
-            marginRight: token.marginXS,
+            marginRight: token.margins.XS,
           },
         },
 
@@ -58,12 +58,12 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
           display: 'inline-block',
           pointerEvents: 'auto',
           background: token.colorBgElevated,
-          paddingInline: token.padding,
-          paddingBlock: token.paddingXS,
-          borderRadius: token.borderRadius,
-          boxShadow: token.boxShadow,
+          paddingInline: token.paddings.MD,
+          paddingBlock: token.paddings.XS,
+          borderRadius: token.rounded.MD,
+          boxShadow: token.shadows.MD,
           textAlign: 'center',
-          marginBottom: token.margin,
+          marginBottom: token.margins.MD,
           transition: `all ${token.motions.durationMid} ${token.motions.linear}`,
           lineHeight: 1,
 
@@ -73,33 +73,33 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
           },
 
           '&-icon': {
-            fontSize: token.fontSizeXL,
+            fontSize: token.fonts.fontSizeXL,
             verticalAlign: 'sub',
           },
 
           '&-success': {
             [`${componentCls}-icon`]: {
-              color: token.colorSuccess,
+              color: token.colorSuccesses[6],
             },
           },
           '&-info': {
             [`${componentCls}-icon`]: {
-              color: token.colorPrimary,
+              color: token.colorPrimarys[6],
             },
           },
           '&-error': {
             [`${componentCls}-icon`]: {
-              color: token.colorError,
+              color: token.colorErrors[6],
             },
           },
           '&-warning': {
             [`${componentCls}-icon`]: {
-              color: token.colorWarning,
+              color: token.colorWarnings[6],
             },
           },
           '&-loading': {
             [`${componentCls}-icon`]: {
-              color: token.colorPrimary,
+              color: token.colorPrimarys[6],
             },
           },
         },

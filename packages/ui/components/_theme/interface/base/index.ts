@@ -15,6 +15,8 @@ export * from './motion';
 // ==                         Map Token                         ==
 // ======================================================================
 
-export interface BaseToken extends SeedToken, ColorBaseToken, SizeBaseToken, OtherBaseToken, FontBaseToken {
-  motions: MotionBaseToken;
+export interface BaseToken extends SeedToken, ColorBaseToken, OtherBaseToken {
+  fonts: Partial<FontBaseToken>;
+  sizes: Partial<SizeBaseToken>;
+  motions: Partial<MotionBaseToken>;
 }

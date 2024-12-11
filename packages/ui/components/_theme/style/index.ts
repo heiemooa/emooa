@@ -6,7 +6,7 @@ export const genLinkStyle = (token: AliasToken): CSSObject => ({
     outline: 'none',
   },
   a: {
-    color: token.colorLink,
+    color: token.colorLinks.colorLink,
     textDecoration: token.linkDecoration,
     backgroundColor: 'transparent', // remove the gray background on active links in IE 10.
     outline: 'none',
@@ -15,11 +15,11 @@ export const genLinkStyle = (token: AliasToken): CSSObject => ({
     '-webkit-text-decoration-skip': 'objects', // remove gaps in links underline in iOS 8+ and Safari 8+.
 
     '&:hover': {
-      color: token.colorLinkHover,
+      color: token.colorLinks.colorLinkHover,
     },
 
     '&:active': {
-      color: token.colorLinkActive,
+      color: token.colorLinks.colorLinkActive,
     },
 
     [`&:active,

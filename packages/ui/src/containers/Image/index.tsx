@@ -40,6 +40,9 @@ function App() {
       </Button>
       <Space wrap>
         <Image
+          preview={{
+            defaultScale: 0.5,
+          }}
           motion
           src={`https://api.emooa.com/aimg?idx=3&timestamp=${timestamp}`}
           height={120}
@@ -174,7 +177,18 @@ function App() {
       >
         Click me to preview image
       </Button>
-      <Image.Preview onVisibleChange={setVisible2} visible={visible2} src="https://api.emooa.com/aimg?idx=1" />
+      <Image.Preview
+        onVisibleChange={setVisible2}
+        visible={visible2}
+        src="https://api.emooa.com/aimg?idx=1"
+        defaultScale={0.6}
+        imageRender={a => (
+          <div style={{ background: '#fff' }}>
+            {a}
+            <div>下载</div>
+          </div>
+        )}
+      />
       <Divider>Actions</Divider>
       <Image
         width={200}

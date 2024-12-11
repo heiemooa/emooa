@@ -1,18 +1,18 @@
 import { AnyObject } from '../interface';
+import { merge } from 'lodash';
 
-declare const CSSINJS_STATISTIC: any;
+const enableStatistic = process.env.NODE_ENV !== 'production';
 
-const enableStatistic = process.env.NODE_ENV !== 'production' || typeof CSSINJS_STATISTIC !== 'undefined';
 let recording = true;
 
 /**
  * This function will do as `Object.assign` in production. But will use Object.defineProperty:get to
  * pass all value access in development. To support statistic field usage with alias token.
  */
-export function merge<T extends AnyObject>(...objs: Partial<T>[]): T {
+export function mergeToken<T extends AnyObject>(...objs: Partial<T>[]): T {
   /* istanbul ignore next */
   if (!enableStatistic) {
-    return Object.assign({}, ...objs);
+    return merge({}, ...objs);
   }
 
   recording = false;
@@ -26,12 +26,13 @@ export function merge<T extends AnyObject>(...objs: Partial<T>[]): T {
       Object.defineProperty(ret, key, {
         configurable: true,
         enumerable: true,
-        get: () => (obj as any)[key],
+        get: () => obj[key],
       });
     });
   });
 
   recording = true;
+
   return ret;
 }
 

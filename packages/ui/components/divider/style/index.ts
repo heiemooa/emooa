@@ -86,7 +86,7 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
         },
 
         [`${componentCls}-text`]: {
-          fontWeight: token.fontWeight,
+          fontWeight: token.fonts.fontWeight,
           paddingInline: token.textPaddingInline,
         },
       },
@@ -96,15 +96,15 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
 
 // ============================== Export ==============================
 const prepareComponentToken: GetDefaultToken<'Divider'> = token => ({
-  textPaddingInline: token.margin,
-  orientationMargin: token.marginXL,
+  textPaddingInline: token.margins.MD,
+  orientationMargin: token.margins.XL,
 });
 export default genStyleHooks(
   'Divider',
   token => {
     const dividerToken = mergeToken<DividerToken>(token, {
-      dividerHorizontalMargin: token.marginLG,
-      dividerVerticalMargin: token.marginXS,
+      dividerHorizontalMargin: token.margins.LG,
+      dividerVerticalMargin: token.margins.XS,
     });
     return [genDividerStyle(dividerToken)];
   },

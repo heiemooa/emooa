@@ -68,6 +68,7 @@ toc: content
 | style | 组件样式 | `CSSProperties` | - |
 | closable | 是否显示关闭按钮 | `boolean` | true |
 | defaultVisible | 默认是否可见，非受控 | `boolean` | - |
+| defaultScale | 默认比例，0-1 | number | 1 |
 | escToExit | 按 `ESC` 键关闭预览 | `boolean` | true |
 | maskClosable | 点击 mask 是否触发关闭 | `boolean` | true |
 | visible | 是否可见，受控属性 | `boolean` | - |

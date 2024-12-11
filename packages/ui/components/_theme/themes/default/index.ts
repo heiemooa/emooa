@@ -32,9 +32,9 @@ export default function derivative(token: SeedToken): BaseToken {
       generateNeutralColorPalettes,
     }),
     // Font
-    ...genFontBaseToken(token.fontSize),
+    fonts: genFontBaseToken(token.fontSize),
     // Size
-    ...genSizeBaseToken(token),
+    sizes: genSizeBaseToken(token),
     // Others
     ...genOtherBaseToken(token),
   };

@@ -111,315 +111,8 @@ export interface ColorNeutralBaseen {
 /**
  * 品牌色梯度变量
  */
-interface ColorPrimaryBaseToken {
-  /**
-   * @name 品牌主色
-   * @desc 品牌色是体现产品特性和传播理念最直观的视觉元素之一，用于产品的主色调、主按钮、主图标、主文本等
-   */
-  colorPrimary: string; // 6
 
-  /**
-   * @name 主色浅色背景色
-   * @desc 主色浅色背景颜色，一般用于视觉层级较弱的选中状态。
-   */
-  colorPrimaryBg: string; // 1
-
-  /**
-   * @name 主色浅色背景悬浮态
-   * @desc 与主色浅色背景颜色相对应的悬浮态颜色。
-   */
-  colorPrimaryBgHover: string; // 2
-
-  /**
-   * @name 主色描边色
-   * @desc 主色梯度下的描边用色，用在 Slider 等组件的描边上。
-   */
-  colorPrimaryBorder: string; // 3
-
-  /**
-   * @name 主色描边色悬浮态
-   * @desc 主色梯度下的描边用色的悬浮态，Slider 、Button 等组件的描边 Hover 时会使用。
-   */
-  colorPrimaryBorderHover: string; // 4
-
-  /**
-   * @name 主色悬浮态
-   * @desc 主色梯度下的悬浮态。
-   */
-  colorPrimaryHover: string; // 5
-
-  /**
-   * @name 主色激活态
-   * @desc 主色梯度下的深色激活态。
-   */
-  colorPrimaryActive: string; // 7
-
-  /**
-   * @name 主色文本悬浮态
-   * @desc 主色梯度下的文本悬浮态。
-   */
-  colorPrimaryTextHover: string; // 8
-
-  /**
-   * @name 主色文本
-   * @desc 主色梯度下的文本颜色。
-   */
-  colorPrimaryText: string; // 9
-
-  /**
-   * @name 主色文本激活态
-   * @desc 主色梯度下的文本激活态。
-   */
-  colorPrimaryTextActive: string; // 10
-}
-
-interface ColorSuccessBaseToken {
-  /**
-   * @name 成功色的浅色背景颜色
-   * @desc 成功色的浅色背景颜色，用于 Tag 和 Alert 的成功态背景色
-   */
-  colorSuccessBg: string; // 1
-
-  /**
-   * @name 成功色的浅色背景色悬浮态
-   * @desc 成功色浅色背景颜色，一般用于视觉层级较弱的选中状态
-   */
-  colorSuccessBgHover: string; // 2
-
-  /**
-   * @name 成功色的描边色
-   * @desc 成功色的描边色，用于 Tag 和 Alert 的成功态描边色
-   */
-  colorSuccessBorder: string; // 3
-
-  /**
-   * @name 成功色的描边色悬浮态
-   * @desc 成功色的描边色悬浮态
-   */
-  colorSuccessBorderHover: string; // 4
-
-  /**
-   * @name 成功色的深色悬浮态
-   * @desc 成功色的深色悬浮态
-   */
-  colorSuccessHover: string; // 5
-
-  /**
-   * @name 成功色
-   * @desc 默认的成功色，如 Result、Progress 等组件中都有使用该颜色
-   */
-  colorSuccess: string; // 6
-
-  /**
-   * @name 成功色的深色激活态
-   * @desc 成功色的深色激活态
-   */
-  colorSuccessActive: string; // 7
-
-  /**
-   * @name 成功色的文本悬浮态
-   * @desc 成功色的文本悬浮态
-   */
-  colorSuccessTextHover: string; // 8
-
-  /**
-   * @name 成功色的文本默认态
-   * @desc 成功色的文本默认态
-   */
-  colorSuccessText: string; // 9
-
-  /**
-   * @name 成功色的文本激活态
-   * @desc 成功色的文本激活态
-   */
-  colorSuccessTextActive: string; // 10
-}
-
-interface ColorWarningBaseToken {
-  /**
-   * @name 警戒色的浅色背景颜色
-   * @desc 警戒色的浅色背景颜色
-   */
-  colorWarningBg: string; // 1
-
-  /**
-   * @name 警戒色的浅色背景色悬浮态
-   * @desc 警戒色的浅色背景色悬浮态
-   */
-  colorWarningBgHover: string; // 2
-
-  /**
-   * @name 警戒色的描边色
-   * @desc 警戒色的描边色
-   */
-  colorWarningBorder: string; // 3
-
-  /**
-   * @name 警戒色的描边色悬浮态
-   * @desc 警戒色的描边色悬浮态
-   */
-  colorWarningBorderHover: string; // 4
-
-  /**
-   * @name 警戒色的深色悬浮态
-   * @desc 警戒色的深色悬浮态
-   */
-  colorWarningHover: string; // 5
-
-  /**
-   * @name 警戒色
-   * @desc 最常用的警戒色，例如 Notification、 Alert等警告类组件或 Input 输入类等组件会使用该颜色
-   */
-  colorWarning: string; // 6
-
-  /**
-   * @name 警戒色的深色激活态
-   * @desc 警戒色的深色激活态
-   */
-  colorWarningActive: string; // 7
-
-  /**
-   * @name 警戒色的文本悬浮态
-   * @desc 警戒色的文本悬浮态
-   */
-  colorWarningTextHover: string; // 8
-
-  /**
-   * @name 警戒色的文本默认态
-   * @desc 警戒色的文本默认态
-   */
-  colorWarningText: string; // 9
-
-  /**
-   * @name 警戒色的文本激活态
-   * @desc 警戒色的文本激活态
-   */
-  colorWarningTextActive: string; // 10
-}
-
-interface ColorInfoBaseToken {
-  /**
-   * @name 信息色的浅色背景颜色
-   * @desc 信息色的浅色背景颜色。
-   */
-  colorInfoBg: string; // 1
-
-  /**
-   * @name 信息色的浅色背景色悬浮态
-   * @desc 信息色的浅色背景色悬浮态。
-   */
-  colorInfoBgHover: string; // 2
-
-  /**
-   * @name 信息色的描边色
-   * @desc 信息色的描边色。
-   */
-  colorInfoBorder: string; // 3
-
-  /**
-   * @name 信息色的描边色悬浮态
-   * @desc 信息色的描边色悬浮态。
-   */
-  colorInfoBorderHover: string; // 4
-
-  /**
-   * @name 信息色的深色悬浮态
-   * @desc 信息色的深色悬浮态。
-   */
-  colorInfoHover: string; // 5
-
-  /**
-   * @name 信息色
-   * @desc 信息色。
-   */
-  colorInfo: string; // 6
-
-  /**
-   * @name 信息色的深色激活态
-   * @desc 信息色的深色激活态。
-   */
-  colorInfoActive: string; // 7
-
-  /**
-   * @name 信息色的文本悬浮态
-   * @desc 信息色的文本悬浮态。
-   */
-  colorInfoTextHover: string; // 8
-
-  /**
-   * @name 信息色的文本默认态
-   * @desc 信息色的文本默认态。
-   */
-  colorInfoText: string; // 9
-
-  /**
-   * @name 信息色的文本激活态
-   * @desc 信息色的文本激活态。
-   */
-  colorInfoTextActive: string; // 10
-}
-
-interface ColorErrorBaseToken {
-  /**
-   * @name 错误色的浅色背景颜色
-   * @desc 错误色的浅色背景颜色
-   */
-  colorErrorBg: string; // 1
-
-  /**
-   * @name 错误色的浅色背景色悬浮态
-   * @desc 错误色的浅色背景色悬浮态
-   */
-  colorErrorBgHover: string; // 2
-
-  /**
-   * @name 错误色的描边色
-   * @desc 错误色的描边色
-   */
-  colorErrorBorder: string; // 2
-
-  /**
-   * @name 错误色的描边色悬浮态
-   * @desc 错误色的描边色悬浮态
-   */
-  colorErrorBorderHover: string; // 3
-
-  /**
-   * @name 错误色的深色悬浮态
-   * @desc 错误色的深色悬浮态
-   */
-  colorErrorHover: string; // 4
-
-  /**
-   * @name 错误色
-   * @desc 错误色
-   */
-  colorError: string; // 5
-
-  /**
-   * @name 错误色的深色激活态
-   * @desc 错误色的深色激活态
-   */
-  colorErrorActive: string; // 7
-
-  /**
-   * @name 错误色的文本悬浮态
-   * @desc 错误色的文本悬浮态
-   */
-  colorErrorTextHover: string; // 8
-
-  /**
-   * @name 错误色的文本默认态
-   * @desc 错误色的文本默认态
-   */
-  colorErrorText: string; // 9
-
-  /**
-   * @name 错误色的文本激活态
-   * @desc 错误色的文本激活态
-   */
-  colorErrorTextActive: string; // 10
-}
+type ColorKey = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface ColorLinkBaseToken {
   /**
@@ -427,6 +120,11 @@ interface ColorLinkBaseToken {
    * @desc 控制超链接的颜色。
    */
   colorLink: string;
+
+  /**
+   * 不可点击
+   */
+  colorLinkDidsabled: string;
   /**
    * @name 超链接悬浮颜色
    * @desc 控制超链接悬浮时的颜色。
@@ -439,31 +137,21 @@ interface ColorLinkBaseToken {
   colorLinkActive: string;
 }
 
-export interface ColorBaseToken
-  extends ColorNeutralBaseen,
-    ColorPrimaryBaseToken,
-    ColorSuccessBaseToken,
-    ColorWarningBaseToken,
-    ColorErrorBaseToken,
-    ColorInfoBaseToken,
-    ColorLinkBaseToken {
-  /**
-   * @name 纯白色
-   * @desc 不随主题变化的纯白色
-   * @default #FFFFFF
-   */
-  colorWhite: string;
-
-  /**
-   * @name 浮层的背景蒙层颜色
-   * @desc 浮层的背景蒙层颜色，用于遮罩浮层下面的内容，Modal、Drawer 等组件的蒙层使用的是该 token
-   */
-  colorBgMask: string;
-
-  /**
-   * @name 纯黑色
-   * @desc 不随主题变化的纯黑色
-   * @default #0000
-   */
-  // colorBlack: string;
+export interface ColorBaseToken extends ColorNeutralBaseen {
+  colorPrimarys: {
+    [key in ColorKey[number]]: string;
+  };
+  colorErrors: {
+    [key in ColorKey[number]]: string;
+  };
+  colorSuccesses: {
+    [key in ColorKey[number]]: string;
+  };
+  colorWarnings: {
+    [key in ColorKey[number]]: string;
+  };
+  colorInfos: {
+    [key in ColorKey[number]]: string;
+  };
+  colorLinks: ColorLinkBaseToken;
 }

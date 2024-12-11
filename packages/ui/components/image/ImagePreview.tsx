@@ -48,11 +48,6 @@ export type ImagePreviewHandle = {
   reset: () => void;
 };
 
-const useCSSVarCls = (prefixCls: string) => {
-  const [, , , , cssVar] = useToken();
-  return cssVar ? `${prefixCls}-css-var` : '';
-};
-
 const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mousePosition?: { x: number; y: number } }>(
   (props, ref) => {
     const { getPrefixCls, components, rtl, locale }: ConfigProviderProps = useContext(ConfigContext);
@@ -66,8 +61,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     const rootPrefixCls = getPrefixCls();
     const previewPrefixCls = `${prefixCls}-preview`;
 
-    const rootCls = useCSSVarCls(prefixCls);
-    const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls, rootCls);
+    const [hashId] = useStyle(prefixCls);
 
     const [moving, setMoving] = useState(false);
     const { isLoading, isLoaded, setStatus } = useImageStatus('loading');
@@ -91,6 +85,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       visible: _visible,
       onVisibleChange,
       scales = defaultScales,
+      defaultScale = 1,
       maskClosable = true,
       closable = true,
       actions,
@@ -110,7 +105,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     );
 
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
-    const [scale, setScale] = useState(1);
+    const [scale, setScale] = useState(defaultScale);
     const [rotate, setRotate] = useState(0);
     const [scaleValueVisible, setScaleValueVisible] = useState(false);
     const mergedSrc = previewGroup ? previewUrlMap.get(currentIndex) : src;
@@ -158,7 +153,6 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
         [`${previewPrefixCls}-rtl`]: rtl,
       },
       className,
-      cssVarCls,
     );
 
     useEffect(() => {
@@ -188,7 +182,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
     // Reset image params
     function reset() {
       setTranslate({ x: 0, y: 0 });
-      setScale(1);
+      setScale(defaultScale);
       setRotate(0);
     }
 
@@ -474,7 +468,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       return {};
     }, [mousePosition]);
 
-    return wrapCSSVar(
+    return (
       <Portal visible={visible} getContainer={getContainer}>
         <div className={classnames} ref={refRootWrapper} style={style} {...rest}>
           <EuiCSSTransition
@@ -562,7 +556,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
             </div>
           </EuiCSSTransition>
         </div>
-      </Portal>,
+      </Portal>
     );
   },
 );

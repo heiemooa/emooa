@@ -36,8 +36,8 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
           boxSizing: 'border-box',
           padding: 0,
           color: token.colorText,
-          fontSize: token.fontSize,
-          lineHeight: token.lineHeight,
+          fontSize: token.fonts.fontSize,
+          lineHeight: token.fonts.lineHeight,
           listStyle: 'none',
           margin: '0 auto',
           textAlign: 'left',
@@ -64,7 +64,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
 
               [`> ${euiCls}-btn`]: {
                 marginLeft: 0,
-                marginRight: token.marginXS,
+                marginRight: token.margins.XS,
 
                 '&:only-child': {
                   marginRight: 0,
@@ -74,7 +74,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
 
             '&-close-icon': {
               right: 'initial',
-              left: token.padding / 2,
+              left: token.paddings.MD / 2,
             },
           },
         },
@@ -86,7 +86,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
         [componentCls]: {
           '&-wrapper': {
             position: 'relative',
-            boxShadow: token.boxShadow,
+            boxShadow: token.shadows.MD,
             visibility: 'visible',
             display: 'flex',
             flexDirection: 'column',
@@ -97,7 +97,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             maxWidth: '100vw',
             minHeight: `min(400px, 100vh, ${window.innerHeight - 96}px)`,
             maxHeight: '100vh',
-            borderRadius: token.borderRadius,
+            borderRadius: token.rounded.MD,
           },
 
           '&-header': {
@@ -107,18 +107,18 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
 
             [`${componentCls}-title`]: {
               flex: 1,
-              padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
-              fontWeight: token.fontWeight,
-              fontSize: token.fontSizeHeading5,
-              lineHeight: token.lineHeightHeading5,
+              padding: `${unit(token.paddings.SM)} ${unit(token.paddings.LG)}`,
+              fontWeight: token.fonts.fontWeight,
+              fontSize: token.fonts.fontSizeHeading5,
+              lineHeight: token.fonts.lineHeightHeading5,
               wordWrap: 'break-word',
               display: 'flex',
               cursor: 'move',
 
               [`${componentCls}-title-text`]: {
                 color: token.colorText,
-                marginLeft: -token.margin,
-                fontSize: token.fontSizeHeading5,
+                marginLeft: -token.margins.MD,
+                fontSize: token.fonts.fontSizeHeading5,
 
                 '&:hover': {
                   backgroundColor: 'initial !important',
@@ -127,17 +127,17 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             },
           },
           '&-content': {
-            padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddings.SM)} ${unit(token.paddings.LG)}`,
             flex: 1,
             overflow: 'auto',
             position: 'relative',
           },
           '&-footer': {
             borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
-            padding: `${unit(token.paddingSM)} ${unit(token.paddingLG)}`,
+            padding: `${unit(token.paddings.SM)} ${unit(token.paddings.LG)}`,
 
             [`> ${euiCls}-btn`]: {
-              marginLeft: token.marginXS,
+              marginLeft: token.margins.XS,
 
               '&:only-child': {
                 marginLeft: 0,
@@ -146,14 +146,14 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
           },
           '&-remark-icon': {
             position: 'absolute',
-            right: token.padding / 2,
-            top: token.padding / 2,
+            right: token.paddings.MD / 2,
+            top: token.paddings.MD / 2,
 
             [`${euiCls}-icon`]: {
               color: token.colorText,
 
               '&:hover': {
-                color: token.colorPrimary,
+                color: token.colorPrimarys[6],
               },
             },
             '&-left': {

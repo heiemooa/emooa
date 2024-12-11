@@ -1,3 +1,4 @@
+import { TinyColor } from '@ctrl/tinycolor';
 import type { PresetColorType, SeedToken } from '../interface';
 
 export const defaultPresetColors: PresetColorType = {
@@ -22,13 +23,15 @@ const seedToken: SeedToken = {
 
   // Color
   colorPrimary: '#1677ff',
-  colorSuccess: '#52c41a',
+  colorSuccess: '#00b41a',
   colorWarning: '#faad14',
   colorError: '#f5222d',
   colorInfo: '#1677ff',
-  colorLink: '',
+  colorLink: '#1677ff',
+  colorBlack: '#000',
+  colorWhite: '#FFF',
+  colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
   colorTextBase: '',
-
   colorBgBase: '',
 
   // Font
@@ -48,7 +51,6 @@ const seedToken: SeedToken = {
   // Size
   sizeUnit: 4,
   sizeStep: 4,
-  sizePopupArrow: 16,
 
   // Base
   baseHeight: 32,
@@ -56,9 +58,6 @@ const seedToken: SeedToken = {
   // zIndex
   zIndexBase: 0,
   zIndexPopupBase: 1000,
-
-  // Image
-  opacityImage: 1,
 
   // Motion
   motion: true,
@@ -73,6 +72,20 @@ const seedToken: SeedToken = {
     durationFast: '',
     durationMid: '',
     durationSlow: '',
+  },
+
+  // box-shaodw
+  shadows: {
+    MD: `
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05)
+  `,
+    XS: `
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02),
+    0 2px 4px 0 rgba(0, 0, 0, 0.02)
+  `,
   },
 };
 export default seedToken;

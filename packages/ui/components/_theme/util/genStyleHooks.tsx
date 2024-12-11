@@ -1,16 +1,16 @@
 /* eslint-disable no-redeclare */
-import type { FC, ReactElement } from 'react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import type { ComponentTokenMap, GlobalToken, OverrideToken, UseComponentStyleResult } from '../interface';
-import useToken, { ignore, unitless } from '../useToken';
+import useToken, { colorPreserve } from '../useToken';
 import genCalc from './calc';
 import type AbstractCalculator from './calc/calculator';
 import genMinMax from './minmax';
-import statisticToken, { merge as mergeToken } from './statistic';
+import statisticToken, { mergeToken } from './statistic';
 import { ConfigContext } from '@/config-provider';
-import { CSSInterpolation, token2CSSVar, useCSSVarRegister, useStyleRegister } from '@/_cssinjs';
+import { CSSInterpolation, useStyleRegister } from '@/_cssinjs';
 import { genCommonStyle, genLinkStyle } from '../style';
+import { merge } from 'lodash';
 
 export type OverrideTokenWithoutDerivative = ComponentTokenMap;
 export type OverrideComponent = keyof OverrideTokenWithoutDerivative;
@@ -59,8 +59,20 @@ const getDefaultComponentToken = <C extends OverrideComponent>(
   getDefaultToken: GetDefaultToken<C>,
 ) => {
   if (typeof getDefaultToken === 'function') {
+    const customToken = { ...(token[component] as ComponentToken<C>) };
+    Object.keys(customToken).forEach(key => {
+      if (colorPreserve[key]) {
+        customToken[`${key}s`] = Object.assign({}, token[`${key}s`], { [6]: customToken[key] }, customToken[`${key}s`]);
+      } else if (key.endsWith('s')) {
+        const newKey = key.slice(0, -1);
+        if (colorPreserve[newKey]) {
+          customToken[key] = Object.assign({}, token[key], customToken[key]);
+        }
+      }
+    });
+
     return (getDefaultToken as (token: GlobalToken) => OverrideTokenWithoutDerivative[C])(
-      mergeToken<GlobalToken>(token, token[component] ?? {}),
+      mergeToken<GlobalToken>(token, customToken),
     );
   }
   return getDefaultToken ?? {};
@@ -72,7 +84,18 @@ const getComponentToken = <C extends OverrideComponent>(
   defaultToken: OverrideTokenWithoutDerivative[C],
 ) => {
   const customToken = { ...(token[component] as ComponentToken<C>) };
-  let mergedToken: any = { ...defaultToken, ...customToken };
+  Object.keys(customToken).forEach(key => {
+    if (colorPreserve[key]) {
+      customToken[`${key}s`] = Object.assign({}, token[`${key}s`], { [6]: customToken[key] }, customToken[`${key}s`]);
+    } else if (key.endsWith('s')) {
+      const newKey = key.slice(0, -1);
+      if (colorPreserve[newKey]) {
+        customToken[key] = Object.assign({}, token[key], customToken[key]);
+      }
+    }
+  });
+
+  let mergedToken: any = merge({}, defaultToken, customToken);
 
   // Remove same value as global token to minimize size
   Object.keys(mergedToken).forEach(key => {
@@ -83,11 +106,6 @@ const getComponentToken = <C extends OverrideComponent>(
 
   return mergedToken;
 };
-
-const getCompVarPrefix = (component: string, prefix?: string) =>
-  `${[prefix, component.replace(/([A-Z]+)([A-Z][a-z]+)/g, '$1-$2').replace(/([a-z])([A-Z])/g, '$1-$2')]
-    .filter(Boolean)
-    .join('-')}`;
 
 function genComponentStyleHook<C extends OverrideComponent>(
   componentName: C | [C, string],
@@ -103,12 +121,12 @@ function genComponentStyleHook<C extends OverrideComponent>(
   const concatComponent = cells.join('-');
 
   return (prefixCls: string): UseComponentStyleResult => {
-    const [theme, realToken, hashId, token, cssVar] = useToken();
+    const [theme, realToken, hashId, token] = useToken();
 
     const { getPrefixCls } = useContext(ConfigContext);
     const rootPrefixCls = getPrefixCls();
 
-    const type = cssVar ? 'css' : 'js';
+    const type = 'js';
     const calc = genCalc(type);
     const { max, min } = genMinMax(type);
 
@@ -136,11 +154,6 @@ function genComponentStyleHook<C extends OverrideComponent>(
       const componentCls = `.${prefixCls}`;
       const componentToken = getComponentToken(component, realToken, defaultComponentToken);
 
-      if (cssVar) {
-        Object.keys(defaultComponentToken).forEach(key => {
-          defaultComponentToken[key] = `var(${token2CSSVar(key, getCompVarPrefix(component, cssVar.prefix))})`;
-        });
-      }
       const mergedToken = mergeToken<TokenWithCommonCls<GlobalTokenWithComponent<OverrideComponent>>>(
         proxyToken,
         {
@@ -151,7 +164,7 @@ function genComponentStyleHook<C extends OverrideComponent>(
           max,
           min,
         },
-        cssVar ? defaultComponentToken : componentToken,
+        componentToken,
       );
 
       const styleInterpolation = styleFn(mergedToken as unknown as FullToken<C>, {
@@ -170,72 +183,6 @@ export interface SubStyleComponentProps {
   prefixCls: string;
 }
 
-export type CSSVarRegisterProps = {
-  rootCls: string;
-  component: string;
-  cssVar: {
-    prefix?: string;
-    key?: string;
-  };
-};
-
-const genCSSVarRegister = <C extends OverrideComponent>(component: C, getDefaultToken?: GetDefaultToken<C>) => {
-  function prefixToken(key: string) {
-    return `${component}${key.slice(0, 1).toUpperCase()}${key.slice(1)}`;
-  }
-
-  const compUnitless: any = {
-    [prefixToken('zIndexPopup')]: true,
-  };
-
-  const CSSVarRegister: FC<CSSVarRegisterProps> = ({ rootCls, cssVar }) => {
-    const [, realToken] = useToken();
-    useCSSVarRegister(
-      {
-        path: [component],
-        prefix: cssVar.prefix,
-        key: cssVar?.key!,
-        unitless: {
-          ...unitless,
-          ...compUnitless,
-        },
-        ignore,
-        token: realToken,
-        scope: rootCls,
-      },
-      () => {
-        const defaultToken = getDefaultComponentToken(component, realToken, getDefaultToken);
-        const componentToken = getComponentToken(component, realToken, defaultToken);
-        Object.keys(defaultToken).forEach(key => {
-          componentToken[prefixToken(key)] = componentToken[key];
-          delete componentToken[key];
-        });
-        return componentToken;
-      },
-    );
-    return null;
-  };
-
-  const useCSSVar = (rootCls: string) => {
-    const [, , , , cssVar] = useToken();
-
-    return [
-      (node: ReactElement): ReactElement =>
-        cssVar ? (
-          <>
-            <CSSVarRegister rootCls={rootCls} cssVar={cssVar} component={component} />
-            {node}
-          </>
-        ) : (
-          node
-        ),
-      cssVar?.key,
-    ] as const;
-  };
-
-  return useCSSVar;
-};
-
 export default function genStyleHooks<C extends OverrideComponent>(
   component: C | [C, string],
   styleFn: GenStyleFn<C>,
@@ -243,13 +190,9 @@ export default function genStyleHooks<C extends OverrideComponent>(
 ) {
   const useStyle = genComponentStyleHook(component, styleFn, getDefaultToken);
 
-  const useCSSVar = genCSSVarRegister(Array.isArray(component) ? component[0] : component, getDefaultToken);
-
-  return (prefixCls: string, rootCls: string = prefixCls) => {
+  return (prefixCls: string) => {
     const [, hashId] = useStyle(prefixCls);
 
-    const [wrapCSSVar, cssVarCls] = useCSSVar(rootCls);
-
-    return [wrapCSSVar, hashId, cssVarCls] as const;
+    return [hashId] as const;
   };
 }

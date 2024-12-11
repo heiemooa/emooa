@@ -11,6 +11,7 @@ const theme = {
 console.log('getToken', getToken(theme));
 const App = () => {
   const { token } = useToken();
+  console.log('useToken', token);
   return null;
 };
 

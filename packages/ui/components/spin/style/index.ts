@@ -29,15 +29,15 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
         textAlign: 'center',
 
         [`${componentCls}-icon`]: {
-          color: token.colorPrimary,
-          fontSize: token.fontSizeXL,
+          color: token.colorPrimarys[6],
+          fontSize: token.fonts.fontSizeXL,
         },
 
         [`${componentCls}-tip`]: {
-          fontSize: token.fontSize,
-          marginTop: token.marginXS,
-          fontWeight: token.fontWeight,
-          color: token.colorPrimary,
+          fontSize: token.fonts.fontSize,
+          marginTop: token.margins.XS,
+          fontWeight: token.fonts.fontWeight,
+          color: token.colorPrimarys[6],
         },
       },
 
@@ -117,40 +117,40 @@ const genSpinSizeStyle: GenerateStyle<SpinToken> = token => {
     [`${componentCls}-mini`]: {
       [`${componentCls}-loading`]: {
         [`${componentCls}-icon`]: {
-          fontSize: token.sizeSM,
+          fontSize: token.sizes.SM,
         },
         [`${componentCls}-tip`]: {
-          fontSize: token.fontSizeSM,
+          fontSize: token.fonts.fontSizeSM,
         },
       },
     },
     [`${componentCls}-small`]: {
       [`${componentCls}-loading`]: {
         [`${componentCls}-icon`]: {
-          fontSize: token.size,
+          fontSize: token.sizes.MD,
         },
         [`${componentCls}-tip`]: {
-          fontSize: token.fontSizeSM,
+          fontSize: token.fonts.fontSizeSM,
         },
       },
     },
     [`${componentCls}-medium`]: {
       [`${componentCls}-loading`]: {
         [`${componentCls}-icon`]: {
-          fontSize: token.sizeLG,
+          fontSize: token.sizes.LG,
         },
         [`${componentCls}-tip`]: {
-          fontSize: token.fontSize,
+          fontSize: token.fonts.fontSize,
         },
       },
     },
     [`${componentCls}-large`]: {
       [`${componentCls}-loading`]: {
         [`${componentCls}-icon`]: {
-          fontSize: token.sizeXXL,
+          fontSize: token.sizes.XXL,
         },
         [`${componentCls}-tip`]: {
-          fontSize: token.fontSizeLG,
+          fontSize: token.fonts.fontSizeLG,
         },
       },
     },

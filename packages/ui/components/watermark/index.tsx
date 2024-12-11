@@ -27,7 +27,7 @@ const Watermark = forwardRef<HTMLDivElement, WatermarkProps>((props: WatermarkPr
   }: WatermarkProps = Object.assign({}, components?.Space, props);
 
   const prefixCls = getPrefixCls('watermark');
-  const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+  const [hashId] = useStyle(prefixCls);
 
   const containerRef = useRef<HTMLDivElement>();
 
@@ -49,7 +49,6 @@ const Watermark = forwardRef<HTMLDivElement, WatermarkProps>((props: WatermarkPr
       [`${prefixCls}-rtl`]: rtl,
     },
     className,
-    cssVarCls,
   );
 
   const { setWatermark } = useWatermark({
@@ -75,13 +74,11 @@ const Watermark = forwardRef<HTMLDivElement, WatermarkProps>((props: WatermarkPr
     getContainer,
   ]);
 
-  return children
-    ? wrapCSSVar(
-        <div className={classnames} ref={containerRef} {...rest}>
-          {children}
-        </div>,
-      )
-    : null;
+  return children ? (
+    <div className={classnames} ref={containerRef} {...rest}>
+      {children}
+    </div>
+  ) : null;
 });
 
 if (process.env.NODE_ENV !== 'production') {
