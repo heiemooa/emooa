@@ -13,7 +13,6 @@ import EuiCSSTransition from '@/_utils/css-trasition';
 const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
   const { getPrefixCls, components, size: componentSize }: ConfigProviderProps = useContext(ConfigContext);
   const {
-    style,
     className,
     children,
     loading: _loading = true,
@@ -24,6 +23,8 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
     delay,
     full,
     dot,
+    color,
+    style,
     ...rest
   }: SpinProps = Object.assign({}, components?.Spin, props);
 
@@ -89,7 +90,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
   );
 
   return (
-    <div ref={ref} className={classnames} {...rest}>
+    <div ref={ref} className={classnames} style={color ? Object.assign({}, style, { color }) : style} {...rest}>
       {!isEmptyReactNode(children) && <div className={`${prefixCls}-container`}>{children}</div>}
       {_usedLoading && (
         <div className={classNames(`${prefixCls}-loading`)}>

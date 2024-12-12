@@ -45,7 +45,7 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
     [dotCls]: [
       {
         opacity: 0,
-        width: token.sizes.MD * 10,
+        width: token.sizes.SM * 10,
         height: token.sizes.MD * 3,
 
         [`${dotCls}-item`]: {
@@ -53,8 +53,8 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
           height: token.sizes.MD,
           position: 'absolute',
           borderRadius: '50%',
-          backgroundColor: token.colorPrimarys[6],
-          left: '15%',
+          backgroundColor: 'currentColor',
+          left: 0,
           transformOrigin: '50%',
           animationName: spinDot(token.sizes.MD),
           animationDuration: '.5s',
@@ -69,7 +69,7 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
           },
           [`&:nth-child(3)`]: {
             left: 'auto',
-            right: '15%',
+            right: 0,
             animationDelay: '.3s',
           },
         },
@@ -81,7 +81,7 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
           borderRadius: '50%',
           backgroundColor: 'rgba(0,0,0,.5)',
           top: token.sizes.MD * 3,
-          left: '15%',
+          left: 0,
           transformOrigin: '50%',
           filter: 'blur(1px)',
           animationName: shadow,
@@ -97,27 +97,14 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
           },
           [`&:nth-child(5)`]: {
             left: 'auto',
-            right: '15%',
+            right: 0,
             animationDelay: '.3s',
           },
         },
       },
     ],
-    [`${dotCls}-small`]: {
-      width: token.sizes.SM * 10,
-      height: token.sizes.SM * 3,
-      [`${dotCls}-item`]: {
-        width: token.sizes.SM,
-        height: token.sizes.SM,
-        animationName: spinDot(token.sizes.SM),
-      },
-      [`${dotCls}-shadow`]: {
-        width: token.sizes.SM,
-        top: token.sizes.SM * 3,
-      },
-    },
     [`${dotCls}-mini`]: {
-      width: token.sizes.XS * 10,
+      width: token.sizes.XXS * 10,
       height: token.sizes.XS * 3,
       [`${dotCls}-item`]: {
         width: token.sizes.XS,
@@ -129,8 +116,21 @@ const genSpinDotStyle: GenerateStyle<Dot> = token => {
         top: token.sizes.XS * 3,
       },
     },
+    [`${dotCls}-small`]: {
+      width: token.sizes.XS * 10,
+      height: token.sizes.SM * 3,
+      [`${dotCls}-item`]: {
+        width: token.sizes.SM,
+        height: token.sizes.SM,
+        animationName: spinDot(token.sizes.SM),
+      },
+      [`${dotCls}-shadow`]: {
+        width: token.sizes.SM,
+        top: token.sizes.SM * 3,
+      },
+    },
     [`${dotCls}-large`]: {
-      width: token.sizes.LG * 10,
+      width: token.sizes.MD * 10,
       height: token.sizes.LG * 3,
       [`${dotCls}-item`]: {
         width: token.sizes.LG,

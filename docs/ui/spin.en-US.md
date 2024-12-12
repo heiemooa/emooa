@@ -20,6 +20,7 @@ toc: content
 <code src="../../packages/ui/examples/spin/tip.tsx" description="Customize the loading copy through the `tip` field.">Tip</code>  
 <code src="../../packages/ui/examples/spin/delay.tsx" description="Delayed display of `loading` through `delay`, anti-shake processing of state switching, effectively avoiding rapid state switching The screen flashes.">Delay</code>  
 <code src="../../packages/ui/examples/spin/dot.tsx" description="Set point animation via `dot`.">Dot Animation</code>  
+<code src="../../packages/ui/examples/spin/color.tsx" description="Supports customizing `color` attributes for color settings.">Custom color</code>  
 <code src="../../packages/ui/examples/spin/full.tsx" description="`full` properties are great for creating smooth page loaders. It adds a translucent overlay and places a spinning loading symbol in its center.">Full Screen</code>
 
 ## API
@@ -37,3 +38,4 @@ toc: content
 | element | Customize element which won't be rotated automatically, such as image/gif. | `ReactNode` | - |
 | tip | Customize description content when Spin has children | `string \| ReactNode` | - |
 | full | Whether is full screen | `boolen` | - |
+| color | Custom Color | `string` | - |
