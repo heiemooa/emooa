@@ -11,13 +11,14 @@ import {
 import { IconContext } from '@emooa/icon/esm/context';
 import classNames from 'classnames';
 import React, { ReactNode, CSSProperties, useEffect, useRef, useContext, useImperativeHandle, forwardRef } from 'react';
-import { omitBy, isUndefined } from 'lodash';
+import { omitBy, isUndefined, map, isEmpty } from 'lodash';
 
 export interface NoticeProps {
   style?: CSSProperties;
   className?: string;
-  title?: ReactNode | string;
-  content?: ReactNode | string;
+  title?: ReactNode;
+  content?: ReactNode;
+  actions?: ReactNode[];
   duration?: number;
   showIcon?: boolean;
   icon?: ReactNode;
@@ -61,6 +62,8 @@ const Notice = (props: NoticeProps, ref) => {
     style,
     content,
     closeIcon,
+    actions,
+    title,
   }: NoticeProps = Object.assign({}, defaultProps, omitBy(props, isUndefined));
 
   const timer = useRef<any>();
@@ -160,6 +163,46 @@ const Notice = (props: NoticeProps, ref) => {
             <div className={classnames} style={style} role="alert">
               {showIcon && renderIcon()}
               <span className={`${prefixCls}-content`}>{content}</span>
+              {closable &&
+                (closeIcon !== undefined ? (
+                  <Button
+                    size="small"
+                    icon={closeIcon}
+                    onClick={handleClose}
+                    type="text"
+                    className={`${prefixCls}-close-btn`}
+                  />
+                ) : (
+                  <Button
+                    size="small"
+                    icon={<IconClose />}
+                    onClick={handleClose}
+                    type="text"
+                    className={`${prefixCls}-close-btn`}
+                  />
+                ))}
+            </div>
+          </div>
+        </ConfigProvider>
+      )}
+      {noticeType === 'notification' && (
+        <ConfigProvider {...context}>
+          <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} ref={rootDOMRef}>
+            <div className={classnames} style={style} role="alert">
+              {showIcon && <div>{renderIcon()}</div>}
+              <div className={`${prefixCls}-body`}>
+                {title && <div className={`${prefixCls}-title`}>{title}</div>}
+                <div className={`${prefixCls}-content`}>{content}</div>
+                {!isEmpty(actions) && (
+                  <div className={`${prefixCls}-actions`}>
+                    {map(actions, (action, index) => (
+                      <span key={`action-${index}`} className={`${prefixCls}-action`}>
+                        {action}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
               {closable &&
                 (closeIcon !== undefined ? (
                   <Button

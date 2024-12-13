@@ -65,19 +65,19 @@ function useMessage(props: Omit<ConfigMessageProps, 'getContainer'> = {}): [Mess
   }
 
   const messageFuncs: MessageHookReturnType = {
-    info: function (config: MessageProps | string): void {
+    info: function (config: MessageProps | string): () => void {
       throw new Error('Function not implemented.');
     },
-    success: function (config: MessageProps | string): void {
+    success: function (config: MessageProps | string): () => void {
       throw new Error('Function not implemented.');
     },
-    warning: function (config: MessageProps | string): void {
+    warning: function (config: MessageProps | string): () => void {
       throw new Error('Function not implemented.');
     },
-    error: function (config: MessageProps | string): void {
+    error: function (config: MessageProps | string): () => void {
       throw new Error('Function not implemented.');
     },
-    loading: function (config: MessageProps | string): void {
+    loading: function (config: MessageProps | string): () => void {
       throw new Error('Function not implemented.');
     },
   };

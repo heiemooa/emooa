@@ -5,6 +5,7 @@ import type { ComponentToken as BacktopComponentToken } from '../../backtop/styl
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
 import type { ComponentToken as DrawerComponentToken } from '../../drawer/style';
 import type { ComponentToken as MessageComponentToken } from '../../message/style';
+import type { ComponentToken as NotificationComponentToken } from '../../notification/style';
 import type { ComponentToken as ModalComponentToken } from '../../modal/style';
 import type { ComponentToken as IconComponentToken } from '../../icon/style';
 import type { ComponentToken as DocumentComponentToken } from '../../document/style';
@@ -22,6 +23,7 @@ export interface ComponentTokenMap {
   Drawer?: DrawerComponentToken;
   Divider?: DividerComponentToken;
   Message?: MessageComponentToken;
+  Notification?: NotificationComponentToken;
   Modal?: ModalComponentToken;
   Icon?: IconComponentToken;
   Document?: DocumentComponentToken;

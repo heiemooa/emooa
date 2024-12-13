@@ -25,6 +25,9 @@ export type { DocumentProps } from './document/interface';
 export { default as Message } from './message';
 export type { MessageProps } from './message/interface';
 
+export { default as Notification } from './notification';
+export type { NotificationProps } from './notification/interface';
+
 export { default as Modal } from './modal';
 export type { ModalProps } from './modal/interface';
 

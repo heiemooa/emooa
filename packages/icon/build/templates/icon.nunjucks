@@ -8,6 +8,7 @@ function {{ iconName }}Component (iconProps, ref) {
   const props = {
     height: '1em',
     width: '1em',
+    display: 'inline-block',
     "aria-hidden": true,
     cursor: !!rest.onClick ? 'pointer' : 'inherit',
     focusable: false,

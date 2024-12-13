@@ -10,17 +10,20 @@ const genFontBaseToken = (fontSize: number): FontBaseToken => {
   const fontSizeMD = fontSizes[1];
   const fontSizeLG = fontSizes[2];
   const fontSizeXL = fontSizes[3];
+  const fontSizeXXL = fontSizes[4];
 
   const lineHeightSM = lineHeights[0];
   const lineHeight = lineHeights[1];
   const lineHeightLG = lineHeights[2];
   const lineHeightXL = lineHeights[3];
+  const lineHeightXXL = lineHeights[4];
 
   return {
     fontSizeSM,
     fontSize: fontSizeMD,
     fontSizeLG,
     fontSizeXL,
+    fontSizeXXL,
 
     fontSizeHeading1: fontSizes[6],
     fontSizeHeading2: fontSizes[5],
@@ -32,11 +35,13 @@ const genFontBaseToken = (fontSize: number): FontBaseToken => {
     lineHeight,
     lineHeightLG,
     lineHeightXL,
+    lineHeightXXL,
 
     fontHeightSM: Math.round(lineHeightSM * fontSizeSM),
     fontHeight: Math.round(lineHeight * fontSizeMD),
     fontHeightLG: Math.round(lineHeightLG * fontSizeLG),
     fontHeightXL: Math.round(lineHeightXL * fontSizeXL),
+    fontHeightXXL: Math.round(lineHeightXXL * fontSizeXXL),
 
     lineHeightHeading1: lineHeights[6],
     lineHeightHeading2: lineHeights[5],

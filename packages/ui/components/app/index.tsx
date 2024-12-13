@@ -2,6 +2,7 @@ import React, { Context, useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import Modal from '@/modal';
 import Message from '@/message';
+import Notification from '@/notification';
 import AppContext, { AppConfigContext } from './context';
 import useStyle from './style';
 import { ConfigProviderProps } from '@/config-provider/interface';
@@ -9,7 +10,7 @@ import { ConfigContext } from '@/config-provider';
 import { AppConfig, AppProps, useAppProps } from './interface';
 
 const Component: React.FC<AppProps> = props => {
-  const { children, className, style, message, component = 'div' } = props;
+  const { children, className, style, message, notification, component = 'div' } = props;
   const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
   const prefixCls = getPrefixCls('app');
   const [hashId] = useStyle(prefixCls);
@@ -19,19 +20,22 @@ const Component: React.FC<AppProps> = props => {
   const appConfigContextValue = useMemo<AppConfig>(
     () => ({
       message: { ...appConfig.message, ...message },
+      notification: { ...appConfig.notification, ...notification },
     }),
-    [message, appConfig.message],
+    [message, appConfig.message, notification, appConfig.notification],
   );
 
   const [ModalApi, ModalContextHolder] = Modal.useModal();
   const [MessageApi, MessageContextHolder] = Message.useMessage(appConfigContextValue.message);
+  const [NotificationApi, NotificationContextHolder] = Notification.useNotification(appConfigContextValue.notification);
 
   const memoizedContextValue = useMemo<useAppProps>(
     () => ({
       modal: ModalApi,
       message: MessageApi,
+      notification: NotificationApi,
     }),
-    [ModalApi, MessageApi],
+    [ModalApi, MessageApi, NotificationApi],
   );
 
   const Component = component === false ? React.Fragment : component;
@@ -46,6 +50,7 @@ const Component: React.FC<AppProps> = props => {
         <Component {...(component === false ? undefined : rootProps)}>
           {ModalContextHolder}
           {MessageContextHolder}
+          {NotificationContextHolder}
           {children}
         </Component>
       </AppConfigContext.Provider>

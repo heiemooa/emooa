@@ -1,22 +1,22 @@
 import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import { ConfigContext } from '../config-provider';
-import { ConfigMessageProps, MessageHookReturnType, MessageProps, MessageType } from './interface';
+import { ConfigNotificationProps, NotificationHookReturnType, NotificationProps, NotificationType } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
 import EuiCSSTransition from '@/_utils/css-trasition';
 import { TransitionGroup } from 'react-transition-group';
-import { map, head, isUndefined, isNumber, isEmpty } from 'lodash';
+import { map, head, isNumber } from 'lodash';
 import Notice from '@/_class/notice';
 import useNotice from '@/_class/notification';
-import useMessage from './useMessage';
+import useNotification from './useNotication';
 import { render } from '@/_utils/react-dom';
 
 type NoticeType = ReturnType<typeof useNotice>;
 
-let messageInstance: {
-  [key in MessageProps['position']]?: {
-    instance?: typeof MessageComponent & Omit<NoticeType, 'notices' | 'position'>;
+let notificationInstance: {
+  [key in NotificationProps['position']]?: {
+    instance?: typeof NotificationComponent & Omit<NoticeType, 'notices' | 'position'>;
     pending?: Promise<null>;
   };
 } = {};
@@ -24,19 +24,22 @@ let messageInstance: {
 let maxCount;
 let duration;
 let container;
-let closable;
+let closable = true;
 
-const defaultProps: MessageProps = {};
+const defaultProps: NotificationProps = {};
 
-const Component = (props: MessageProps, ref) => {
+const Component = (props: NotificationProps, ref) => {
   const { prefixCls: rootPrefixCls, getPrefixCls, components, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const { notices, position, add, update, remove, clear } = useNotice();
 
-  const { closable: _closable, ...rest }: MessageProps = Object.assign({}, defaultProps, components?.Message, props);
+  const { closable: _closable }: NotificationProps = Object.assign(
+    { closable },
+    defaultProps,
+    components?.Notification,
+    props,
+  );
 
-  const mergeClosable = !isUndefined(_closable) ? _closable : closable;
-
-  const prefixCls = getPrefixCls('message');
+  const prefixCls = getPrefixCls('notification');
 
   const [hashId] = useStyle(prefixCls);
 
@@ -62,7 +65,7 @@ const Component = (props: MessageProps, ref) => {
     [],
   );
 
-  const _add = (noticeprops: MessageProps) => {
+  const _add = (noticeprops: NotificationProps) => {
     const notices = noticesRef.current;
     const found = notices.find(item => item.id === noticeprops.id);
     if (notices.length >= maxCount) {
@@ -88,7 +91,7 @@ const Component = (props: MessageProps, ref) => {
     if (noticeItem) {
       update({
         ...noticeItem,
-        style: { ...noticeItem.style, opacity: 0 },
+        style: noticeItem.style,
       });
     }
 
@@ -108,8 +111,10 @@ const Component = (props: MessageProps, ref) => {
             appear
             classNames={`${rootPrefixCls}-${
               {
-                top: 'fade-down',
-                bottom: 'fade-up',
+                topRight: 'fade-left',
+                topLeft: 'fade-right',
+                bottomRight: 'fade-left',
+                bottomLeft: 'fade-right',
               }[position]
             }`}
             onEnter={e => {
@@ -127,13 +132,12 @@ const Component = (props: MessageProps, ref) => {
             }}
           >
             <Notice
-              {...rest}
+              closable={_closable}
               {...notice}
               prefixCls={prefixCls}
               onClose={_remove}
-              noticeType="message"
+              noticeType="notification"
               rtl={rtl}
-              {...(isUndefined(mergeClosable) ? {} : { closable: mergeClosable })}
             />
           </EuiCSSTransition>
         ))}
@@ -142,23 +146,23 @@ const Component = (props: MessageProps, ref) => {
   );
 };
 
-const MessageComponent = forwardRef<HTMLDivElement, MessageProps>(Component);
+const NotificationComponent = forwardRef<HTMLDivElement, NotificationProps>(Component);
 
-function addInstance(noticeProps: MessageProps & { type: keyof typeof MessageType }): () => void {
-  const _noticeProps: MessageProps = {
-    position: 'top',
+function addInstance(noticeProps: NotificationProps & { type: keyof typeof NotificationType }) {
+  const _noticeProps: NotificationProps = {
+    position: 'topRight',
     duration,
     ...noticeProps,
   };
-  const { position, ...rest } = _noticeProps;
+  const { position } = _noticeProps;
 
   let id;
 
-  const { instance, pending } = messageInstance[position] || {};
+  const { instance, pending } = notificationInstance[position] || {};
 
   if (instance || pending) {
     const add = () => {
-      const { instance } = messageInstance[position] || {};
+      const { instance } = notificationInstance[position] || {};
 
       const new_id = instance.add(_noticeProps);
       if (new_id) {
@@ -171,55 +175,55 @@ function addInstance(noticeProps: MessageProps & { type: keyof typeof MessageTyp
     } else if (pending?.then) {
       pending.then(() => {
         add();
-        messageInstance[position].pending = null;
+        notificationInstance[position].pending = null;
       });
     }
   } else {
     const div = document.createElement('div');
     (container || document.body).appendChild(div);
 
-    messageInstance[position] = {};
+    notificationInstance[position] = {};
 
-    messageInstance[position].pending = new Promise(resolve => {
+    notificationInstance[position].pending = new Promise(resolve => {
       render(
-        <MessageComponent
-          {...rest}
+        <NotificationComponent
           ref={(instance: HTMLDivElement & { add: Function }) => {
-            if (!messageInstance[position]) {
-              // getContainer 变化时，会重置 messageInstance
+            if (!notificationInstance[position]) {
+              // getContainer 变化时，会重置 notificationInstance
               // pending 中的逻辑执行晚于重置逻辑时，这里需判空
-              messageInstance[position] = {};
+              notificationInstance[position] = {};
             }
-            if (messageInstance[position].instance) return;
+            if (notificationInstance[position].instance) return;
             id = instance?.add?.(_noticeProps);
-            messageInstance[position].instance = instance as any;
+            notificationInstance[position].instance = instance as any;
             resolve(null);
           }}
         />,
         div,
       );
-      return messageInstance[position].instance;
+      return notificationInstance[position].instance;
     });
   }
 
   const close = () => {
-    messageInstance[position]?.instance?.remove(id);
+    notificationInstance[position]?.instance?.remove(id);
   };
 
   return close;
 }
 
-const Message = MessageComponent as typeof MessageComponent &
-  MessageHookReturnType & {
+const Notification = NotificationComponent as typeof NotificationComponent &
+  NotificationHookReturnType & {
     clear: () => void;
-    config: (options: ConfigMessageProps) => void;
-    useMessage: typeof useMessage;
+    config: (options: ConfigNotificationProps) => void;
+    remove: (id: string) => void;
+    useNotification: typeof useNotification;
   };
 
-Object.keys(MessageType)
+Object.keys(NotificationType)
   .filter(type => isNaN(Number(type)))
-  .forEach((type: keyof typeof MessageType) => {
-    Message[type] = (noticeProps: MessageProps | string) => {
+  .forEach((type: keyof typeof NotificationType) => {
+    Notification[type] = (noticeProps: NotificationProps | string) => {
       const props = typeof noticeProps === 'string' ? { content: noticeProps } : noticeProps;
       return addInstance({
         type,
@@ -228,13 +232,19 @@ Object.keys(MessageType)
     };
   });
 
-Message.clear = () => {
-  Object.values(messageInstance).forEach(({ instance }) => {
+Notification.clear = () => {
+  Object.values(notificationInstance).forEach(({ instance }) => {
     instance?.clear();
   });
 };
 
-Message.config = (options: ConfigMessageProps) => {
+Notification.remove = (id: string) => {
+  Object.values(notificationInstance).forEach(({ instance }) => {
+    instance?.remove(id);
+  });
+};
+
+Notification.config = (options: ConfigNotificationProps) => {
   if (isNumber(options.maxCount)) {
     maxCount = options.maxCount;
   }
@@ -246,11 +256,11 @@ Message.config = (options: ConfigMessageProps) => {
   }
   if (options.getContainer && options.getContainer() !== container) {
     container = options.getContainer();
-    Object.values(messageInstance).forEach(({ instance }) => instance?.clear());
-    messageInstance = {};
+    Object.values(notificationInstance).forEach(({ instance }) => instance?.clear());
+    notificationInstance = {};
   }
 };
 
-Message.useMessage = useMessage;
+Notification.useNotification = useNotification;
 
-export default Message;
+export default Notification;

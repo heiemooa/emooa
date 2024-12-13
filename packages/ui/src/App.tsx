@@ -9,6 +9,7 @@ import Drawer from './containers/Drawer';
 import APP from './containers/App';
 import Backtop from './containers/Backtop';
 import Message from './containers/Message';
+import Notification from './containers/Notification';
 import Provider from './containers/Provider';
 import Button from './containers/Button';
 import Link from './containers/Link';
@@ -16,7 +17,7 @@ import Link from './containers/Link';
 function App() {
   return (
     <>
-      <Link />
+      <Notification />
     </>
   );
 }
