@@ -19,7 +19,10 @@ function App() {
           Loading: {`${loading}`}
         </Button>
       </div>
-      <Spin loading={loading} dot />
+      <Space>
+        <Spin loading={loading} />
+        <Spin loading={loading} dot tip="tip" />
+      </Space>
 
       <Spin tip="Loading" loading={loading} size="mini" dot>
         <Space direction="horizontal">

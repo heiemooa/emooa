@@ -13,6 +13,7 @@ import { ModalProps } from '@/modal/interface';
 import { BacktopProps } from '@/backtop/interface';
 import { DrawerProps } from '@/drawer/interface';
 import { MessageProps } from '@/message/interface';
+import { NotificationProps } from '@/notification/interface';
 import { DocumentProps } from '@/document/interface';
 import { LinkProps } from '@/link/interface';
 
@@ -24,6 +25,7 @@ export type Components = {
   Divider?: DividerProps;
   Drawer?: DrawerProps;
   Message?: MessageProps;
+  Notification?: NotificationProps;
   Modal?: ModalProps;
   Image?: ImageProps;
   Icon?: IconProps;

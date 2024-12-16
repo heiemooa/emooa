@@ -45,4 +45,8 @@ export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
    * @zh 点动画
    */
   dot?: boolean;
+  /**
+   * @zh 颜色
+   */
+  color?: string;
 }

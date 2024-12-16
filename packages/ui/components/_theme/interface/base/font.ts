@@ -16,6 +16,10 @@ export interface FontBaseToken {
    * @desc 超大号字体大小
    */
   fontSizeXL: number;
+  /**
+   * @desc 超大号字体大小
+   */
+  fontSizeXXL: number;
 
   /**
    * @desc H1 标签所使用的字号
@@ -62,6 +66,11 @@ export interface FontBaseToken {
    */
   lineHeightXL: number;
 
+  /**
+   * @desc 超大大型文本行高
+   */
+  lineHeightXXL: number;
+
   // TextHeight
   /**
    * @name SM 小型文本高度
@@ -87,6 +96,12 @@ export interface FontBaseToken {
    * @internal
    */
   fontHeightXL: number;
+  /**
+   * @name XXL 超大型文本高度
+   * @desc Round of lineHeightXL * lineHeightXL
+   * @internal
+   */
+  fontHeightXXL: number;
 
   /**
    * @name H1 标签行高

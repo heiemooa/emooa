@@ -17,6 +17,7 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
   return {
     [componentCls]: {
       position: 'relative',
+      color: token.colorPrimarys[6],
 
       [`&-icon-only`]: {
         [`&${componentCls}-with-loading`]: {
@@ -29,7 +30,6 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
         textAlign: 'center',
 
         [`${componentCls}-icon`]: {
-          color: token.colorPrimarys[6],
           fontSize: token.fonts.fontSizeXL,
         },
 
@@ -37,7 +37,6 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
           fontSize: token.fonts.fontSize,
           marginTop: token.margins.XS,
           fontWeight: token.fonts.fontWeight,
-          color: token.colorPrimarys[6],
         },
       },
 

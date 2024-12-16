@@ -34,7 +34,7 @@ demo:
 | --- | --- | --- | --- |
 | className | 组件名称 | `string` | - |
 | style | 组件样式 | `CSSProperties` | - |
-| closable | 是否显示关闭按钮 | `boolean` | true |
+| closable | 是否显示关闭按钮 | `boolean` | false |
 | showIcon | 是否显示图标 | `boolean` | true |
 | duration | 自动关闭的时间，单位为 `ms` | `number` | 3000 |
 | id | 当前消息的唯一标识，可以用来更新消息 | `string` | - |

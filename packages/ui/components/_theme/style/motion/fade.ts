@@ -200,10 +200,12 @@ export const initFadeMotion = (
       `]: {
         opacity: 0,
         animationTimingFunction: 'linear',
+        // animationTimingFunction: 'cubic-bezier(0.3, 1.3, 0.3, 1)',
       },
 
       [`${sameLevelPrefix}${motionCls}-exit`]: {
         animationTimingFunction: 'linear',
+        // animationTimingFunction: 'cubic-bezier(0.3, 1.3, 0.3, 1)',
       },
     },
   ];

@@ -1,12 +1,17 @@
-import { ReactNode, HTMLAttributes } from 'react';
+import { ReactNode, HTMLAttributes, ReactInstance } from 'react';
 
 /**
- * @title Message
+ * @title Notification
  */
-export interface MessageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content' | 'children'> {
+export interface NotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content' | 'children'> {
+  /**
+   * @zh 提示标题
+   * @en Notification content
+   */
+  title?: ReactNode;
   /**
    * @zh 消息内容
-   * @en Message content
+   * @en Notification content
    */
   content?: ReactNode;
   /**
@@ -33,18 +38,18 @@ export interface MessageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'titl
   onClose?: () => void;
   /**
    * @zh 当前消息的唯一标识，可以用来更新消息
-   * @en The unique identifier of the current message, which can be used to update the message
+   * @en The unique identifier of the current notification, which can be used to update the notification
    */
   id?: string;
   /**
-   * @zh 消息的位置，分为 `top` 上方和 `bottom` 下方
+   * @zh 消息的位置，分为 `topLeft` 左上方、`topRight` 右上方、`bottomLeft` 左下方和 `bottomRight` 右下方
    * @en The position of the message
    */
-  position?: 'top' | 'bottom';
+  position?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
   /**
    * @zh 是否显示关闭按钮
    * @en Whether to show the close button
-   * @defaultValue false
+   * @defaultValue true
    */
   closable?: boolean;
   /**
@@ -52,25 +57,29 @@ export interface MessageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'titl
    * @en Custom the close button on top-right of the drawer dialog
    */
   closeIcon?: ReactNode;
+  /**
+   * @zh 操作
+   */
+  actions?: ReactNode[];
 }
 
-export enum MessageType {
+export enum NotificationType {
   'info',
   'success',
   'warning',
   'error',
-  'loading',
 }
 
-export type ConfigMessageProps = {
+export type ConfigNotificationProps = {
   maxCount?: number;
   getContainer?: () => HTMLElement;
   duration?: number;
   closable?: boolean;
+  title?: ReactNode;
 };
 
-type messageHookFunction = (config: MessageProps | string) => () => void;
+type notificationHookFunction = (config: NotificationProps | string) => () => void;
 
-export type MessageHookReturnType = {
-  -readonly [key in Exclude<keyof typeof MessageType, number>]: messageHookFunction;
+export type NotificationHookReturnType = {
+  -readonly [key in Exclude<keyof typeof NotificationType, number>]: notificationHookFunction;
 };

@@ -7,30 +7,41 @@ export interface ComponentToken {
   // Component token here
 }
 
-interface MessageToken extends FullToken<'Message'> {}
+interface NotificationToken extends FullToken<'Notification'> {}
 
-const genMessageStyle: GenerateStyle<MessageToken> = token => {
-  const { componentCls, euiCls } = token;
+const genNotificationStyle: GenerateStyle<NotificationToken> = token => {
+  const { componentCls } = token;
 
   return [
     {
       [`${componentCls}-wrapper`]: {
-        width: '100%',
         position: 'fixed',
         zIndex: token.zIndexPopupBase + 20,
-        padding: token.paddings.LG,
-        textAlign: 'center',
+        margin: token.paddings.LG,
         pointerEvents: 'none',
         boxSizing: 'border-box',
-        left: '0',
         color: token.colorText,
+        display: 'grid',
+        width: 340,
 
-        '&-top': {
+        '&-topRight': {
           top: 0,
+          right: 0,
         },
 
-        '&-bottom': {
+        '&-topLeft': {
+          top: 0,
+          left: 0,
+        },
+
+        '&-bottomLeft': {
           bottom: 0,
+          left: 0,
+        },
+
+        '&-bottomRight': {
+          bottom: 0,
+          right: 0,
         },
 
         [`${componentCls}-rtl`]: {
@@ -51,27 +62,45 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
         },
 
         [componentCls]: {
-          display: 'inline-block',
+          display: 'flex',
           pointerEvents: 'auto',
           background: token.colorBgElevated,
-          paddingInline: token.paddings.MD,
-          paddingBlock: token.paddings.XS,
+          padding: token.paddings.MD,
           borderRadius: token.rounded.MD,
           boxShadow: token.shadows.MD,
-          textAlign: 'center',
-          marginBottom: token.margins.MD,
           transition: `all ${token.motions.durationMid} ${token.motions.linear}`,
-          lineHeight: 1,
-          gap: token.sizes.MD,
+          position: 'relative',
+          gap: token.margins.XS,
+          marginBottom: token.margins.MD,
 
           [`&-close-btn`]: {
-            display: 'inline',
-            color: token.colorText,
+            position: 'absolute',
+            right: token.margins.XS,
+            top: token.margins.XS,
           },
 
           '&-icon': {
-            fontSize: token.fonts.fontSizeXL,
-            verticalAlign: '-3px',
+            fontSize: token.fonts.fontSizeXXL,
+            display: 'contents',
+          },
+
+          '&-body': {
+            flex: 1,
+          },
+
+          '&-title': {
+            fontSize: token.fonts.fontSizeLG,
+            fontWeight: token.fonts.fontWeight,
+            marginBottom: token.margins.XS,
+          },
+
+          '&-content': {
+            lineHeight: token.fonts.lineHeight,
+          },
+
+          '&-actions': {
+            marginTop: token.margins.MD,
+            textAlign: 'right',
           },
 
           '&-success': {
@@ -94,37 +123,33 @@ const genMessageStyle: GenerateStyle<MessageToken> = token => {
               color: token.colorWarnings[6],
             },
           },
-          '&-loading': {
-            [`${componentCls}-icon`]: {
-              color: token.colorPrimarys[6],
-            },
-          },
         },
       },
     },
   ];
 };
 
-const genMessageMotion: GenerateStyle<MessageToken> = token => {
+const genNotificationMotion: GenerateStyle<NotificationToken> = token => {
   const { componentCls } = token;
-
   return {
     [`${componentCls}-wrapper`]: {
-      '&-top >': fade.initFadeMotion(token, 'fade-down', true),
-      '&-bottom >': fade.initFadeMotion(token, 'fade-up', true),
+      '&-topRight >': fade.initFadeMotion(token, 'fade-left', true),
+      '&-topLeft >': fade.initFadeMotion(token, 'fade-right', true),
+      '&-bottomRight >': fade.initFadeMotion(token, 'fade-left', true),
+      '&-bottomLeft >': fade.initFadeMotion(token, 'fade-right', true),
     },
   };
 };
 
 // ============================== Export ==============================
-const prepareComponentToken: GetDefaultToken<'Message'> = () => ({});
+const prepareComponentToken: GetDefaultToken<'Notification'> = () => ({});
 
 export default genStyleHooks(
-  'Message',
+  'Notification',
   token => {
-    const messageToken = mergeToken<MessageToken>(token);
+    const notificationToken = mergeToken<NotificationToken>(token);
 
-    return [genMessageStyle(messageToken), genMessageMotion(messageToken)];
+    return [genNotificationStyle(notificationToken), genNotificationMotion(notificationToken)];
   },
   prepareComponentToken,
 );
