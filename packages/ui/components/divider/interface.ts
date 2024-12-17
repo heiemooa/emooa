@@ -22,4 +22,9 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
    * @defaultValue center
    */
   dashed?: boolean;
+  /**
+   * @zh 线颜色
+   * @en Line color
+   */
+  color?: string;
 }

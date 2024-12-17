@@ -116,7 +116,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           },
 
           '&-header': {
-            // borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            // borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
             display: 'flex',
             alignItems: 'center',
 
@@ -152,7 +152,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
             padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
           },
           '&-footer': {
-            // borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            // borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
             padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
             textAlign: 'right',
 

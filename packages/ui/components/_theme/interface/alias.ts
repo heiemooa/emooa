@@ -44,11 +44,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制元素背景边框的颜色。
    */
   colorBorderBg: string;
-  /**
-   * @name 分割线颜色
-   * @desc 用于作为分割线的颜色，此颜色和 colorBorderSecondary 的颜色一致，但是用的是透明色。
-   */
-  colorSplit: string;
 
   // Text
   /**

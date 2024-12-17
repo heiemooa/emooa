@@ -13,6 +13,10 @@ export interface ComponentToken {
    * 文本与边缘距离
    */
   orientationMargin?: number;
+  /**
+   * 颜色
+   */
+  colorBorderSecondary?: string;
 }
 
 interface DividerToken extends FullToken<'Divider'> {
@@ -32,10 +36,10 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
         marginBlock: unit(token.dividerHorizontalMargin),
 
         [`&:not(${componentCls}-dashed):not(${componentCls}-with-text)`]: {
-          borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+          borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
         },
         [`&${componentCls}-dashed:not(${componentCls}-with-text)`]: {
-          borderBlockStart: `${unit(token.lineWidth)} dashed ${token.colorSplit}`,
+          borderBlockStart: `${unit(token.lineWidth)} dashed ${token.colorBorderSecondary}`,
         },
       },
 
@@ -46,10 +50,10 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
         verticalAlign: 'middle',
 
         [`&:not(${componentCls}-dashed)`]: {
-          borderInlineStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+          borderInlineStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
         },
         [`&${componentCls}-dashed`]: {
-          borderInlineStart: `${unit(token.lineWidth)} dashed ${token.colorSplit}`,
+          borderInlineStart: `${unit(token.lineWidth)} dashed ${token.colorBorderSecondary}`,
         },
       },
 
@@ -66,12 +70,12 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
 
         [`&:not(${componentCls}-dashed)`]: {
           '&::before, &::after': {
-            borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            borderBlockStart: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
           },
         },
         [`&${componentCls}-dashed`]: {
           '&::before, &::after': {
-            borderBlockStart: `${unit(token.lineWidth)} dashed ${token.colorSplit}`,
+            borderBlockStart: `${unit(token.lineWidth)} dashed ${token.colorBorderSecondary}`,
           },
         },
 

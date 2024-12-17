@@ -46,7 +46,6 @@ export default function formatToken(derivativeToken: RawMergedToken): AliasToken
 
     // ============== Split ============== //
     colorBorderBg: mergedToken.colorBgContainer,
-    colorSplit: getAlphaColor(mergedToken.colorBorderSecondary, mergedToken.colorBgContainer),
 
     // ============== Text ============== //
     colorTextPlaceholder: mergedToken.colorTextQuaternary,

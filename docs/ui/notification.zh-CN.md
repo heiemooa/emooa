@@ -47,6 +47,7 @@ demo:
 | position | 消息的位置，分为 `top` 上方和 `bottom` 下方 | `top \| bottom` | - |
 | closeIcon | 自定义右上角关闭按钮 | `ReactNode` | - |
 | icon | 自定义图标 | `ReactNode` | - |
+| actinos | 添加操作 | `ReactNode[]` | - |
 | content | 消息内容 | `ReactNode \| string` | - |
 | onClose | 关闭时的回调 | `() => void` | - |
 
@@ -75,12 +76,12 @@ demo:
 | duration     | 通知自动关闭的时间 |      `number`       |                3000 |
 | title        |        标题        |      `string`       |                   - |
 
-### Notification.useMessage 方法
+### Notification.useNotification 方法
 
-通过方法去使用对话框，像是 `Notification.info` `Notification.success`，因为是通过 `ReactDOM.render` 直接渲染，所以不在上下文中，因此拿不到 `context`。如果希望获取上下文 `context`，那么可以通过 `useMessage` 去通过 hook 的方法调用，将 `contextHolder` 放到上下文中。
+通过方法去使用对话框，像是 `Notification.info` `Notification.success`，因为是通过 `ReactDOM.render` 直接渲染，所以不在上下文中，因此拿不到 `context`。如果希望获取上下文 `context`，那么可以通过 `useNotification` 去通过 hook 的方法调用，将 `contextHolder` 放到上下文中。
 
 ```js
-const [notification, contextHolder] = Notification.useMessage();
+const [notification, contextHolder] = Notification.useNotification();
 
 <Context.Provider>
   {contextHolder}

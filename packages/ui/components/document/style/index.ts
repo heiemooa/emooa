@@ -101,7 +101,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
           },
 
           '&-header': {
-            borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
             display: 'flex',
             alignItems: 'center',
 
@@ -133,7 +133,7 @@ const genModalStyle: GenerateStyle<DocumentToken> = token => {
             position: 'relative',
           },
           '&-footer': {
-            borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorSplit}`,
+            borderTop: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
             padding: `${unit(token.paddings.SM)} ${unit(token.paddings.LG)}`,
 
             [`> ${euiCls}-btn`]: {

@@ -1,5 +1,5 @@
 import React, { useContext, forwardRef } from 'react';
-import { ConfigContext } from '../config-provider';
+import ConfigProvider, { ConfigContext } from '../config-provider';
 import { DividerProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
@@ -45,4 +45,24 @@ if (process.env.NODE_ENV !== 'production') {
   Divider.displayName = 'Divider';
 }
 
-export default Divider;
+export default (props: DividerProps) => {
+  const { theme }: ConfigProviderProps = useContext(ConfigContext);
+  const { color, ...rest } = props;
+
+  if (color)
+    return (
+      <ConfigProvider
+        theme={{
+          ...theme,
+          components: Object.assign({}, theme?.components, {
+            Divider: {
+              colorBorderSecondary: color,
+            },
+          }),
+        }}
+      >
+        <Divider {...rest} />
+      </ConfigProvider>
+    );
+  return <Divider {...rest} />;
+};

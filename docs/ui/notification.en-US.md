@@ -44,6 +44,7 @@ Lightweight global notification feedback triggered by user actions.
 | position | The position of the notification | `top \| bottom` | - |
 | closeIcon | Custom the close button on top-right of the drawer dialog | `ReactNode` | - |
 | icon | Custom icon | `ReactNode` | - |
+| actinos | Add action | `ReactNode[]` | - |
 | content | Notification content | `ReactNode \| string` | - |
 | onClose | Callback when close | `() => void` | - |
 
@@ -73,12 +74,12 @@ Usage
 | duration       | The time when the notification is automatically closed |      `number`       |                3000 |
 | title          |                   Notification title                   |      `string`       |                   - |
 
-### Notification.useMessage Methods
+### Notification.useNotification Methods
 
-Use the dialog box through methods, such as `Notification.info` `Notification.success`, because it is directly rendered through `ReactDOM.render`, so it is not in the context, so you cannot get `context`. If you want to get the context `context`, you can use `useMessage` to call the hook method and put `contextHolder` into the context.
+Use the dialog box through methods, such as `Notification.info` `Notification.success`, because it is directly rendered through `ReactDOM.render`, so it is not in the context, so you cannot get `context`. If you want to get the context `context`, you can use `useNotification` to call the hook method and put `contextHolder` into the context.
 
 ```js
-const [notification, contextHolder] = Notification.useMessage();
+const [notification, contextHolder] = Notification.useNotification();
 
 <Context.Provider>
   {contextHolder}
