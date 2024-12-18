@@ -22,7 +22,4 @@ export interface Locale {
     title: string;
     open: string;
   };
-  Notification: {
-    title: string;
-  };
 }

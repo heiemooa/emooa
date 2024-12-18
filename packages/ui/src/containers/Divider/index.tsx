@@ -1,15 +1,15 @@
 import React from 'react';
-import { Divider, ConfigProvider, Theme } from '../../../components';
+import { Divider, ConfigProvider } from '../../../components';
 
 const App: React.FC = () => {
   return (
-    <>
+    <ConfigProvider>
       <span>
         Split text paragraphs in different chapters. The default is a horizontal dividing line, and text can be added in
         the middle.
       </span>
       <Divider />
-      <span>
+      {/* <span>
         Split text paragraphs in different chapters. The default is a horizontal dividing line, and text can be added in
         the middle.
       </span>
@@ -22,8 +22,8 @@ const App: React.FC = () => {
       <span>
         Dashed Line: Split text paragraphs in different chapters. The default is a horizontal dividing line, and text
         can be added in the middle.
-      </span>
-    </>
+      </span> */}
+    </ConfigProvider>
   );
 };
 

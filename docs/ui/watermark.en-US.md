@@ -16,6 +16,7 @@ Use it when the page needs to add a watermark to identify copyright.
 
 <code src="../../packages/ui/examples/watermark/basic.tsx">Basic</code>  
 <code src="../../packages/ui/examples/watermark/contents.tsx" description="Use `content` to set a string array to specify multi-line text watermark content.">Multi-line watermark</code>  
+<code src="../../packages/ui/examples/watermark/font.tsx" description="Modify font size, color, etc. through the `font` attribute.">Font color</code>  
 <code src="../../packages/ui/examples/watermark/image.tsx" description="Specify the image address via `image`. To ensure that the image is high definition and not stretched, set the width and height, and upload at least twice the width and height of the logo image address.">Image watermark</code>
 
 ## API

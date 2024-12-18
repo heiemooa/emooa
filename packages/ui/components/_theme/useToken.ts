@@ -52,8 +52,9 @@ export default function useToken(): [
   token: GlobalToken,
   hashId: string,
   realToken: GlobalToken,
+  scheme: EuiTokenProviderProps['scheme'],
 ] {
-  const { token: rootToken, hashed, theme, override } = React.useContext(EuiTokenContext);
+  const { token: rootToken, hashed, theme, override, scheme } = React.useContext(EuiTokenContext);
 
   const salt = `version-${hashed || ''}`;
 
@@ -64,5 +65,5 @@ export default function useToken(): [
     formatToken,
   });
 
-  return [theme, realToken, hashed ? hashId : '', token];
+  return [theme, realToken, hashed ? hashId : '', token, scheme];
 }

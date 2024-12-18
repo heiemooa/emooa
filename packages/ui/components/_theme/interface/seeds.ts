@@ -50,6 +50,13 @@ export interface SeedToken {
   colorWhite: string;
 
   /**
+   * @name 二级白色
+   * @desc 不随主题变化的二级白色
+   * @default #FFFFFF
+   */
+  colorWhiteSecondary: string;
+
+  /**
    * @name 纯黑色
    * @desc 不随主题变化的纯黑色
    * @default #0000

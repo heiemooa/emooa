@@ -79,40 +79,33 @@ export interface ColorNeutralBaseen {
 
   /**
    * @name 布局背景色
-   * @desc 该色用于页面整体布局的背景色，只有需要在页面中处于 B1 的视觉层级时才会使用该 token，其他用法都是错误的
+   * @desc 该色用于页面整体布局的背景色
    */
-  colorBgLayout: string;
+  colorBg: string;
 
   /**
    * @name 组件容器背景色
-   * @desc 组件的容器背景色，例如：默认按钮、输入框等。务必不要将其与 `colorBgElevated` 混淆。
+   * @desc 组件的容器背景色，例如：默认按钮、输入框等。
    */
   colorBgContainer: string;
+
+  /**
+   * @name 容器禁用态下的背景色
+   * @desc 控制容器在禁用状态下的背景色。
+   */
+  colorBgContainerDisabled: string;
 
   /**
    * @name 浮层容器背景色
    * @desc 浮层容器背景色，在暗色模式下该 token 的色值会比 `colorBgContainer` 要亮一些。例如：模态框、弹出框、菜单等。
    */
   colorBgElevated: string;
-
-  /**
-   * @name 引起注意的背景色
-   * @desc 该色用于引起用户强烈关注注意的背景色，目前只用在 Tooltip 的背景色上。
-   * @descEN This color is used to draw the user's strong attention to the background color, and is currently only used in the background color of Tooltip.
-   */
-  colorBgSpotlight: string;
-  /**
-   * @name 毛玻璃容器背景色
-   * @desc 控制毛玻璃容器的背景色，通常为透明色。
-   */
-  colorBgBlur: string;
 }
 
 /**
  * 品牌色梯度变量
  */
-
-type ColorKey = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+type ColorKey = [1, 2, 3, 4, 5, 6];
 
 interface ColorLinkBaseToken {
   /**
@@ -138,15 +131,51 @@ interface ColorLinkBaseToken {
 }
 
 export interface ColorBaseToken extends ColorNeutralBaseen {
+  /**
+   * Primary color shades.
+   * 1: 浅色色
+   * 2: 浅色悬浮色
+   * 3: 描边色
+   * 4: 描边悬浮色
+   * 5: 主色悬浮色
+   * 6: 主色
+   */
   colorPrimarys: {
     [key in ColorKey[number]]: string;
   };
+  /**
+   * Primary color shades.
+   * 1: 浅色色
+   * 2: 浅色悬浮色
+   * 3: 描边色
+   * 4: 描边悬浮色
+   * 5: 主色悬浮色
+   * 6: 主色
+   */
   colorErrors: {
     [key in ColorKey[number]]: string;
   };
+  /**
+   * Primary color shades.
+   * 1: 浅色色
+   * 2: 浅色悬浮色
+   * 3: 描边色
+   * 4: 描边悬浮色
+   * 5: 主色悬浮色
+   * 6: 主色
+   */
   colorSuccesses: {
     [key in ColorKey[number]]: string;
   };
+  /**
+   * Primary color shades.
+   * 1: 浅色色
+   * 2: 浅色悬浮色
+   * 3: 描边色
+   * 4: 描边悬浮色
+   * 5: 主色悬浮色
+   * 6: 主色
+   */
   colorWarnings: {
     [key in ColorKey[number]]: string;
   };

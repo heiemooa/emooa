@@ -65,7 +65,7 @@ function App() {
           placeholder={
             <div className="eui-image-loader-spin">
               <IconLoading />
-              <p>加载中..</p>
+              <p>Loading</p>
             </div>
           }
           height={120}
@@ -82,7 +82,7 @@ function App() {
           description="无占位符"
         />
       </Space>
-      <Space>
+      {/* <Space>
         <Image
           // component="点击加载"
           src="error"
@@ -244,7 +244,7 @@ function App() {
           src="https://api.emooa.com/aimg?idx=1"
           alt="lamp"
         />
-      </div>
+      </div> */}
     </>
   );
 }

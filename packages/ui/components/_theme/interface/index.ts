@@ -52,4 +52,8 @@ export interface EuiTokenProviderProps {
   /** Just merge `token` & `override` at top to save perf */
   override?: { override: Partial<AliasToken> } & ComponentsToken;
   hashed?: string | boolean;
+  /**
+   * 当前主题
+   */
+  scheme: 'light' | 'dark';
 }

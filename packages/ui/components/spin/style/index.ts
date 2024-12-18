@@ -51,7 +51,7 @@ const genSpinStyle: GenerateStyle<SpinToken> = token => {
             top: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: token.colorBgMask,
             opacity: 0,
             transition: `opacity ${token.motions.durationFast} linear`,
             pointerEvents: 'none',

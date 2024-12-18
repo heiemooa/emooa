@@ -116,7 +116,7 @@ function getValue(hsv: HsvObject, i: number, light?: boolean): number {
 }
 
 interface Opts {
-  theme?: 'dark' | 'default';
+  theme?: 'dark' | 'light';
   backgroundColor?: string;
 }
 

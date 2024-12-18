@@ -16,6 +16,7 @@ toc: content
 
 <code src="../../packages/ui/examples/watermark/basic.tsx">基本用法</code>  
 <code src="../../packages/ui/examples/watermark/contents.tsx" description="通过 `content` 设置 字符串数组 指定多行文字水印内容。">多行水印</code>  
+<code src="../../packages/ui/examples/watermark/font.tsx" description="通过 `font` 属性修改字体大小、颜色等。">字体颜色</code>  
 <code src="../../packages/ui/examples/watermark/image.tsx" description="通过 `image` 指定图片地址。为保证图片高清且不被拉伸，请设置 `width` 和 `height`, 并上传至少两倍的宽高的 `logo` 图片地址。">图片水印</code>
 
 ## API

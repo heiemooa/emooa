@@ -149,6 +149,33 @@ const App: React.FC = () => {
     lime9: '#3f6600',
     lime10: '#254000',
   };
+
+  const lightcolors = [
+    '#e6f4ff',
+    '#bae0ff',
+    '#91caff',
+    '#69b1ff',
+    '#4096ff',
+    '#1677ff',
+    '#0958d9',
+    '#003eb3',
+    '#002c8c',
+    '#001d66',
+  ];
+
+  const darkcolors = [
+    '#111a2c',
+    '#112545',
+    '#15325b',
+    '#15417e',
+    '#1554ad',
+    '#1668dc',
+    '#3c89e8',
+    '#65a9f3',
+    '#8dc5f8',
+    '#b7dcfa',
+  ];
+
   return (
     <Space direction="vertical">
       <Space direction="vertical">
@@ -158,6 +185,21 @@ const App: React.FC = () => {
           <Button type="dashed">Dashed</Button>
           <Button type="outline">Outline</Button>
           <Button type="text">Text</Button>
+        </Space>
+        <Space>
+          <Button type="primary" loading>
+            Primary
+          </Button>
+          <Button loading>Secondary</Button>
+          <Button type="dashed" loading>
+            Dashed
+          </Button>
+          <Button type="outline" loading>
+            Outline
+          </Button>
+          <Button type="text" loading>
+            Text
+          </Button>
         </Space>
         <Space>
           <Button type="primary" status="danger">
@@ -171,6 +213,23 @@ const App: React.FC = () => {
             Outline
           </Button>
           <Button type="text" status="danger">
+            Text
+          </Button>
+        </Space>
+        <Space>
+          <Button type="primary" status="danger" loading>
+            Primary
+          </Button>
+          <Button status="danger" loading>
+            Secondary
+          </Button>
+          <Button type="dashed" status="danger" loading>
+            Dashed
+          </Button>
+          <Button type="outline" status="danger" loading>
+            Outline
+          </Button>
+          <Button type="text" status="danger" loading>
             Text
           </Button>
         </Space>
@@ -190,6 +249,23 @@ const App: React.FC = () => {
           </Button>
         </Space>
         <Space>
+          <Button type="primary" status="success" loading>
+            Primary
+          </Button>
+          <Button status="success" loading>
+            Secondary
+          </Button>
+          <Button type="dashed" status="success" loading>
+            Dashed
+          </Button>
+          <Button type="outline" status="success" loading>
+            Outline
+          </Button>
+          <Button type="text" status="success" loading>
+            Text
+          </Button>
+        </Space>
+        <Space>
           <Button type="primary" status="warning">
             Primary
           </Button>
@@ -204,8 +280,25 @@ const App: React.FC = () => {
             Text
           </Button>
         </Space>
+        <Space>
+          <Button type="primary" status="warning" loading>
+            Primary
+          </Button>
+          <Button status="warning" loading>
+            Secondary
+          </Button>
+          <Button type="dashed" status="warning" loading>
+            Dashed
+          </Button>
+          <Button type="outline" status="warning" loading>
+            Outline
+          </Button>
+          <Button type="text" status="warning" loading>
+            Text
+          </Button>
+        </Space>
       </Space>
-      <Space direction="vertical">
+      <Space direction="vertical" style={{ marginTop: 10 }}>
         <Space>
           <Button type="primary" disabled>
             Primary
@@ -274,20 +367,37 @@ const App: React.FC = () => {
         </Space>
       </Space>
       <Space>
-        <Link status="warning" href="https://github.com/heiemooa" target="_blank" icon={<IconLink />} />
-        <Link status="warning" href="https://github.com/heiemooa" target="_blank">
-          Link
-        </Link>
-        <Link status="warning" href="https://github.com/heiemooa" target="_blank" icon={<IconLink />}>
-          Link
-        </Link>
-        <Link status="warning" href="https://github.com/heiemooa" target="_blank" icon={<IconLink />} disabled>
-          Disabled Link
-        </Link>
+        {map(lightcolors, (item, i) => (
+          <div key={i} style={{ textShadow: '0 0 10px #000', width: 80, height: 50, background: item }}>
+            {item}
+          </div>
+        ))}
       </Space>
-      {/* <Space direction="vertical">
+      <Space>
+        {map(darkcolors, (item, i) => (
+          <div key={i} style={{ textShadow: '0 0 10px #000', width: 80, height: 50, background: item }}>
+            {item}
+          </div>
+        ))}
+      </Space>
+
+      <Space direction="vertical" style={{ marginTop: 10 }}>
         {map(
-          ['purple', 'cyan', 'green', 'magenta', 'pink', 'red', 'orange', 'yellow', 'volcano', 'geekblue'],
+          [
+            'purple',
+            'cyan',
+            'green',
+            'magenta',
+            'pink',
+            'red',
+            'orange',
+            'yellow',
+            'volcano',
+            'geekblue',
+            'blue',
+            'lime',
+            'gold',
+          ],
           (item, index) => (
             <Space key={index}>
               <div style={{ textShadow: '0 0 10px #000', width: 80, height: 50, background: obj[item] }}>
@@ -305,7 +415,7 @@ const App: React.FC = () => {
             </Space>
           ),
         )}
-      </Space> */}
+      </Space>
     </Space>
   );
 };

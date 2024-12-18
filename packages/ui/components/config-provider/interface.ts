@@ -77,4 +77,5 @@ export interface ConfigProviderProps {
   prefixCls?: string;
   getPrefixCls?: (componentName?: string) => string;
   children?: ReactNode;
+  scheme?: EuiTokenProviderProps['scheme'];
 }

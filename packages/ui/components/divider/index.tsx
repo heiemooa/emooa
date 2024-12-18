@@ -4,6 +4,7 @@ import { DividerProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
+import { EuiTokenContext } from '@/_theme/context';
 
 const Divider = forwardRef<HTMLDivElement, DividerProps>((props: DividerProps, ref) => {
   const { getPrefixCls, components }: ConfigProviderProps = useContext(ConfigContext);
@@ -46,7 +47,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default (props: DividerProps) => {
-  const { theme }: ConfigProviderProps = useContext(ConfigContext);
+  const { theme, ...restConfigContent }: ConfigProviderProps = useContext(ConfigContext);
+
   const { color, ...rest } = props;
 
   if (color)
@@ -60,6 +62,7 @@ export default (props: DividerProps) => {
             },
           }),
         }}
+        {...restConfigContent}
       >
         <Divider {...rest} />
       </ConfigProvider>

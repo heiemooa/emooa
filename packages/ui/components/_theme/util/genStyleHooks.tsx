@@ -121,7 +121,7 @@ function genComponentStyleHook<C extends OverrideComponent>(
   const concatComponent = cells.join('-');
 
   return (prefixCls: string): UseComponentStyleResult => {
-    const [theme, realToken, hashId, token] = useToken();
+    const [theme, realToken, hashId, token, scheme] = useToken();
 
     const { getPrefixCls } = useContext(ConfigContext);
     const rootPrefixCls = getPrefixCls();

@@ -79,12 +79,12 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
         [`${componentCls}-error`]: {
           height: '100%',
           minWidth: '100%',
-          background: token.colorBgLayout,
+          background: token.colorBg,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
-          color: token.colorTextPlaceholder,
+          color: token.colorTextTertiary,
           flexDirection: 'column',
           wordBreak: 'break-word',
           padding: token.paddings.XS,
@@ -97,7 +97,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
         [`${componentCls}-loader`]: {
           height: '100%',
           width: '100%',
-          background: token.colorWhite,
+          background: token.colorBg,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -133,7 +133,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
               display: 'block',
               borderRadius: token.rounded.SM,
               backdropFilter: 'saturate(180%) blur(20px)',
-              backgroundColor: '#ffffffb8',
+              backgroundColor: token.colorFill,
               animationName: flip,
               animationDuration: '3s',
               animationTimingFunction: 'ease-in-out',
@@ -146,7 +146,7 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
             '&.false': {
               color: token.colorText,
               [`${componentCls}-loader-squre-spin`]: {
-                backgroundColor: '#dfdfdf',
+                backgroundColor: token.colorFill,
               },
             },
           },

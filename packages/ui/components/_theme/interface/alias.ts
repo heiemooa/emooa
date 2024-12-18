@@ -22,11 +22,7 @@ export interface AliasToken extends BaseToken {
    * @desc 控制内容区域的背景色。
    */
   colorFillContent: string;
-  /**
-   * @name 容器禁用态下的背景色
-   * @desc 控制容器在禁用状态下的背景色。
-   */
-  colorBgContainerDisabled: string;
+
   /**
    * @name 文本悬停态背景色
    * @desc 控制文本在悬停状态下的背景色。
@@ -37,13 +33,6 @@ export interface AliasToken extends BaseToken {
    * @desc 控制文本在激活状态下的背景色。
    */
   colorBgTextActive: string;
-
-  // Border
-  /**
-   * @name 背景边框颜色
-   * @desc 控制元素背景边框的颜色。
-   */
-  colorBorderBg: string;
 
   // Text
   /**

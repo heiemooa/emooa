@@ -36,7 +36,7 @@ const defaultOptions = {
   gap: [100, 100],
   font: {
     fontSize: '16px',
-    color: 'rgba(0, 0, 0, 0.15)',
+    color: 'rgba(154, 154, 154, 0.3)',
     fontFamily: 'sans-serif',
     fontWeight: 'normal',
   },

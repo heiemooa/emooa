@@ -33,6 +33,7 @@ export default App;
 
 <code src="../../packages/ui/examples/config-provider/basic.tsx" description="全局设置各组件默认配置，如 `size` 大小。">基本用法</code>  
 <code src="../../packages/ui/examples/config-provider/language.tsx" description="设置国际化语言。">国际化</code>  
+<code src="../../packages/ui/examples/config-provider/scheme.tsx" description="组件默认跟随系统主题切换，可通过 `scheme` 属性控制主题。">主题</code>  
 <code src="../../packages/ui/examples/config-provider/rtl.tsx" description="设置组件为从右向左阅读的视图。">RTL 视图</code>
 
 ### 获取 Eui Token

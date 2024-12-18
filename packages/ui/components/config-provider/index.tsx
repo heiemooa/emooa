@@ -3,13 +3,12 @@ import { ConfigProviderProps } from './interface';
 import omit from '@/_utils/omit';
 import { ConfigContext, DefaultConfigProviderProps } from './context';
 import { EuiTokenContext, defaultTheme } from '@/_theme/context';
-import seedToken from '@/_theme/themes/seed';
+import seedToken, { scheme as _scheme } from '@/_theme/themes/seed';
 import { merge } from 'lodash';
 
 function ConfigProvider(props: ConfigProviderProps) {
   const _props: ConfigProviderProps = Object.assign({}, DefaultConfigProviderProps, props);
-
-  const { prefixCls, theme, children } = _props;
+  const { prefixCls, theme, children, scheme = _scheme } = _props;
 
   function getPrefixCls(componentName: string) {
     return componentName ? `${prefixCls}-${componentName}` : prefixCls;
@@ -38,16 +37,17 @@ function ConfigProvider(props: ConfigProviderProps) {
       ...rest,
       hashed,
       token: mergedToken,
-      theme: defaultTheme,
+      theme: defaultTheme(scheme),
       components: components,
       override: {
         override: mergedToken,
         ...components,
       },
+      scheme,
     };
-  }, [theme]);
+  }, [theme, scheme]);
 
-  if (theme) {
+  if (theme || scheme) {
     return (
       <ConfigContext.Provider value={config}>
         <EuiTokenContext.Provider value={memoTheme}>{children}</EuiTokenContext.Provider>

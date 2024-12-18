@@ -1,14 +1,18 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import type { PresetColorType, SeedToken } from '../interface';
+import type { EuiTokenProviderProps, PresetColorType, SeedToken } from '../interface';
+
+export const scheme: EuiTokenProviderProps['scheme'] = !!window.matchMedia('(prefers-color-scheme: dark)')?.matches
+  ? 'dark'
+  : 'light';
 
 export const defaultPresetColors: PresetColorType = {
-  blue: '#1677ff',
+  blue: '#1677FF',
   purple: '#722ED1',
   cyan: '#13C2C2',
-  green: '#52C41A',
+  green: '#00B41A',
   magenta: '#EB2F96',
-  pink: '#eb2f96',
-  red: '#ff4d4f',
+  pink: '#EB2F96',
+  red: '#FF4D4F',
   orange: '#FA8C16',
   yellow: '#FADB14',
   volcano: '#FA541C',
@@ -24,12 +28,13 @@ const seedToken: SeedToken = {
   // Color
   colorPrimary: '#1677ff',
   colorSuccess: '#00b41a',
-  colorWarning: '#faad14',
+  colorWarning: '#FA8C16',
   colorError: '#f5222d',
   colorInfo: '#1677ff',
   colorLink: '#1677ff',
   colorBlack: '#000',
   colorWhite: '#FFF',
+  colorWhiteSecondary: new TinyColor('#FFF').setAlpha(0.75).toRgbString(),
   colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
   colorTextBase: '',
   colorBgBase: '',
