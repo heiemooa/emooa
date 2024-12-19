@@ -108,6 +108,7 @@ const genModalStyle: GenerateStyle<ModalToken> = token => {
           borderRadius: token.rounded.MD,
           textAlign: 'left',
           pointerEvents: 'none',
+          boxShadow: token.shadows.MD,
 
           '&-wrapper': {
             backgroundColor: token.colorBgElevated,

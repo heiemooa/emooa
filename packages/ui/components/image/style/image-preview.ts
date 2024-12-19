@@ -98,6 +98,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           backgroundColor: token.colorBgMask,
           borderRadius: token.rounded.MD,
           padding: token.paddings.XXS,
+          boxShadow: token.shadows.XS,
 
           [`${previewCls}-tools-action`]: {
             borderRadius: token.rounded.MD,
@@ -135,6 +136,7 @@ const genImagePreviewStyle: GenerateStyle<ImagePreview> = token => {
           borderRadius: '50%',
           padding: token.paddings.SM,
           cursor: 'pointer',
+          boxShadow: token.shadows.MD,
 
           '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 0.3)',

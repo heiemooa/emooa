@@ -96,9 +96,8 @@ const App: React.FC = () => {
           overflow: 'auto',
           marginTop: 20,
           border: '1px solid #efefef',
-          background: '#fefefe',
           padding: 10,
-          color: '#555',
+          filter: 'revert(100%)',
         }}
       >
         {getRender()}

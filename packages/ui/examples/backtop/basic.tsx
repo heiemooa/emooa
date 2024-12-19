@@ -18,7 +18,13 @@ const App: React.FC = () => {
 
       <div
         ref={ref}
-        style={{ height: 300, overflow: 'auto', padding: '8px 12px', background: '#efefef', color: '#555' }}
+        style={{
+          height: 300,
+          overflow: 'auto',
+          padding: '8px 12px',
+          border: '1px solid #efefef',
+          filter: 'revert(100%)',
+        }}
       >
         {getRender()}
       </div>

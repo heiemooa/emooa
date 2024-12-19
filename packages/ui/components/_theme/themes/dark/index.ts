@@ -35,6 +35,18 @@ const derivative: DerivativeFunc<SeedToken, BaseToken> = (token, baseToken) => {
       generateColorPalettes,
       generateNeutralColorPalettes,
     }),
+    shadows: {
+      MD: `
+      0 6px 16px 0 rgba(0, 0, 0, 0.6),
+      0 3px 6px -4px rgba(0, 0, 0, 0.7),
+      0 9px 28px 8px rgba(0, 0, 0, 0.5)
+    `,
+      XS: `
+      0 2px 4px 0 rgba(0, 0, 0, 0.5),
+      0 2px 6px -1px rgba(0, 0, 0, 0.5),
+      0 2px 6px 2px rgba(0, 0, 0, 0.5)
+    `,
+    },
   };
 };
 
