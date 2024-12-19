@@ -1,12 +1,13 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Modal from './index';
-import { destroyList, getConfigProviderProps, getModalConfig } from './config';
+import { destroyList, getModalConfig } from './config';
 import { IconCheckCircleFill, IconCloseCircleFill, IconExclamationCircleFill, IconInfoCircleFill } from '@emooa/icon';
 import ConfigProvider from '@/config-provider';
 import { ConfirmProps } from './interface';
 import omit from '@/_utils/omit';
 import { merge } from 'lodash';
 import { render as ReactDOMRender } from '@/_utils/react-dom';
+import { getConfigProviderProps } from '@/config-provider/context';
 
 function ConfirmModal(props: ConfirmProps) {
   const config = getModalConfig();

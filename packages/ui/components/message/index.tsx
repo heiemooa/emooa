@@ -1,5 +1,5 @@
 import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
-import { ConfigContext } from '../config-provider';
+import ConfigProvider, { ConfigContext } from '../config-provider';
 import { ConfigMessageProps, MessageHookReturnType, MessageProps, MessageType } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
@@ -11,6 +11,7 @@ import Notice from '@/_class/notice';
 import useNotice from '@/_class/notification';
 import useMessage from './useMessage';
 import { render } from '@/_utils/react-dom';
+import { getConfigProviderProps } from '@/config-provider/context';
 
 type NoticeType = ReturnType<typeof useNotice>;
 
@@ -152,13 +153,16 @@ function addInstance(noticeProps: MessageProps & { type: keyof typeof MessageTyp
   };
   const { position, ...rest } = _noticeProps;
 
+  const configProviderProps = getConfigProviderProps();
+  const _position = `${configProviderProps.scheme}_${position}`;
+
   let id;
 
-  const { instance, pending } = messageInstance[position] || {};
+  const { instance, pending } = messageInstance[_position] || {};
 
   if (instance || pending) {
     const add = () => {
-      const { instance } = messageInstance[position] || {};
+      const { instance } = messageInstance[_position] || {};
 
       const new_id = instance.add(_noticeProps);
       if (new_id) {
@@ -171,39 +175,41 @@ function addInstance(noticeProps: MessageProps & { type: keyof typeof MessageTyp
     } else if (pending?.then) {
       pending.then(() => {
         add();
-        messageInstance[position].pending = null;
+        messageInstance[_position].pending = null;
       });
     }
   } else {
     const div = document.createElement('div');
     (container || document.body).appendChild(div);
 
-    messageInstance[position] = {};
+    messageInstance[_position] = {};
 
-    messageInstance[position].pending = new Promise(resolve => {
+    messageInstance[_position].pending = new Promise(resolve => {
       render(
-        <MessageComponent
-          {...rest}
-          ref={(instance: HTMLDivElement & { add: Function }) => {
-            if (!messageInstance[position]) {
-              // getContainer 变化时，会重置 messageInstance
-              // pending 中的逻辑执行晚于重置逻辑时，这里需判空
-              messageInstance[position] = {};
-            }
-            if (messageInstance[position].instance) return;
-            id = instance?.add?.(_noticeProps);
-            messageInstance[position].instance = instance as any;
-            resolve(null);
-          }}
-        />,
+        <ConfigProvider {...configProviderProps}>
+          <MessageComponent
+            {...rest}
+            ref={(instance: HTMLDivElement & { add: Function }) => {
+              if (!messageInstance[_position]) {
+                // getContainer 变化时，会重置 messageInstance
+                // pending 中的逻辑执行晚于重置逻辑时，这里需判空
+                messageInstance[_position] = {};
+              }
+              if (messageInstance[_position].instance) return;
+              id = instance?.add?.(_noticeProps);
+              messageInstance[_position].instance = instance as any;
+              resolve(null);
+            }}
+          />
+        </ConfigProvider>,
         div,
       );
-      return messageInstance[position].instance;
+      return messageInstance[_position].instance;
     });
   }
 
   const close = () => {
-    messageInstance[position]?.instance?.remove(id);
+    messageInstance[_position]?.instance?.remove(id);
   };
 
   return close;

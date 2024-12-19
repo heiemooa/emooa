@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
-import {
-  ConfigProvider,
-  Space,
-  Button,
-  Divider,
-  Image,
-  Notification,
-  Message,
-  App as A,
-  Modal,
-  Drawer,
-} from '@emooa/ui';
+import { ConfigProvider, Space, Button, Divider, Image, Notification, Message, App, Modal, Drawer } from '@emooa/ui';
 import { IconLoading } from '@emooa/icon';
 
-const App: React.FC = () => {
+const Parent: React.FC = () => {
   const [scheme, setScheme] = useState<'light' | 'dark'>('light');
   const [timestamp, setTimestamp] = React.useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -121,30 +111,45 @@ const App: React.FC = () => {
             />
           </Space>
         </Space>
-        <Divider>Drawer</Divider>
-        <Button type="primary" onClick={() => setIsDrawerOpen(true)}>
-          Drawer
-        </Button>
-        <Drawer
-          title="Title"
-          open={isDrawerOpen}
-          onOk={() => setIsDrawerOpen(false)}
-          onCancel={() => setIsDrawerOpen(false)}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
-        <A>
-          <MyPage />
-        </A>
+        <Divider>Drawer & Modal</Divider>
+        <Space>
+          <Button type="primary" onClick={() => setIsDrawerOpen(true)}>
+            Drawer
+          </Button>
+          <Button type="primary" onClick={() => setIsModalOpen(true)}>
+            Modal
+          </Button>
+          <Drawer
+            title="Drawer"
+            open={isDrawerOpen}
+            onOk={() => setIsDrawerOpen(false)}
+            onCancel={() => setIsDrawerOpen(false)}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Drawer>
+          <Modal
+            title="Modal"
+            open={isModalOpen}
+            onOk={() => setIsModalOpen(false)}
+            onCancel={() => setIsModalOpen(false)}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
+        </Space>
+        <App>
+          <Child />
+        </App>
       </ConfigProvider>
     </>
   );
 };
 
-const MyPage: React.FC = () => {
-  const { modal, message, notification } = A.useApp();
+const Child: React.FC = () => {
+  const { modal, message, notification } = App.useApp();
 
   return (
     <>
@@ -209,4 +214,4 @@ const MyPage: React.FC = () => {
   );
 };
 
-export default App;
+export default Parent;

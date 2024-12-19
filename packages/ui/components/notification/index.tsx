@@ -1,5 +1,5 @@
 import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
-import { ConfigContext } from '../config-provider';
+import ConfigProvider, { ConfigContext } from '../config-provider';
 import { ConfigNotificationProps, NotificationHookReturnType, NotificationProps, NotificationType } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
@@ -11,6 +11,7 @@ import Notice from '@/_class/notice';
 import useNotice from '@/_class/notification';
 import useNotification from './useNotication';
 import { render } from '@/_utils/react-dom';
+import { getConfigProviderProps } from '@/config-provider/context';
 
 type NoticeType = ReturnType<typeof useNotice>;
 
@@ -155,14 +156,16 @@ function addInstance(noticeProps: NotificationProps & { type: keyof typeof Notif
     ...noticeProps,
   };
   const { position } = _noticeProps;
+  const configProviderProps = getConfigProviderProps();
+  const _position = `${configProviderProps.scheme}_${position}`;
 
   let id;
 
-  const { instance, pending } = notificationInstance[position] || {};
+  const { instance, pending } = notificationInstance[_position] || {};
 
   if (instance || pending) {
     const add = () => {
-      const { instance } = notificationInstance[position] || {};
+      const { instance } = notificationInstance[_position] || {};
 
       const new_id = instance.add(_noticeProps);
       if (new_id) {
@@ -175,38 +178,40 @@ function addInstance(noticeProps: NotificationProps & { type: keyof typeof Notif
     } else if (pending?.then) {
       pending.then(() => {
         add();
-        notificationInstance[position].pending = null;
+        notificationInstance[_position].pending = null;
       });
     }
   } else {
     const div = document.createElement('div');
     (container || document.body).appendChild(div);
 
-    notificationInstance[position] = {};
+    notificationInstance[_position] = {};
 
-    notificationInstance[position].pending = new Promise(resolve => {
+    notificationInstance[_position].pending = new Promise(resolve => {
       render(
-        <NotificationComponent
-          ref={(instance: HTMLDivElement & { add: Function }) => {
-            if (!notificationInstance[position]) {
-              // getContainer 变化时，会重置 notificationInstance
-              // pending 中的逻辑执行晚于重置逻辑时，这里需判空
-              notificationInstance[position] = {};
-            }
-            if (notificationInstance[position].instance) return;
-            id = instance?.add?.(_noticeProps);
-            notificationInstance[position].instance = instance as any;
-            resolve(null);
-          }}
-        />,
+        <ConfigProvider {...configProviderProps}>
+          <NotificationComponent
+            ref={(instance: HTMLDivElement & { add: Function }) => {
+              if (!notificationInstance[_position]) {
+                // getContainer 变化时，会重置 notificationInstance
+                // pending 中的逻辑执行晚于重置逻辑时，这里需判空
+                notificationInstance[_position] = {};
+              }
+              if (notificationInstance[_position].instance) return;
+              id = instance?.add?.(_noticeProps);
+              notificationInstance[_position].instance = instance as any;
+              resolve(null);
+            }}
+          />
+        </ConfigProvider>,
         div,
       );
-      return notificationInstance[position].instance;
+      return notificationInstance[_position].instance;
     });
   }
 
   const close = () => {
-    notificationInstance[position]?.instance?.remove(id);
+    notificationInstance[_position]?.instance?.remove(id);
   };
 
   return close;

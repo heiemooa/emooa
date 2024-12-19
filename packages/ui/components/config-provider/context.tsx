@@ -15,3 +15,15 @@ export const DefaultConfigProviderProps: ConfigProviderProps = {
 };
 
 export const ConfigContext = createContext<ConfigProviderProps>(DefaultConfigProviderProps);
+
+let configProvider: Pick<ConfigProviderProps, 'rtl' | 'scheme' | 'prefixCls' | 'locale'> = {};
+
+export function setConfigProviderProps(
+  configProviderProps: Pick<ConfigProviderProps, 'rtl' | 'scheme' | 'prefixCls' | 'locale'>,
+) {
+  configProvider = { ...configProviderProps };
+}
+
+export function getConfigProviderProps() {
+  return configProvider;
+}

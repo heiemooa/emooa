@@ -29,6 +29,8 @@ const genDividerStyle: GenerateStyle<DividerToken, CSSObject> = token => {
 
   return {
     [componentCls]: {
+      color: token.colorText,
+
       '&-horizontal': {
         width: '100%',
         minWidth: '100%',
