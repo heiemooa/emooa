@@ -2,6 +2,7 @@ import type { ComponentToken as AppComponentToken } from '../../app/style';
 import type { ComponentToken as LinkComponentToken } from '../../link/style';
 import type { ComponentToken as ButtonComponentToken } from '../../button/style';
 import type { ComponentToken as BacktopComponentToken } from '../../backtop/style';
+import type { ComponentToken as CopyComponentToken } from '../../copy/style';
 import type { ComponentToken as DividerComponentToken } from '../../divider/style';
 import type { ComponentToken as DrawerComponentToken } from '../../drawer/style';
 import type { ComponentToken as MessageComponentToken } from '../../message/style';
@@ -19,6 +20,7 @@ export interface ComponentTokenMap {
   App?: AppComponentToken;
   Backtop?: BacktopComponentToken;
   Button?: ButtonComponentToken;
+  Copy?: CopyComponentToken;
   Link?: LinkComponentToken;
   Drawer?: DrawerComponentToken;
   Divider?: DividerComponentToken;

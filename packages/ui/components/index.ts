@@ -7,6 +7,9 @@ export type { BacktopProps } from './backtop/interface';
 export { default as Button } from './button';
 export type { ButtonProps, ButtonGroupProps } from './button/interface';
 
+export { default as Copy } from './copy';
+export type { CopyProps } from './copy/interface';
+
 export { default as Divider } from './divider';
 export type { DividerProps } from './divider/interface';
 
