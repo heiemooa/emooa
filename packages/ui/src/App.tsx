@@ -13,11 +13,12 @@ import Notification from './containers/Notification';
 import Provider from './containers/Provider';
 import Button from './containers/Button';
 import Link from './containers/Link';
+import Copy from './containers/Copy';
 
 function App() {
   return (
     <>
-      <Notification />
+      <Copy />
     </>
   );
 }

@@ -32,8 +32,8 @@ Lightweight global message feedback triggered by user actions.
 
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |
-| className | 组件名称 | `string` | - |
-| style | 组件样式 | `CSSProperties` | - |
+| className | The className of Image | `string` | - |
+| style | The style of Image | `CSSProperties` | - |
 | closable | Whether to show the close button | `boolean` | false |
 | showIcon | Whether to show the icon | boolean | `true` |
 | duration | Automatic shutdown time, the unit is `ms` | `number` | 3000 |

@@ -16,12 +16,14 @@ import { MessageProps } from '@/message/interface';
 import { NotificationProps } from '@/notification/interface';
 import { DocumentProps } from '@/document/interface';
 import { LinkProps } from '@/link/interface';
+import { CopyProps } from '@/copy/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
   Backtop?: BacktopProps;
   Button?: ButtonProps;
+  Copy?: CopyProps;
   Divider?: DividerProps;
   Drawer?: DrawerProps;
   Message?: MessageProps;
