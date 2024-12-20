@@ -1,9 +1,12 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import type { EuiTokenProviderProps, PresetColorType, SeedToken } from '../interface';
 
-export const scheme: EuiTokenProviderProps['scheme'] = !!window.matchMedia('(prefers-color-scheme: dark)')?.matches
-  ? 'dark'
-  : 'light';
+const htmlSchemeColor = document.documentElement?.getAttribute('data-prefers-color') === 'dark' ? 'dark' : 'light';
+const windowSchemeColor = !!window.matchMedia('(prefers-color-scheme: dark)')?.matches ? 'dark' : 'light';
+
+export const scheme: EuiTokenProviderProps['scheme'] = document.documentElement?.hasAttribute('data-prefers-color')
+  ? htmlSchemeColor
+  : windowSchemeColor;
 
 export const defaultPresetColors: PresetColorType = {
   blue: '#1677FF',

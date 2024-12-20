@@ -1,21 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ConfigProvider, Space, Button, Divider, Image, Notification, Message, App, Modal, Drawer } from '@emooa/ui';
 import { IconLoading } from '@emooa/icon';
 
 const Parent: React.FC = () => {
-  const [scheme, setScheme] = useState<'light' | 'dark'>('light');
+  const htmlSchemeColor = document.documentElement?.getAttribute('data-prefers-color') === 'dark' ? 'dark' : 'light';
+
+  const [scheme, setScheme] = useState<'light' | 'dark'>(htmlSchemeColor);
   const [timestamp, setTimestamp] = React.useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement?.setAttribute('data-prefers-color', scheme);
+  }, [scheme]);
 
   return (
     <>
       <ConfigProvider scheme={scheme}>
         <Button.Group>
-          <Button onClick={() => setScheme('dark')} type={scheme === 'dark' ? 'primary' : 'secondary'}>
+          <Button
+            onClick={() => {
+              setScheme('dark');
+            }}
+            type={scheme === 'dark' ? 'primary' : 'secondary'}
+          >
             Dark
           </Button>
-          <Button onClick={() => setScheme('light')} type={scheme === 'light' ? 'primary' : 'secondary'}>
+          <Button
+            onClick={() => {
+              setScheme('light');
+            }}
+            type={scheme === 'light' ? 'primary' : 'secondary'}
+          >
             Light
           </Button>
         </Button.Group>
@@ -112,7 +128,7 @@ const Parent: React.FC = () => {
           </Space>
         </Space>
         <Divider>Drawer & Modal</Divider>
-        <Space>
+        <Space wrap>
           <Button type="primary" onClick={() => setIsDrawerOpen(true)}>
             Drawer
           </Button>

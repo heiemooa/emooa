@@ -39,13 +39,13 @@ const App: React.FC = () => {
           },
         }}
       >
-        <Space style={{ width: '100%' }}>
+        <Space style={{ width: '100%' }} wrap>
           <Image src="https://api.emooa.com/aimg?idx=1" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=2" height={100} />
           <Image src="https://api.emooa.com/aimg?idx=3" height={100} />
         </Space>
         <Divider />
-        <Space size="large" style={{ width: '100%' }}>
+        <Space size="large" style={{ width: '100%' }} wrap>
           <ButtonGroup>
             <Button type="primary" icon={<IconLeft />} shape="round" style={{ padding: '0 8px' }}>
               Prev
