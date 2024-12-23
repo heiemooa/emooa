@@ -1,5 +1,5 @@
-import { IconCloseCircleFill, IconCopy, IconDown, IconInfoCircleFill, IconRight } from '@emooa/icon';
-import { ConfigProvider, Modal, App, ModalProps } from '@emooa/ui';
+import { IconCheck, IconCloseCircleFill, IconCopy, IconDown, IconInfoCircleFill, IconRight } from '@emooa/icon';
+import { ConfigProvider, Modal, App, ModalProps, Copy, Link } from '@emooa/ui';
 import { render as ReactDOMRender } from '@emooa/ui/esm/_utils/react-dom';
 import React, { useContext } from 'react';
 import { useState } from 'react';
@@ -21,11 +21,7 @@ const Comp = ({
 }) => {
   const { message } = App.useApp();
   const [show, setShow] = useState(false);
-  const copy = e => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(JSON.stringify(config, null, 2));
-    message.success(locale.copy_success);
-  };
+
   const { theme } = useContext(ConfigContext);
 
   const colorPrimary = theme?.token?.colorPrimary || '#1677ff';
@@ -42,21 +38,22 @@ const Comp = ({
         <span
           style={{
             cursor: 'pointer',
-            marginRight: 16,
+            marginRight: 10,
           }}
         >
           {show ? <IconDown /> : <IconRight />}
         </span>
-        <span
-          style={{
-            cursor: 'pointer',
-            color: colorPrimary,
+        <Copy
+          text={JSON.stringify(config, null, 2)}
+          onClick={e => {
+            e.stopPropagation();
           }}
-          onClick={copy}
-        >
-          <span>{locale.copy}</span>
-          <IconCopy style={{ marginLeft: 4 }} />
-        </span>
+          style={{ display: 'inline-block' }}
+          icon={[<Link icon={<IconCopy />}>{locale.copy}</Link>, <Link icon={<IconCheck />}>{locale.copy}</Link>]}
+          onCopy={() => {
+            message.success(locale.copy_success);
+          }}
+        />
       </p>
       {show && (
         <div
