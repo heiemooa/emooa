@@ -46,6 +46,7 @@ Default return structure
 | **Parameters** | **Definition**                   | **Type**                 | **Default value** |
 | -------------- | -------------------------------- | ------------------------ | ----------------- |
 | locale         | International language           | `zhCN \| en`             | zhCN              |
+| scheme         | Scheme                           | `light \| dark`          | -                 |
 | colorPrimary   | Theme color                      | `CSSProperties['color']` | #1677ff           |
 | mapping        | Return body mapping relationship | [Mapping](#mapping)      | -                 |
 | modal          | Modal style                      | [Modal](#modal)          | -                 |

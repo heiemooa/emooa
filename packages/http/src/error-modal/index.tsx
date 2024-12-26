@@ -1,12 +1,13 @@
 import { IconCheck, IconCloseCircleFill, IconCopy, IconDown, IconInfoCircleFill, IconRight } from '@emooa/icon';
-import { ConfigProvider, Modal, App, ModalProps, Copy, Link } from '@emooa/ui';
+import { ConfigProvider, Modal, App, ModalProps, Copy, Link, Theme } from '@emooa/ui';
 import { render as ReactDOMRender } from '@emooa/ui/esm/_utils/react-dom';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { ErrorModalOption, Options } from '../interface';
 import { Locale } from '../_locale/interface';
 import * as locales from '../_locale';
-import { ConfigContext } from '@emooa/ui/esm/config-provider/context';
+
+const { useToken } = Theme;
 
 const Comp = ({
   msg,
@@ -20,25 +21,26 @@ const Comp = ({
   config: ErrorModalOption['config'];
 }) => {
   const { message } = App.useApp();
+  const { token } = useToken();
   const [show, setShow] = useState(false);
-
-  const { theme } = useContext(ConfigContext);
-
-  const colorPrimary = theme?.token?.colorPrimary || '#1677ff';
+  console.log('token', token);
 
   return (
     <>
       <p style={{ marginBottom: 4, paddingTop: 0 }}>{msg}</p>
-      <p style={{ fontSize: 12, color: '#555', marginBottom: 8 }} onClick={() => setShow(!show)}>
+      <div
+        style={{ fontSize: token.fonts.fontSizeSM, color: token.colorText, marginBottom: token.margins.XS }}
+        onClick={() => setShow(!show)}
+      >
         <span
           dangerouslySetInnerHTML={{
-            __html: locale.detail(code, colorPrimary),
+            __html: locale.detail(code, token?.colorPrimary),
           }}
         />
         <span
           style={{
             cursor: 'pointer',
-            marginRight: 10,
+            marginRight: token.margins.SM,
           }}
         >
           {show ? <IconDown /> : <IconRight />}
@@ -59,11 +61,11 @@ const Comp = ({
             message.success(locale.copy_success);
           }}
         />
-      </p>
+      </div>
       {show && (
         <div
           style={{
-            background: '#eee',
+            background: token.colorBgContainer,
             padding: 10,
             maxHeight: 200,
             overflow: 'scroll',
@@ -72,7 +74,7 @@ const Comp = ({
         >
           <code
             style={{
-              color: '#777',
+              color: token.colorTextTertiary,
               whiteSpace: 'break-spaces',
             }}
           >
@@ -85,7 +87,7 @@ const Comp = ({
 };
 
 export default (options: Options) => {
-  const { locale: _locale, colorPrimary, modal } = options;
+  const { locale: _locale, colorPrimary, modal, scheme } = options;
 
   let root;
   const div = document.createElement('div');
@@ -93,7 +95,7 @@ export default (options: Options) => {
   function render(props) {
     const { content, ...rest } = props;
     const dom = (
-      <ConfigProvider theme={{ token: { colorPrimary } }}>
+      <ConfigProvider theme={{ token: { colorPrimary } }} scheme={scheme}>
         <Modal {...rest}>
           <App>{content}</App>
         </Modal>

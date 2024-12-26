@@ -47,6 +47,7 @@ demo:
 | **参数**     | **定义**       | **类型**                 | **默认值** |
 | ------------ | -------------- | ------------------------ | ---------- |
 | locale       | 国际化语言     | `zhCN \| en`             | zhCN       |
+| scheme       | 主题           | `light \| dark`          | -          |
 | colorPrimary | 主题色         | `CSSProperties['color']` | #1677ff    |
 | mapping      | 返回体映射关系 | [Mapping](#mapping)      | -          |
 | modal        | 弹窗风格       | [Modal](#modal)          | -          |

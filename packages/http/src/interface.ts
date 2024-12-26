@@ -70,6 +70,7 @@ export interface Options {
    * @defaultValue zhCN
    */
   locale?: 'zhCN' | 'en';
+  scheme?: 'light' | 'dark';
   /**
    * 主题色
    * @defaultValue #1677ff
