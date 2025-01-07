@@ -17,10 +17,14 @@ import { NotificationProps } from '@/notification/interface';
 import { DocumentProps } from '@/document/interface';
 import { LinkProps } from '@/link/interface';
 import { CopyProps } from '@/copy/interface';
+import { AlertProps } from '@/alert/interface';
+import { AppProps } from '@/app/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
 export type Components = {
+  App?: AppProps;
+  Alert?: AlertProps;
   Backtop?: BacktopProps;
   Button?: ButtonProps;
   Copy?: CopyProps;

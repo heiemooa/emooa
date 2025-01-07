@@ -1,6 +1,9 @@
 export { default as App } from './app';
 export type { AppProps } from './app/interface';
 
+export { default as Alert } from './alert';
+export type { AlertProps } from './alert/interface';
+
 export { default as Backtop } from './backtop';
 export type { BacktopProps } from './backtop/interface';
 

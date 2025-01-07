@@ -14,11 +14,12 @@ import Provider from './containers/Provider';
 import Button from './containers/Button';
 import Link from './containers/Link';
 import Copy from './containers/Copy';
+import Alert from './containers/Alert';
 
 function App() {
   return (
     <>
-      <Copy />
+      <Alert />
     </>
   );
 }

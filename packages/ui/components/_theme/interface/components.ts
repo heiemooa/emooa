@@ -1,4 +1,5 @@
 import type { ComponentToken as AppComponentToken } from '../../app/style';
+import type { ComponentToken as AlertComponentToken } from '../../alert/style';
 import type { ComponentToken as LinkComponentToken } from '../../link/style';
 import type { ComponentToken as ButtonComponentToken } from '../../button/style';
 import type { ComponentToken as BacktopComponentToken } from '../../backtop/style';
@@ -18,6 +19,7 @@ import type { ComponentToken as WatermarkComponentToken } from '../../watermark/
 
 export interface ComponentTokenMap {
   App?: AppComponentToken;
+  Alert?: AlertComponentToken;
   Backtop?: BacktopComponentToken;
   Button?: ButtonComponentToken;
   Copy?: CopyComponentToken;

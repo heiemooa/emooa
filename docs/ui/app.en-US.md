@@ -16,8 +16,8 @@ Providing static methods of `Modal.xxx` that can consume `React context` can sim
 
 ## Examples
 
-<code src="../../packages/ui/examples/app/basic.tsx" description="获取 modal 基本实例">基本用法</code>  
-<code src="../../packages/ui/examples/app/context.tsx" description="通过 `useContext(App.Context)` 可获取传递给 `App` 的上下文属性。">获取上下文</code>
+<code src="../../packages/ui/examples/app/basic.tsx" description="Get modal base instance.">Basic usage</code>  
+<code src="../../packages/ui/examples/app/context.tsx" description="The context properties passed to `App` can be obtained via `useContext(App.Context)`.">Context</code>
 
 ## API
 
