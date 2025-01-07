@@ -43,7 +43,7 @@ export const genLinkStyle = (token: AliasToken): CSSObject => ({
 export const genCommonStyle = (token: AliasToken, componentPrefixCls: string): CSSObject => {
   const { fontFamily, fontSize } = token;
 
-  const rootPrefixSelector = `[class^="${componentPrefixCls}"], [class*=" ${componentPrefixCls}"]`;
+  const rootPrefixSelector = `[class^="${componentPrefixCls}"], [class*="${componentPrefixCls}"]`;
 
   return {
     [rootPrefixSelector]: {

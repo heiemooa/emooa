@@ -10,8 +10,17 @@ import { ConfigContext } from '@/config-provider';
 import { AppConfig, AppProps, useAppProps } from './interface';
 
 const Component: React.FC<AppProps> = props => {
-  const { children, className, style, message, notification, component = 'div' } = props;
-  const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
+  const { getPrefixCls, components }: ConfigProviderProps = useContext(ConfigContext);
+
+  const {
+    children,
+    className,
+    style,
+    message,
+    notification,
+    component = 'div',
+  }: AppProps = Object.assign({}, components?.App, props);
+
   const prefixCls = getPrefixCls('app');
   const [hashId] = useStyle(prefixCls);
   const customClassName = classNames(hashId, prefixCls, className);
