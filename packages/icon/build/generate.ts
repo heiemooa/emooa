@@ -109,6 +109,7 @@ fs.outputFile('../cjs/index.js', transform.code, err => {
 const css = `
 .eui-icon {
   vertical-align: -2px;
+  display: inline-block;
 }
 .eui-icon.eui-icon-loading {
   animation: icon-loading-circle 1s linear infinite;
