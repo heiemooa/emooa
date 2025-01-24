@@ -3,6 +3,7 @@ import { Locale } from '@/_locale/interface';
 import { ImageProps } from '@/image/interface';
 import { IconProps } from '@/icon/interface';
 import { GeoJSONProps } from '@/geojson/interface';
+import { GridProps } from '@/grid/interface';
 import { SpaceProps } from '@/space/interface';
 import { EuiTokenProviderProps } from '@/_theme/interface';
 import { ButtonProps } from '@/button/interface';
@@ -28,6 +29,7 @@ export type Components = {
   Backtop?: BacktopProps;
   Button?: ButtonProps;
   Copy?: CopyProps;
+  Grid?: GridProps;
   Divider?: DividerProps;
   Drawer?: DrawerProps;
   Message?: MessageProps;

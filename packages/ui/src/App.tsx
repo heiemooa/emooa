@@ -15,11 +15,12 @@ import Button from './containers/Button';
 import Link from './containers/Link';
 import Copy from './containers/Copy';
 import Alert from './containers/Alert';
+import Grid from './containers/Grid';
 
 function App() {
   return (
     <>
-      <Alert />
+      <Grid />
     </>
   );
 }
