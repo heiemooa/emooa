@@ -9,10 +9,12 @@ import { isPresetSize, isValidGapNumber } from '@/_utils/gap';
 function toArray(children) {
   let childrenList = [];
   React.Children.forEach(children, child => {
-    if (child['$$typeof'] === Symbol.for('react.fragment') && child.props) {
-      childrenList = childrenList.concat(toArray(child.props.children));
-    } else if (child !== null && child !== undefined) {
-      childrenList.push(child);
+    if (typeof child === 'object' && child !== null) {
+      if (child && child['$$typeof'] === Symbol.for('react.fragment') && child.props) {
+        childrenList = childrenList.concat(toArray(child.props.children));
+      } else if (child !== null && child !== undefined) {
+        childrenList.push(child);
+      }
     }
   });
 
