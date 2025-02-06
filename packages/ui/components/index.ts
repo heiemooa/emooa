@@ -68,3 +68,6 @@ export type { WatermarkProps } from './watermark/interface';
 
 export { default as Theme } from './_theme';
 export type { GlobalToken } from './_theme/interface';
+
+export { default as Grid } from './grid';
+export type { GridProps } from './grid/interface';
