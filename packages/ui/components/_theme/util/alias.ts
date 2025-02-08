@@ -1,6 +1,5 @@
 import type { AliasToken, BaseToken, OverrideToken, SeedToken } from '../interface';
 import seedToken from '../themes/seed';
-import getAlphaColor from './getAlphaColor';
 import { merge } from 'lodash';
 
 type RawMergedToken = BaseToken & OverrideToken & { override: Partial<AliasToken> };

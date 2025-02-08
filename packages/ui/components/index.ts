@@ -71,3 +71,6 @@ export type { GlobalToken } from './_theme/interface';
 
 export { default as Grid } from './grid';
 export type { GridProps } from './grid/interface';
+
+export { default as Tag } from './tag';
+export type { TagProps } from './tag/interface';

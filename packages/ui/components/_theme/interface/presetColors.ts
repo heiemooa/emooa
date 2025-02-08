@@ -1,19 +1,24 @@
 import { ColorNeutralBaseen } from './base/colors';
 
 export const PresetColors = [
-  'blue',
-  'purple',
-  'cyan',
-  'green',
-  'magenta',
-  'pink',
   'red',
   'orange',
+  'amber',
   'yellow',
-  'volcano',
-  'geekblue',
   'lime',
-  'gold',
+  'green',
+  'emerald',
+  'teal',
+  'cyan',
+  'sky',
+  'blue',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'pink',
+  'rose',
+  'gray',
 ] as const;
 
 export type PresetColorKey = (typeof PresetColors)[number];

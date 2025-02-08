@@ -6,6 +6,7 @@ import defaultAlgorithm from '../default';
 import { DerivativeFunc } from '@/_cssinjs/theme/interface';
 
 const derivative: DerivativeFunc<SeedToken, BaseToken> = (token, baseToken) => {
+  console.log(1, token.colors);
   const colorPalettes = Object.keys(token.colors)
     .map((colorKey: keyof PresetColorType) => {
       const colors = generate(token.colors[colorKey], { theme: 'dark' });
