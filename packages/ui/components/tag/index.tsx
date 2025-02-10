@@ -27,12 +27,14 @@ const TagComponent = (props: TagProps, ref) => {
     closeIcon,
     bordered = true,
     visible: _visible = true,
+    checked: _checked = defaultChecked,
     ...rest
   }: TagProps = Object.assign({}, components?.Tag, props);
 
   const prefixCls = getPrefixCls('tag');
   const [hashId] = useStyle(prefixCls);
   const [visible, setVisible] = useState<boolean>(_visible);
+  const [checked, setChecked] = useState<boolean>(_checked);
   const [loading, setLoading] = useState<boolean>();
 
   const _color: string = includes(PresetColors, color) ? color : '';
@@ -47,7 +49,7 @@ const TagComponent = (props: TagProps, ref) => {
       [`${prefixCls}-${_color}`]: !!_color,
       [`${prefixCls}-custom-color`]: color && !_color,
       [`${prefixCls}-checkable`]: checkable,
-      // [`${prefixCls}-checked`]: _checked,
+      [`${prefixCls}-checked`]: checkable ? checked : true,
       [`${prefixCls}-${size}`]: size,
       [`${prefixCls}-bordered`]: bordered,
       [`${prefixCls}-rtl`]: rtl,
@@ -56,12 +58,14 @@ const TagComponent = (props: TagProps, ref) => {
   );
 
   const tagStyle: React.CSSProperties = {
-    backgroundColor: color && !_color ? color : undefined,
+    backgroundColor: color && !_color && (checkable ? checked : true) ? color : undefined,
+    borderColor: color && !_color && (checkable ? checked : true) ? color : undefined,
     ...style,
   };
 
   function onHandleClose(e) {
-    const ret = onClose && onClose(e);
+    e.stopPropagation();
+    const ret = onClose?.(e);
     if (ret && ret.then) {
       setLoading(true);
       ret
@@ -75,6 +79,16 @@ const TagComponent = (props: TagProps, ref) => {
     } else {
       setVisible(false);
     }
+  }
+
+  if (checkable) {
+    const newChecked = !checked;
+    rest.onClick = () => {
+      if (!('checked' in props)) {
+        setChecked(newChecked);
+      }
+      onCheck?.(newChecked);
+    };
   }
 
   return (

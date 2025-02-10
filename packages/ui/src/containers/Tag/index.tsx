@@ -115,9 +115,35 @@ function App() {
         ))}
       </Space>
       <Space>
+        {COLORS.map((color, i) => (
+          <Tag
+            key={i}
+            checkable
+            color={color}
+            bordered
+            closable
+            icon={<IconCheckCircleFill />}
+            onClose={() => {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  if (Math.random() >= 0.5) {
+                    resolve('');
+                  } else {
+                    reject();
+                  }
+                }, 3000);
+              });
+            }}
+          >
+            {color}
+          </Tag>
+        ))}
+      </Space>
+      <Space>
         {COLORS_CUSTOM.map((color, i) => (
           <Tag
             key={i}
+            checkable
             closable
             color={color}
             closeIcon={<IconAlignCenter />}
@@ -136,6 +162,18 @@ function App() {
             {color}
           </Tag>
         ))}
+      </Space>
+      <Space size="large">
+        <Tag checkable>Awesome</Tag>
+        <Tag checkable color="red" defaultChecked>
+          Toutiao
+        </Tag>
+        <Tag checkable color="green">
+          Lark
+        </Tag>
+        <Tag checkable color="#123456">
+          Lark
+        </Tag>
       </Space>
     </Space>
   );

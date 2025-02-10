@@ -21,7 +21,6 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
       borderRadius: token.rounded.MD,
       color: token.colorText,
       gap: token.sizes.XXS,
-      backgroundColor: token.colorBgContainer,
       border: `${token.lineWidth}px ${token.lineType} transparent`,
 
       [`&${componentCls}-rtl`]: {
@@ -36,15 +35,31 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
         display: 'none',
       },
 
-      [`&${componentCls}-custom-color`]: {
-        color: token.colorWhiteSecondary,
+      [`&${componentCls}-checked`]: {
+        backgroundColor: token.colorBgContainer,
+        borderColor: token.colorBorder,
 
-        [`${componentCls}-close-btn`]: {
+        [`&${componentCls}-custom-color`]: {
           color: token.colorWhiteSecondary,
 
-          [`${euiCls}-icon`]: {
+          [`${componentCls}-close-btn`]: {
             color: token.colorWhiteSecondary,
+
+            [`${euiCls}-icon`]: {
+              color: token.colorWhiteSecondary,
+            },
           },
+        },
+      },
+      [`&${componentCls}-checkable`]: {
+        cursor: 'pointer',
+        transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
+
+        '&:hover': {
+          backgroundColor: token.colorBgContainer,
+        },
+        [`&${componentCls}-checked:hover`]: {
+          backgroundColor: token.colorBorder,
         },
       },
     },
@@ -99,7 +114,7 @@ const genPresetStyle = (token: TagToken) => {
   return {
     [`${componentCls}-light`]: map(PresetColors, color => {
       return {
-        [`&${componentCls}-${color}`]: {
+        [`&${componentCls}-checked${componentCls}-${color}`]: {
           color: token.colors[`${color}7`],
           background: token.colors[`${color}1`],
 
@@ -113,12 +128,16 @@ const genPresetStyle = (token: TagToken) => {
               color: token.colors[`${color}7`],
             },
           },
+
+          '&:hover': {
+            background: getAlphaColor(token.colors[`${color}6`], 0.25),
+          },
         },
       };
     }),
     [`${componentCls}-dark`]: map(PresetColors, color => {
       return {
-        [`&${componentCls}-${color}`]: {
+        [`&${componentCls}-checked${componentCls}-${color}`]: {
           background: getAlphaColor(token.colors[`${color}6`], 0.2),
 
           [`&${componentCls}-bordered`]: {
@@ -132,6 +151,10 @@ const genPresetStyle = (token: TagToken) => {
             [`${euiCls}-icon`]: {
               color: token.colors[`${color}7`],
             },
+          },
+
+          '&:hover': {
+            background: getAlphaColor(token.colors[`${color}6`], 0.25),
           },
         },
       };
