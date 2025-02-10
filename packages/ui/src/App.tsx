@@ -16,11 +16,12 @@ import Link from './containers/Link';
 import Copy from './containers/Copy';
 import Alert from './containers/Alert';
 import Grid from './containers/Grid';
+import Tag from './containers/Tag';
 
 function App() {
   return (
     <>
-      <Grid />
+      <Tag />
     </>
   );
 }

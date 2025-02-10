@@ -20,6 +20,7 @@ import { LinkProps } from '@/link/interface';
 import { CopyProps } from '@/copy/interface';
 import { AlertProps } from '@/alert/interface';
 import { AppProps } from '@/app/interface';
+import { TagProps } from '@/tag/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -43,6 +44,7 @@ export type Components = {
   Space?: SpaceProps;
   Spin?: SpinProps;
   Watermark?: WatermarkProps;
+  Tag?: TagProps;
 };
 
 /**
