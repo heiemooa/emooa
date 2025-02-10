@@ -120,7 +120,7 @@ function App() {
             key={i}
             checkable
             color={color}
-            bordered
+            bordered={false}
             closable
             icon={<IconCheckCircleFill />}
             onClose={() => {

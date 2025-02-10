@@ -37,7 +37,16 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
 
       [`&${componentCls}-checked`]: {
         backgroundColor: token.colorBgContainer,
-        borderColor: token.colorBorder,
+
+        [`&${componentCls}-bordered`]: {
+          borderColor: token.colorBorder,
+        },
+
+        [`${componentCls}-close-btn`]: {
+          [`${euiCls}-icon`]: {
+            color: token.colorTextSecondary,
+          },
+        },
 
         [`&${componentCls}-custom-color`]: {
           color: token.colorWhiteSecondary,
@@ -51,6 +60,14 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
           },
         },
       },
+      [`&:not(${componentCls}-checked)`]: {
+        [`${componentCls}-close-btn`]: {
+          [`${euiCls}-icon`]: {
+            color: token.colorTextSecondary,
+          },
+        },
+      },
+
       [`&${componentCls}-checkable`]: {
         cursor: 'pointer',
         transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
@@ -73,38 +90,18 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
     [`${componentCls}-mini`]: {
       fontSize: token.fonts.fontSizeSM,
       height: `${token.sizes.XS + 12}px`,
-      borderRadius: token.rounded.MD,
-
-      [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizes.XS + 16) / 2}px`,
-      },
     },
     [`${componentCls}-small`]: {
       fontSize: token.fonts.fontSizeSM,
       height: `${token.sizes.SM + 12}px`,
-      borderRadius: token.rounded.MD,
-
-      [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizes.SM + 16) / 2}px`,
-      },
     },
     [`${componentCls}-medium`]: {
       fontSize: token.fonts.fontSize,
       height: `${token.sizes.MD + 12}px`,
-      borderRadius: token.rounded.MD,
-
-      [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizes.MD + 16) / 2}px`,
-      },
     },
     [`${componentCls}-large`]: {
       fontSize: token.fonts.fontSize,
       height: `${token.sizes.LG + 12}px`,
-      borderRadius: token.rounded.MD,
-
-      [`&${componentCls}-round`]: {
-        borderRadius: `${(token.sizes.LG + 16) / 2}px`,
-      },
     },
   };
 };
@@ -125,7 +122,11 @@ const genPresetStyle = (token: TagToken) => {
             color: token.colorText,
 
             [`${euiCls}-icon`]: {
-              color: token.colors[`${color}7`],
+              color: token.colors[`${color}5`],
+
+              '&:hover': {
+                color: token.colors[`${color}7`],
+              },
             },
           },
 
@@ -133,12 +134,22 @@ const genPresetStyle = (token: TagToken) => {
             background: getAlphaColor(token.colors[`${color}6`], 0.25),
           },
         },
+
+        [`&:not(${componentCls}-checked)${componentCls}-${color}`]: {
+          [`${componentCls}-close-btn`]: {
+            color: token.colorText,
+
+            [`${euiCls}-icon`]: {
+              color: token.colorTextSecondary,
+            },
+          },
+        },
       };
     }),
     [`${componentCls}-dark`]: map(PresetColors, color => {
       return {
         [`&${componentCls}-checked${componentCls}-${color}`]: {
-          background: getAlphaColor(token.colors[`${color}6`], 0.2),
+          background: getAlphaColor(token.colors[`${color}6`], 0.25),
 
           [`&${componentCls}-bordered`]: {
             borderColor: token.colors[`${color}5`],
@@ -149,12 +160,22 @@ const genPresetStyle = (token: TagToken) => {
             color: token.colorText,
 
             [`${euiCls}-icon`]: {
-              color: token.colors[`${color}7`],
+              color: token.colorText,
             },
           },
 
           '&:hover': {
             background: getAlphaColor(token.colors[`${color}6`], 0.25),
+          },
+        },
+
+        [`&:not(${componentCls}-checked)${componentCls}-${color}`]: {
+          [`${componentCls}-close-btn`]: {
+            color: token.colorText,
+
+            [`${euiCls}-icon`]: {
+              color: token.colorTextSecondary,
+            },
           },
         },
       };

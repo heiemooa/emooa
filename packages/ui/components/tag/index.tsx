@@ -25,7 +25,7 @@ const TagComponent = (props: TagProps, ref) => {
     onCheck,
     icon,
     closeIcon,
-    bordered = true,
+    bordered,
     visible: _visible = true,
     checked: _checked = defaultChecked,
     ...rest
