@@ -19,9 +19,15 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
       alignItems: 'center',
       padding: `0px ${token.sizes.XS}px`,
       borderRadius: token.rounded.MD,
+      whiteSpace: 'nowrap',
       color: token.colorText,
       gap: token.sizes.XXS,
       border: `${token.lineWidth}px ${token.lineType} transparent`,
+      transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
+
+      'a, a:hover': {
+        color: token.colorText,
+      },
 
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
@@ -51,6 +57,10 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
         [`&${componentCls}-custom-color`]: {
           color: token.colorWhiteSecondary,
 
+          'a, a:hover': {
+            color: token.colorWhiteSecondary,
+          },
+
           [`${componentCls}-close-btn`]: {
             color: token.colorWhiteSecondary,
 
@@ -70,7 +80,6 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
 
       [`&${componentCls}-checkable`]: {
         cursor: 'pointer',
-        transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
 
         '&:hover': {
           backgroundColor: token.colorBgContainer,
@@ -88,7 +97,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
 
   return {
     [`${componentCls}-mini`]: {
-      fontSize: token.fonts.fontSizeSM,
+      fontSize: token.fonts.fontSizeSM - 2,
       height: `${token.sizes.XS + 12}px`,
     },
     [`${componentCls}-small`]: {
@@ -96,7 +105,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
       height: `${token.sizes.SM + 12}px`,
     },
     [`${componentCls}-medium`]: {
-      fontSize: token.fonts.fontSize,
+      fontSize: token.fonts.fontSize - 1,
       height: `${token.sizes.MD + 12}px`,
     },
     [`${componentCls}-large`]: {
@@ -114,6 +123,10 @@ const genPresetStyle = (token: TagToken) => {
         [`&${componentCls}-checked${componentCls}-${color}`]: {
           color: token.colors[`${color}7`],
           background: token.colors[`${color}1`],
+
+          'a, a:hover': {
+            color: token.colors[`${color}7`],
+          },
 
           [`&${componentCls}-bordered`]: {
             borderColor: token.colors[`${color}3`],
@@ -150,6 +163,10 @@ const genPresetStyle = (token: TagToken) => {
       return {
         [`&${componentCls}-checked${componentCls}-${color}`]: {
           background: getAlphaColor(token.colors[`${color}6`], 0.25),
+
+          'a, a:hover': {
+            color: token.colorText,
+          },
 
           [`&${componentCls}-bordered`]: {
             borderColor: token.colors[`${color}5`],

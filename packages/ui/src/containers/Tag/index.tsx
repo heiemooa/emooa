@@ -46,7 +46,9 @@ function App() {
     <Space direction="vertical">
       <Space size="large">
         <Tag>Default</Tag>
-        <Tag>Tag 1</Tag>
+        <Tag>
+          <a>Tag1</a>
+        </Tag>
         <Tag>Tag 2</Tag>
         <Tag icon={<IconCheckCircleFill />}>Complete</Tag>
       </Space>
@@ -81,14 +83,14 @@ function App() {
       <Space wrap>
         {COLORS.map((color, i) => (
           <Tag key={i} color={color} bordered closable icon={<IconCheckCircleFill />}>
-            {color}
+            <a>{color}</a>
           </Tag>
         ))}
       </Space>
       <Space>
         {COLORS.map((color, i) => (
           <Tag key={i} color={color} bordered={false} closable icon={<IconCheckCircleFill />}>
-            {color}
+            <a>{color}</a>
           </Tag>
         ))}
       </Space>
@@ -110,7 +112,7 @@ function App() {
               });
             }}
           >
-            {color}
+            <a>{color}</a>
           </Tag>
         ))}
       </Space>
@@ -135,7 +137,7 @@ function App() {
               });
             }}
           >
-            {color}
+            <a>{color}</a>
           </Tag>
         ))}
       </Space>
@@ -159,7 +161,7 @@ function App() {
               });
             }}
           >
-            {color}
+            <a>{color}</a>
           </Tag>
         ))}
       </Space>
