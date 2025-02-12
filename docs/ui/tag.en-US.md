@@ -33,7 +33,8 @@ Users provide information feedback and interactive operations through tags.
 
 | **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| --- | --- | --- | --- |
+| className | The className of Space | `string` | - |
+| style | The style properties of Space | `CSSProperties` | - |
 | checkable | Whether the Tag is checkable | boolean | `-` |
 | checked | Used for setting the currently selected value(Controlled Component) | boolean | `-` |
 | closable | Whether the Tag is closable | boolean | `-` |
@@ -44,7 +45,5 @@ Users provide information feedback and interactive operations through tags.
 | closeIcon | Custom Close Icon | ReactNode | `-` |
 | icon | Set icon | ReactNode | `-` |
 | bordered | Whether the tag is bordered | Boolean | `-` |
-| className | Additional css class | string \| string[] | `-` |
 | onClose | Callback when the tag closed | ` (e) => Promise<any> \| void` | `-` |
-| style | Additional style | CSSProperties | `-` |
 | onCheck | Callback when checked the tag | `(checked: boolean) => void` | `-` |

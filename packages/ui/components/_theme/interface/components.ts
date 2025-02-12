@@ -17,6 +17,7 @@ import type { ComponentToken as ImageComponentToken } from '../../image/style';
 import type { ComponentToken as GeoJSONComponentToken } from '../../geojson/style';
 import type { ComponentToken as WatermarkComponentToken } from '../../watermark/style';
 import type { ComponentToken as GridComponentToken } from '../../grid/style';
+import type { ComponentToken as EmptyComponentToken } from '../../empty/style';
 
 export interface ComponentTokenMap {
   App?: AppComponentToken;
@@ -38,4 +39,5 @@ export interface ComponentTokenMap {
   GeoJSON?: GeoJSONComponentToken;
   Watermark?: WatermarkComponentToken;
   Grid?: GridComponentToken;
+  Empty?: EmptyComponentToken;
 }

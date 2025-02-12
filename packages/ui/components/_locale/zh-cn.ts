@@ -25,5 +25,8 @@ const locale: Locale = {
     title: '文档中心',
     open: '新窗口查看文档',
   },
+  Empty: {
+    message: '暂无数据',
+  },
 };
 export default locale;

@@ -74,3 +74,6 @@ export type { GridProps } from './grid/interface';
 
 export { default as Tag } from './tag';
 export type { TagProps } from './tag/interface';
+
+export { default as Empty } from './empty';
+export type { EmptyProps } from './empty/interface';

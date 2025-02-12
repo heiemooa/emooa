@@ -22,4 +22,7 @@ export interface Locale {
     title: string;
     open: string;
   };
+  Empty: {
+    message: string;
+  };
 }

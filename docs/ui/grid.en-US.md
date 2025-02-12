@@ -31,8 +31,8 @@ Define the outer frame of information blocks based on rows (`row`) and columns (
 
 | **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| className | The className of Space | `string` | - |
-| style | The style properties of Space | `CSSProperties` | - |
+| className | The className of Row | `string` | - |
+| style | The style properties of Row | `CSSProperties` | - |
 | align | Vertical alignment, same as css `align-items` | `start \| center \| end \| stretch` | `start` |
 | justify | Horizontal alignment, same as css `justify-content` | `start \| center \| end \| space-around \|space-between` | `start` |
 | gutter | Spacing between grids, could be a number or a object like `{ xs: 8, sm: 16, md: 24}`. Or you can use array to make horizontal and vertical spacing work at the same time `[horizontal, vertical]`. | `mini \| small \| medium \| large \| number` | `small` |
