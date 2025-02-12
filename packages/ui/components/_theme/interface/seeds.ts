@@ -88,6 +88,11 @@ export interface SeedToken {
    */
   colorBgMask: string;
 
+  /**
+   * @name Spin 蒙层
+   */
+  colorSpingMask: string;
+
   //  ----------   Font   ---------- //
 
   /**

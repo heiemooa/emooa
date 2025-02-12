@@ -97,7 +97,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
 
   return {
     [`${componentCls}-mini`]: {
-      fontSize: token.fonts.fontSizeSM - 2,
+      fontSize: token.fonts.fontSizeSM,
       height: `${token.sizes.XS + 12}px`,
     },
     [`${componentCls}-small`]: {
@@ -105,7 +105,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
       height: `${token.sizes.SM + 12}px`,
     },
     [`${componentCls}-medium`]: {
-      fontSize: token.fonts.fontSize - 1,
+      fontSize: token.fonts.fontSize,
       height: `${token.sizes.MD + 12}px`,
     },
     [`${componentCls}-large`]: {
