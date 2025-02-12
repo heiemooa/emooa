@@ -25,8 +25,9 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
       border: `${token.lineWidth}px ${token.lineType} transparent`,
       transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
 
-      'a, a:hover': {
+      'a, a:hover, a:focus': {
         color: token.colorText,
+        textDecoration: 'none',
       },
 
       [`&${componentCls}-rtl`]: {
