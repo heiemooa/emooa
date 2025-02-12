@@ -21,6 +21,7 @@ import { CopyProps } from '@/copy/interface';
 import { AlertProps } from '@/alert/interface';
 import { AppProps } from '@/app/interface';
 import { TagProps } from '@/tag/interface';
+import { EmptyProps } from '@/empty/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -45,6 +46,7 @@ export type Components = {
   Spin?: SpinProps;
   Watermark?: WatermarkProps;
   Tag?: TagProps;
+  Empty?: EmptyProps;
 };
 
 /**

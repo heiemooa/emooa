@@ -25,5 +25,8 @@ const locale: Locale = {
     title: 'Document Center',
     open: 'View document in new window',
   },
+  Empty: {
+    message: 'No data',
+  },
 };
 export default locale;

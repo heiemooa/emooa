@@ -26,8 +26,8 @@ toc: content
 
 | **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| className | The className of Space | `string` | - |
-| style | The style properties of Space | `CSSProperties` | - |
+| className | The className of Divider | `string` | - |
+| style | The style properties of Divider | `CSSProperties` | - |
 | orientation | The position of the dividing line text | `left \| right \| center` | `center` |
 | type | The type of dividing line, whether horizontal or vertical, corresponding to `horizontal` and `vertical` respectively | `horizontal \| vertical` | `horizontal` |
 | dashed | Dotted line or not? | `boolean` | - |

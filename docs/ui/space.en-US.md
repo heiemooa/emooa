@@ -28,12 +28,12 @@ Avoid components that are too close together to create a unified space.
 ### Space
 
 | **Parameters** | **Definition**                | **Type**                                     | **Default value** |
-| -------------- | ----------------------------- | -------------------------------------------- | ----------------- | ------- |
+| -------------- | ----------------------------- | -------------------------------------------- | ----------------- |
 | className      | The className of Space        | `string`                                     | -                 |
 | style          | The style properties of Space | `CSSProperties`                              | -                 |
 | align          | Align items                   | `start \| end \| center \| baseline`         | -                 |
 | direction      | The space direction           | `vertical \| horizontal`                     | `horizontal`      |
-| size           | The space size                | `mini \| small \| medium \| large \| number` | `small`           | `small` |
+| size           | The space size                | `mini \| small \| medium \| large \| number` | `small`           |
 | split          | Set split                     | `ReactNode`                                  | -                 |
 | wrap           | Auto wrap line                | `boolean`                                    | -                 |
 

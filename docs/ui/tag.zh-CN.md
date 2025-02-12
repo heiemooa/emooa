@@ -33,6 +33,8 @@ demo:
 
 | **参数**       | **定义**             | **类型**                           | **默认值** |
 | -------------- | -------------------- | ---------------------------------- | ---------- |
+| className      | 组件名称             | `string`                           | -          |
+| style          | 组件样式             | `CSSProperties`                    | -          |
 | checkable      | 是否支持选中         | `boolean`                          | `-`        |
 | checked        | 是否选中（受控模式） | `boolean`                          | `-`        |
 | closable       | 是否可关闭标签       | `boolean`                          | `-`        |
@@ -43,7 +45,5 @@ demo:
 | closeIcon      | 自定义关闭图标       | `ReactNode`                        | `-`        |
 | icon           | 设置图标             | `ReactNode`                        | `-`        |
 | bordered       | 是否显示边框         | `Boolean`                          | `-`        |
-| className      | 节点类名             | `string \| string[]`               | `-`        |
 | onClose        | 关闭标签回调函数     | ` (e) => Promise<any> \| void`     | `-`        |
-| style          | 节点样式             | `CSSProperties`                    | `-`        |
 | onCheck        | 选中的回调           | `(checked: boolean) => void`       | `-`        |

@@ -25,8 +25,9 @@ const genAlertStyle: GenerateStyle<TagToken> = token => {
       border: `${token.lineWidth}px ${token.lineType} transparent`,
       transition: `all ${token.motions.durationFast} ${token.motions.linear}`,
 
-      'a, a:hover': {
+      'a, a:hover, a:focus': {
         color: token.colorText,
+        textDecoration: 'none',
       },
 
       [`&${componentCls}-rtl`]: {
@@ -97,7 +98,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
 
   return {
     [`${componentCls}-mini`]: {
-      fontSize: token.fonts.fontSizeSM - 2,
+      fontSize: token.fonts.fontSizeSM,
       height: `${token.sizes.XS + 12}px`,
     },
     [`${componentCls}-small`]: {
@@ -105,7 +106,7 @@ const genTagSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
       height: `${token.sizes.SM + 12}px`,
     },
     [`${componentCls}-medium`]: {
-      fontSize: token.fonts.fontSize - 1,
+      fontSize: token.fonts.fontSize,
       height: `${token.sizes.MD + 12}px`,
     },
     [`${componentCls}-large`]: {
