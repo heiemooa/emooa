@@ -91,7 +91,7 @@ export interface SeedToken {
   /**
    * @name Spin 蒙层
    */
-  colorSpingMask: string;
+  colorSpinMask: string;
 
   //  ----------   Font   ---------- //
 

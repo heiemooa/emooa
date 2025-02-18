@@ -85,8 +85,8 @@ info.close();
 
 | **参数** | **定义**     | **类型**            | **默认值** |
 | -------- | ------------ | ------------------- | ---------- |
-| content  | 对话框的内容 | `ReactNode`         | `-`        |
-| icon     | 自定义图标   | `ReactNode \| null` | `-`        |
+| content  | 对话框的内容 | `ReactNode`         | -          |
+| icon     | 自定义图标   | `ReactNode \| null` | -          |
 
 ### Modal.destroyAll 方法
 

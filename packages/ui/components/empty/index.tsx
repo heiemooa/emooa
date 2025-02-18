@@ -6,16 +6,14 @@ import { ConfigProviderProps } from '@/config-provider/interface';
 import useStyle from './style';
 import EmptyIcon from './icon';
 
-const defaultEmptyImg = <EmptyIcon />;
-
 const Empty = forwardRef<HTMLDivElement, EmptyProps>((props: EmptyProps, ref) => {
   const { getPrefixCls, components, locale }: ConfigProviderProps = useContext(ConfigContext);
   const {
     style,
     className,
-    description,
+    description = locale.Empty.message,
     children,
-    icon = defaultEmptyImg,
+    icon = <EmptyIcon />,
     ...rest
   }: EmptyProps = Object.assign({}, components?.Empty, props);
 
@@ -24,8 +22,7 @@ const Empty = forwardRef<HTMLDivElement, EmptyProps>((props: EmptyProps, ref) =>
 
   const classnames = classNames(prefixCls, hashId, className);
 
-  const des = typeof description !== 'undefined' ? description : locale.Empty.message;
-  const alt = typeof des === 'string' ? des : 'empty';
+  const alt = typeof description === 'string' ? description : 'empty';
 
   let imageNode: React.ReactNode = null;
   if (typeof icon === 'string') {
@@ -37,7 +34,7 @@ const Empty = forwardRef<HTMLDivElement, EmptyProps>((props: EmptyProps, ref) =>
   return (
     <div ref={ref} className={classnames} style={style} {...rest}>
       <div className={`${prefixCls}-image`}>{imageNode}</div>
-      {description && <div className={`${prefixCls}-description`}>{description || locale.Empty.message}</div>}
+      {!!description && <div className={`${prefixCls}-description`}>{description || locale.Empty.message}</div>}
       {children}
     </div>
   );

@@ -77,3 +77,6 @@ export type { TagProps } from './tag/interface';
 
 export { default as Empty } from './empty';
 export type { EmptyProps } from './empty/interface';
+
+export { default as Description } from './description';
+export type { DescriptionProps } from './description/interface';

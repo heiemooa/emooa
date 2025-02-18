@@ -45,6 +45,7 @@ const seedToken: SeedToken = {
   colorWhiteSecondary: new TinyColor('#FFF').setAlpha(0.88).toRgbString(),
   colorWhiteTertiary: new TinyColor('#FFF').setAlpha(0.75).toRgbString(),
   colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
+  colorSpinMask: '',
   colorTextBase: '',
   colorBgBase: '',
 
