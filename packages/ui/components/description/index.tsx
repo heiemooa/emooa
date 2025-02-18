@@ -1,13 +1,13 @@
 import React, { useContext, forwardRef, useState, useEffect, useRef, Fragment } from 'react';
-import { DataType, DescriptionProps } from './interface';
+import { DescriptionItemProps, DescriptionProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import classNames from 'classnames';
 import useStyle from './style';
-import { isObject, isNumber, isArray } from 'lodash';
+import { isObject, isNumber, isArray, forEach } from 'lodash';
 import useResponsiveObserver, { Breakpoint, responsiveArray } from '@/_utils/hooks/useResponsiveObserve';
 
-const getLength = (arr?: DataType) => {
+const getLength = (arr?: DescriptionItemProps) => {
   return isArray(arr) ? arr.reduce((p, n) => p + (n.span || 1), 0) : 0;
 };
 
@@ -21,7 +21,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     classNames: descriptionClassNames,
     column = 3,
     title,
-    data,
+    items,
     bordered,
     layout = 'horizontal',
     colon = layout === 'inline-horizontal' ? true : false,
@@ -63,8 +63,8 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
   }
 
   const renderData = [];
-  if (isArray(data) && data.length > 0 && currentColumn) {
-    data.forEach(d => {
+  if (isArray(items) && items.length > 0 && currentColumn) {
+    forEach(items, d => {
       const lastOne = renderData[renderData.length - 1];
       const length = getLength(lastOne);
       if (length === 0) {

@@ -6,13 +6,13 @@ group:
 toc: content
 ---
 
-# Description
+# Description 描述列表
 
-## Usage
+## 何时使用
 
-Generally used for information display on detail pages.
+一般用于详情页的信息展示。
 
-## Examples
+## 代码演示
 
 <code src="../../packages/ui/examples/description/basic.tsx" description="简单的展示。">基本用法</code>  
 <code src="../../packages/ui/examples/description/column.tsx" description="通过 `column` 属性设置列数展示，并支持修改列表样式。">列数与样式</code>  
@@ -37,12 +37,12 @@ Generally used for information display on detail pages.
 | colon | 是否展示标签文字后冒号 | `ReactNode` | - |
 | title | 标题 | `ReactNode` | - |
 | column | 一行放置几列数据，一个数据为一列。支持配置 `column` 为数字或者对象，配置对象格式时，支持配置为 `{ xs: 1, md: 2, lg: 3 }` 这种形式来支持响应式排列 | `number \| {xs?: number;sm?: number;md?: number;lg?: number;xl?: number;xxl?: number;xxxl?: number;}` | `3` |
-| data | 描述列表的数据 | [DataType](#datatype) | - |
+| items | 描述列表的数据 | [DescriptionItemProps](#descriptionitemprops) | - |
 
-### DataType
+### DescriptionItemProps
 
 ```js
-export type DataType = {
+export type DescriptionItemProps = {
   key?: React.Key,
   label?: ReactNode,
   value?: ReactNode,
