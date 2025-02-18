@@ -69,7 +69,7 @@ Usage
 | **Parameters** |                        **Type**                        |  **Default value**  |      **Definition** |
 | -------------- | :----------------------------------------------------: | :-----------------: | ------------------: |
 | closable       |                Is there a close button                 |      `boolean`      |                   - |
-| maxCount       |            Maximum number of notifications             |      `number`       |                 `-` |
+| maxCount       |            Maximum number of notifications             |      `number`       |                   - |
 | getContainer   |             Container of the notification              | `() => HTMLElement` | () => document.body |
 | duration       | The time when the notification is automatically closed |      `number`       |                3000 |
 | title          |                   Notification title                   |      `string`       |                   - |

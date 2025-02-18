@@ -1,4 +1,4 @@
-import { Size } from '@/config-provider/interface';
+import { Size } from '../config-provider/interface';
 import { ReactNode } from 'react';
 
 export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {

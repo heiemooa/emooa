@@ -45,6 +45,6 @@ export const generateNeutralColorPalettes: GenerateNeutralColorMap = (bgBaseColo
     colorBorder: getSolidColor(colorBgBase, 26),
     colorBorderSecondary: getSolidColor(colorBgBase, 19),
 
-    colorSpingMask: getAlphaColor(colorBgBase, 0.5),
+    colorSpinMask: getAlphaColor(colorBgBase, 0.5),
   };
 };

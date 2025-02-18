@@ -22,6 +22,7 @@ import { AlertProps } from '@/alert/interface';
 import { AppProps } from '@/app/interface';
 import { TagProps } from '@/tag/interface';
 import { EmptyProps } from '@/empty/interface';
+import { DescriptionProps } from '@/description/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -47,6 +48,7 @@ export type Components = {
   Watermark?: WatermarkProps;
   Tag?: TagProps;
   Empty?: EmptyProps;
+  Description: DescriptionProps;
 };
 
 /**

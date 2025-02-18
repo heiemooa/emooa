@@ -35,15 +35,15 @@ demo:
 | -------------- | -------------------- | ---------------------------------- | ---------- |
 | className      | 组件名称             | `string`                           | -          |
 | style          | 组件样式             | `CSSProperties`                    | -          |
-| checkable      | 是否支持选中         | `boolean`                          | `-`        |
-| checked        | 是否选中（受控模式） | `boolean`                          | `-`        |
-| closable       | 是否可关闭标签       | `boolean`                          | `-`        |
-| defaultChecked | 是否默认选中         | `boolean`                          | `-`        |
-| visible        | 设置标签显示隐藏     | `boolean`                          | `-`        |
-| color          | 设置标签背景颜色     | `string`                           | `-`        |
+| checkable      | 是否支持选中         | `boolean`                          | -          |
+| checked        | 是否选中（受控模式） | `boolean`                          | -          |
+| closable       | 是否可关闭标签       | `boolean`                          | -          |
+| defaultChecked | 是否默认选中         | `boolean`                          | -          |
+| visible        | 设置标签显示隐藏     | `boolean`                          | -          |
+| color          | 设置标签背景颜色     | `string`                           | -          |
 | size           | 标签尺寸             | `mini \| small \| medium \| large` | `small`    |
-| closeIcon      | 自定义关闭图标       | `ReactNode`                        | `-`        |
-| icon           | 设置图标             | `ReactNode`                        | `-`        |
-| bordered       | 是否显示边框         | `Boolean`                          | `-`        |
-| onClose        | 关闭标签回调函数     | ` (e) => Promise<any> \| void`     | `-`        |
-| onCheck        | 选中的回调           | `(checked: boolean) => void`       | `-`        |
+| closeIcon      | 自定义关闭图标       | `ReactNode`                        | -          |
+| icon           | 设置图标             | `ReactNode`                        | -          |
+| bordered       | 是否显示边框         | `Boolean`                          | -          |
+| onClose        | 关闭标签回调函数     | ` (e) => Promise<any> \| void`     | -          |
+| onCheck        | 选中的回调           | `(checked: boolean) => void`       | -          |

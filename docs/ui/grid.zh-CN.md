@@ -44,15 +44,15 @@ toc: content
 | --------- | -------------------------------------- | ---------------------------------- | ---------- |
 | className | 组件名称                               | `string`                           | -          |
 | style     | 组件样式                               | `CSSProperties`                    | -          |
-| offset    | 栅格左侧的间隔格数，间隔内不可以有栅格 | `number`                           | `-`        |
-| order     | 对元素进行排序                         | `number`                           | `-`        |
-| pull      | 对元素进行排序                         | `number`                           | `-`        |
-| push      | 对元素进行排序                         | `number`                           | `-`        |
+| offset    | 栅格左侧的间隔格数，间隔内不可以有栅格 | `number`                           | -          |
+| order     | 对元素进行排序                         | `number`                           | -          |
+| pull      | 对元素进行排序                         | `number`                           | -          |
+| push      | 对元素进行排序                         | `number`                           | -          |
 | span      | 栅格占位格数                           | `number`                           | `24`       |
-| flex      | 设置 `flex` 布局属性                   | `string \| number \| auto \| none` | `-`        |
-| lg        | `>= 992px` 响应式栅格                  | `number \| { [key: string]: any }` | `-`        |
-| md        | `>= 768px` 响应式栅格                  | `number \| { [key: string]: any }` | `-`        |
-| sm        | `>= 576px` 响应式栅格                  | `number \| { [key: string]: any }` | `-`        |
-| xl        | `>= 1200px` 响应式栅格                 | `number \| { [key: string]: any }` | `-`        |
-| xs        | `< 576px` 响应式栅格                   | `number \| { [key: string]: any }` | `-`        |
-| xxl       | `>= 1600px` 响应式栅格                 | `number \| { [key: string]: any }` | `-`        |
+| flex      | 设置 `flex` 布局属性                   | `string \| number \| auto \| none` | -          |
+| lg        | `>= 992px` 响应式栅格                  | `number \| { [key: string]: any }` | -          |
+| md        | `>= 768px` 响应式栅格                  | `number \| { [key: string]: any }` | -          |
+| sm        | `>= 576px` 响应式栅格                  | `number \| { [key: string]: any }` | -          |
+| xl        | `>= 1200px` 响应式栅格                 | `number \| { [key: string]: any }` | -          |
+| xs        | `< 576px` 响应式栅格                   | `number \| { [key: string]: any }` | -          |
+| xxl       | `>= 1600px` 响应式栅格                 | `number \| { [key: string]: any }` | -          |

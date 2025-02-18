@@ -42,14 +42,14 @@ Define the outer frame of information blocks based on rows (`row`) and columns (
 
 | **Parameters** | **Definition** | **Type** | **Default value** |
 | --- | --- | --- | --- |
-| offset | The number of cells to offset Col from the left | `number` | `-` |
-| pull | Raster order | `number` | `-` |
-| push | Raster order | `number` | `-` |
+| offset | The number of cells to offset Col from the left | `number` | - |
+| pull | Raster order | `number` | - |
+| push | Raster order | `number` | - |
 | span | Raster number of cells to occupy | `number` | `24` |
-| flex | Set `flex` layout properties | `string \| number \| auto \| none` | `-` |
-| lg | `>= 992px` | `number \| { [key: string]: any }` | `-` |
-| md | `>= 768px` | `number \| { [key: string]: any }` | `-` |
-| sm | `>= 576px` | `number \| { [key: string]: any }` | `-` |
-| xl | `>= 1200px` | `number \| { [key: string]: any }` | `-` |
-| xs | `< 576px` | `number \| { [key: string]: any }` | `-` |
-| xxl | `>= 1600px` | `number \| { [key: string]: any }` | `-` |
+| flex | Set `flex` layout properties | `string \| number \| auto \| none` | - |
+| lg | `>= 992px` | `number \| { [key: string]: any }` | - |
+| md | `>= 768px` | `number \| { [key: string]: any }` | - |
+| sm | `>= 576px` | `number \| { [key: string]: any }` | - |
+| xl | `>= 1200px` | `number \| { [key: string]: any }` | - |
+| xs | `< 576px` | `number \| { [key: string]: any }` | - |
+| xxl | `>= 1600px` | `number \| { [key: string]: any }` | - |
