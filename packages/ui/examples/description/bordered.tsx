@@ -27,13 +27,13 @@ const data = [
 const App: React.FC = () => {
   return (
     <>
-      <Description layout="horizontal" title="Horizontal" data={data} bordered />
+      <Description layout="horizontal" title="Horizontal" items={data} bordered />
       <Divider />
-      <Description layout="vertical" title="Vertical" data={data} bordered />
+      <Description layout="vertical" title="Vertical" items={data} bordered />
       <Divider />
-      <Description layout="inline-horizontal" title="Inline Horizontal" data={data} bordered />
+      <Description layout="inline-horizontal" title="Inline Horizontal" items={data} bordered />
       <Divider />
-      <Description layout="inline-vertical" title="Inline Vertical" data={data} bordered />
+      <Description layout="inline-vertical" title="Inline Vertical" items={data} bordered />
     </>
   );
 };

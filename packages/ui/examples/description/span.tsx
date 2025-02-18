@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <Description
       title="User Info"
-      data={data}
+      items={data}
       column={{
         xs: 1,
         sm: 2,

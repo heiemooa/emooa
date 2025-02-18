@@ -37,7 +37,7 @@ toc: content
 | colon | 是否展示标签文字后冒号 | `ReactNode` | - |
 | title | 标题 | `ReactNode` | - |
 | column | 一行放置几列数据，一个数据为一列。支持配置 `column` 为数字或者对象，配置对象格式时，支持配置为 `{ xs: 1, md: 2, lg: 3 }` 这种形式来支持响应式排列 | `number \| {xs?: number;sm?: number;md?: number;lg?: number;xl?: number;xxl?: number;xxxl?: number;}` | `3` |
-| items | 描述列表的数据 | [DescriptionItemProps](#descriptionitemprops) | - |
+| items | 描述列表的数据 | [DescriptionItemProps[]](#descriptionitemprops) | - |
 
 ### DescriptionItemProps
 
@@ -47,5 +47,14 @@ export type DescriptionItemProps = {
   label?: ReactNode,
   value?: ReactNode,
   span?: number,
-}[];
+  visible?: boolean,
+  classNames?: {
+    label?: string,
+    value?: string,
+  },
+  styles?: {
+    label?: CSSProperties,
+    value?: CSSProperties,
+  },
+};
 ```

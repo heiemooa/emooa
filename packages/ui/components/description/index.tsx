@@ -1,13 +1,13 @@
-import React, { useContext, forwardRef, useState, useEffect, useRef, Fragment } from 'react';
+import React, { useContext, forwardRef, useState, useEffect, useRef, Fragment, useMemo } from 'react';
 import { DescriptionItemProps, DescriptionProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import classNames from 'classnames';
 import useStyle from './style';
-import { isObject, isNumber, isArray, forEach } from 'lodash';
+import { isObject, isNumber, isArray, forEach, isEmpty, map, filter } from 'lodash';
 import useResponsiveObserver, { Breakpoint, responsiveArray } from '@/_utils/hooks/useResponsiveObserve';
 
-const getLength = (arr?: DescriptionItemProps) => {
+const getLength = (arr?: DescriptionItemProps[]) => {
   return isArray(arr) ? arr.reduce((p, n) => p + (n.span || 1), 0) : 0;
 };
 
@@ -62,9 +62,14 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     currentColumn = column as number;
   }
 
-  const renderData = [];
-  if (isArray(items) && items.length > 0 && currentColumn) {
-    forEach(items, d => {
+  const renderData: DescriptionItemProps[][] = [];
+
+  const _items = useMemo(() => {
+    return filter(items, (item: DescriptionItemProps) => item.visible !== false);
+  }, [items]);
+
+  if (isArray(_items) && !isEmpty(_items) && currentColumn) {
+    forEach(_items, (d: DescriptionItemProps) => {
       const lastOne = renderData[renderData.length - 1];
       const length = getLength(lastOne);
       if (length === 0) {
@@ -90,20 +95,36 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     }
   }
 
-  function renderVerticalItems(d, i) {
+  function renderVerticalItems(d: DescriptionItemProps[], i) {
     return (
       <Fragment key={i}>
         <tr className={`${prefixCls}-row`}>
           {d.map((_d, _i) => {
-            const colSpanProps = _d.span > 1 ? { colSpan: _d.span } : {};
+            const {
+              key,
+              label,
+              value,
+              span,
+              classNames: descriptionItemClassNames,
+              styles: descriptionItemStyles,
+              ...rest
+            } = _d;
+
+            const colSpanProps = span > 1 ? { colSpan: span } : {};
             return (
               <td
-                key={`${_d.key || _i}_label`}
-                className={classNames(`${prefixCls}-item-label`, descriptionClassNames?.label, {
-                  [`${prefixCls}-item-has-colon`]: colon,
-                })}
+                key={`${key || _i}_label`}
+                className={classNames(
+                  `${prefixCls}-item-label`,
+                  descriptionClassNames?.label,
+                  descriptionItemClassNames?.label,
+                  {
+                    [`${prefixCls}-item-has-colon`]: colon,
+                  },
+                )}
                 {...colSpanProps}
-                style={styles?.label}
+                style={Object.assign({}, styles?.label, descriptionItemStyles?.label)}
+                {...rest}
               >
                 {_d.label}
               </td>
@@ -112,15 +133,29 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
         </tr>
         <tr className={`${prefixCls}-row`}>
           {d.map((_d, _i) => {
-            const colSpanProps = _d.span > 1 ? { colSpan: _d.span } : {};
+            const {
+              key,
+              label,
+              value,
+              span,
+              classNames: descriptionItemClassNames,
+              styles: descriptionItemStyles,
+              ...rest
+            } = _d;
+            const colSpanProps = span > 1 ? { colSpan: span } : {};
             return (
               <td
-                key={`${_d.key || _i}_value`}
-                className={classNames(`${prefixCls}-item-value`, descriptionClassNames?.value)}
+                key={`${key || _i}_value`}
+                className={classNames(
+                  `${prefixCls}-item-value`,
+                  descriptionClassNames?.value,
+                  descriptionItemClassNames?.value,
+                )}
                 {...colSpanProps}
-                style={styles?.value}
+                style={Object.assign({}, styles?.value, descriptionItemStyles?.value)}
+                {...rest}
               >
-                {_d.value}
+                {value}
               </td>
             );
           })}
@@ -129,27 +164,47 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     );
   }
 
-  function renderHorizontalItems(d, i) {
+  function renderHorizontalItems(d: DescriptionItemProps[], i) {
     return (
       <tr key={i} className={`${prefixCls}-row`}>
         {d.map((_d, _i) => {
-          const colSpanProps = _d.span > 1 ? { colSpan: _d.span * 2 - 1 } : {};
+          const {
+            key,
+            label,
+            value,
+            span,
+            classNames: descriptionItemClassNames,
+            styles: descriptionItemStyles,
+            ...rest
+          } = _d;
+
+          const colSpanProps = span > 1 ? { colSpan: span * 2 - 1 } : {};
           return (
-            <Fragment key={_d.key || _i}>
+            <Fragment key={key || _i}>
               <td
-                className={classNames(`${prefixCls}-item-label`, descriptionClassNames?.label, {
-                  [`${prefixCls}-item-has-colon`]: colon,
-                })}
-                style={styles?.label}
+                className={classNames(
+                  `${prefixCls}-item-label`,
+                  descriptionClassNames?.label,
+                  descriptionItemClassNames?.label,
+                  {
+                    [`${prefixCls}-item-has-colon`]: colon,
+                  },
+                )}
+                style={Object.assign({}, styles?.label, descriptionItemStyles?.label)}
+                {...rest}
               >
-                {_d.label}
+                {label}
               </td>
               <td
-                className={classNames(`${prefixCls}-item-value`, descriptionClassNames?.value)}
+                className={classNames(
+                  `${prefixCls}-item-value`,
+                  descriptionClassNames?.value,
+                  descriptionItemClassNames?.value,
+                )}
                 {...colSpanProps}
-                style={styles?.value}
+                style={Object.assign({}, styles?.value, descriptionItemStyles?.value)}
               >
-                {_d.value}
+                {value}
               </td>
             </Fragment>
           );
@@ -158,26 +213,44 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     );
   }
 
-  function renderInlineItems(d, i) {
+  function renderInlineItems(d: DescriptionItemProps[], i) {
     return (
       <tr key={i} className={`${prefixCls}-row`}>
         {d.map((_d, _i) => {
-          const colSpanProps = _d.span > 1 ? { colSpan: _d.span } : {};
+          const {
+            key,
+            label,
+            value,
+            span,
+            classNames: descriptionItemClassNames,
+            styles: descriptionItemStyles,
+            ...rest
+          } = _d;
+          const colSpanProps = span > 1 ? { colSpan: span } : {};
           return (
-            <td key={_d.key || _i} {...colSpanProps} className={`${prefixCls}-item`}>
+            <td key={key || _i} {...colSpanProps} className={`${prefixCls}-item`} {...rest}>
               <div
-                className={classNames(`${prefixCls}-item-label-inline`, descriptionClassNames?.label, {
-                  [`${prefixCls}-item-has-colon`]: colon,
-                })}
-                style={styles?.label}
+                className={classNames(
+                  `${prefixCls}-item-label-inline`,
+                  descriptionClassNames?.label,
+                  descriptionItemClassNames?.label,
+                  {
+                    [`${prefixCls}-item-has-colon`]: colon,
+                  },
+                )}
+                style={Object.assign({}, styles?.label, descriptionItemStyles?.label)}
               >
-                {_d.label}
+                {label}
               </div>
               <div
-                className={classNames(`${prefixCls}-item-value-inline`, descriptionClassNames?.value)}
-                style={styles?.value}
+                className={classNames(
+                  `${prefixCls}-item-value-inline`,
+                  descriptionClassNames?.value,
+                  descriptionItemClassNames?.value,
+                )}
+                style={Object.assign({}, styles?.value, descriptionItemStyles?.value)}
               >
-                {_d.value}
+                {value}
               </div>
             </td>
           );
@@ -186,7 +259,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     );
   }
 
-  function renderItems(d, i) {
+  function renderItems(d: DescriptionItemProps[], i) {
     if (layout === 'inline-vertical' || layout === 'inline-horizontal') {
       return renderInlineItems(d, i);
     }
@@ -214,7 +287,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
       )}
       <div className={`${prefixCls}-body`}>
         <table className={`${prefixCls}-table`} cellPadding={0} cellSpacing={0}>
-          <tbody>{renderData.map((d, i) => renderItems(d, i))}</tbody>
+          <tbody>{map(renderData, (d, i) => renderItems(d, i))}</tbody>
         </table>
       </div>
     </div>

@@ -27,11 +27,11 @@ const data = [
 const App: React.FC = () => {
   return (
     <>
-      <Description title="User Info" data={data} column={1} />
+      <Description title="User Info" items={data} column={1} />
       <Divider />
       <Description
         title="User Info"
-        data={data}
+        items={data}
         column={2}
         layout="horizontal"
         colon

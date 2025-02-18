@@ -25,7 +25,7 @@ const data = [
 ];
 
 const App: React.FC = () => {
-  return <Description title="User Info" data={data} />;
+  return <Description title="User Info" items={data} />;
 };
 
 export default App;

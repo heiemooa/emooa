@@ -43,9 +43,9 @@ const App: React.FC = () => {
         </Button>
       </Button.Group>
       <Divider />
-      <Description size={size} title="User Info" data={data} column={2} />
+      <Description size={size} title="User Info" items={data} column={2} />
       <Divider />
-      <Description size={size} title="User Info" data={data} column={2} bordered />
+      <Description size={size} title="User Info" items={data} column={2} bordered />
     </>
   );
 };

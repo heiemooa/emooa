@@ -37,7 +37,7 @@ Generally used for information display on detail pages.
 | colon | Whether to display the colon after the label text | `ReactNode` | - |
 | title | title | `ReactNode` | - |
 | column | Place several columns of data in one row, one data is one column. Supports configuring `column` as a number or object. When configuring the object format, it supports configuring `{ xs: 1, md: 2, lg: 3 }` in this form to support responsive arrangement | `number \| {xs?: number;sm?: number;md?: number;lg?: number;xl?: number;xxl?: number;xxxl?: number;}` | `3` |
-| items | Items describing the list | [DescriptionItemProps](#descriptionitemprops) | - |
+| items | Items describing the list | [DescriptionItemProps[]](#descriptionitemprops) | - |
 
 ### DescriptionItemProps
 
@@ -47,5 +47,14 @@ export type DescriptionItemProps = {
   label?: ReactNode,
   value?: ReactNode,
   span?: number,
-}[];
+  visible?: boolean,
+  classNames?: {
+    label?: string,
+    value?: string,
+  },
+  styles?: {
+    label?: CSSProperties,
+    value?: CSSProperties,
+  },
+};
 ```

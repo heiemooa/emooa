@@ -1,7 +1,38 @@
 import { Size } from '../config-provider/interface';
 import React, { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
-export type DescriptionItemProps = { key?: React.Key; label?: ReactNode; value?: ReactNode; span?: number }[];
+export interface DescriptionItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'> {
+  key?: React.Key;
+  label?: ReactNode;
+  value?: ReactNode;
+  span?: number;
+  visible?: boolean;
+  styles?: {
+    /**
+     * @zh 显示标签的单元格的样式
+     * @en Style of label
+     */
+    label?: CSSProperties;
+    /**
+     * @zh 显示值的单元格的样式
+     * @en Style of value
+     */
+    value?: CSSProperties;
+  };
+
+  classNames?: {
+    /**
+     * @zh 显示标签的单元格的类名
+     * @en Style of label
+     */
+    label?: string;
+    /**
+     * @zh 显示值的单元格的类名
+     * @en Style of value
+     */
+    value?: string;
+  };
+}
 
 /**
  * @title Descriptions
@@ -47,7 +78,7 @@ export interface DescriptionProps extends Omit<HTMLAttributes<HTMLDivElement>, '
    * @zh 描述列表的数据
    * @en Data of the description
    */
-  items?: DescriptionItemProps;
+  items?: DescriptionItemProps[];
   /**
    * @zh
    * 一行放置几列数据，一个数据为一列。支持配置 `column` 为数字或者对象，配置对象格式时，

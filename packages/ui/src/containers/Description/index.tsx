@@ -7,6 +7,11 @@ function App() {
     {
       label: 'Name',
       value: 'Socrates',
+      className: 'abc',
+      classNames: {
+        label: 'a',
+        value: 'b',
+      },
     },
     {
       label: 'Mobile',
@@ -31,30 +36,30 @@ function App() {
       <Description
         layout="horizontal"
         title="horizontal mini"
-        data={data}
+        items={data}
         size="mini"
         bordered
         styles={{ label: { textAlign: 'right' } }}
       />
       <Divider />
-      <Description layout="vertical" title="vertical small" data={data} size="small" bordered />
+      <Description layout="vertical" title="vertical small" items={data} size="small" bordered />
       <Divider />
-      <Description layout="inline-horizontal" title="inline-horizontal medium" data={data} size="medium" bordered />
+      <Description layout="inline-horizontal" title="inline-horizontal medium" items={data} size="medium" bordered />
       <Divider />
-      <Description layout="inline-vertical" title="inline-vertical large" data={data} size="large" bordered />
+      <Description layout="inline-vertical" title="inline-vertical large" items={data} size="large" bordered />
       <Description
         layout="horizontal"
         title="horizontal mini"
-        data={data}
+        items={data}
         size="mini"
         styles={{ label: { textAlign: 'right' } }}
       />
       <Divider />
-      <Description layout="vertical" title="vertical small" data={data} size="small" />
+      <Description layout="vertical" title="vertical small" items={data} size="small" />
       <Divider />
-      <Description layout="inline-horizontal" title="inline-horizontal medium" data={data} size="medium" />
+      <Description layout="inline-horizontal" title="inline-horizontal medium" items={data} size="medium" />
       <Divider />
-      <Description layout="inline-vertical" title="inline-vertical large" data={data} size="large" />
+      <Description layout="inline-vertical" title="inline-vertical large" items={data} size="large" />
     </>
   );
 }
