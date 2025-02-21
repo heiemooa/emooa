@@ -228,7 +228,7 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
       },
     },
     [`${componentCls}-large`]: {
-      fontSize: token.fonts.fontSize,
+      fontSize: token.fonts.fontSizeLG,
       height: `${token.sizes.LG + 16}px`,
       borderRadius: token.rounded.MD,
       [`&${componentCls}-icon-only`]: {

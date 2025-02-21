@@ -6,6 +6,9 @@ export default function getFontSizes(base: number) {
     const intSize = index > 1 ? Math.floor(baseSize) : Math.ceil(baseSize);
 
     // Convert to even
+    if (intSize % 2 === 1) {
+      return Math.ceil(intSize / 2) * 2;
+    }
     return Math.floor(intSize / 2) * 2;
   });
 

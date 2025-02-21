@@ -187,6 +187,20 @@ const App: React.FC = () => {
           <Button type="text">Text</Button>
         </Space>
         <Space>
+          <Button type="primary" size="large">
+            large
+          </Button>
+          <Button type="primary" size="medium">
+            medium
+          </Button>
+          <Button type="primary" size="small">
+            small
+          </Button>
+          <Button type="primary" size="mini">
+            mini
+          </Button>
+        </Space>
+        <Space>
           <Button type="primary" loading>
             Primary
           </Button>
