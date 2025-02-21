@@ -23,7 +23,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     title,
     items,
     bordered,
-    layout = 'horizontal',
+    layout = 'inline-horizontal',
     colon = layout === 'inline-horizontal' ? true : false,
     size = componentSize ?? 'medium',
     ...rest

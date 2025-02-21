@@ -1,13 +1,12 @@
-import { Description, Divider, Space } from '../../../components';
+import { Description, DescriptionProps, Divider, Space } from '../../../components';
 
 import React from 'react';
 
 function App() {
-  const data = [
+  const data: DescriptionProps['items'] = [
     {
       label: 'Name',
       value: 'Socrates',
-      className: 'abc',
       classNames: {
         label: 'a',
         value: 'b',

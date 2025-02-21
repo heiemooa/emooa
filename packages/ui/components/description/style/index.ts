@@ -23,6 +23,7 @@ const genDescriptionStyle: GenerateStyle<TagToken> = token => {
         [`${componentCls}-table`]: {
           width: '100%',
           borderCollapse: 'collapse',
+          tableLayout: 'fixed',
 
           [`${componentCls}-row`]: {
             [`${componentCls}-item-label, ${componentCls}-item-label-inline`]: {
@@ -218,6 +219,7 @@ const genLayoutStyle: GenerateStyle<TagToken, CSSObject> = token => {
     [`${componentCls}-layout-horizontal`]: {
       [`${componentCls}-body`]: {
         [`${componentCls}-table`]: {
+          tableLayout: 'initial',
           [`${componentCls}-row`]: {
             [`${componentCls}-item-label`]: {
               paddingRight: token.margins.LG,
