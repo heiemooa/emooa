@@ -213,7 +213,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     );
   }
 
-  function renderInlineItems(d: DescriptionItemProps[], i) {
+  function renderInlineVerticalItems(d: DescriptionItemProps[], i) {
     return (
       <tr key={i} className={`${prefixCls}-row`}>
         {d.map((_d, _i) => {
@@ -259,11 +259,67 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     );
   }
 
+  function renderInlineHorizontalItems(d: DescriptionItemProps[], i) {
+    return (
+      <tr key={i} className={`${prefixCls}-row`}>
+        {d.map((_d, _i) => {
+          const {
+            key,
+            label,
+            value,
+            span,
+            classNames: descriptionItemClassNames,
+            styles: descriptionItemStyles,
+            ...rest
+          } = _d;
+          const colSpanProps = span > 1 ? { colSpan: span } : {};
+          return (
+            <td key={key || _i} {...colSpanProps} className={`${prefixCls}-item`} {...rest}>
+              <div className={`${prefixCls}-item-container`}>
+                <span
+                  className={classNames(
+                    `${prefixCls}-item-label-inline`,
+                    descriptionClassNames?.label,
+                    descriptionItemClassNames?.label,
+                    {
+                      [`${prefixCls}-item-has-colon`]: colon,
+                    },
+                  )}
+                  style={Object.assign({}, styles?.label, descriptionItemStyles?.label)}
+                >
+                  {label}
+                </span>
+                <span
+                  className={classNames(
+                    `${prefixCls}-item-value-inline`,
+                    descriptionClassNames?.value,
+                    descriptionItemClassNames?.value,
+                  )}
+                  style={Object.assign({}, styles?.value, descriptionItemStyles?.value)}
+                >
+                  {value}
+                </span>
+              </div>
+            </td>
+          );
+        })}
+      </tr>
+    );
+  }
+
   function renderItems(d: DescriptionItemProps[], i) {
-    if (layout === 'inline-vertical' || layout === 'inline-horizontal') {
-      return renderInlineItems(d, i);
+    switch (layout) {
+      case 'horizontal':
+        return renderHorizontalItems(d, i);
+      case 'vertical':
+        return renderVerticalItems(d, i);
+      case 'inline-vertical':
+        return renderInlineVerticalItems(d, i);
+      case 'inline-horizontal':
+        return renderInlineHorizontalItems(d, i);
+      default:
+        return renderInlineHorizontalItems(d, i);
     }
-    return layout === 'vertical' ? renderVerticalItems(d, i) : renderHorizontalItems(d, i);
   }
 
   const classnames = classNames(

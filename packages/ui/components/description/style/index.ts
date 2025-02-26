@@ -26,6 +26,8 @@ const genDescriptionStyle: GenerateStyle<TagToken> = token => {
           tableLayout: 'fixed',
 
           [`${componentCls}-row`]: {
+            verticalAlign: 'top',
+
             [`${componentCls}-item-label, ${componentCls}-item-label-inline`]: {
               color: token.colorTextTertiary,
               fontWeight: token.fonts.fontWeight,
@@ -205,11 +207,11 @@ const genLayoutStyle: GenerateStyle<TagToken, CSSObject> = token => {
         [`${componentCls}-table`]: {
           [`${componentCls}-row`]: {
             [`${componentCls}-item`]: {
-              [`${componentCls}-item-label-inline, ${componentCls}-item-value-inline`]: {
-                display: 'inline-block',
-              },
-              [`${componentCls}-item-label-inline`]: {
-                marginRight: token.margins.XS,
+              [`${componentCls}-item-container`]: {
+                display: 'flex',
+                [`${componentCls}-item-label-inline`]: {
+                  marginRight: token.margins.XS,
+                },
               },
             },
           },
@@ -228,8 +230,27 @@ const genLayoutStyle: GenerateStyle<TagToken, CSSObject> = token => {
           },
         },
       },
+      [`&${componentCls}-bordered`]: {
+        [`${componentCls}-body`]: {
+          [`${componentCls}-table`]: {
+            [`${componentCls}-row`]: {
+              verticalAlign: 'middle',
+            },
+          },
+        },
+      },
     },
-    [`${componentCls}-layout-vertical`]: {},
+    [`${componentCls}-layout-vertical`]: {
+      [`&${componentCls}-bordered`]: {
+        [`${componentCls}-body`]: {
+          [`${componentCls}-table`]: {
+            [`${componentCls}-row`]: {
+              verticalAlign: 'middle',
+            },
+          },
+        },
+      },
+    },
     [`${componentCls}-layout-inline-vertical`]: {
       [`${componentCls}-body`]: {
         [`${componentCls}-table`]: {
