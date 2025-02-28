@@ -19,11 +19,12 @@ import Grid from './containers/Grid';
 import Tag from './containers/Tag';
 import Empty from './containers/Empty';
 import Description from './containers/Description';
+import Tab from './containers/Tab';
 
 function App() {
   return (
     <>
-      <Description />
+      <Tab />
     </>
   );
 }

@@ -19,6 +19,7 @@ import type { ComponentToken as WatermarkComponentToken } from '../../watermark/
 import type { ComponentToken as GridComponentToken } from '../../grid/style';
 import type { ComponentToken as EmptyComponentToken } from '../../empty/style';
 import type { ComponentToken as DescriptionComponentToken } from '../../description/style';
+import type { ComponentToken as TabComponentToken } from '../../tab/style';
 
 export interface ComponentTokenMap {
   App?: AppComponentToken;
@@ -42,4 +43,5 @@ export interface ComponentTokenMap {
   Grid?: GridComponentToken;
   Empty?: EmptyComponentToken;
   Description?: DescriptionComponentToken;
+  Tab?: TabComponentToken;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Description } from '@emooa/ui';
 
-const data = [
+const items = [
   {
     label: 'Name',
     value: 'Emooa',
@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <Description
       title="User Info"
-      items={data}
+      items={items}
       column={{
         xs: 1,
         sm: 2,

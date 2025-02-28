@@ -80,3 +80,6 @@ export type { EmptyProps } from './empty/interface';
 
 export { default as Description } from './description';
 export type { DescriptionProps } from './description/interface';
+
+export { default as Tab } from './tab';
+export type { TabProps } from './tab/interface';

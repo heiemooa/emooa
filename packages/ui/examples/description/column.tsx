@@ -1,7 +1,7 @@
 import React from 'react';
 import { Description, Divider } from '@emooa/ui';
 
-const data = [
+const items = [
   {
     label: 'Name',
     value: 'Emooa',
@@ -27,11 +27,11 @@ const data = [
 const App: React.FC = () => {
   return (
     <>
-      <Description title="User Info" items={data} column={1} />
+      <Description title="User Info" items={items} column={1} />
       <Divider />
       <Description
         title="User Info"
-        items={data}
+        items={items}
         column={2}
         layout="horizontal"
         colon
