@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Description, Divider } from '@emooa/ui';
 
-const data = [
+const items = [
   {
     label: 'Name',
     value: 'Emooa',
@@ -43,9 +43,9 @@ const App: React.FC = () => {
         </Button>
       </Button.Group>
       <Divider />
-      <Description size={size} title="User Info" items={data} column={2} />
+      <Description size={size} title="User Info" items={items} column={2} />
       <Divider />
-      <Description size={size} title="User Info" items={data} column={2} bordered />
+      <Description size={size} title="User Info" items={items} column={2} bordered />
     </>
   );
 };

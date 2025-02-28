@@ -1,7 +1,7 @@
 import React from 'react';
-import { Description } from '@emooa/ui';
+import { Description, DescriptionProps } from '@emooa/ui';
 
-const data = [
+const items: DescriptionProps['items'] = [
   {
     label: 'Name',
     value: 'Emooa',
@@ -25,7 +25,7 @@ const data = [
 ];
 
 const App: React.FC = () => {
-  return <Description title="User Info" items={data} />;
+  return <Description title="User Info" items={items} />;
 };
 
 export default App;

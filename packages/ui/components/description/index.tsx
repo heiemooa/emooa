@@ -21,7 +21,7 @@ const DescriptionComponent = (props: DescriptionProps, ref) => {
     classNames: descriptionClassNames,
     column = 3,
     title,
-    items,
+    items = [],
     bordered,
     layout = 'inline-horizontal',
     colon = layout === 'inline-horizontal' ? true : false,

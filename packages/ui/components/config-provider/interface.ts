@@ -23,6 +23,7 @@ import { AppProps } from '@/app/interface';
 import { TagProps } from '@/tag/interface';
 import { EmptyProps } from '@/empty/interface';
 import { DescriptionProps } from '@/description/interface';
+import { TabItemProps } from '@/tab/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -48,7 +49,8 @@ export type Components = {
   Watermark?: WatermarkProps;
   Tag?: TagProps;
   Empty?: EmptyProps;
-  Description: DescriptionProps;
+  Description?: DescriptionProps;
+  Tab?: TabItemProps;
 };
 
 /**
