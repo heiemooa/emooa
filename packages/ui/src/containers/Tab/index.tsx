@@ -1,15 +1,17 @@
+import { IconEdit } from '@emooa/icon';
 import { Button, Divider, Tab, TabProps } from '../../../components';
 
 import React, { useState } from 'react';
 
 function App() {
   const [size, setSize] = useState<'mini' | 'small' | 'medium' | 'large'>('mini');
-  const [type, setType] = useState<'line' | 'card' | 'card-gutter' | 'rounded' | 'capsule'>('line');
+  const [type, setType] = useState<'line' | 'card' | 'card-gutter' | 'capsule'>('line');
 
   const items: TabProps['items'] = [
     {
       key: '1',
       label: 'Tab 1',
+      icon: <IconEdit />,
       content: 'Content of Tab Pane 1',
       classNames: {
         label: 'label',
@@ -20,6 +22,7 @@ function App() {
       key: '2',
       label: 'Tab 2',
       disabled: true,
+      icon: <IconEdit />,
       content: 'Content of Tab Pane 2',
     },
     {
@@ -55,9 +58,6 @@ function App() {
         </Button>
         <Button onClick={() => setType('card-gutter')} type={type === 'card-gutter' ? 'primary' : 'secondary'}>
           Card Gutter
-        </Button>
-        <Button onClick={() => setType('rounded')} type={type === 'rounded' ? 'primary' : 'secondary'}>
-          Rounded
         </Button>
         <Button onClick={() => setType('capsule')} type={type === 'capsule' ? 'primary' : 'secondary'}>
           Capsule

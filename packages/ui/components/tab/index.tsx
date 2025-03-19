@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, Key, useMemo } from 'react';
+import React, { useContext, forwardRef, Key, useMemo, useRef } from 'react';
 import { TabItemProps, TabProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
@@ -9,6 +9,7 @@ import useValue from '@/_utils/hooks/useValue';
 import { IconPlus } from '@emooa/icon';
 import { Enter } from '@/_utils/keycode';
 import Button from '@/button';
+import TabInk from './tab-ink';
 
 const TabComponent = (props: TabProps, ref) => {
   const { getPrefixCls, components, size: componentSize, rtl }: ConfigProviderProps = useContext(ConfigContext);
@@ -82,34 +83,52 @@ const TabComponent = (props: TabProps, ref) => {
             }
           }}
         >
-          <Button size="mini" shape="circle" icon={icons?.add || <IconPlus />} />
+          <Button type="text" size="mini" shape="circle" icon={icons?.add || <IconPlus />} />
         </span>
       )
     );
   }, [editable]);
 
+  const titleRef = useRef({});
+  const navRef = useRef(null);
   return (
     <div className={classnames} style={style} ref={ref} {...rest}>
       <div className={`${prefixCls}-header`}>
         <div className={`${prefixCls}-navs`}>
-          {map(items, (item: TabItemProps, index) => (
-            <div
-              key={index}
-              className={classNames(`${prefixCls}-nav-item`, {
-                [item.classNames?.label]: !!item.classNames?.label,
-                [`${prefixCls}-nav-item-active`]: activeKey === item.key,
-              })}
-              role="tabnav"
-              aria-selected={activeKey === item.key}
-              tabIndex={activeKey === item.key ? 0 : -1}
-              aria-labelledby={`${prefixCls}-nav-item-${index}`}
-              aria-disabled={item.disabled}
-              onClick={() => onClickTab(item.key, item)}
-              style={item.styles?.label}
-            >
-              <span>{item.label}</span>
-            </div>
-          ))}
+          <div className={`${prefixCls}-nav-items`} ref={navRef}>
+            {map(items, (item: TabItemProps, index) => (
+              <div
+                key={index}
+                className={classNames(`${prefixCls}-nav-item`, {
+                  [item.classNames?.label]: !!item.classNames?.label,
+                  [`${prefixCls}-nav-item-active`]: activeKey === item.key,
+                })}
+                role="tabnav"
+                aria-selected={activeKey === item.key}
+                tabIndex={activeKey === item.key ? 0 : -1}
+                aria-labelledby={`${prefixCls}-nav-item-${index}`}
+                aria-disabled={item.disabled}
+                onClick={() => onClickTab(item.key, item)}
+                style={item.styles?.label}
+                ref={node => {
+                  titleRef.current[`${item.key}`] = node;
+                }}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </div>
+            ))}
+            {type === 'line' && (
+              <TabInk
+                prefixCls={prefixCls}
+                // animation={animation}
+                getTitleRef={key => titleRef.current[key]}
+                activeKey={activeKey}
+                getNavRef={() => navRef}
+                direction={undefined}
+              />
+            )}
+          </div>
           {renderAddIcon}
         </div>
         <div className={`${prefixCls}-extra`}>{extra}</div>
