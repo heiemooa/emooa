@@ -12,6 +12,7 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
 
   return {
     [componentCls]: {
+      background: token.colorBgElevated,
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
       },
@@ -30,18 +31,49 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
           left: 0,
           right: 0,
           height: 1,
-          backgroundColor: token.colorBorder,
+          backgroundColor: token.colorBorderSecondary,
           display: 'block',
         },
 
         [`${componentCls}-navs`]: {
-          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           flex: 1,
+          gap: token.margins.XS,
+          transition: `all ${token.motions.durationSlow} ${token.motions.standard}`,
+
+          [`${componentCls}-nav-items`]: {
+            display: 'flex',
+
+            [`${componentCls}-nav-item`]: {
+              boxSizing: 'border-box',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: token.margins.XXS,
+            },
+
+            [`${componentCls}-nav-item-active`]: {
+              color: token.colorPrimary,
+              transition: `all ${token.motions.durationSlow} ${token.motions.standard}`,
+            },
+          },
+
+          [`${componentCls}-nav-ink`]: {
+            position: 'absolute',
+            bottom: 0,
+            right: 'auto',
+            top: 'auto',
+            height: token.lineWidth * 2,
+            backgroundColor: token.colorPrimary,
+            transition: `left ${token.motions.durationMid} ${token.motions.linear}, width ${token.motions.durationMid} ${token.motions.standard}`,
+          },
+        },
+
+        [`${componentCls}-extra`]: {
+          alignSelf: 'center',
         },
       },
-      [`${componentCls}-content`]: {},
     },
   };
 };
@@ -55,8 +87,8 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
         fontSize: token.fonts.fontSizeSM,
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
-            paddingBlock: unit(token.paddings.XXS / 2),
-            paddingInline: unit(token.paddings.SM),
+            height: `${token.sizes.XS + 16}px`,
+            paddingInline: unit(token.paddings.MD),
           },
         },
       },
@@ -70,7 +102,7 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
 
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
-            paddingBlock: unit(token.paddings.XXS / 2),
+            height: `${token.sizes.SM + 16}px`,
             paddingInline: unit(token.paddings.MD),
           },
         },
@@ -85,7 +117,7 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
 
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
-            paddingBlock: unit(token.paddings.XXS),
+            height: `${token.sizes.MD + 16}px`,
             paddingInline: unit(token.paddings.MD),
           },
         },
@@ -99,13 +131,49 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
         fontSize: token.fonts.fontSize,
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
-            paddingBlock: unit(token.paddings.XXS + 2),
+            height: `${token.sizes.LG + 16}px`,
             paddingInline: unit(token.paddings.MD),
           },
         },
       },
       [`${componentCls}-content`]: {
-        padding: `${token.paddings.LG}px ${token.paddings.MD}px`,
+        padding: `${token.paddings.MD}px ${token.paddings.MD}px`,
+      },
+    },
+    [`${componentCls}-mini${componentCls}-capsule`]: {
+      [`${componentCls}-header`]: {
+        [`${componentCls}-navs`]: {
+          [`${componentCls}-nav-item`]: {
+            height: `${token.sizes.XS + 10}px`,
+          },
+        },
+      },
+    },
+    [`${componentCls}-small${componentCls}-capsule`]: {
+      [`${componentCls}-header`]: {
+        [`${componentCls}-navs`]: {
+          [`${componentCls}-nav-item`]: {
+            height: `${token.sizes.SM + 10}px`,
+          },
+        },
+      },
+    },
+    [`${componentCls}-medium${componentCls}-capsule`]: {
+      [`${componentCls}-header`]: {
+        [`${componentCls}-navs`]: {
+          [`${componentCls}-nav-item`]: {
+            height: `${token.sizes.MD + 10}px`,
+          },
+        },
+      },
+    },
+    [`${componentCls}-large${componentCls}-capsule`]: {
+      [`${componentCls}-header`]: {
+        [`${componentCls}-navs`]: {
+          [`${componentCls}-nav-item`]: {
+            height: `${token.sizes.LG + 10}px`,
+          },
+        },
       },
     },
   };
@@ -122,6 +190,7 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
           [`${componentCls}-nav-item`]: {
             borderRight: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
             borderTop: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+            borderBottom: `${token.lineWidth}px ${token.lineType} transparent`,
 
             [`&:first-of-type`]: {
               borderTopLeftRadius: token.borderRadius / 2,
@@ -133,7 +202,8 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
             },
 
             [`&${componentCls}-nav-item-active`]: {
-              borderBottom: `${token.lineWidth}px ${token.lineType} ${token.colorBgBase}`,
+              position: 'relative',
+              borderBottom: `${token.lineWidth}px ${token.lineType} ${token.colorBgElevated}`,
             },
           },
         },
@@ -142,29 +212,43 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
     [`${componentCls}-card-gutter`]: {
       [`${componentCls}-header`]: {
         [`${componentCls}-navs`]: {
-          columnGap: token.margins.XXS,
-          [`${componentCls}-nav-item`]: {
-            borderRight: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
-            borderLeft: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
-            borderTop: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
-            borderTopLeftRadius: token.borderRadius / 2,
-            borderTopRightRadius: token.borderRadius / 2,
+          [`${componentCls}-nav-items`]: {
+            columnGap: token.margins.XXS,
+
+            [`${componentCls}-nav-item`]: {
+              borderRight: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+              borderLeft: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+              borderTop: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+              borderBottom: `${token.lineWidth}px ${token.lineType} transparent`,
+              borderTopLeftRadius: token.borderRadius / 2,
+              borderTopRightRadius: token.borderRadius / 2,
+
+              [`&${componentCls}-nav-item-active`]: {
+                position: 'relative',
+                borderBottom: `${token.lineWidth}px ${token.lineType} ${token.colorBgElevated}`,
+              },
+            },
           },
         },
       },
     },
-    [`${componentCls}-large`]: {
+    [`${componentCls}-capsule`]: {
       [`${componentCls}-header`]: {
-        fontSize: token.fonts.fontSize,
         [`${componentCls}-navs`]: {
-          [`${componentCls}-nav-item`]: {
-            paddingBlock: unit(token.paddings.XXS + 2),
-            paddingInline: unit(token.paddings.MD),
+          [`${componentCls}-nav-items`]: {
+            columnGap: token.margins.XXS - 1,
+            background: token.colorBgContainer,
+            borderRadius: token.borderRadius / 2,
+            padding: token.paddings.XXS - 1,
+
+            [`${componentCls}-nav-item`]: {
+              [`&${componentCls}-nav-item-active, &:hover`]: {
+                background: token.colorBgElevated,
+                borderRadius: token.borderRadius / 2,
+              },
+            },
           },
         },
-      },
-      [`${componentCls}-content`]: {
-        padding: `${token.paddings.LG}px ${token.paddings.MD}px`,
       },
     },
   };
@@ -244,7 +328,7 @@ const prepareComponentToken: GetDefaultToken<'Tab'> = () => ({});
 export default genStyleHooks(
   'Tab',
   token => {
-    console.log(token.paddings);
+    console.log(token);
     const tagToken = mergeToken<TagToken>(token, {});
     return [genTabStyle(tagToken), genLayoutStyle(tagToken), genSizeStyle(tagToken), genTypeStyle(tagToken)];
   },

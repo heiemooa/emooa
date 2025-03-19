@@ -15,11 +15,9 @@ export default function getFontSizes(base: number) {
   fontSizes[1] = base;
 
   return fontSizes.map(size => {
-    const height = size + 8;
-
     return {
       size,
-      lineHeight: Math.round((height / size) * 10) / 10,
+      lineHeight: (size + 8) / size,
     };
   });
 }

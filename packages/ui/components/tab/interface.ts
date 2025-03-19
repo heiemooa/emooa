@@ -6,6 +6,7 @@ export interface TabItemProps {
   label?: ReactNode;
   disabled?: boolean;
   content?: ReactNode;
+  icon?: ReactNode;
   styles?: {
     /**
      * @zh 显示标签的单元格的样式
@@ -99,7 +100,7 @@ export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' |
    * @en Type of tabs
    * @defaultValue line
    */
-  type?: 'line' | 'card' | 'card-gutter' | 'rounded' | 'capsule';
+  type?: 'line' | 'card' | 'card-gutter' | 'capsule';
   /**
    * @zh 是否允许增减标签。只在 `type` 为 `card` 或 `card-gutter` 时候生效。
    * @en Whether to allow adding or subtracting tabs. It only effect when `type` is `card` or `card-gutter`.
@@ -162,9 +163,4 @@ export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' |
    * @en Callback when click Delete Button
    */
   onDeleteTab?: (key: Key) => void;
-  /**
-   * @zh 自定义选项卡头部
-   * @en Custom Tab Header
-   */
-  // renderTabHeader?: (tabProps: TabProps, DefaultTabHeader: typeof TabHeader) => ReactElement;
 }
