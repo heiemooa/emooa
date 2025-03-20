@@ -7,7 +7,7 @@ function App() {
   const [size, setSize] = useState<'mini' | 'small' | 'medium' | 'large'>('mini');
   const [type, setType] = useState<'line' | 'card' | 'card-gutter' | 'capsule'>('line');
 
-  const items: TabProps['items'] = [
+  const defaultItems: TabProps['items'] = [
     {
       key: '1',
       label: 'Tab 1',
@@ -15,7 +15,12 @@ function App() {
       content: 'Content of Tab Pane 1',
       classNames: {
         label: 'label',
-        content: 'content',
+        content: 'contentaa',
+      },
+      styles: {
+        content: {
+          padding: 10,
+        },
       },
     },
     {
@@ -31,6 +36,8 @@ function App() {
       content: 'Content of Tab Pane 3',
     },
   ];
+
+  const [items, setItems] = useState(defaultItems);
 
   return (
     <>
@@ -71,6 +78,17 @@ function App() {
         size={size}
         defaultActiveKey="1"
         items={items}
+        onDeleteTab={key => setItems(pre => pre.filter(item => item.key !== key))}
+        onAddTab={() =>
+          setItems(pre => [
+            ...pre,
+            {
+              key: items.length + 1,
+              label: `Tab ${items.length + 1}`,
+              content: `Content of Tab Pane ${items.length + 1}`,
+            },
+          ])
+        }
         extra={
           <Button size="small" type="secondary">
             Action

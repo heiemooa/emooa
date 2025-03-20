@@ -8,7 +8,7 @@ export interface ComponentToken {}
 interface TagToken extends FullToken<'Tab'> {}
 
 const genTabStyle: GenerateStyle<TagToken> = token => {
-  const { componentCls } = token;
+  const { componentCls, euiCls } = token;
 
   return {
     [componentCls]: {
@@ -22,6 +22,7 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
         display: 'flex',
         alignItems: 'end',
         fontWeight: token.fonts.fontWeight,
+        gap: token.margins.XS,
 
         ['&::before']: {
           content: '""',
@@ -44,13 +45,22 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
 
           [`${componentCls}-nav-items`]: {
             display: 'flex',
+            whiteSpace: 'nowrap',
 
             [`${componentCls}-nav-item`]: {
               boxSizing: 'border-box',
-              cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
               gap: token.margins.XXS,
+              position: 'relative',
+
+              [`&:not([aria-disabled="true"])`]: {
+                cursor: 'pointer',
+              },
+              [`&[aria-disabled="true"]`]: {
+                cursor: 'no-drop',
+                color: token.colorTextQuaternary,
+              },
             },
 
             [`${componentCls}-nav-item-active`]: {
@@ -73,6 +83,51 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
         [`${componentCls}-extra`]: {
           alignSelf: 'center',
         },
+
+        [`${componentCls}-add-icon`]: {
+          height: 'auto',
+          padding: 1,
+          [`&:not(.eui-btn-disabled)`]: {
+            color: token.colorTextSecondary,
+          },
+        },
+
+        [`${componentCls}-delete-icon`]: {
+          height: 'auto',
+          padding: 1,
+
+          [`&:not(.eui-btn-disabled)`]: {
+            color: token.colorTextSecondary,
+          },
+
+          [`&[disabled]`]: {
+            color: token.colorTextQuaternary,
+          },
+        },
+      },
+
+      [`${componentCls}-content`]: {
+        width: '100%',
+        overflow: 'hidden',
+
+        [`${componentCls}-panes`]: {
+          display: 'flex',
+          width: '100%',
+
+          [`${componentCls}-pane-item`]: {
+            width: '100%',
+            overflow: 'hidden',
+            flexShrink: 0,
+            // padding: token.paddings.MD,
+
+            [`&-active`]: {
+              height: 'auto',
+            },
+            [`&:not(&-active)`]: {
+              height: 0,
+            },
+          },
+        },
       },
     },
   };
@@ -85,6 +140,8 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
     [`${componentCls}-mini`]: {
       [`${componentCls}-header`]: {
         fontSize: token.fonts.fontSizeSM,
+        marginBottom: token.margins.XS,
+
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
             height: `${token.sizes.XS + 16}px`,
@@ -92,13 +149,11 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
           },
         },
       },
-      [`${componentCls}-content`]: {
-        padding: `${token.paddings.XXS}px ${token.paddings.MD}px`,
-      },
     },
     [`${componentCls}-small`]: {
       [`${componentCls}-header`]: {
         fontSize: token.fonts.fontSize,
+        marginBottom: token.margins.XS,
 
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
@@ -107,13 +162,11 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
           },
         },
       },
-      [`${componentCls}-content`]: {
-        padding: `${token.paddings.XS}px ${token.paddings.MD}px`,
-      },
     },
     [`${componentCls}-medium`]: {
       [`${componentCls}-header`]: {
         fontSize: token.fonts.fontSize,
+        marginBottom: token.margins.MD,
 
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
@@ -122,22 +175,18 @@ const genSizeStyle: GenerateStyle<TagToken, CSSObject> = token => {
           },
         },
       },
-      [`${componentCls}-content`]: {
-        padding: `${token.paddings.MD}px ${token.paddings.MD}px`,
-      },
     },
     [`${componentCls}-large`]: {
       [`${componentCls}-header`]: {
         fontSize: token.fonts.fontSize,
+        marginBottom: token.margins.MD,
+
         [`${componentCls}-navs`]: {
           [`${componentCls}-nav-item`]: {
             height: `${token.sizes.LG + 16}px`,
             paddingInline: unit(token.paddings.MD),
           },
         },
-      },
-      [`${componentCls}-content`]: {
-        padding: `${token.paddings.MD}px ${token.paddings.MD}px`,
       },
     },
     [`${componentCls}-mini${componentCls}-capsule`]: {
@@ -183,7 +232,41 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
   const { componentCls } = token;
 
   return {
-    [`${componentCls}-line`]: {},
+    [`${componentCls}-line`]: {
+      [`${componentCls}-header`]: {
+        [`${componentCls}-navs`]: {
+          [`${componentCls}-nav-item`]: {
+            marginInline: token.margins.MD,
+            paddingInline: 0,
+            zIndex: 1,
+
+            [`&:not([aria-disabled="true"]):not(${componentCls}-nav-item-active):hover::before`]: {
+              content: "''",
+              top: token.margins.XS / 2,
+              bottom: token.margins.XS / 2,
+              left: -token.margins.MD / 2,
+              right: -token.margins.MD / 2,
+              borderRadius: token.borderRadius,
+              position: 'absolute',
+              background: token.colorBgContainer,
+              transition: `all ${token.motions.durationSlow} ${token.motions.standard}`,
+              zIndex: -1,
+            },
+
+            [`&:not(:first-child)::after`]: {
+              position: 'absolute',
+              width: token.lineWidth,
+              height: '50%',
+              left: -token.margins.MD,
+              content: '""',
+              top: 0,
+              transform: 'translateY(50%)',
+              background: token.colorBorder,
+            },
+          },
+        },
+      },
+    },
     [`${componentCls}-card`]: {
       [`${componentCls}-header`]: {
         [`${componentCls}-navs`]: {
@@ -202,8 +285,11 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
             },
 
             [`&${componentCls}-nav-item-active`]: {
-              position: 'relative',
               borderBottom: `${token.lineWidth}px ${token.lineType} ${token.colorBgElevated}`,
+            },
+
+            [`&[aria-disabled="true"]`]: {
+              background: token.colorBgContainerDisabled,
             },
           },
         },
@@ -223,8 +309,11 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
               borderTopLeftRadius: token.borderRadius / 2,
               borderTopRightRadius: token.borderRadius / 2,
 
+              [`&[aria-disabled="true"]`]: {
+                background: token.colorBgContainerDisabled,
+              },
+
               [`&${componentCls}-nav-item-active`]: {
-                position: 'relative',
                 borderBottom: `${token.lineWidth}px ${token.lineType} ${token.colorBgElevated}`,
               },
             },
@@ -242,9 +331,20 @@ const genTypeStyle: GenerateStyle<TagToken, CSSObject> = token => {
             padding: token.paddings.XXS - 1,
 
             [`${componentCls}-nav-item`]: {
-              [`&${componentCls}-nav-item-active, &:hover`]: {
+              [`&${componentCls}-nav-item-active, &:not([aria-disabled="true"]):hover`]: {
                 background: token.colorBgElevated,
                 borderRadius: token.borderRadius / 2,
+              },
+
+              [`&:not(:last-child):not(${componentCls}-nav-item-active)::before`]: {
+                position: 'absolute',
+                width: token.lineWidth,
+                height: '50%',
+                right: -1,
+                content: '""',
+                top: 0,
+                transform: 'translateY(50%)',
+                background: token.colorBorder,
               },
             },
           },

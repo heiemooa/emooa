@@ -1,12 +1,12 @@
-import React, { useContext, forwardRef, Key, useMemo, useRef } from 'react';
+import React, { useContext, forwardRef, Key, useMemo, useRef, useCallback } from 'react';
 import { TabItemProps, TabProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
 import classNames from 'classnames';
 import useStyle from './style';
-import { map, get } from 'lodash';
+import { map, get, findIndex } from 'lodash';
 import useValue from '@/_utils/hooks/useValue';
-import { IconPlus } from '@emooa/icon';
+import { IconClose, IconPlus } from '@emooa/icon';
 import { Enter } from '@/_utils/keycode';
 import Button from '@/button';
 import TabInk from './tab-ink';
@@ -24,7 +24,6 @@ const TabComponent = (props: TabProps, ref) => {
     size = componentSize ?? 'medium',
     defaultActiveKey,
     activeKey: _activeKey,
-    animation,
     type = 'line',
     editable,
     icons,
@@ -40,6 +39,9 @@ const TabComponent = (props: TabProps, ref) => {
 
   const prefixCls = getPrefixCls('tab');
   const [hashId] = useStyle(prefixCls);
+
+  const titleRef = useRef({});
+  const navRef = useRef(null);
 
   const [activeKey, setActivekey] = useValue<Key>(get(items, '[0].key') as Key, {
     defaultValue: 'defaultActiveKey' in props ? defaultActiveKey : undefined,
@@ -59,22 +61,31 @@ const TabComponent = (props: TabProps, ref) => {
   );
 
   const onClickTab = (key: Key, item: TabItemProps) => {
+    if (item.disabled) return;
     _onClickTab?.(key, item);
     setActivekey(key);
     onChange?.(key);
   };
 
   const handleAdd = e => {
+    e.stopPropagation();
     onAddTab?.();
+  };
+
+  const handleDelete = (e, key: Key) => {
+    e.stopPropagation();
+    onDeleteTab?.(key);
   };
 
   const renderAddIcon = useMemo(() => {
     return (
       editable && (
-        <span
+        <Button
           className={`${prefixCls}-add-icon`}
-          aria-label="add tab"
-          tabIndex={0}
+          type="text"
+          size="mini"
+          shape="circle"
+          icon={icons?.add || <IconPlus fontSize="12px" />}
           onClick={handleAdd}
           onKeyDown={e => {
             const keyCode = e.keyCode || e.which;
@@ -82,15 +93,38 @@ const TabComponent = (props: TabProps, ref) => {
               handleAdd(e);
             }
           }}
-        >
-          <Button type="text" size="mini" shape="circle" icon={icons?.add || <IconPlus />} />
-        </span>
+        />
       )
     );
   }, [editable]);
 
-  const titleRef = useRef({});
-  const navRef = useRef(null);
+  const renderDeleteIcon = useCallback(
+    (item: TabItemProps) => {
+      return (
+        editable &&
+        !item.disabled && (
+          <Button
+            disabled={item.disabled}
+            className={`${prefixCls}-delete-icon`}
+            type="text"
+            size="mini"
+            shape="circle"
+            icon={icons?.delete || <IconClose fontSize="12px" />}
+            onClick={e => handleDelete(e, item.key)}
+            onKeyDown={e => {
+              const keyCode = e.keyCode || e.which;
+              if (keyCode === Enter.code) {
+                handleDelete(e, item.key);
+              }
+            }}
+          />
+        )
+      );
+    },
+    [editable],
+  );
+
+  const activeIndex = findIndex(items, { key: activeKey });
   return (
     <div className={classnames} style={style} ref={ref} {...rest}>
       <div className={`${prefixCls}-header`}>
@@ -103,9 +137,9 @@ const TabComponent = (props: TabProps, ref) => {
                   [item.classNames?.label]: !!item.classNames?.label,
                   [`${prefixCls}-nav-item-active`]: activeKey === item.key,
                 })}
-                role="tabnav"
+                role="tab-nav"
                 aria-selected={activeKey === item.key}
-                tabIndex={activeKey === item.key ? 0 : -1}
+                tabIndex={activeKey === item.key || item.disabled !== true ? 0 : -1}
                 aria-labelledby={`${prefixCls}-nav-item-${index}`}
                 aria-disabled={item.disabled}
                 onClick={() => onClickTab(item.key, item)}
@@ -113,15 +147,21 @@ const TabComponent = (props: TabProps, ref) => {
                 ref={node => {
                   titleRef.current[`${item.key}`] = node;
                 }}
+                onKeyDown={event => {
+                  const keyCode = event.keyCode || event.which;
+                  if (keyCode === Enter.code) {
+                    onClickTab(item.key, event);
+                  }
+                }}
               >
                 {item.icon}
                 <span>{item.label}</span>
+                {renderDeleteIcon(item)}
               </div>
             ))}
             {type === 'line' && (
               <TabInk
                 prefixCls={prefixCls}
-                // animation={animation}
                 getTitleRef={key => titleRef.current[key]}
                 activeKey={activeKey}
                 getNavRef={() => navRef}
@@ -134,22 +174,27 @@ const TabComponent = (props: TabProps, ref) => {
         <div className={`${prefixCls}-extra`}>{extra}</div>
       </div>
       <div className={`${prefixCls}-content`}>
-        {map(items, (item: TabItemProps, index) => (
-          <div
-            key={index}
-            className={classNames(`${prefixCls}-content-item`, {
-              [item.classNames?.content]: !!item.classNames?.content,
-              [`${prefixCls}-content-item-active`]: activeKey === item.key,
-            })}
-            role="tabpanel"
-            tabIndex={activeKey === item.key ? 0 : -1}
-            aria-hidden={activeKey !== item.key}
-            aria-labelledby={`${prefixCls}-content-item-${index}`}
-            style={item.styles?.content}
-          >
-            {item.content}
-          </div>
-        ))}
+        <div
+          className={`${prefixCls}-panes`}
+          style={rtl ? { marginRight: `-${activeIndex * 100}%` } : { marginLeft: `-${activeIndex * 100}%` }}
+        >
+          {map(items, (item: TabItemProps, index) => (
+            <div
+              key={index}
+              className={classNames(`${prefixCls}-pane-item`, {
+                [item.classNames?.content]: !!item.classNames?.content,
+                [`${prefixCls}-pane-item-active`]: activeKey === item.key,
+              })}
+              role="tab-pane"
+              tabIndex={activeKey === item.key ? 0 : -1}
+              aria-hidden={activeKey !== item.key}
+              aria-labelledby={`${prefixCls}-pane-item-${index}`}
+              style={item.styles?.content}
+            >
+              {item.content}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
