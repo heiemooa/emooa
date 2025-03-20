@@ -80,11 +80,6 @@ export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' |
    */
   activeKey?: Key;
   /**
-   * @zh 是否开启过渡效果
-   * @en Whether to turn on the transition animation
-   */
-  animation?: boolean | { tabPane?: boolean; inkBar?: boolean };
-  /**
    * @zh 选项卡位置
    * @en Position of tabs
    * @defaultValue top

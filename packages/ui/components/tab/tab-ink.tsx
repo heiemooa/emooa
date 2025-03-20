@@ -1,5 +1,5 @@
 import React, { useRef, CSSProperties, useEffect } from 'react';
-import isEqualWith from 'lodash/isEqualWith';
+import { isEqualWith } from 'lodash';
 import classNames from 'classnames';
 import { caf, raf } from '@/_utils/raf';
 
@@ -36,11 +36,11 @@ const throttleByRaf = (cb: (...args: any[]) => void) => {
   return throttle;
 };
 
-const getInkStyle = (direction, curTitle, headerRef) => {
+const getInkStyle = (direction, curTitle, navRef) => {
   let style: CSSProperties = { left: '', width: '', top: '', height: '' };
 
   if (curTitle) {
-    const diffStyle = getRectDiff(curTitle, headerRef);
+    const diffStyle = getRectDiff(curTitle, navRef);
     if (direction === 'vertical') {
       style = {
         top: `${diffStyle.top}px`,
@@ -67,7 +67,7 @@ const TabInk = ({ prefixCls, direction, getTitleRef, activeKey, getNavRef }) => 
   useEffect(() => {
     const setInkStyle = throttleByRaf(() => {
       const curTitle = getTitleRef(activeKey);
-      const newStyle = getInkStyle(direction, curTitle, getNavRef('headerRef').current);
+      const newStyle = getInkStyle(direction, curTitle, getNavRef('navRef').current);
 
       if (newStyle && !isEqualWith(inkStyleRef.current, newStyle)) {
         inkStyleRef.current = newStyle;
