@@ -23,7 +23,7 @@ import { AppProps } from '@/app/interface';
 import { TagProps } from '@/tag/interface';
 import { EmptyProps } from '@/empty/interface';
 import { DescriptionProps } from '@/description/interface';
-import { TabItemProps } from '@/tab/interface';
+import { TabProps } from '@/tab/interface';
 
 export type Size = 'mini' | 'small' | 'medium' | 'large';
 
@@ -50,7 +50,7 @@ export type Components = {
   Tag?: TagProps;
   Empty?: EmptyProps;
   Description?: DescriptionProps;
-  Tab?: TabItemProps;
+  Tab?: TabProps;
 };
 
 /**

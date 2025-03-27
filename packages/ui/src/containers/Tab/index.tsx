@@ -1,7 +1,7 @@
 import { IconEdit } from '@emooa/icon';
-import { Button, Divider, Tab, TabProps } from '../../../components';
+import { Button, ConfigProvider, Divider, Tab, TabProps } from '../../../components';
 
-import React, { useState } from 'react';
+import React, { Key, useState } from 'react';
 
 function App() {
   const [size, setSize] = useState<'mini' | 'small' | 'medium' | 'large'>('mini');
@@ -38,9 +38,10 @@ function App() {
   ];
 
   const [items, setItems] = useState(defaultItems);
+  const [activeKey, setActiveKey] = useState<Key>('1');
 
   return (
-    <>
+    <ConfigProvider>
       <Button.Group>
         <Button onClick={() => setSize('mini')} type={size === 'mini' ? 'primary' : 'secondary'}>
           Mini
@@ -77,25 +78,32 @@ function App() {
         editable
         size={size}
         defaultActiveKey="1"
+        activeKey={activeKey}
+        onChange={key => setActiveKey(key)}
         items={items}
         onDeleteTab={key => setItems(pre => pre.filter(item => item.key !== key))}
-        onAddTab={() =>
-          setItems(pre => [
-            ...pre,
-            {
-              key: items.length + 1,
-              label: `Tab ${items.length + 1}`,
-              content: `Content of Tab Pane ${items.length + 1}`,
-            },
-          ])
-        }
+        onAddTab={() => {
+          setItems(pre => {
+            const key = `${Date.now()}`;
+            setActiveKey(key);
+
+            return [
+              ...pre,
+              {
+                key,
+                label: `Tab ${pre.length + 1}`,
+                content: `Content of Tab Pane ${pre.length + 1}`,
+              },
+            ];
+          });
+        }}
         extra={
           <Button size="small" type="secondary">
             Action
           </Button>
         }
       />
-    </>
+    </ConfigProvider>
   );
 }
 

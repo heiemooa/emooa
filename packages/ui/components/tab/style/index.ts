@@ -20,7 +20,7 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
       [`${componentCls}-header`]: {
         position: 'relative',
         display: 'flex',
-        alignItems: 'end',
+        alignItems: 'center',
         fontWeight: token.fonts.fontWeight,
         gap: token.margins.XS,
 
@@ -39,13 +39,15 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
         [`${componentCls}-navs`]: {
           display: 'flex',
           alignItems: 'center',
-          flex: 1,
+          alignSelf: 'end',
           gap: token.margins.XS,
           transition: `all ${token.motions.durationSlow} ${token.motions.standard}`,
+          overflow: 'hidden',
 
           [`${componentCls}-nav-items`]: {
             display: 'flex',
             whiteSpace: 'nowrap',
+            transition: `transform ${token.motions.durationMid} ${token.motions.linear}`,
 
             [`${componentCls}-nav-item`]: {
               boxSizing: 'border-box',
@@ -81,7 +83,7 @@ const genTabStyle: GenerateStyle<TagToken> = token => {
         },
 
         [`${componentCls}-extra`]: {
-          alignSelf: 'center',
+          marginLeft: 'auto',
         },
 
         [`${componentCls}-add-icon`]: {

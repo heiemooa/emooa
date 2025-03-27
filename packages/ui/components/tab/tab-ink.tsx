@@ -2,20 +2,7 @@ import React, { useRef, CSSProperties, useEffect } from 'react';
 import { isEqualWith } from 'lodash';
 import classNames from 'classnames';
 import { caf, raf } from '@/_utils/raf';
-
-const getRectDiff = (node: HTMLElement, parentNode: HTMLElement) => {
-  const nodeRect = node.getBoundingClientRect();
-  const parentRect = parentNode.getBoundingClientRect();
-  const scaleX = parentNode.offsetWidth / parentRect.width;
-  const scaleY = parentNode.offsetHeight / parentRect.height;
-
-  return {
-    left: (nodeRect.left - parentRect.left) * scaleX,
-    top: (nodeRect.top - parentRect.top) * scaleY,
-    right: (nodeRect.right - parentRect.right) * scaleX,
-    bottom: (nodeRect.bottom - parentRect.bottom) * scaleY,
-  };
-};
+import { getRectDiff } from './util';
 
 const throttleByRaf = (cb: (...args: any[]) => void) => {
   let timer: null | number = null;
@@ -67,7 +54,7 @@ const TabInk = ({ prefixCls, direction, getTitleRef, activeKey, getNavRef }) => 
   useEffect(() => {
     const setInkStyle = throttleByRaf(() => {
       const curTitle = getTitleRef(activeKey);
-      const newStyle = getInkStyle(direction, curTitle, getNavRef('navRef').current);
+      const newStyle = getInkStyle(direction, curTitle, getNavRef().current);
 
       if (newStyle && !isEqualWith(inkStyleRef.current, newStyle)) {
         inkStyleRef.current = newStyle;

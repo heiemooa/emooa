@@ -38,6 +38,27 @@ const genBtnTypeStyle = (btnTypeCls: string, token: ButtonToken, status: string)
         },
       },
     },
+
+    [`&-rtl > ${componentCls}:not(:last-child)`]: {
+      [`&${btnTypeCls}${componentCls}-secondary`]: {
+        borderRight: `${token.lineWidth}px ${token.lineType} transparent`,
+      },
+
+      [`&${btnTypeCls}${componentCls}-primary`]: {
+        borderRight: `${token.lineWidth}px ${token.lineType} transparent`,
+      },
+    },
+
+    [`&-rtl > ${componentCls}:not(:first-child)`]: {
+      [`&${btnTypeCls}${componentCls}-secondary`]: {
+        borderRight: `${token.lineWidth}px ${token.lineType} ${token[`secondary${status}ColorBgHover`]}`,
+      },
+
+      [`&${btnTypeCls}${componentCls}-primary`]: {
+        borderRight: `${token.lineWidth}px ${token.lineType} ${token[`secondary${status}ColorBgHover`]}`,
+      },
+    },
+
     [`> ${componentCls}:not(:first-child)`]: {
       [`&${btnTypeCls}${componentCls}-secondary`]: {
         '&:active': {
@@ -92,6 +113,10 @@ const genGroupStyle: GenerateStyle<ButtonToken> = token => {
         [`> ${componentCls}:not(:first-child)`]: {
           borderStartStartRadius: 0,
           borderEndStartRadius: 0,
+        },
+
+        [`&-rtl`]: {
+          direction: 'rtl',
         },
       },
 
