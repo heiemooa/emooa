@@ -115,50 +115,48 @@ const Component: React.FC = () => {
               <p className="mt-2">{bing?.copyright}</p>
             </div>
           </div>
-          <div>
-            <Space wrap size={24} className="mt-10 max-w-full">
-              <div className="mt-2">
-                <h1 className="text-xl mb-2 border-b-4 table">{locales.greyscale}</h1>
-                <Image
-                  motion
-                  src={`https://cdn.emooa.com/${bing?.url?.greyscale}`}
-                  placeholder={bing?.base64}
-                  height={200}
-                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
-                />
-              </div>
-              <div className="mt-2">
-                <h1 className="text-xl mb-2 border-b-4 table">{locales.gaussian}</h1>
-                <Image
-                  motion
-                  src={`https://cdn.emooa.com/${bing?.url?.gaussian}`}
-                  placeholder={bing?.base64}
-                  height={200}
-                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
-                />
-              </div>
-              <div className="mt-2">
-                <h1 className="text-xl mb-2 border-b-4 table">HD</h1>
-                <Image
-                  motion
-                  src={`https://cdn.emooa.com/${bing?.url?.hd}`}
-                  placeholder={bing?.base64}
-                  height={200}
-                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
-                />
-              </div>
-              <div className="mt-2">
-                <h1 className="text-xl mb-2 border-b-4 table">UHD</h1>
-                <Image
-                  motion
-                  src={`https://cdn.emooa.com/${bing?.url?.uhd}`}
-                  content="点击加载"
-                  placeholder={bing?.base64}
-                  height={200}
-                  style={{ aspectRatio: 16 / 9, maxWidth: '100%' }}
-                />
-              </div>
-            </Space>
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-2">
+              <h1 className="text-xl mb-2 border-b-4 table">{locales.greyscale}</h1>
+              <Image
+                motion
+                src={`https://cdn.emooa.com/${bing?.url?.greyscale}`}
+                placeholder={bing?.base64}
+                style={{ aspectRatio: 279 / 157 }}
+                width={'100%'}
+              />
+            </div>
+            <div className="mt-2">
+              <h1 className="text-xl mb-2 border-b-4 table">{locales.gaussian}</h1>
+              <Image
+                motion
+                src={`https://cdn.emooa.com/${bing?.url?.gaussian}`}
+                placeholder={bing?.base64}
+                style={{ aspectRatio: 279 / 157 }}
+                width={'100%'}
+              />
+            </div>
+            <div className="mt-2">
+              <h1 className="text-xl mb-2 border-b-4 table">HD</h1>
+              <Image
+                motion
+                src={`https://cdn.emooa.com/${bing?.url?.hd}`}
+                placeholder={bing?.base64}
+                style={{ aspectRatio: 279 / 157 }}
+                width={'100%'}
+              />
+            </div>
+            <div className="mt-2">
+              <h1 className="text-xl mb-2 border-b-4 table">UHD</h1>
+              <Image
+                motion
+                src={`https://cdn.emooa.com/${bing?.url?.uhd}`}
+                content="点击加载"
+                placeholder={bing?.base64}
+                style={{ aspectRatio: 279 / 157 }}
+                width={'100%'}
+              />
+            </div>
           </div>
         </>
       )}

@@ -18,6 +18,7 @@ import ImagePreviewGroup from './ImagePreviewGroup';
 import { PreviewGroupContext } from './previewGroupContext';
 import omit from '@/_utils/omit';
 import { isPlainObject, isNumber, isUndefined } from 'lodash';
+import EuiCSSTransition from '@/_utils/css-trasition';
 
 type ImagePropsType = ImageProps & { _index?: number };
 
@@ -261,7 +262,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     if (lazy || placeholder || delay || content) {
       return ele;
     }
-    return null;
+    return <div></div>;
   };
 
   function onImgClick(e) {
@@ -299,6 +300,28 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         }
       }}
     >
+      <div className={`${prefixCls}-overlay`}>
+        {isError && renderError()}
+
+        <EuiCSSTransition
+          in={!!(isLoading || (content && isBeforeLoad))}
+          timeout={400}
+          appear
+          mountOnEnter
+          unmountOnExit
+          onEnter={e => {
+            if (!e) return;
+            e.parentNode.style.display = '';
+          }}
+          onExited={e => {
+            if (!e) return;
+            if (isError) return;
+            e.parentNode.style.display = 'none';
+          }}
+        >
+          {renderLoader()}
+        </EuiCSSTransition>
+      </div>
       <img
         className={`${prefixCls}-img`}
         ref={refImg}
@@ -313,12 +336,6 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
         style={{ height: '100%', width: '100%' }}
         {...rest}
       />
-      {!isLoaded && (
-        <div className={`${prefixCls}-overlay`}>
-          {isError && renderError()}
-          {(isLoading || content) && renderLoader()}
-        </div>
-      )}
       {isLoaded && showFooter && (
         <ImageFooter title={title} description={description} actions={actions} prefixCls={prefixCls} />
       )}

@@ -113,11 +113,62 @@
   }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1080px) {
   .dumi-default-doc-layout > main > .dumi-default-doc-layout-toc-wrapper {
     display: none;
   }
   .dumi-default-hero-title > span {
     font-size: 100px !important;
+  }
+
+  .dumi-default-header {
+    &-content {
+      .dumi-default-navbar > li {
+        margin-inline: 12px !important;
+      }
+    }
+    .dumi-default-search-bar-input {
+      font-size: 0.75rem !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .dumi-default-doc-layout:not([data-mobile-sidebar-active]) .dumi-default-sidebar {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    max-height: initial;
+    padding-inline-start: 32px;
+    background-color: #f7f9fb;
+    border-top: 1px solid #e4e9ec;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: 0.2s all;
+  }
+  .dumi-default-doc-layout-mobile-bar + main > .dumi-default-content {
+    max-width: initial;
+    margin: 0 -24px;
+    padding: 24px 24px 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .dumi-default-doc-layout-mobile-bar {
+    display: flex;
+  }
+
+  .dumi-default-header:not([data-mobile-active]) .dumi-default-header-right {
+    opacity: 0;
+    visibility: hidden;
+    padding-top: 20px;
+  }
+  .dumi-default-header-menu-btn {
+    display: 'block';
   }
 }

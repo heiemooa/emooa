@@ -103,6 +103,9 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
           justifyContent: 'center',
           textAlign: 'center',
           color: token.colorTextSecondary,
+          position: 'absolute',
+          top: '0',
+          left: 0,
 
           [`${componentCls}-loader-spin`]: {
             fontSize: token.fonts.fontSize,

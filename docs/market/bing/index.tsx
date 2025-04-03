@@ -57,9 +57,9 @@ const Component: React.FC = () => {
             preview={false}
             onClick={() => {
               if (locale.id === 'en-US') {
-                history.push(`/en-US/market/bing/info?idx=${item.key}`);
+                window.open(`/en-US/market/bing/info?idx=${item.key}`);
               } else {
-                history.push(`/market/bing/info?idx=${item.key}`);
+                window.open(`/market/bing/info?idx=${item.key}`);
               }
             }}
           />

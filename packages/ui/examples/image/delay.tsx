@@ -10,25 +10,27 @@ const App: React.FC = () => {
         Delay Load
       </Button>
       <Divider />
-      <Space>
+      <Space wrap>
         <Image
-          src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`}
-          delay={300}
+          src={`https://api.emooa.com/aimg?timestamp=${timestamp}`}
+          delay={600}
           height={150}
+          style={{ aspectRatio: 16 / 9 }}
           placeholder={true}
         />
         <Image
-          src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`}
+          src={`https://api.emooa.com/aimg?timestamp=${timestamp}`}
           delay={300}
           height={150}
+          style={{ aspectRatio: 16 / 9 }}
           motion
           placeholder={true}
         />
         <Image
           motion
-          src={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`}
+          src={`https://api.emooa.com/aimg?timestamp=${timestamp}`}
           content="点击加载"
-          placeholder={`https://api.emooa.com/aimg?idx=2&timestamp=${timestamp}`}
+          placeholder={`https://api.emooa.com/aimg?timestamp=${timestamp}`}
           height={150}
           style={{ aspectRatio: 16 / 9 }}
         />
