@@ -39,7 +39,7 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
   const getPreviewUrlMap = () => (propPreviewUrlMap ? new Map(propPreviewUrlMap) : new Map());
   const [previewUrlMap, setPreviewUrlMap] = useState<PreviewUrlMap>(getPreviewUrlMap());
 
-  const previewPropsMapRef = useRef<Map<number, Partial<ImagePreviewProps>>>();
+  const previewPropsMapRef = useRef<Map<number, Partial<ImagePreviewProps>> | undefined>(undefined);
   const previewPropsMap = previewPropsMapRef.current || new Map();
 
   const setPreviewPropsMap = (
@@ -99,7 +99,7 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
     };
   }
 
-  const refPreview = useRef<ImagePreviewHandle>();
+  const refPreview = useRef<ImagePreviewHandle | null>(null);
 
   useImperativeHandle<any, ImagePreviewGroupHandle>(ref, () => ({
     reset: () => {
@@ -188,7 +188,7 @@ function PreviewGroup(props: PropsWithChildren<ImagePreviewGroupProps>, ref) {
         onVisibleChange={handleVisibleChange}
         {...restProps}
       />
-      {/* {forceRender && renderList()} */}
+      {forceRender && renderList()}
     </PreviewGroupContext.Provider>
   );
 }

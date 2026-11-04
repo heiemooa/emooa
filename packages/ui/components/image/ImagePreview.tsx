@@ -72,9 +72,9 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
       originY: 0,
     });
 
-    const refRootWrapper = useRef<HTMLDivElement>();
-    const refWrapper = useRef<HTMLDivElement>();
-    const refImage = useRef<HTMLImageElement>();
+    const refRootWrapper = useRef<HTMLDivElement | null>(null);
+    const refWrapper = useRef<HTMLDivElement | null>(null);
+    const refImage = useRef<HTMLImageElement | null>(null);
     const scaleValueTimer = useRef(null);
 
     const {
@@ -118,7 +118,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps & { mouseP
 
     const previewScales = useMemo(() => {
       return new PreviewScales(scales);
-    }, []);
+    }, [scales]);
 
     const { onLoad, onError, onMouseDown, style: imgStyle, className: imgClassName, ...restImg } = extra;
 

@@ -89,9 +89,9 @@ const Component = (props: DrawerProps, ref) => {
     beforeFirstOpen.current = false;
   }
 
-  const dialogIndex = useRef<number>();
+  const dialogIndex = useRef<number | undefined>(undefined);
 
-  if (!dialogIndex.current) {
+  if (dialogIndex.current === undefined) {
     dialogIndex.current = globalDialogIndex++;
   }
 

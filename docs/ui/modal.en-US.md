@@ -98,7 +98,7 @@ Modal.destroyAll();
 
 ### Modal.useModal
 
-Use method function to open Modal, such as `Modal.confirm` `Modal.warning`, because it is directly rendered through `ReactDOM.render`, so it is not in the context, so you cannot get `context`. If you want to get context, you can use `useModal`, Put the `contextHolder` in the context.
+Use methods such as `Modal.confirm` and `Modal.warning` to open a modal. They create a separate React root and therefore cannot access the current context. To preserve context, use the `useModal` hook and place its `contextHolder` inside the provider tree.
 
 ```js
 const [modal, contextHolder] = Modal.useModal();

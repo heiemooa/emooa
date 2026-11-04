@@ -71,7 +71,7 @@ Usage
 
 ### Message.useMessage Methods
 
-Use the dialog box through methods, such as `Message.info` `Message.success`, because it is directly rendered through `ReactDOM.render`, so it is not in the context, so you cannot get `context`. If you want to get the context `context`, you can use `useMessage` to call the hook method and put `contextHolder` into the context.
+Use methods such as `Message.info` and `Message.success` to display a message. They create a separate React root and therefore cannot access the current context. To preserve context, use the `useMessage` hook and place its `contextHolder` inside the provider tree.
 
 ```js
 const [message, contextHolder] = Message.useMessage();

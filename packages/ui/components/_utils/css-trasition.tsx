@@ -1,56 +1,57 @@
-import React, { Component, ReactElement, cloneElement, createRef, useMemo, useRef } from 'react';
+import React, { ReactElement, cloneElement, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { supportRef } from './is';
-import { isFunction } from 'lodash';
-import ReactDOM from 'react-dom';
+import { isDOMElement } from './is';
 
-const callbackOriginRef = (children: CSSTransition, node) => {
-  if (children && children.ref) {
-    if (isFunction(children.ref)) {
-      children?.ref(node);
-    }
-    if ('current' in children.ref) {
-      children.ref.current = node;
-    }
+const callbackOriginRef = (children: ReactElement<any>, node: Element | null) => {
+  const originRef = children.props.ref;
+  if (typeof originRef === 'function') {
+    return originRef(node);
+  } else if (originRef && typeof originRef === 'object') {
+    originRef.current = node;
   }
 };
 
-const findDOMNode = element => {
-  if (!element) return null;
-  // 类组件，非 forwardRef(function component) 都拿不到真实dom
-  if (element instanceof Element) {
-    return element;
+const supportsDOMRef = (element: React.ReactNode) => {
+  if (isDOMElement(element)) return true;
+  return (
+    React.isValidElement(element) &&
+    (element.type as any)?.$$typeof === Symbol.for('react.forward_ref')
+  );
+};
+
+const getDOMNode = (instance: any): Element | null => {
+  if (typeof Element !== 'undefined' && instance instanceof Element) {
+    return instance;
   }
 
-  if (element.current && element.current instanceof Element) {
-    return element.current;
-  }
-
-  if (element instanceof Component) {
-    return ReactDOM.findDOMNode(element);
-  }
-
-  if (isFunction(element.getRootDOMNode)) {
-    return element.getRootDOMNode();
-  }
-
-  return null;
+  const node = instance?.getRootDOMNode?.() || instance?.current;
+  return typeof Element !== 'undefined' && node instanceof Element ? node : null;
 };
 
 const EuiCSSTransition = (props: CSSTransition) => {
-  const newNodeRef = useRef();
-  const flagRef = useRef<boolean>();
+  const newNodeRef = useRef<Element | null>(null);
+  const flagRef = useRef(false);
 
   const { children, nodeRef, ...rest } = props;
 
   const dom = useMemo(() => {
     // 只处理 div， span 之类的 children 即可
-    if (nodeRef === undefined && supportRef(children)) {
+    if (nodeRef === undefined && supportsDOMRef(children)) {
       flagRef.current = true;
-      return cloneElement(children as ReactElement, {
+      return cloneElement(children as ReactElement<any>, {
         ref: node => {
-          newNodeRef.current = findDOMNode(node);
-          callbackOriginRef(children, node);
+          newNodeRef.current = getDOMNode(node);
+          const originRefCleanup = callbackOriginRef(children, node);
+          if (typeof originRefCleanup === 'function') {
+            return () => {
+              newNodeRef.current = null;
+              originRefCleanup();
+            };
+          }
+          return () => {
+            newNodeRef.current = null;
+            callbackOriginRef(children, null);
+          };
         },
       });
     }

@@ -25,7 +25,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   const { getPrefixCls, components, locale, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const [open, setOpen] = useState<boolean>(false);
   const [iframe, setIframe] = useState<{ src?: string; ref? }>({
-    ref: useRef(),
+    ref: useRef<HTMLIFrameElement | null>(null),
   });
   const [placement, dispatch] = useReducer(reducer, {
     type: 'default',
@@ -70,7 +70,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
   );
 
   const documentRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>();
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (documentSingletonLintner === false) {
@@ -315,6 +315,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
         >
           <div className={classNames(prefixCls, className)} style={style} ref={documentRef} {...rest}>
             <Draggable
+              nodeRef={wrapperRef}
               handle={`.${prefixCls}-title`}
               position={placement.position}
               onStart={() => {
@@ -354,7 +355,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
 });
 
 const DocumentComponent = (props: DocumentProps) => {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement | null>(null);
   const contextValue: ConfigProviderProps = useContext(ConfigContext);
 
   // 初始化全局实例

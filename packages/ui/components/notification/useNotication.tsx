@@ -9,7 +9,7 @@ type NoticeType = ReturnType<typeof useNotice>;
 
 function useNotification(
   props: Omit<ConfigNotificationProps, 'getContainer'> = {},
-): [NotificationHookReturnType, JSX.Element] {
+): [NotificationHookReturnType, React.JSX.Element] {
   const { maxCount, ...rest } = props;
   const contextHolderRef = createRef<HolderRef>();
   const holderEle = <ContextHolderElement ref={contextHolderRef} />;

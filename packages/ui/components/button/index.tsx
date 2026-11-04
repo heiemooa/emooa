@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, ReactNode, LegacyRef } from 'react';
+import React, { useContext, forwardRef, ReactNode } from 'react';
 import { ButtonProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import classNames from 'classnames';
@@ -90,7 +90,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
     }
     return (
       <a
-        ref={ref as LegacyRef<HTMLAnchorElement>}
+        ref={ref as React.Ref<HTMLAnchorElement>}
         href={disabled ? undefined : href}
         target={target}
         disabled={disabled}
@@ -105,7 +105,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement | HTMLAnchorElement, Button
 
   return (
     <button
-      ref={ref as LegacyRef<HTMLButtonElement>}
+      ref={ref as React.Ref<HTMLButtonElement>}
       disabled={disabled}
       className={classnames}
       onClick={handleClick}

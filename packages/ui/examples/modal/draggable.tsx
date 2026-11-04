@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 function App() {
   const [visible, setVisible] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
+  const draggableRef = React.useRef<HTMLDivElement | null>(null);
   return (
     <div>
       <Button onClick={() => setVisible(true)} type="primary">
@@ -27,7 +28,11 @@ function App() {
         open={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
-        modalRender={modal => <Draggable disabled={disabled}>{modal}</Draggable>}
+        modalRender={modal => (
+          <Draggable nodeRef={draggableRef} disabled={disabled}>
+            <div ref={draggableRef}>{modal}</div>
+          </Draggable>
+        )}
       >
         <p>
           You can customize modal body text by the current situation. This modal will be closed immediately once you

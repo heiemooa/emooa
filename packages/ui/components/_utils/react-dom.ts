@@ -12,12 +12,12 @@ export const render = (
 
   root.render(app);
 
-  root._unmount = function () {
-    setTimeout(() => {
-      root?.unmount?.();
-    });
+  return {
+    render: nextApp => root.render(nextApp),
+    _unmount: () => {
+      setTimeout(() => root.unmount());
+    },
   };
-  return root;
 };
 
 /**

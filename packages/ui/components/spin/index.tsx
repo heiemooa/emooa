@@ -59,7 +59,7 @@ const Spin = forwardRef<HTMLDivElement, SpinProps>((props: SpinProps, ref) => {
   const loadingIcon = (
     <span className={`${prefixCls}-icon`}>
       {icon
-        ? React.cloneElement(icon as ReactElement, {
+        ? React.cloneElement(icon as ReactElement<any>, {
             className: classNames(`${prefixCls.replace('-spin', '-icon')}-loading`),
           })
         : element ||

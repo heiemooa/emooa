@@ -98,7 +98,7 @@ Modal.destroyAll();
 
 ### Modal.useModal 方法
 
-通过方法去使用对话框，像是 `Modal.confirm` `Modal.warning`，因为是通过 `ReactDOM.render` 直接渲染，所以不在上下文中，因此拿不到 `context`。如果希望获取上下文 `context`，那么可以通过 `useModal` 去通过 hook 的方法调用，将 `contextHolder` 放到上下文中。
+通过方法函数打开 Modal，像是 `Modal.confirm` `Modal.warning`，会创建独立的 React root，因此不在当前上下文中，无法获取 `context`。如果希望获取上下文，那么可以通过 `useModal` 调用 hook，并将 `contextHolder` 放到上下文中。
 
 ```js
 const [modal, contextHolder] = Modal.useModal();

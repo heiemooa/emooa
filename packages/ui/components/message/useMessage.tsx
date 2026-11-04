@@ -7,7 +7,9 @@ import { size, head } from 'lodash';
 
 type NoticeType = ReturnType<typeof useNotice>;
 
-function useMessage(props: Omit<ConfigMessageProps, 'getContainer'> = {}): [MessageHookReturnType, JSX.Element] {
+function useMessage(
+  props: Omit<ConfigMessageProps, 'getContainer'> = {},
+): [MessageHookReturnType, React.JSX.Element] {
   const { maxCount, ...rest } = props;
   const contextHolderRef = createRef<HolderRef>();
   const holderEle = <ContextHolderElement ref={contextHolderRef} />;

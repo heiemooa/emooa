@@ -4,9 +4,18 @@ interface Option {
   hidden: boolean;
 }
 
+interface OverflowLock {
+  count: number;
+  overflow: string;
+  width: string;
+  changedOverflow: boolean;
+  changedWidth: boolean;
+}
+
+const overflowLocks = new WeakMap<HTMLElement, OverflowLock>();
+
 export default function useOverflowHidden(getContainer: () => HTMLElement, { hidden }: Option) {
-  const needResetContainerStyle = useRef<boolean>(false);
-  const originContainerStyle = useRef<Partial<CSSStyleDeclaration>>({});
+  const lockedContainer = useRef<HTMLElement | null>(null);
 
   const getScrollBarWidth = (element: HTMLElement) => {
     return element.tagName === 'BODY'
@@ -16,31 +25,54 @@ export default function useOverflowHidden(getContainer: () => HTMLElement, { hid
 
   const setContainerStyle = () => {
     const container = getContainer();
-    if (container && container.style.overflow !== 'hidden') {
-      const originStyle = container.style;
-      needResetContainerStyle.current = true;
+    if (!container) return;
+    if (lockedContainer.current === container) return;
 
-      // 记录并设置宽度
+    resetContainerStyle();
+
+    const existingLock = overflowLocks.get(container);
+    if (existingLock) {
+      existingLock.count += 1;
+      lockedContainer.current = container;
+      return;
+    }
+
+    const lock: OverflowLock = {
+      count: 1,
+      overflow: container.style.overflow,
+      width: container.style.width,
+      changedOverflow: false,
+      changedWidth: false,
+    };
+
+    if (container.style.overflow !== 'hidden') {
       const containerScrollBarWidth = getScrollBarWidth(container);
       if (containerScrollBarWidth) {
-        originContainerStyle.current.width = originStyle.width;
         container.style.width = `calc(${container.style.width || '100%'} - ${containerScrollBarWidth}px)`;
+        lock.changedWidth = true;
       }
-
-      // 记录并设置overflow
-      originContainerStyle.current.overflow = originStyle.overflow;
       container.style.overflow = 'hidden';
+      lock.changedOverflow = true;
     }
+
+    overflowLocks.set(container, lock);
+    lockedContainer.current = container;
   };
 
   const resetContainerStyle = () => {
-    if (needResetContainerStyle.current && getContainer()) {
-      const container = getContainer();
-      const originStyle = originContainerStyle.current;
-      Object.keys(originStyle).forEach(i => (container.style[i] = originStyle[i]));
-    }
-    needResetContainerStyle.current = false;
-    originContainerStyle.current = {};
+    const container = lockedContainer.current;
+    if (!container) return;
+    lockedContainer.current = null;
+
+    const lock = overflowLocks.get(container);
+    if (!lock) return;
+
+    lock.count -= 1;
+    if (lock.count > 0) return;
+
+    if (lock.changedWidth) container.style.width = lock.width;
+    if (lock.changedOverflow) container.style.overflow = lock.overflow;
+    overflowLocks.delete(container);
   };
 
   useEffect(() => {

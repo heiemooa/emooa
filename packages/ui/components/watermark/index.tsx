@@ -29,7 +29,7 @@ const Watermark = forwardRef<HTMLDivElement, WatermarkProps>((props: WatermarkPr
   const prefixCls = getPrefixCls('watermark');
   const [hashId] = useStyle(prefixCls);
 
-  const containerRef = useRef<HTMLDivElement>();
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const getContainer = useCallback(() => {
     return containerRef.current;

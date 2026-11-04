@@ -76,7 +76,7 @@ Usage
 
 ### Notification.useNotification Methods
 
-Use the dialog box through methods, such as `Notification.info` `Notification.success`, because it is directly rendered through `ReactDOM.render`, so it is not in the context, so you cannot get `context`. If you want to get the context `context`, you can use `useNotification` to call the hook method and put `contextHolder` into the context.
+Use methods such as `Notification.info` and `Notification.success` to display a notification. They create a separate React root and therefore cannot access the current context. To preserve context, use the `useNotification` hook and place its `contextHolder` inside the provider tree.
 
 ```js
 const [notification, contextHolder] = Notification.useNotification();

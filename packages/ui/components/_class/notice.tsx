@@ -66,8 +66,8 @@ const Notice = (props: NoticeProps, ref) => {
     title,
   }: NoticeProps = Object.assign({}, defaultProps, omitBy(props, isUndefined));
 
-  const timer = useRef<any>();
-  const rootDOMRef = useRef();
+  const timer = useRef<any>(undefined);
+  const rootDOMRef = useRef<HTMLDivElement | null>(null);
 
   const classnames = classNames(
     prefixCls,

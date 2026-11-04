@@ -6,7 +6,7 @@ import { destroyList } from '../config';
 import ContextHolderElement, { HolderRef } from '@/_utils/contextHolder';
 
 function useModal(): [ModalHookReturnType, ReactElement] {
-  const contextHolderRef = useRef<HolderRef>();
+  const contextHolderRef = useRef<HolderRef | null>(null);
   const holderEle = <ContextHolderElement ref={contextHolderRef} />;
 
   let uuid = 0;

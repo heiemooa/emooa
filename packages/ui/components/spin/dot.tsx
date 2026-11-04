@@ -8,7 +8,7 @@ export interface DotProps {
   size?: CSSProperties['fontSize'];
 }
 
-export default function DotLoading(props: DotProps) {
+const DotLoading = React.forwardRef<HTMLDivElement, DotProps>((props, ref) => {
   const { size } = props;
   const { getPrefixCls }: ConfigProviderProps = useContext(ConfigContext);
 
@@ -18,7 +18,7 @@ export default function DotLoading(props: DotProps) {
   const classnames = classNames(hashId, prefixCls, `${prefixCls}-${size}`);
 
   return (
-    <div className={classnames}>
+    <div ref={ref} className={classnames}>
       {[...new Array(3)].map((_, index) => {
         return <div key={index} className={`${prefixCls}-item`} />;
       })}
@@ -27,4 +27,6 @@ export default function DotLoading(props: DotProps) {
       })}
     </div>
   );
-}
+});
+
+export default DotLoading;

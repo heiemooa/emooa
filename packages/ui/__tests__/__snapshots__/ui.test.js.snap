@@ -3,11 +3,17 @@
 exports[`ui exports modules correctly 1`] = `
 [
   "App",
+  "Alert",
   "Backtop",
   "Button",
+  "Copy",
   "Divider",
   "Drawer",
   "Image",
+  "Link",
+  "Document",
+  "Message",
+  "Notification",
   "Modal",
   "GeoJSON",
   "Icon",
@@ -16,5 +22,9 @@ exports[`ui exports modules correctly 1`] = `
   "Spin",
   "Watermark",
   "Theme",
+  "Grid",
+  "Tag",
+  "Empty",
+  "Description",
 ]
 `;

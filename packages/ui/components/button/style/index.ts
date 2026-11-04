@@ -228,7 +228,7 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
       },
     },
     [`${componentCls}-large`]: {
-      fontSize: token.fonts.fontSizeLG,
+      fontSize: token.fonts.fontSize + 2,
       height: `${token.sizes.LG + 16}px`,
       borderRadius: token.rounded.MD,
       [`&${componentCls}-icon-only`]: {
@@ -239,7 +239,7 @@ const genBtnSizeStyle: GenerateStyle<ButtonToken, CSSObject> = token => {
         justifyContent: 'center',
       },
       [`&:not(${componentCls}-icon-only)`]: {
-        padding: `${token.sizes.XL / 4}px ${token.paddings.LG - token.lineWidth}px`,
+        padding: `${token.sizes.LG / 4}px ${token.paddings.LG - token.lineWidth}px`,
       },
       [`&${componentCls}-circle`]: {
         borderRadius: '50%',

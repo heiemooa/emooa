@@ -193,8 +193,8 @@ export default function useWatermark(
   params: WatermarkProps & { getContainer?: () => HTMLElement },
 ): WatermarkReturnType {
   const [options, setOptions] = useState(params || {});
-  const watermarkDiv = useRef<HTMLDivElement>();
-  const mutationObserver = useRef<MutationObserver>();
+  const watermarkDiv = useRef<HTMLDivElement | null>(null);
+  const mutationObserver = useRef<MutationObserver | undefined>(undefined);
   const mergeOptions = getOptions(options);
   const { zIndex, gap, offset, getContainer } = mergeOptions;
   const container = isServerRendering ? null : getContainer?.();

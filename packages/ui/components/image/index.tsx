@@ -72,7 +72,7 @@ const ImageComponent = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     return isPlainObject(_preview) && typeof _preview !== 'boolean'
       ? { ..._preview, src: _preview.src || src }
       : { src };
-  }, [_preview]);
+  }, [_preview, src]);
 
   const [previewVisible, setPreviewVisible] = useValue(false, {
     defaultValue: preview.defaultVisible,

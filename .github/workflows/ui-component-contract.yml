@@ -1,0 +1,22 @@
+name: UI component contract
+
+on:
+  pull_request:
+    paths:
+      - 'packages/ui/components/**'
+      - 'packages/ui/src/containers/**'
+      - 'packages/ui/__tests__/**'
+      - 'packages/ui/package.json'
+      - 'packages/ui/scripts/**'
+      - 'docs/ui/**'
+      - '.github/workflows/ui-component-contract.yml'
+
+jobs:
+  new-component-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check new UI component structure
+        run: node packages/ui/scripts/check-changed-components.js "origin/${{ github.base_ref }}...HEAD"

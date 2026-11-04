@@ -116,9 +116,9 @@ const Component = (props: ModalProps, ref) => {
     beforeFirstOpen.current = false;
   }
 
-  const dialogIndex = useRef<number>();
+  const dialogIndex = useRef<number | undefined>(undefined);
 
-  if (!dialogIndex.current) {
+  if (dialogIndex.current === undefined) {
     dialogIndex.current = globalDialogIndex++;
   }
 
@@ -239,7 +239,6 @@ const Component = (props: ModalProps, ref) => {
 
   const ariaProps = title ? { 'aria-labelledby': `${prefixCls}-${dialogIndex.current}` } : {};
 
-  // 本地环境 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of DraggableCore which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node
   const modalDom = (
     <div
       role="dialog"

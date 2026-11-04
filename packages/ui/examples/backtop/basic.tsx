@@ -5,7 +5,7 @@ const App: React.FC = () => {
   const ref = useRef(null);
 
   const getRender = () => {
-    const elements: JSX.Element[] = [];
+    const elements: React.JSX.Element[] = [];
     for (let i = 1; i < 50; i++) {
       elements.push(<p key={i}>This is Backtop Content</p>);
     }

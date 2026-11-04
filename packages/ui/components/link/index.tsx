@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, LegacyRef, ReactNode } from 'react';
+import React, { useContext, forwardRef, ReactNode } from 'react';
 import { LinkProps } from './interface';
 import { ConfigContext } from '@/config-provider';
 import { ConfigProviderProps } from '@/config-provider/interface';
@@ -70,7 +70,7 @@ const LinkComponent = (props: LinkProps, ref) => {
 
   return (
     <a
-      ref={ref as LegacyRef<HTMLAnchorElement>}
+      ref={ref as React.Ref<HTMLAnchorElement>}
       href={disabled ? undefined : href}
       className={classnames}
       onClick={handleClick}
