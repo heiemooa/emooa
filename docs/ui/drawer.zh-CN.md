@@ -19,6 +19,7 @@ demo:
 ## 代码演示
 
 <code src="../../packages/ui/examples/drawer/basic.tsx" description="基础抽屉，点击触发按钮抽屉从右侧滑出，点击遮罩区关闭。">基本用法</code>  
+<code src="../../packages/ui/examples/drawer/header.tsx" description="使用 extra 配置标题栏内容，并设置关闭按钮的位置。">标题栏扩展</code>
 <code src="../../packages/ui/examples/drawer/placement.tsx" description="自定义位置，点击触发按钮抽屉从相应的位置滑出。">自定义位置</code>  
 <code src="../../packages/ui/examples/drawer/async.tsx" description="在对话框中使用表单时，如提交表单，点击确定后异步关闭对话框。可通过设置 `loadingConfirming` 或 `onOK` 为 `Promise` 时进行异步关闭">异步关闭</code>  
 <code src="../../packages/ui/examples/drawer/footer.tsx" description="传入 `okButtonProps` 和 `cancelButtonProps` 可分别自定义确定按钮和取消按钮的 `props`。如果 `okButtonProps` 、 `cancelButtonProps` 仍然不能满足需要的话，可以直接传入 `footer` 来自定义页脚内容。">自定义页脚</code>  
@@ -37,7 +38,7 @@ demo:
 | style | 组件样式 | `CSSProperties` | - |
 | styles | 组件样式 | `header?: CSSProperties; content?: CSSProperties; footer?: CSSProperties; mask?: CSSProperties; wrapper?: CSSProperties;` | - |
 | autoFocus | 是否默认聚焦第一个可聚焦元素。 | `boolean` | true |
-| closable | 是否显示右上角的关闭按钮 | `boolean` | - |
+| closable | 是否显示关闭按钮，可设置标题栏中的位置 | `boolean \| { placement?: 'start' \| 'end'; closeIcon?: ReactNode }` | `true`，位置默认为 `start` |
 | confirmLoading | 确认按钮加载中 | `boolean` | - |
 | disabledOnPromise | 在 `onOk` 为 `Promise` 事件时，并且加载中的时候，`取消`、`close icon`、`mask` 等不可点击 | `boolean` | - |
 | escToExit | 按 `ESC` 键关闭 | `boolean` | true |
@@ -47,7 +48,8 @@ demo:
 | unmountOnExit | 是否在隐藏之后销毁 DOM 结构 | `boolean` | - |
 | open | 弹出框是否可见 | `boolean` | - |
 | cancelText | 取消按钮文案 | `ReactNode` | - |
-| closeIcon | 自定义右上角的关闭按钮节点 | `ReactNode` | - |
+| closeIcon | 自定义关闭按钮图标；`closable.closeIcon` 优先级更高 | `ReactNode` | - |
+| extra | 标题栏末尾的扩展内容 | `ReactNode` | - |
 | okText | 确认按钮文案 | `ReactNode` | - |
 | title | 弹出框的标题 | `string \| ReactNode` | - |
 | placement | 抽屉位置 | `right \| left \| top \| bottom` | right |

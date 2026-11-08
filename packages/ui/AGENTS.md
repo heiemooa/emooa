@@ -53,6 +53,9 @@
 - 在 `components/index.ts` 按现有顺序添加 `export { default as <Component> } from './<name>'` 和 `export type { <Component>Props } from './<name>/interface'`。有公共辅助类型时一并显式导出。
 - 有公开可配置的 component token 时同步更新 `_theme/interface/components.ts`；新增全局配置字段时同步更新 ConfigProvider props、默认值、context 和相关消费逻辑。不得只改组件本身。
 - 新增组件必须提供对应中英文文档和最小可运行示例，放置位置、文件命名、dumi frontmatter 按最接近组件复制其结构；示例需覆盖公共 props 的代表性组合。
+- 示例必须以最接近的同组件示例为模板，保留其 `App` 结构、外层 JSX 容器、内容组织、按钮类型与属性、handler 写法和语言风格；只改演示目标所必需的 props 和内容，不替换无关布局、交互或业务逻辑。触发按钮应沿用该组件 basic 示例的按钮属性（例如已有基本示例使用 `type="primary"` 时，新示例也保持一致）。
+- Dumi 文档中的 `<code>` 标签沿用同一文档相邻示例的渲染模式和属性。不得仅为隔离示例或方便验证而新增 `iframe` 等渲染属性；只有需求明确要求，或目标文档已有相同场景的约定时才可使用。
+- 示例事件处理沿用参考示例的组织方式；涉及多步状态更新时，将逻辑放在有意义命名的 handler 中，不内联重写状态流程。示例文案、按钮标签和内容语言跟随同文档及同目录示例，不随意加入临时占位文案。
 - 为每个新增的可观察行为写可断言测试，至少覆盖默认渲染、一个主要交互/状态转换、受控模式（若支持）以及禁用/异步失败等适用边界。导出清单变化时更新 `packages/ui/__tests__/__snapshots__/ui.test.js.snap`。不得把该快照当作交互测试。
 - 如果现有 Jest 配置不能对新增测试执行，先补最小配置并运行测试；不能以“仓库当前测试较少”为理由省略行为验证。
 - 运行 UI package 的 `yarn test` 和 `yarn build`。若新增样式需要文档站验证，再运行 `yarn docs:build`；报告所有未通过或无法运行的命令。

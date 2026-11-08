@@ -3,7 +3,6 @@ import { Document, Space, Button } from '@emooa/ui';
 import { IconLaunch, IconLink } from '@emooa/icon';
 
 Document.config({
-  home: 'https://docs.emooa.com',
   patterns: [/^https?:\/\/docs\.emooa\.com(?:\/.*)?$/, /^https?:\/\/cloud\.tencent\.com\/document(?:\/.*)?$/],
 });
 const App: React.FC = () => {

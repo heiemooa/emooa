@@ -17,11 +17,20 @@ toc: content
 
 ## 代码演示
 
-<code src="../../packages/ui/examples/document/basic.tsx" description="符合路由匹配规则的 `a` 标签自动命中，支持通过 `'aria-label': 'not-document'` 属性参数忽略文档规则。">基本用法</code>
+<code src="../../packages/ui/examples/document/basic.tsx" description="符合路由匹配规则的 `a` 标签自动命中，支持通过 `'aria-label': 'not-document'` 属性参数忽略文档规则。">基本用法</code>  
+<code src="../../packages/ui/examples/document/content.tsx" description="点击不同触发项，在同一个可拖拽窗口中更新本地 React 内容。">本地内容</code>
 
 ## API
 
 ### Document
+
+| 参数     | 定义                           | 类型        |
+| -------- | ------------------------------ | ----------- |
+| content  | 点击后在共享窗口展示的本地内容 | `ReactNode` |
+| children | 文本按钮的触发内容             | `ReactNode` |
+| title    | 本地文档标题                   | `ReactNode` |
+
+### DocumentConfigProps
 
 | **参数** | **定义** | **类型** | **默认值** |
 | --- | --- | --- | --- |
@@ -41,11 +50,11 @@ toc: content
 
 `Document.config(Options)`
 
-`Options` 的具体参数如下所示与 [Document](#document) 一致。
+`Options` 用于配置链接匹配模式，参数见 [DocumentConfigProps](#documentconfigprops)。`content` 和 `children` 用于组件触发模式，不传给 `Document.config`。
 
-- 方式一：推荐用法
+链接文档注册：
 
-  建议使用 `Document.config` 注册方式，更为直接，可在根文件进行定义。
+建议使用 `Document.config` 注册方式，更为直接，可在根文件进行定义。
 
 ```
 import { Document } from '@emooa/ui';
@@ -62,32 +71,4 @@ const App: React.FC = () => {
 };
 
 export default App;
-```
-
-- 方式二：组件注入
-
-  支持组件注入，可在根文件进行定义。
-
-```
-import { Document } from '@emooa/ui';
-
-// 其他 Component
-const Component: React.FC = () => {
-  return (
-    <a href="https://docs.emooa.com/ui/document" target="_blank">
-      Document 文档
-    </a>
-  );
-};
-
-// App.js
-const App: React.FC = () => {
-  return (
-    <>
-      <Document patterns={[/^https?:\/\/docs\.emooa\.com(?:\/.*)?$/]} />
-      ...
-    </>
-  );
-};
-
 ```

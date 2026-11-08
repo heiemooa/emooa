@@ -26,7 +26,7 @@ export { default as Link } from './link';
 export type { LinkProps } from './link/interface';
 
 export { default as Document } from './document';
-export type { DocumentProps } from './document/interface';
+export type { DocumentProps, DocumentConfigProps } from './document/interface';
 
 export { default as Message } from './message';
 export type { MessageProps } from './message/interface';

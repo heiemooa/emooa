@@ -15,7 +15,7 @@ import { BacktopProps } from '@/backtop/interface';
 import { DrawerProps } from '@/drawer/interface';
 import { MessageProps } from '@/message/interface';
 import { NotificationProps } from '@/notification/interface';
-import { DocumentProps } from '@/document/interface';
+import { DocumentConfigProps } from '@/document/interface';
 import { LinkProps } from '@/link/interface';
 import { CopyProps } from '@/copy/interface';
 import { AlertProps } from '@/alert/interface';
@@ -41,7 +41,7 @@ export type Components = {
   Image?: ImageProps;
   Icon?: IconProps;
   Link?: LinkProps;
-  Document?: DocumentProps;
+  Document?: DocumentConfigProps;
   GeoJSON?: GeoJSONProps;
   Space?: SpaceProps;
   Spin?: SpinProps;

@@ -33,6 +33,11 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
    */
   title?: string | ReactNode;
   /**
+   * @zh 标题栏右侧的扩展内容
+   * @en Extra content displayed at the end of the header
+   */
+  extra?: ReactNode;
+  /**
    * @zh 是否显示弹出框
    * @en Visibility of the drawer
    */
@@ -56,14 +61,26 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'conte
 
   footer?: ReactNode | ((cancelButtonNode: ReactNode, okButtonNode: ReactNode) => ReactNode);
   /**
-   * @zh 是否显示右上角关闭按钮
-   * @en Whether to show the close button on top-right of the drawer dialog
+   * @zh 是否显示关闭按钮，可配置按钮在标题栏的起始或末尾
+   * @en Whether to show the close button and configure its position in the header
    * @defaultValue true
    */
-  closable?: boolean;
+  closable?: boolean | {
+    /**
+     * @zh 关闭按钮在标题栏中的位置
+     * @en The position of the close button in the header
+     * @defaultValue start
+     */
+    placement?: 'start' | 'end';
+    /**
+     * @zh 自定义关闭按钮图标
+     * @en Custom close button icon
+     */
+    closeIcon?: ReactNode;
+  };
   /**
-   * @zh 自定义右上角关闭按钮
-   * @en Custom the close button on top-right of the drawer dialog
+   * @zh 自定义关闭按钮图标，closable.closeIcon 优先级更高
+   * @en Custom the close button icon. `closable.closeIcon` takes precedence
    */
   closeIcon?: ReactNode;
   /**

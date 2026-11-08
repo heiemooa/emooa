@@ -96,11 +96,6 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
                 },
               },
             },
-
-            '&-close-icon': {
-              right: 'initial',
-              left: token.paddings.MD / 2,
-            },
           },
         },
       },
@@ -132,10 +127,18 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
             borderBottom: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
             display: 'flex',
             alignItems: 'center',
+            padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
+
+            [`${componentCls}-header-title`]: {
+              display: 'flex',
+              alignItems: 'center',
+              flex: 1,
+              minWidth: 0,
+            },
 
             [`${componentCls}-title`]: {
               flex: 1,
-              padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
+              minWidth: 0,
               fontWeight: token.fonts.fontWeight,
               fontSize: token.fonts.fontSizeHeading5,
               lineHeight: token.fonts.lineHeightHeading5,
@@ -161,6 +164,9 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
               },
             },
           },
+          '&-extra': {
+            flex: 'none',
+          },
           '&-content': {
             padding: `${unit(token.paddings.MD)} ${unit(token.paddings.LG)}`,
             flex: 1,
@@ -180,9 +186,13 @@ const genModalStyle: GenerateStyle<DrawerToken> = token => {
           },
           '&-close-icon': {
             color: 'inherit',
-            position: 'absolute',
-            right: token.paddings.MD / 2,
-            top: token.paddings.MD / 2,
+            position: 'static',
+          },
+          '&-close-start': {
+            marginInlineEnd: token.margins.XS,
+          },
+          '&-close-end': {
+            marginInlineStart: token.margins.XS,
           },
         },
       },

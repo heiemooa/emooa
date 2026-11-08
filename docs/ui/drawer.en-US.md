@@ -19,6 +19,7 @@ Users do not have to leave the current task when operating in the drawer. After 
 ## Examples
 
 <code src="../../packages/ui/examples/drawer/basic.tsx" description="Text information dialog box.">Basic usage</code>  
+<code src="../../packages/ui/examples/drawer/header.tsx" description="Configure header content with extra and set the close button position.">Header extra</code>
 <code src="../../packages/ui/examples/drawer/placement.tsx" description="Customize the position and click the trigger button to slide the drawer out from the corresponding position.">Custom Location</code>  
 <code src="../../packages/ui/examples/drawer/async.tsx" description="When using a form in a dialog box, such as submitting the form, click OK to close the dialog box asynchronously. You can set it by ` Asynchronous closing when loadingConfirming` or `onOK` is `Promise`">Asynchronous closing</code>  
 <code src="../../packages/ui/examples/drawer/footer.tsx" description="Pass in `okButtonProps` and `cancelButtonProps` to customize the `props` of the OK button and the Cancel button respectively. If If `okButtonProps` and `cancelButtonProps` still cannot meet the needs, you can directly pass in `footer` to customize the footer content ">Customized footer</code>  
@@ -37,7 +38,7 @@ Users do not have to leave the current task when operating in the drawer. After 
 | style | The style of Modal | `CSSProperties` | - |
 | styles | Config Modal build-in module's style | `header?: CSSProperties; content?: CSSProperties; footer?: CSSProperties; mask?: CSSProperties; wrapper?: CSSProperties;` | - |
 | autoFocus | Specify which button to autofocus | `boolean` | true |
-| closable | Whether a close (x) button is visible on top right of the confirm dialog or not | `boolean` | - |
+| closable | Whether to show the close button and configure its position in the header | `boolean \| { placement?: 'start' \| 'end'; closeIcon?: ReactNode }` | `true`, placement defaults to `start` |
 | confirmLoading | Whether to apply loading visual effect for OK button or not | `boolean` | - |
 | disabledOnPromise | When `onOk` is a `Promise` event and is loading, `cancel`, `close icon`, `mask`, `etc`. cannot be clicked. | `boolean` | - |
 | escToExit | Whether enable press `ESC` to close Modal | `boolean` | true |
@@ -47,7 +48,8 @@ Users do not have to leave the current task when operating in the drawer. After 
 | unmountOnExit | Whether to destroy DOM after closed | `boolean` | - |
 | open | Whether the Modal is open | `boolean` | - |
 | cancelText | The text of `cancel` button | `ReactNode` | - |
-| closeIcon | Customize the close icon | `ReactNode` | - |
+| closeIcon | Customize the close button icon. `closable.closeIcon` takes precedence | `ReactNode` | - |
+| extra | Extra content displayed at the end of the header | `ReactNode` | - |
 | okText | The text of `ok` button | `ReactNode` | - |
 | title | The title of Modal | `string \| ReactNode` | - |
 | placement | The location of Drawer | `right \| left \| top \| bottom` | right |

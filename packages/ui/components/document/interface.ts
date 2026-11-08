@@ -4,7 +4,7 @@ import { ReactNode, CSSProperties, MouseEvent, HTMLAttributes } from 'react';
 /**
  * @title Document
  */
-export interface DocumentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'title' | 'children'> {
+export interface DocumentConfigProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'title' | 'children'> {
   /**
    * @zh 配置弹窗内置模块的类名
    * @en The class of the wrapped dom
@@ -59,4 +59,22 @@ export interface DocumentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'con
    * 文档首页
    */
   home?: string;
+}
+
+export interface DocumentProps {
+  /**
+   * @zh 本地文档标题
+   * @en Local document title
+   */
+  title?: ReactNode;
+  /**
+   * @zh 在共享的可拖拽窗口中展示的本地内容
+   * @en Local content rendered in the shared draggable window
+   */
+  content: ReactNode;
+  /**
+   * @zh 打开本地文档的文本按钮内容
+   * @en Text button content that opens the local document
+   */
+  children: ReactNode;
 }

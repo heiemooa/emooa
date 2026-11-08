@@ -1,6 +1,6 @@
 import React, { useContext, forwardRef, useRef, useEffect, useState, useReducer, useCallback, Ref } from 'react';
 import { ConfigContext } from '../config-provider';
-import { DocumentProps } from './interface';
+import { DocumentProps, DocumentConfigProps } from './interface';
 import classNames from 'classnames';
 import useStyle from './style';
 import { ConfigProviderProps } from '../config-provider/interface';
@@ -13,20 +13,53 @@ import { render } from '@/_utils/react-dom';
 import { find, isEmpty } from 'lodash';
 import { defaultSize, reducer } from './reducer';
 
-const defaultProps: DocumentProps = {
+const defaultProps: DocumentConfigProps = {
   patterns: [],
   getPopupContainer: () => document.body,
 };
 
-let documentSingleton: any = null; // 全局存储组件实例
+type DocumentContentRequest = {
+  content: React.ReactNode;
+  title?: string | React.ReactNode;
+};
+
+let documentRoot: ReturnType<typeof render> | null = null;
+let documentContentController: ((request: DocumentContentRequest) => void) | null = null;
+let pendingDocumentContent: DocumentContentRequest | null = null;
 let documentSingletonLintner: any = false; // 全局存储监听实例
 
-const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProps, ref) => {
+function initializeDocument(options: DocumentConfigProps, contextValue?: ConfigProviderProps) {
+  if (documentRoot) return;
+
+  const div = document.createElement('div');
+
+  const component = <Component {...options} />;
+  documentRoot = contextValue
+    ? render(<ConfigContext.Provider value={contextValue}>{component}</ConfigContext.Provider>, div)
+    : render(component, div);
+}
+
+function openDocumentContent(request: DocumentContentRequest, contextValue: ConfigProviderProps) {
+  if (!documentRoot) {
+    pendingDocumentContent = request;
+    initializeDocument({}, contextValue);
+    return;
+  }
+
+  if (documentContentController) {
+    documentContentController(request);
+  } else {
+    pendingDocumentContent = request;
+  }
+}
+
+const Component = forwardRef<HTMLDivElement, DocumentConfigProps>((props: DocumentConfigProps, ref) => {
   const { getPrefixCls, components, locale, rtl }: ConfigProviderProps = useContext(ConfigContext);
   const [open, setOpen] = useState<boolean>(false);
   const [iframe, setIframe] = useState<{ src?: string; ref? }>({
     ref: useRef<HTMLIFrameElement | null>(null),
   });
+  const [localDocument, setLocalDocument] = useState<DocumentContentRequest | null>(null);
   const [placement, dispatch] = useReducer(reducer, {
     type: 'default',
     style: {
@@ -52,7 +85,7 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
     patterns,
     home,
     ...rest
-  }: DocumentProps = Object.assign({}, defaultProps, components?.Document, props);
+  }: DocumentConfigProps = Object.assign({}, defaultProps, components?.Document, props);
 
   const prefixCls = getPrefixCls('document');
   const rootPrefixCls = getPrefixCls();
@@ -71,6 +104,25 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
 
   const documentRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  const handleOpenLocalDocument = useCallback((request: DocumentContentRequest) => {
+    setLocalDocument(request);
+    setOpen(true);
+  }, []);
+
+  useEffect(() => {
+    documentContentController = handleOpenLocalDocument;
+    if (pendingDocumentContent) {
+      handleOpenLocalDocument(pendingDocumentContent);
+      pendingDocumentContent = null;
+    }
+
+    return () => {
+      if (documentContentController === handleOpenLocalDocument) {
+        documentContentController = null;
+      }
+    };
+  }, [handleOpenLocalDocument]);
 
   useEffect(() => {
     if (documentSingletonLintner === false) {
@@ -99,9 +151,10 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
       const href = target.getAttribute('href');
       const bool = target.getAttribute('aria-label') === 'not-document';
       if (!href || bool) return;
-      event.preventDefault(); // 阻止默认跳转
       const found = find(patterns, pattern => pattern.test(href));
       if (found) {
+        event.preventDefault(); // 仅阻止匹配文档链接的默认跳转
+        setLocalDocument(null);
         setIframe({
           src: href,
           ref: iframe.ref,
@@ -187,8 +240,10 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
     >
       <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
         <div className={`${prefixCls}-title`}>
-          {title || (
-            <>
+          {localDocument?.title ?? title ?? (
+            localDocument ? (
+              locale.Document.title
+            ) : (
               <Button
                 className={`${prefixCls}-title-text`}
                 anchorProps={{
@@ -200,40 +255,46 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
               >
                 {locale.Document.title}
               </Button>
-            </>
+            )
           )}
         </div>
       </div>
       <div className={classNames(`${prefixCls}-content`, modalClassNames?.content)} style={styles?.content}>
-        {!isEmpty(iframe) && (
-          <iframe
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              border: 'none',
-            }}
-            ref={iframe.ref}
-            src={iframe.src}
-          />
+        {localDocument ? (
+          localDocument.content
+        ) : (
+          !isEmpty(iframe) && (
+            <iframe
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none',
+              }}
+              ref={iframe.ref}
+              src={iframe.src}
+            />
+          )
         )}
       </div>
-      <div className={classNames(`${prefixCls}-footer`, modalClassNames?.footer)} style={styles?.footer}>
-        <Button
-          type="primary"
-          full
-          size="large"
-          href={iframe?.src}
-          target="_blank"
-          anchorProps={{
-            'aria-label': 'not-document',
-          }}
-        >
-          {locale.Document.open}
-        </Button>
-      </div>
+      {!localDocument && (
+        <div className={classNames(`${prefixCls}-footer`, modalClassNames?.footer)} style={styles?.footer}>
+          <Button
+            type="primary"
+            full
+            size="large"
+            href={iframe?.src}
+            target="_blank"
+            anchorProps={{
+              'aria-label': 'not-document',
+            }}
+          >
+            {locale.Document.open}
+          </Button>
+        </div>
+      )}
       <Button.Group className={`${prefixCls}-remark-icon`}>
         <Button
           tabIndex={-1}
@@ -355,28 +416,18 @@ const Component = forwardRef<HTMLDivElement, DocumentProps>((props: DocumentProp
 });
 
 const DocumentComponent = (props: DocumentProps) => {
-  const ref = useRef<HTMLDivElement | null>(null);
   const contextValue: ConfigProviderProps = useContext(ConfigContext);
+  const { content, children, title } = props;
 
-  // 初始化全局实例
-  useEffect(() => {
-    if (documentSingleton === null) {
-      const div = document.createElement('div');
-      render(
-        <ConfigContext.Provider value={contextValue}>
-          <Component {...props} ref={ref} />
-        </ConfigContext.Provider>,
-        div,
-      );
-      documentSingleton = ref.current;
-    }
+  const handleOpen = () => {
+    openDocumentContent({ content, title }, contextValue);
+  };
 
-    return () => {
-      documentSingleton = null;
-    };
-  }, []);
-
-  return null; // 阻止多余渲染
+  return (
+    <Button type="text" onClick={handleOpen}>
+      {children}
+    </Button>
+  );
 };
 
 if (process.env.NODE_ENV !== 'production') {
@@ -384,21 +435,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const Document = DocumentComponent as typeof DocumentComponent & {
-  config: (options: DocumentProps) => void;
+  config: (options: DocumentConfigProps) => void;
 };
 
-Document.config = function config(props: DocumentProps) {
-  const ref = React.createRef();
-
-  if (documentSingleton === null) {
-    const div = document.createElement('div');
-
-    render(<Document {...props} />, div);
-
-    documentSingleton = ref.current;
-  }
-
-  return documentSingleton;
+Document.config = function config(props: DocumentConfigProps) {
+  initializeDocument(props);
 };
 
 export default Document;

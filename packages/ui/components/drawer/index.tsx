@@ -38,6 +38,7 @@ const Component = (props: DrawerProps, ref) => {
     styles,
     open,
     title,
+    extra,
     children,
     okText,
     okButtonProps,
@@ -62,6 +63,12 @@ const Component = (props: DrawerProps, ref) => {
     getPopupContainer,
     ...rest
   }: DrawerProps = Object.assign({}, defaultProps, components?.Drawer, props);
+
+  const closableConfig = typeof closable === 'boolean' ? undefined : closable;
+  const closePlacement = closableConfig?.placement ?? 'start';
+  const mergedCloseIcon = closableConfig?.closeIcon !== undefined ? closableConfig.closeIcon : closeIcon;
+  const isClosable = closable !== false;
+  const hasExtra = extra !== undefined && extra !== null && extra !== false;
 
   const prefixCls = getPrefixCls('drawer');
   const rootPrefixCls = getPrefixCls();
@@ -175,6 +182,24 @@ const Component = (props: DrawerProps, ref) => {
     );
   };
 
+  const renderCloseButton = () => (
+    <Button
+      className={classNames(`${prefixCls}-close-icon`, `${prefixCls}-close-${closePlacement}`)}
+      tabIndex={-1}
+      type="text"
+      onClick={handlerCancel}
+      disabled={disabledOnPromise ? loading : false}
+      aria-label="Close"
+      icon={
+        mergedCloseIcon !== undefined ? (
+          mergedCloseIcon
+        ) : (
+          <IconClose className={`${prefixCls}-close-icon`} aria-hidden="true" />
+        )
+      }
+    />
+  );
+
   /**
    * 定义多层抽屉的时候，移动的距离
    */
@@ -230,11 +255,20 @@ const Component = (props: DrawerProps, ref) => {
       className={classNames(`${prefixCls}-wrapper`, modalClassNames?.wrapper)}
       style={Object.assign({}, styles?.wrapper, wrapperStyle())}
     >
-      {title && (
+      {(title || hasExtra || isClosable) && (
         <div className={classNames(`${prefixCls}-header`, modalClassNames?.header)} style={styles?.header}>
-          <div className={`${prefixCls}-title`} id={`${prefixCls}-${dialogIndex.current}`}>
-            {title}
+          <div className={`${prefixCls}-header-title`}>
+            {isClosable && closePlacement === 'start' && renderCloseButton()}
+            {title && (
+              <div className={`${prefixCls}-title`} id={`${prefixCls}-${dialogIndex.current}`}>
+                {title}
+              </div>
+            )}
           </div>
+          {hasExtra && (
+            <div className={`${prefixCls}-extra`}>{extra}</div>
+          )}
+          {isClosable && closePlacement === 'end' && renderCloseButton()}
         </div>
       )}
       <div className={classNames(`${prefixCls}-content`, modalClassNames?.content)} style={styles?.content}>
@@ -242,21 +276,6 @@ const Component = (props: DrawerProps, ref) => {
       </div>
 
       {renderFooter()}
-      {closable &&
-        (closeIcon !== undefined ? (
-          <span onClick={handlerCancel} className={`${prefixCls}-close-icon`}>
-            {closeIcon}
-          </span>
-        ) : (
-          <Button
-            className={`${prefixCls}-close-icon`}
-            tabIndex={-1}
-            type="text"
-            onClick={handlerCancel}
-            disabled={disabledOnPromise ? loading : false}
-            icon={<IconClose className={`${prefixCls}-close-icon`} role="button" aria-label="Close" />}
-          />
-        ))}
     </div>
   );
 

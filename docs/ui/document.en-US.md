@@ -18,10 +18,19 @@ Provide a micro window to load product documentation information.
 ## Examples
 
 <code src="../../packages/ui/examples/document/basic.tsx" description="The `a` label that meets the routing matching rules is automatically hit, and supports ignoring document rules through the `'aria-label': 'not-document'` attribute parameter.">Basic usage</code>
+<code src="../../packages/ui/examples/document/content.tsx" description="Open local React content in the same draggable window from different triggers.">Local content</code>
 
 ## API
 
 ### Document
+
+| Parameter | Description | Type |
+| --- | --- | --- |
+| content | Local content displayed in the shared window on click | `ReactNode` |
+| children | Text button trigger content | `ReactNode` |
+| title | Local document title | `ReactNode` |
+
+### DocumentConfigProps
 
 | **Parameters** | **Type** | **Default value** | **Definition** |
 | --- | --- | --- | --- |
@@ -41,9 +50,9 @@ Provide a micro window to load product documentation information.
 
 `Document.config(Options)`
 
-The specific parameters of `Options` are as follows and are consistent with [Document](#document).
+`Options` configures link matching and uses [DocumentConfigProps](#documentconfigprops). `content` and `children` are for component trigger mode and are not passed to `Document.config`.
 
-- Method 1: Recommended usage
+Link document registration:
 
   It is recommended to use the `Document.config` registration method, which is more direct and can be defined in the root file.
 
@@ -62,32 +71,4 @@ const App: React.FC = () => {
 };
 
 export default App;
-```
-
-- Method 2: Component injection
-
-  Supports component injection and can be defined in the root file.
-
-```
-import { Document } from '@emooa/ui';
-
-// 其他 Component
-const Component: React.FC = () => {
-  return (
-    <a href="https://docs.emooa.com/ui/document" target="_blank">
-      Document
-    </a>
-  );
-};
-
-// App.js
-const App: React.FC = () => {
-  return (
-    <>
-      <Document patterns={[/^https?:\/\/docs\.emooa\.com(?:\/.*)?$/]} />
-      ...
-    </>
-  );
-};
-
 ```
