@@ -29,7 +29,7 @@ export default [
         declarationDir: 'esm',
       }),
     ],
-    external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
+    external: [/^react(?:\/|$)/, /^react-dom(?:\/|$)/, 'axios'], // React 及其子路径均由宿主提供
   },
   {
     input: './src/index.ts',
@@ -51,6 +51,6 @@ export default [
         declarationDir: 'cjs',
       }),
     ],
-    external: ['react', 'react-dom', 'axios'], // 将这些模块视为外部模块，不会打包进 bundle
+    external: [/^react(?:\/|$)/, /^react-dom(?:\/|$)/, 'axios'], // React 及其子路径均由宿主提供
   },
 ];

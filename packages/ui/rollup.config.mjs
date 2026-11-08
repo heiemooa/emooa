@@ -35,7 +35,7 @@ export default [
       }),
       postcss(),
     ],
-    external: ['react', 'react-dom'], // 将这些模块视为外部模块，不会打包进 bundle
+    external: [/^react(?:\/|$)/, /^react-dom(?:\/|$)/], // React 及其子路径均由宿主提供
   },
   {
     input: './components/index.ts',
@@ -60,6 +60,6 @@ export default [
       }),
       postcss(),
     ],
-    external: ['react', 'react-dom'], // 将这些模块视为外部模块，不会打包进 bundle
+    external: [/^react(?:\/|$)/, /^react-dom(?:\/|$)/], // React 及其子路径均由宿主提供
   },
 ];

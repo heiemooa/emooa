@@ -15,6 +15,8 @@
 
 ## Installation
 
+Requires `react` `^19.3.1` as a peer dependency. `@emooa/ui` also requires the host application to provide `react-dom` `^19.3.1`.
+
 ```bash
 npm install @emooa/http
 // or

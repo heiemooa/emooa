@@ -18,6 +18,8 @@
 
 ## 安装
 
+需要宿主项目提供 `react` 和 `react-dom` `^19.3.1` peer dependencies。
+
 ```shell
 npm install @emooa/ui
 // or

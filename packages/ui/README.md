@@ -18,6 +18,8 @@ An enterprise-class UI design language and React UI library.
 
 ## Installation
 
+Requires `react` and `react-dom` `^19.3.1` as peer dependencies.
+
 ```shell
 npm install @emooa/ui
 // or

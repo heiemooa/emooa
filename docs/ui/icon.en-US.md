@@ -18,6 +18,8 @@ To use the icon component, you need to install the `@emooa/icon` icon component 
 yarn add @emooa/icon --save
 ```
 
+Requires `react` `^19.3.1` as a peer dependency.
+
 This is a brand new way of use, and it should be said that this is the mainstream in the future. This usage is actually a collection of svg, which has the following characteristics:
 
 - Completely offline use, no need to download font files from CDN, icons will not appear square due to network problems, and no local deployment of font files is required.

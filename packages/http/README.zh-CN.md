@@ -15,6 +15,8 @@
 
 ## Installation
 
+需要宿主项目提供 `react` `^19.3.1` peer dependency。`@emooa/ui` 还要求宿主项目提供 `react-dom` `^19.3.1`。
+
 ```bash
 npm install @emooa/http
 // or
