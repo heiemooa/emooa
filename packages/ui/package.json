@@ -72,7 +72,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "a6fef5874f08579e99a7361c60b58288c323c2d7",
+  "gitHead": "65d4f2336aaceb1a4c9e38f7283b4d6a7ea2a39d",
   "jest": {
     "testEnvironment": "jsdom",
     "setupFiles": [
