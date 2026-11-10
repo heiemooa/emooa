@@ -76,6 +76,10 @@ const genImageStyle: GenerateStyle<ImageToken> = token => {
         top: 0,
         left: 0,
 
+        '&:empty': {
+          pointerEvents: 'none',
+        },
+
         [`${componentCls}-error`]: {
           height: '100%',
           minWidth: '100%',
